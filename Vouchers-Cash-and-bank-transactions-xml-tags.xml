@@ -1,0 +1,88 @@
+<!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
+<XMLTAGS CELLREFERENCE="A1" xmlns:UDF="TallyUDF">
+
+	<!-- Specifies that the Cell A1 as mentioned above is the key field -->
+	<COLUMNNAME.LIST>
+		<COLUMNNAME>ID</COLUMNNAME>
+	</COLUMNNAME.LIST>
+
+	<!-- Create Ledger Masters -->
+	<MASTER TYPE="LEDGER" SINGLERECORD="Yes">
+		<NAME.LIST>
+			<NAME>CASH</NAME>
+		</NAME.LIST>
+		<PARENT>Cash-in-hand </PARENT>
+		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+		<AFFECTSSTOCK>No</AFFECTSSTOCK>
+	</MASTER>
+
+	<!-- Create Bank Ledger Masters -->
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="L"/>
+		</NAME.LIST>
+		<PARENT>Bank Accounts</PARENT>
+		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+		<AFFECTSSTOCK>No</AFFECTSSTOCK>
+	</MASTER>
+
+	<!-- Create Ledger Masters -->
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="C"/>
+			<NAME COLUMNREFERENCE="D"/>
+		</NAME.LIST>
+		<PARENT COLUMNREFERENCE="E"/>
+		<ADDITIONALNAME COLUMNREFERENCE="C"/>
+		<ISBILLWISEON>Yes</ISBILLWISEON>
+		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+		<AFFECTSSTOCK>No</AFFECTSSTOCK>
+
+	</MASTER>
+
+	<VOUCHER SUPPRESS_ERROR="NO ENTRIES IN VOUCHER">
+		<GUID FORMULA="=&quot;udi-cash-bank-&quot; &amp; A# &amp; &quot;-&quot; &amp; B#"/>
+		<!--GUID FORMULA="=IF(AND(MONTH($B#)&gt;=4,MONTH($B#)&lt;=12),YEAR($B#) &amp; &quot;nn&quot; &amp; YEAR($B#)+1,YEAR($B#)-1 &amp; &quot;-&quot; &amp;YEAR($B#)) &amp; &quot;-&quot; &amp; IF(LEN(A#)&gt;=18,&quot;&quot;,REPT(&quot;0&quot;,18-LEN(A#))) &amp; RIGHT(A#,18)"/-->
+
+		<DATE COLUMNREFERENCE="B"/>
+		<EFFECTIVEDATE COLUMNREFERENCE="B"/>
+
+		<VOUCHERTYPENAME COLUMNREFERENCE="G"/>
+		<REFERENCE COLUMNREFERENCE="A"/>
+		<VOUCHERNUMBER COLUMNREFERENCE="H"/>
+		<ISINVOICE>No</ISINVOICE>
+		<NARRATION COLUMNREFERENCE="F"/>
+
+		<!-- VoucherType : Payment                 ??? A/c Debit  -->
+		<!-- VoucherType : Receipt                 ??? A/c Credit -->
+		<ALLLEDGERENTRIES.LIST>
+			<ISDEEMEDPOSITIVE FORMULA="=if(Or(J#=&quot;CR.&quot;,J#=&quot;CR&quot;),&quot;Yes&quot;,&quot;No&quot;)"/>
+			<LEDGERNAME COLUMNREFERENCE="C"/>
+			<AMOUNT FORMULA="=I# * if(Or(J#=&quot;CR.&quot;,J#=&quot;CR&quot;),-1,1)"/>
+		</ALLLEDGERENTRIES.LIST>
+
+		<!-- VoucherType : Payment                 Cash or Bank A/c Credit -->
+		<!-- VoucherType : Receipt                 Cash or Bank A/c Debit -->
+		<ALLLEDGERENTRIES.LIST>
+			<ISDEEMEDPOSITIVE FORMULA="=if(Or(J#=&quot;CR.&quot;,J#=&quot;CR&quot;),&quot;No&quot;,&quot;Yes&quot;)"/>
+			<LEDGERNAME FORMULA="=if(K#=&quot;Bank&quot;,L#,K#)"/>
+			<AMOUNT FORMULA="=I# *if(Or(J#=&quot;CR.&quot;,J#=&quot;CR&quot;),1,-1)"/>
+
+			<BANKALLOCATIONS.LIST SKIP="=Not(Upper(K#)=&quot;BANK&quot;)">
+				<!-- Must be in the row which contains the BANK Ledger -->
+				<DATE COLUMNREFERENCE="B" />
+				<BANKERSDATE COLUMNREFERENCE="M" />
+				
+				<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>
+				<PAYMENTFAVOURING COLUMNREFERENCE="C" />
+
+				<STATUS>No</STATUS>
+				<AMOUNT FORMULA="=I# *if(Or(J#=&quot;CR.&quot;,J#=&quot;CR&quot;),1,-1)"/>
+
+				<PAYMENTMODE>Transacted</PAYMENTMODE>
+				<NAME FORMULA="=+&quot;udi-&quot; &amp; A# &amp; &quot;-&quot; &amp; B# &amp; &quot;-&quot; &amp; #" />
+			</BANKALLOCATIONS.LIST>				  
+		</ALLLEDGERENTRIES.LIST>
+	</VOUCHER>
+
+</XMLTAGS>

@@ -1,0 +1,92 @@
+<!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
+<!-- 
+New Features in v6.0
+1) FETCHOBJECT tag
+   This is used to retrieve data from Tally (as it is not there in the Excel sheet)
+-->
+<XMLTAGS CELLREFERENCE="A1" xmlns:UDF="TallyUDF">
+    <!-- Specifies that this (i.e Column as mentioned above) is the key field -->
+    <COLUMNNAME.LIST>
+        <COLUMNNAME>ID</COLUMNNAME>
+        <COLUMNNAME>NAME</COLUMNNAME>
+    </COLUMNNAME.LIST>
+	
+	<!-- Fields to fetch from Tally -->
+	<FETCHOBJECT TYPE="LEDGER">
+		<OBJECT COLUMNREFERENCE="E" NAME="" ISMODIFY="No" ISFIXED="No" ISINITIALIZE="No" ISOPTION="No" ISINTERNAL="No"/>
+		<!-- Fetch whether the PARENT/GROUP is Bank or not -->
+		<FIELD NAME="ISBANKLEDGER" ISMODIFY="NO" ISFIXED="NO" ISINITIALIZE="NO" ISOPTION="NO" ISINTERNAL="NO">
+			<USE>NAME FIELD</USE> 
+			<SET>$$IsLedOfGrp:$KEY:$$GroupBank OR $$IsLedOfGrp:$KEY:$$GroupBankOD</SET> 
+		</FIELD>
+	</FETCHOBJECT>
+	
+
+    <!-- Create BANK Ledgers -->
+    <MASTER TYPE="LEDGER">
+        <NAME.LIST TYPE="String">
+            <NAME COLUMNREFERENCE="E" />
+        </NAME.LIST>
+        <MAILINGNAME.LIST TYPE="String">
+            <MAILINGNAME COLUMNREFERENCE="E" />
+        </MAILINGNAME.LIST>
+        <PARENT>Bank Accounts</PARENT>
+        <TAXTYPE>Others</TAXTYPE>
+        <ISBILLWISEON>No</ISBILLWISEON>
+        <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+    </MASTER>
+    <!-- Create Party Ledgers -->
+    <MASTER TYPE="LEDGER">
+        <NAME.LIST TYPE="String">
+            <NAME COLUMNREFERENCE="F" />
+        </NAME.LIST>
+        <MAILINGNAME.LIST TYPE="String">
+            <MAILINGNAME COLUMNREFERENCE="F" />
+        </MAILINGNAME.LIST>
+        <PARENT>Sundry Debtors</PARENT>
+        <TAXTYPE>Others</TAXTYPE>
+        <ISBILLWISEON>Yes</ISBILLWISEON>
+        <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+    </MASTER>
+    <VOUCHER>
+        <GUID FORMULA="=&quot;udi-HV6W4F-&quot; &amp; A# &amp; &quot;-&quot; &amp; B# &amp; &quot;-&quot; &amp; C#"/>
+        <DATE COLUMNREFERENCE="B" />
+        <EFFECTIVEDATE COLUMNREFERENCE="B" />
+        <VOUCHERTYPENAME COLUMNREFERENCE="C" />
+        <VOUCHERNUMBER COLUMNREFERENCE="D" />
+        <ISINVOICE>No</ISINVOICE>
+        <PERSISTEDVIEW>Accounting Voucher View</PERSISTEDVIEW>
+        <NARRATION COLUMNREFERENCE="K" />
+        <PARTYLEDGERNAME COLUMNREFERENCE="F" />
+		<!-- Party Ledgers to be credited -->
+        <ALLLEDGERENTRIES.LIST SCROLL="Yes" SKIP="=len(trim(F#))=0">
+            <LEDGERNAME COLUMNREFERENCE="F" />
+            <ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
+            <AMOUNT FORMULA="=Round(G#,2)" />
+            <BILLALLOCATIONS.LIST SCROLL="Yes" SCROLLCOLUMN="6" SKIP="=Or(len(trim(H#))=0,Round(I#,2)=0)">
+                <NAME COLUMNREFERENCE="H" />
+                <BILLTYPE COLUMNREFERENCE="J" />
+                <AMOUNT FORMULA="=Round(I#,2)" />
+            </BILLALLOCATIONS.LIST>
+        </ALLLEDGERENTRIES.LIST>
+		<!-- Cash or Bank Ledger to be debited -->
+        <ALLLEDGERENTRIES.LIST>
+            <LEDGERNAME COLUMNREFERENCE="E" />
+            <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+            <AMOUNT FORMULA="={Round(G#,2)}*-1" />
+			<!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
+			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; E#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(E#),1)),len(trim(L#))=0,len(trim(M#))=0)">
+			
+                <DATE COLUMNREFERENCE="B" />
+				<INSTRUMENTNUMBER COLUMNREFERENCE="L" />
+                <INSTRUMENTDATE COLUMNREFERENCE="M" />
+                <TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>
+                <PAYMENTFAVOURING COLUMNREFERENCE="F" />
+                <CHEQUECROSSCOMMENT>A/c Payee</CHEQUECROSSCOMMENT>
+                <AMOUNT FORMULA="={Round(G#,2)}*-1" />
+				<PAYMENTMODE>Transacted</PAYMENTMODE>
+				<NAME FORMULA="=&quot;udi-rcpt-multi-ref-&quot; &amp; A# &amp; &quot;-&quot; &amp; B# &amp; &quot;-&quot; &amp; E#"/>
+            </BANKALLOCATIONS.LIST>
+        </ALLLEDGERENTRIES.LIST>
+    </VOUCHER>
+</XMLTAGS>
