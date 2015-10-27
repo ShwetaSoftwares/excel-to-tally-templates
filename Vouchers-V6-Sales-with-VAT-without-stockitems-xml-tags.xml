@@ -27,47 +27,62 @@
 		</MAILINGNAME.LIST>
 		<PARENT>Sundry Debtors</PARENT>
 		<ISBILLWISEON>Yes</ISBILLWISEON>
+		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
+		<COUNTRYNAME SKIP="=len(trim(G#))=0">India</COUNTRYNAME>
+		<LEDSTATENAME COLUMNREFERENCE="G"/>
 	</MASTER>
 	<!-- Create  Sales Ledger Master -->
 	<MASTER TYPE="LEDGER">
 		<NAME.LIST>
-			<NAME FORMULA="=&quot;__LOOKUP__(H# &amp; &quot;-SALELEDGER&quot;)__&quot;"/>
+			<NAME FORMULA="=&quot;__LOOKUP__(I# &amp; &quot;-SALELEDGER&quot;)__&quot;"/>
 		</NAME.LIST>
 		<PARENT>Sales Accounts</PARENT>
-		<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(H# &amp; &quot;-VATCLASS&quot;)__&quot;"/>
+		<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(I# &amp; &quot;-VATCLASS&quot;)__&quot;"/>
 		<TAXTYPE>Others</TAXTYPE>
 		<ISBILLWISEON>No</ISBILLWISEON>
 		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
 		<AFFECTSSTOCK>No</AFFECTSSTOCK>
 		<USEFORVAT>Yes</USEFORVAT>
+		<VATAPPLICABLE>Applicable</VATAPPLICABLE>
+		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
+		<VATDETAILS.LIST>
+			<FROMDATE>20150401</FROMDATE>
+			<TAXTYPE>Taxable</TAXTYPE>
+			<ISINVDETAILSENABLE>Yes</ISINVDETAILSENABLE>
+			<ISCALCONACTUALQTY>No</ISCALCONACTUALQTY>
+			<RATEOFVAT FORMULA="=&quot;__LOOKUP__(I# &amp; &quot;-VATRATE&quot;)__&quot;"/>
+			<ADDITIONALTAX FORMULA="=&quot;__LOOKUP__(I# &amp; &quot;-ADDLVATRATE&quot;)__&quot;"/>
+		    <VATCOMMODITYNAME FORMULA="=&quot;__LOOKUP__(I# &amp; &quot;-VATRATE&quot;)__&quot;"/>
+		    <VATCOMMODITYCODE FORMULA="=&quot;__LOOKUP__(I# &amp; &quot;-VATRATE&quot;)__&quot;"/>
+		</VATDETAILS.LIST>
 	</MASTER>
 	<!-- Create TAX LEDGER Master -->
 	<MASTER TYPE="LEDGER">
 		<NAME.LIST>
-			<NAME FORMULA="=&quot;__LOOKUP__(H# &amp; &quot;-VATLEDGER&quot;)__&quot;"/>
+			<NAME FORMULA="=&quot;__LOOKUP__(I# &amp; &quot;-VATLEDGER&quot;)__&quot;"/>
 		</NAME.LIST>
 		<PARENT>Duties &amp; Taxes</PARENT>
 		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
 		<AFFECTSSTOCK>No</AFFECTSSTOCK>
-		<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(H# &amp; &quot;-VATCLASS&quot;)__&quot;"/>
-		<TAXTYPE FORMULA="=&quot;__LOOKUP__(H# &amp; &quot;-SALETYPE&quot;)__&quot;"/>
-		<BASICTYPEOFDUTY FORMULA="=if(&quot;__LOOKUP__(H# &amp; &quot;-SALETYPE&quot;)__&quot;=&quot;CST&quot;,&quot;Sales Tax&quot;,&quot;On VAT Rate&quot;)"/>
-		<SUBTAXTYPE FORMULA="=if(&quot;__LOOKUP__(H# &amp; &quot;-SALETYPE&quot;)__&quot;=&quot;CST&quot;,&quot;&quot;,&quot;Output VAT&quot;)"/>
-		<RATEOFTAXCALCULATION FORMULA="=&quot;__LOOKUP__(H# &amp; &quot;-VATRATE&quot;)__&quot;"/>
+		<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(I# &amp; &quot;-VATCLASS&quot;)__&quot;"/>
+		<TAXTYPE FORMULA="=&quot;__LOOKUP__(I# &amp; &quot;-SALETYPE&quot;)__&quot;"/>
+		<BASICTYPEOFDUTY FORMULA="=if(&quot;__LOOKUP__(I# &amp; &quot;-SALETYPE&quot;)__&quot;=&quot;CST&quot;,&quot;Sales Tax&quot;,&quot;On VAT Rate&quot;)"/>
+		<SUBTAXTYPE FORMULA="=if(&quot;__LOOKUP__(I# &amp; &quot;-SALETYPE&quot;)__&quot;=&quot;CST&quot;,&quot;&quot;,&quot;Output VAT&quot;)"/>
+		<RATEOFTAXCALCULATION FORMULA="=&quot;__LOOKUP__(I# &amp; &quot;-VATRATE&quot;)__&quot;"/>
 	</MASTER>
 	<!-- Create ADDl. TAX LEDGER Master -->
 	<MASTER TYPE="LEDGER">
 		<NAME.LIST>
-			<NAME FORMULA="=&quot;__LOOKUP__(H# &amp; &quot;-ADDLVATLEDGER&quot;)__&quot;"/>
+			<NAME FORMULA="=&quot;__LOOKUP__(I# &amp; &quot;-ADDLVATLEDGER&quot;)__&quot;"/>
 		</NAME.LIST>
 		<PARENT>Duties &amp; Taxes</PARENT>
 		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
 		<AFFECTSSTOCK>No</AFFECTSSTOCK>
-		<TAXTYPE FORMULA="=&quot;__LOOKUP__(H# &amp; &quot;-SALETYPE&quot;)__&quot;"/>
-		<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(H# &amp; &quot;-ADDLVATCLASS&quot;)__&quot;"/>
-		<BASICTYPEOFDUTY FORMULA="=if(&quot;__LOOKUP__(H# &amp; &quot;-SALETYPE&quot;)__&quot;=&quot;CST&quot;,&quot;Sales Tax&quot;,&quot;Additional Tax&quot;)"/>
-		<SUBTAXTYPE FORMULA="=if(&quot;__LOOKUP__(H# &amp; &quot;-SALETYPE&quot;)__&quot;=&quot;CST&quot;,&quot;&quot;,&quot;Output VAT&quot;)"/>
-		<RATEOFTAXCALCULATION FORMULA="=&quot;__LOOKUP__(H# &amp; &quot;-ADDLVATRATE&quot;)__&quot;"/>
+		<TAXTYPE FORMULA="=&quot;__LOOKUP__(I# &amp; &quot;-SALETYPE&quot;)__&quot;"/>
+		<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(I# &amp; &quot;-ADDLVATCLASS&quot;)__&quot;"/>
+		<BASICTYPEOFDUTY FORMULA="=if(&quot;__LOOKUP__(I# &amp; &quot;-SALETYPE&quot;)__&quot;=&quot;CST&quot;,&quot;Sales Tax&quot;,&quot;Additional Tax&quot;)"/>
+		<SUBTAXTYPE FORMULA="=if(&quot;__LOOKUP__(I# &amp; &quot;-SALETYPE&quot;)__&quot;=&quot;CST&quot;,&quot;&quot;,&quot;Output VAT&quot;)"/>
+		<RATEOFTAXCALCULATION FORMULA="=&quot;__LOOKUP__(I# &amp; &quot;-ADDLVATRATE&quot;)__&quot;"/>
 	</MASTER>
 	<!-- Create LEDGER Master -->
 	<MASTER TYPE="LEDGER" SINGLERECORD="YES">
@@ -82,52 +97,54 @@
 		<EFFECTIVEDATE COLUMNREFERENCE="C"/>
 		<VOUCHERTYPENAME COLUMNREFERENCE="E"/>
 		<REFERENCE COLUMNREFERENCE="B"/>
-		<NARRATION COLUMNREFERENCE="G"/>
+		<NARRATION COLUMNREFERENCE="H"/>
 		<PARTYLEDGERNAME COLUMNREFERENCE="F"/>
 		<BASICBASEPARTYNAME COLUMNREFERENCE="F"/>
 		<BASICBUYERNAME COLUMNREFERENCE="F"/>
 		<ISINVOICE>No</ISINVOICE>
 		<PERSISTEDVIEW>Accounting Voucher View</PERSISTEDVIEW>
-		<CSTFORMRECVTYPE FORMULA="=&quot;__LOOKUP__(H# &amp; &quot;-FORM&quot;)__&quot;"/>
+		<CSTFORMRECVTYPE FORMULA="=&quot;__LOOKUP__(I# &amp; &quot;-FORM&quot;)__&quot;"/>
+		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
+		<STATENAME COLUMNREFERENCE="G"/>
 		
 		<!-- Party Ledger -->
 		<ALLLEDGERENTRIES.LIST>
 			<LEDGERNAME COLUMNREFERENCE="F"/>
 			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
-			<AMOUNT FORMULA="={Round(L#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,1,-1)"/>
+			<AMOUNT FORMULA="={Round(M#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,1,-1)"/>
 			<BILLALLOCATIONS.LIST>
 				<NAME COLUMNREFERENCE="B"/>
 				<BILLTYPE>New Ref</BILLTYPE>
-				<AMOUNT FORMULA="={Round(L#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,1,-1)"/>
+				<AMOUNT FORMULA="={Round(M#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,1,-1)"/>
 			</BILLALLOCATIONS.LIST>
 		</ALLLEDGERENTRIES.LIST>
 		<!-- Sales Ledger -->
-		<ALLLEDGERENTRIES.LIST GROUPBY="=trim(H#)">
-			<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(H# &amp; &quot;-VATCLASS&quot;)__&quot;"/>
-			<LEDGERNAME FORMULA="=&quot;__LOOKUP__(H# &amp; &quot;-SALELEDGER&quot;)__&quot;"/>
-			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
-			<AMOUNT FORMULA="={Round(I#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
-		</ALLLEDGERENTRIES.LIST>
-		<!-- VAT Ledger -->
-		<ALLLEDGERENTRIES.LIST GROUPBY="=trim(H#)">
-			<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(H# &amp; &quot;-VATCLASS&quot;)__&quot;"/>
-			<LEDGERNAME FORMULA="=&quot;__LOOKUP__(H# &amp; &quot;-VATLEDGER&quot;)__&quot;"/>
+		<ALLLEDGERENTRIES.LIST GROUPBY="=trim(I#)">
+			<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(I# &amp; &quot;-VATCLASS&quot;)__&quot;"/>
+			<LEDGERNAME FORMULA="=&quot;__LOOKUP__(I# &amp; &quot;-SALELEDGER&quot;)__&quot;"/>
 			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
 			<AMOUNT FORMULA="={Round(J#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
-			<VATASSESSABLEVALUE FORMULA="={Round(I#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+		</ALLLEDGERENTRIES.LIST>
+		<!-- VAT Ledger -->
+		<ALLLEDGERENTRIES.LIST GROUPBY="=trim(I#)">
+			<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(I# &amp; &quot;-VATCLASS&quot;)__&quot;"/>
+			<LEDGERNAME FORMULA="=&quot;__LOOKUP__(I# &amp; &quot;-VATLEDGER&quot;)__&quot;"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+			<AMOUNT FORMULA="={Round(K#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+			<VATASSESSABLEVALUE FORMULA="={Round(J#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
 			<UDF:ADDNLVATCLASSAMT.LIST DESC="`AddnlVATClassAmt`" ISLIST="YES" TYPE="Amount" INDEX="10004">
-				<UDF:ADDNLVATCLASSAMT DESC="`AddnlVATClassAmt`" FORMULA="={Round(I#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+				<UDF:ADDNLVATCLASSAMT DESC="`AddnlVATClassAmt`" FORMULA="={Round(J#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
 			</UDF:ADDNLVATCLASSAMT.LIST>
 		</ALLLEDGERENTRIES.LIST>
 		<!-- Addl VAT Ledger -->
-		<ALLLEDGERENTRIES.LIST GROUPBY="=trim(H#)" SKIP="={Round(K#,2)}=0">
-			<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(H# &amp; &quot;-ADDLVATCLASS&quot;)__&quot;"/>
-			<LEDGERNAME FORMULA="=&quot;__LOOKUP__(H# &amp; &quot;-ADDLVATLEDGER&quot;)__&quot;"/>
+		<ALLLEDGERENTRIES.LIST GROUPBY="=trim(I#)" SKIP="={Round(L#,2)}=0">
+			<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(I# &amp; &quot;-ADDLVATCLASS&quot;)__&quot;"/>
+			<LEDGERNAME FORMULA="=&quot;__LOOKUP__(I# &amp; &quot;-ADDLVATLEDGER&quot;)__&quot;"/>
 			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
-			<AMOUNT FORMULA="={Round(K#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
-			<VATASSESSABLEVALUE FORMULA="={Round(I#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+			<AMOUNT FORMULA="={Round(L#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+			<VATASSESSABLEVALUE FORMULA="={Round(J#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
 			<UDF:ADDNLVATCLASSAMT.LIST DESC="`AddnlVATClassAmt`" ISLIST="YES" TYPE="Amount" INDEX="10004">
-				<UDF:ADDNLVATCLASSAMT DESC="`AddnlVATClassAmt`" FORMULA="={Round(I#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+				<UDF:ADDNLVATCLASSAMT DESC="`AddnlVATClassAmt`" FORMULA="={Round(J#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
 			</UDF:ADDNLVATCLASSAMT.LIST>
 		</ALLLEDGERENTRIES.LIST>
 		<!--ALLLEDGERENTRIES.LIST>

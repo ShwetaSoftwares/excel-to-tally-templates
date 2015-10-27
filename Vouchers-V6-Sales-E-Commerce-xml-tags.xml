@@ -29,6 +29,9 @@
 		</MAILINGNAME.LIST>
 		<PARENT>Sundry Debtors</PARENT>
 		<ISBILLWISEON>Yes</ISBILLWISEON>
+		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
+		<COUNTRYNAME SKIP="=len(trim(Q#))=0">India</COUNTRYNAME>
+		<LEDSTATENAME COLUMNREFERENCE="Q"/>
 	</MASTER>
 	<!-- Create  Sales Ledger Master -->
 	<MASTER TYPE="LEDGER">
@@ -42,6 +45,18 @@
 		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
 		<AFFECTSSTOCK>Yes</AFFECTSSTOCK>
 		<USEFORVAT>Yes</USEFORVAT>
+		<VATAPPLICABLE>Applicable</VATAPPLICABLE>
+		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
+		<VATDETAILS.LIST>
+			<FROMDATE>20150401</FROMDATE>
+			<TAXTYPE>Taxable</TAXTYPE>
+			<ISINVDETAILSENABLE>Yes</ISINVDETAILSENABLE>
+			<ISCALCONACTUALQTY>No</ISCALCONACTUALQTY>
+			<RATEOFVAT FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-VATRATE&quot;)__&quot;"/>
+			<ADDITIONALTAX FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-ADDLVATRATE&quot;)__&quot;"/>
+		    <VATCOMMODITYNAME FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-VATRATE&quot;)__&quot;"/>
+		    <VATCOMMODITYCODE FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-VATRATE&quot;)__&quot;"/>
+		</VATDETAILS.LIST>
 	</MASTER>
 	<!-- Create TAX LEDGER Master -->
 	<MASTER TYPE="LEDGER">
@@ -81,7 +96,6 @@
 	<!-- Create LEDGER Master -->
 	<MASTER TYPE="LEDGER" SINGLERECORD="YES">
 		<NAME.LIST>
-			<!-- RTS -->
 			<!--NAME FORMULA="=AD$1"/-->
 			<NAME>Shipping Charges</NAME>
 		</NAME.LIST>
@@ -160,12 +174,14 @@
 			<BASICPURCHASEORDERNO COLUMNREFERENCE="K"/>
 		</INVOICEORDERLIST.LIST>
 		<STATADJUSTMENTTYPE COLUMNREFERENCE="AK"/>
+		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
+		<STATENAME COLUMNREFERENCE="Q"/>
+		
 		<!-- Party Ledger to be debited -->
 		<LEDGERENTRIES.LIST>
 			<LEDGERNAME COLUMNREFERENCE="G"/>
 			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
 			<AMOUNT FORMULA="={Round(Round(Z#,2)+Round(AB#,2)+Round(AC#,2)+Round(AD#+AE#+AF#,2),2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,1,-1)"/>
-			<!-- RTS -->
 			<BILLALLOCATIONS.LIST GROUPBY="=trim(AI#)" SKIP="=Or(Len(trim(AI#))=0,Round(Round(Z#,2)+Round(AB#,2)+Round(AC#,2)+Round(AD#+AE#+AF#,2),2)=0)">
 				<!--BILLALLOCATIONS.LIST SCROLL="YES" SKIP="=Or(Len(trim(AI#))=0,Round(Round(Z#,2)+Round(AB#,2)+Round(AC#,2)+Round(AD#+AE#+AF#,2),2)=0)"-->
 				<NAME COLUMNREFERENCE="AI"/>
@@ -250,9 +266,7 @@
 			</UDF:MAHWCASSESSABLEVALUE.LIST>
 		</LEDGERENTRIES.LIST>
 		<!-- Shipping charges -->
-		<!-- RTS -->
 		<LEDGERENTRIES.LIST SKIP="={Round(AD#,2)}=0">
-			<!-- RTS -->
 			<!--LEDGERNAME FORMULA="=AD$1"/-->
 			<LEDGERNAME>Shipping Charges</LEDGERNAME>
 			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
@@ -270,7 +284,6 @@
 			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
 			<AMOUNT FORMULA="={Round(AF#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
 		</LEDGERENTRIES.LIST>
-		<!-- RTS -->
 		<!-- For Amazon -->
 		<!--<ALLINVENTORYENTRIES.LIST GROUPBY="=trim(T#) &amp; AL#" SKIP="=Or(len(trim(T#))=0,len(trim(AA#))=0)">-->
 		<!-- For Flipkart, Snapdeal -->
@@ -280,7 +293,6 @@
 			</BASICUSERDESCRIPTION.LIST>
 			<STOCKITEMNAME COLUMNREFERENCE="T"/>
 			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
-			<!-- RTS -->
 			<!-- For Amazon -->
 			<!--<RATE FORMULA="=If({Round(W#,2)}&gt;0,Round({Round(Z#,2)}/{Round(W#,2)},2),Round(X#,2))"/>-->
 			<!-- For Flipkart, Snapdeal -->
@@ -288,12 +300,10 @@
 			<!-- In Percentage -->
 			<DISCOUNT COLUMNREFERENCE="Y"/>
 
-			<!-- RTS -->
 			<!-- For Amazon -->
 			<!--<AMOUNT FORMULA="={Round(Z#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>-->
 			<!-- For Flipkart, Snapdeal -->
 			<AMOUNT FORMULA="=Round(Z#,2)*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
-			<!-- RTS -->
 			<!-- For Amazon -->
 			<!--<ACTUALQTY FORMULA="={Round(W#,2)}"/>
 			<BILLEDQTY FORMULA="={Round(W#,2)}"/>-->
@@ -304,12 +314,10 @@
 				<GODOWNNAME FORMULA="=if(len(trim(R#))=0,&quot;Main Location&quot;,R#)"/>
 				<DESTINATIONGODOWNNAME FORMULA="=if(len(trim(R#))=0,&quot;Main Location&quot;,R#)"/>
 				<BATCHNAME COLUMNREFERENCE="S"/>
-				<!-- RTS -->
 				<!-- For Amazon -->
 				<!--<AMOUNT FORMULA="={Round(Z#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>-->
 				<!-- For Flipkart, Snapdeal -->
 				<AMOUNT FORMULA="=Round(Z#,2)*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
-				<!-- RTS -->
 				<!-- For Amazon -->
 				<!--<ACTUALQTY FORMULA="={Round(W#,2)}"/>
 				<BILLEDQTY FORMULA="={Round(W#,2)}"/>-->
@@ -321,7 +329,6 @@
 				<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-VATCLASS&quot;)__&quot;"/>
 				<LEDGERNAME FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-SALELEDGER&quot;)__&quot;"/>
 				<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
-				<!-- RTS -->
 				<!-- For Amazon -->
 				<!--<AMOUNT FORMULA="={Round(Z#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>-->
 				<!-- For Flipkart, Snapdeal -->
@@ -329,6 +336,5 @@
 			</ACCOUNTINGALLOCATIONS.LIST>
 		</ALLINVENTORYENTRIES.LIST>
 	</VOUCHER>
-	<!--REMAP><COLUMN><SOURCE>R</SOURCE><DESTINATION>"Amazon Godown"</DESTINATION></COLUMN><COLUMN><SOURCE>AL</SOURCE><DESTINATION>AU</DESTINATION></COLUMN><COLUMN><SOURCE>L</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>X</SOURCE><DESTINATION>Round(Abs(V#)-Abs(AU#),2)</DESTINATION></COLUMN><COLUMN><SOURCE>AI</SOURCE><DESTINATION>A</DESTINATION></COLUMN><COLUMN><SOURCE>J</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>W</SOURCE><DESTINATION>if(U#=49,0,Q#)</DESTINATION></COLUMN><COLUMN><SOURCE>P</SOURCE><DESTINATION>AD</DESTINATION></COLUMN><COLUMN><SOURCE>V</SOURCE><DESTINATION>"Nos"</DESTINATION></COLUMN><COLUMN><SOURCE>AA</SOURCE><DESTINATION>if(Round(Abs(W#),2)=0,"",if(lower(Y#)=lower(AD#),"VAT ","CST ") &amp; Round(Abs(W#)/Abs(V#)*100,1) &amp; "%")</DESTINATION></COLUMN><COLUMN><SOURCE>K</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>F</SOURCE><DESTINATION>J</DESTINATION></COLUMN><COLUMN><SOURCE>O</SOURCE><DESTINATION>AC</DESTINATION></COLUMN><COLUMN><SOURCE>U</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>B</SOURCE><DESTINATION>J</DESTINATION></COLUMN><COLUMN><SOURCE>H</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>Q</SOURCE><DESTINATION>AF</DESTINATION></COLUMN><COLUMN><SOURCE>AF</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>AG</SOURCE><DESTINATION>"Order ID:" &amp; A#</DESTINATION></COLUMN><COLUMN><SOURCE>AK</SOURCE><DESTINATION>if(lower(O#)="shipment",null,"Goods sold returned")</DESTINATION></COLUMN><COLUMN><SOURCE>AH</SOURCE><DESTINATION>"New Ref"</DESTINATION></COLUMN><COLUMN><SOURCE>G</SOURCE><DESTINATION>"Amazon Sales"</DESTINATION></COLUMN><COLUMN><SOURCE>AB</SOURCE><DESTINATION>Abs(W#)</DESTINATION></COLUMN><COLUMN><SOURCE>E</SOURCE><DESTINATION>if(lower(O#)="shipment","Amazon Sales","Credit Note")</DESTINATION></COLUMN><COLUMN><SOURCE>AE</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>AC</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>Z</SOURCE><DESTINATION>Round(Q#*(Abs(V#)-Abs(AU#)),2)</DESTINATION></COLUMN><COLUMN><SOURCE>C</SOURCE><DESTINATION>Substitute(left(F#,10),"-","")</DESTINATION></COLUMN><COLUMN><SOURCE>AJ</SOURCE><DESTINATION>Round(U#,2)</DESTINATION></COLUMN><COLUMN><SOURCE>M</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>I</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>AD</SOURCE><DESTINATION>if(Round(Abs(V#)-Abs(AU#),2)=0,Round(U#,2),0)</DESTINATION></COLUMN><COLUMN><SOURCE>N</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>S</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>Y</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>T</SOURCE><DESTINATION>N</DESTINATION></COLUMN><COLUMN><SOURCE>D</SOURCE><DESTINATION>if(lower(O#)="shipment","Sales","Credit Note")</DESTINATION></COLUMN></REMAP-->
 </XMLTAGS>
 

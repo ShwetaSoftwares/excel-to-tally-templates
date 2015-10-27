@@ -22,13 +22,20 @@
 	<!-- Create Party LEDGER Masters -->
 	<MASTER TYPE="LEDGER">
 		<NAME.LIST>
-			<NAME FORMULA="=(&quot;Amazon Sales&quot;)"/>
+			<!-- Tally ERP 9 Release 5.1 and higher -->
+			<NAME FORMULA="=A#"/>
+			<!--<NAME FORMULA="=(&quot;Amazon Sales&quot;)"/>-->
 		</NAME.LIST>
 		<MAILINGNAME.LIST TYPE="String">
-			<MAILINGNAME FORMULA="=(&quot;Amazon Sales&quot;)"/>
+			<!-- Tally ERP 9 Release 5.1 and higher -->
+			<MAILINGNAME FORMULA="=A#"/>
+			<!--<MAILINGNAME FORMULA="=(&quot;Amazon Sales&quot;)"/>-->
 		</MAILINGNAME.LIST>
 		<PARENT>Sundry Debtors</PARENT>
 		<ISBILLWISEON>Yes</ISBILLWISEON>
+		<!-- Tally ERP 9 Release 5.1 and higher -->
+		<COUNTRYNAME SKIP="=len(trim(AD#))=0">India</COUNTRYNAME>
+		<LEDSTATENAME COLUMNREFERENCE="AD"/>
 	</MASTER>
 	<!-- Create  Sales Ledger Master -->
 	<MASTER TYPE="LEDGER">
@@ -42,6 +49,18 @@
 		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
 		<AFFECTSSTOCK>Yes</AFFECTSSTOCK>
 		<USEFORVAT>Yes</USEFORVAT>
+		<VATAPPLICABLE>Applicable</VATAPPLICABLE>
+		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
+		<VATDETAILS.LIST>
+			<FROMDATE>20150401</FROMDATE>
+			<TAXTYPE>Taxable</TAXTYPE>
+			<ISINVDETAILSENABLE>Yes</ISINVDETAILSENABLE>
+			<ISCALCONACTUALQTY>No</ISCALCONACTUALQTY>
+			<RATEOFVAT FORMULA="=&quot;__LOOKUP__((if(Round(Abs(W#),2)=0,&quot;&quot;,if(lower(Y#)=lower(AD#),&quot;VAT &quot;,&quot;CST &quot;) &amp; Round(Abs(W#)/Abs(V#)*100,1) &amp; &quot;%&quot;)) &amp; &quot;-VATRATE&quot;)__&quot;"/>
+			<ADDITIONALTAX FORMULA="=&quot;__LOOKUP__((if(Round(Abs(W#),2)=0,&quot;&quot;,if(lower(Y#)=lower(AD#),&quot;VAT &quot;,&quot;CST &quot;) &amp; Round(Abs(W#)/Abs(V#)*100,1) &amp; &quot;%&quot;)) &amp; &quot;-ADDLVATRATE&quot;)__&quot;"/>
+		    <VATCOMMODITYNAME FORMULA="=&quot;__LOOKUP__((if(Round(Abs(W#),2)=0,&quot;&quot;,if(lower(Y#)=lower(AD#),&quot;VAT &quot;,&quot;CST &quot;) &amp; Round(Abs(W#)/Abs(V#)*100,1) &amp; &quot;%&quot;)) &amp; &quot;-VATRATE&quot;)__&quot;"/>
+		    <VATCOMMODITYCODE FORMULA="=&quot;__LOOKUP__((if(Round(Abs(W#),2)=0,&quot;&quot;,if(lower(Y#)=lower(AD#),&quot;VAT &quot;,&quot;CST &quot;) &amp; Round(Abs(W#)/Abs(V#)*100,1) &amp; &quot;%&quot;)) &amp; &quot;-VATRATE&quot;)__&quot;"/>
+		</VATDETAILS.LIST>
 	</MASTER>
 	<!-- Create TAX LEDGER Master -->
 	<MASTER TYPE="LEDGER">
@@ -81,7 +100,6 @@
 	<!-- Create LEDGER Master -->
 	<MASTER TYPE="LEDGER" SINGLERECORD="YES">
 		<NAME.LIST>
-			<!-- RTS -->
 			<!--NAME FORMULA="=AD$1"/-->
 			<NAME>Shipping Charges</NAME>
 		</NAME.LIST>
@@ -127,9 +145,15 @@
 		<REFERENCE COLUMNREFERENCE="J"/>
 		<VOUCHERNUMBER COLUMNREFERENCE="A"/>
 		<NARRATION FORMULA="=(&quot;Order ID:&quot; &amp; A#)"/>
-		<PARTYNAME FORMULA="=(&quot;Amazon Sales&quot;)"/>
+		
+		<!-- Tally ERP 9 Release 5.1 and higher -->		
+		<PARTYNAME FORMULA="=A#"/>
+		<PARTYLEDGERNAME FORMULA="=A#"/>
+		<BASICBASEPARTYNAME FORMULA="=A#"/>
+		<!--<PARTYNAME FORMULA="=(&quot;Amazon Sales&quot;)"/>
 		<PARTYLEDGERNAME FORMULA="=(&quot;Amazon Sales&quot;)"/>
-		<BASICBASEPARTYNAME FORMULA="=(&quot;Amazon Sales&quot;)"/>
+		<BASICBASEPARTYNAME FORMULA="=(&quot;Amazon Sales&quot;)"/>-->
+		
 		<BASICBUYERNAME FORMULA="=(null)"/>
 		<!-- Despatch through -->
 		<BASICSHIPPEDBY FORMULA="=(null)"/>
@@ -160,12 +184,17 @@
 			<BASICPURCHASEORDERNO FORMULA="=(null)"/>
 		</INVOICEORDERLIST.LIST>
 		<STATADJUSTMENTTYPE FORMULA="=(if(lower(O#)=&quot;shipment&quot;,null,&quot;Goods sold returned&quot;))"/>
+		<!-- StateName - Required for Tally ERP 9 Release 5.1 and higher -->
+		<STATENAME COLUMNREFERENCE="AD"/>
+		
 		<!-- Party Ledger to be debited -->
 		<LEDGERENTRIES.LIST>
-			<LEDGERNAME FORMULA="=(&quot;Amazon Sales&quot;)"/>
+			<!-- Tally ERP 9 Release 5.1 and higher -->		
+			<LEDGERNAME FORMULA="=A#"/>
+			<!--<LEDGERNAME FORMULA="=(&quot;Amazon Sales&quot;)"/>-->
+			
 			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim((if(lower(O#[1])=&quot;shipment&quot;,&quot;Sales&quot;,&quot;Credit Note&quot;))))=&quot;credit note&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
 			<AMOUNT FORMULA="={Round(Round((Round(Q#*(Abs(V#)-Abs(AU#)),2)),2)+Round((Abs(W#)),2)+Round((null),2)+Round((if(Round(Abs(V#)-Abs(AU#),2)=0,Round(U#,2),0))+(null)+(null),2),2)}*if(lower(trim((if(lower(O#[1])=&quot;shipment&quot;,&quot;Sales&quot;,&quot;Credit Note&quot;))))=&quot;credit note&quot;,1,-1)"/>
-			<!-- RTS -->
 			<BILLALLOCATIONS.LIST GROUPBY="=trim(A#)" SKIP="=Or(Len(trim(A#))=0,Round(Round((Round(Q#*(Abs(V#)-Abs(AU#)),2)),2)+Round((Abs(W#)),2)+Round((null),2)+Round((if(Round(Abs(V#)-Abs(AU#),2)=0,Round(U#,2),0))+(null)+(null),2),2)=0)">
 				<!--BILLALLOCATIONS.LIST SCROLL="YES" SKIP="=Or(Len(trim(A#))=0,Round(Round((Round(Q#*(Abs(V#)-Abs(AU#)),2)),2)+Round((Abs(W#)),2)+Round((null),2)+Round((if(Round(Abs(V#)-Abs(AU#),2)=0,Round(U#,2),0))+(null)+(null),2),2)=0)"-->
 				<NAME COLUMNREFERENCE="A"/>
@@ -193,7 +222,11 @@
 				<CATEGORY FORMULA="=&quot;__LOOKUP__((if(Round(Abs(W#),2)=0,&quot;&quot;,if(lower(Y#)=lower(AD#),&quot;VAT &quot;,&quot;CST &quot;) &amp; Round(Abs(W#)/Abs(V#)*100,1) &amp; &quot;%&quot;)) &amp; &quot;-VATCLASS&quot;)__&quot;"/>
 				<TAXTYPE FORMULA="=&quot;__LOOKUP__((if(Round(Abs(W#),2)=0,&quot;&quot;,if(lower(Y#)=lower(AD#),&quot;VAT &quot;,&quot;CST &quot;) &amp; Round(Abs(W#)/Abs(V#)*100,1) &amp; &quot;%&quot;)) &amp; &quot;-SALETYPE&quot;)__&quot;"/>
 				<TAXNAME FORMULA="=trim(J#[1])"/>
-				<PARTYLEDGER FORMULA="=trim((&quot;Amazon Sales&quot;))"/>
+				
+				<!-- Tally ERP 9 Release 5.1 and higher -->
+				<PARTYLEDGER FORMULA="=A#"/>
+				<!--<PARTYLEDGER FORMULA="=trim((&quot;Amazon Sales&quot;))"/>-->
+				
 				<REFTYPE>New Ref</REFTYPE>
 				<ISOPTIONAL>No</ISOPTIONAL>
 				<ISPANVALID>No</ISPANVALID>
@@ -229,7 +262,11 @@
 				<CATEGORY FORMULA="=&quot;__LOOKUP__((if(Round(Abs(W#),2)=0,&quot;&quot;,if(lower(Y#)=lower(AD#),&quot;VAT &quot;,&quot;CST &quot;) &amp; Round(Abs(W#)/Abs(V#)*100,1) &amp; &quot;%&quot;)) &amp; &quot;-ADDLVATCLASS&quot;)__&quot;"/>
 				<TAXTYPE FORMULA="=&quot;__LOOKUP__((if(Round(Abs(W#),2)=0,&quot;&quot;,if(lower(Y#)=lower(AD#),&quot;VAT &quot;,&quot;CST &quot;) &amp; Round(Abs(W#)/Abs(V#)*100,1) &amp; &quot;%&quot;)) &amp; &quot;-SALETYPE&quot;)__&quot;"/>
 				<TAXNAME FORMULA="=trim(J#[1])"/>
-				<PARTYLEDGER FORMULA="=trim((&quot;Amazon Sales&quot;))"/>
+
+				<!-- Tally ERP 9 Release 5.1 and higher -->
+				<PARTYLEDGER FORMULA="=A#"/>
+				<!--<PARTYLEDGER FORMULA="=trim((&quot;Amazon Sales&quot;))"/>-->
+				
 				<REFTYPE>New Ref</REFTYPE>
 				<ISOPTIONAL>No</ISOPTIONAL>
 				<ISPANVALID>No</ISPANVALID>
@@ -250,9 +287,7 @@
 			</UDF:MAHWCASSESSABLEVALUE.LIST>
 		</LEDGERENTRIES.LIST>
 		<!-- Shipping charges -->
-		<!-- RTS -->
 		<LEDGERENTRIES.LIST SKIP="={Round((if(Round(Abs(V#)-Abs(AU#),2)=0,Round(U#,2),0)),2)}=0">
-			<!-- RTS -->
 			<!--LEDGERNAME FORMULA="=AD$1"/-->
 			<LEDGERNAME>Shipping Charges</LEDGERNAME>
 			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim((if(lower(O#[1])=&quot;shipment&quot;,&quot;Sales&quot;,&quot;Credit Note&quot;))))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
@@ -270,7 +305,6 @@
 			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim((if(lower(O#[1])=&quot;shipment&quot;,&quot;Sales&quot;,&quot;Credit Note&quot;))))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
 			<AMOUNT FORMULA="={Round((null),2)}*if(lower(trim((if(lower(O#[1])=&quot;shipment&quot;,&quot;Sales&quot;,&quot;Credit Note&quot;))))=&quot;credit note&quot;,-1,1)"/>
 		</LEDGERENTRIES.LIST>
-		<!-- RTS -->
 		<!-- For Amazon -->
 		<ALLINVENTORYENTRIES.LIST GROUPBY="=trim(N#) &amp; AU#" SKIP="=Or(len(trim(N#))=0,len(trim((if(Round(Abs(W#),2)=0,&quot;&quot;,if(lower(Y#)=lower(AD#),&quot;VAT &quot;,&quot;CST &quot;) &amp; Round(Abs(W#)/Abs(V#)*100,1) &amp; &quot;%&quot;))))=0)">
 			<!-- For Flipkart, Snapdeal -->
@@ -280,17 +314,14 @@
 			</BASICUSERDESCRIPTION.LIST>
 			<STOCKITEMNAME COLUMNREFERENCE="N"/>
 			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim((if(lower(O#[1])=&quot;shipment&quot;,&quot;Sales&quot;,&quot;Credit Note&quot;))))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
-			<!-- RTS -->
 			<!-- For Amazon -->
 			<RATE FORMULA="=If({Round((if(U#=49,0,Q#)),2)}&gt;0,Round({Round((Round(Q#*(Abs(V#)-Abs(AU#)),2)),2)}/{Round((if(U#=49,0,Q#)),2)},2),Round((Round(Abs(V#)-Abs(AU#),2)),2))"/>
 			<!-- For Flipkart, Snapdeal -->
 			<!--RATE FORMULA="=(Round(Abs(V#)-Abs(AU#),2))"/-->
-			<!-- RTS -->
 			<!-- For Amazon -->
 			<AMOUNT FORMULA="={Round((Round(Q#*(Abs(V#)-Abs(AU#)),2)),2)}*if(lower(trim((if(lower(O#[1])=&quot;shipment&quot;,&quot;Sales&quot;,&quot;Credit Note&quot;))))=&quot;credit note&quot;,-1,1)"/>
 			<!-- For Flipkart, Snapdeal -->
 			<!--AMOUNT FORMULA="=Round((Round(Q#*(Abs(V#)-Abs(AU#)),2)),2)*if(lower(trim((if(lower(O#[1])=&quot;shipment&quot;,&quot;Sales&quot;,&quot;Credit Note&quot;))))=&quot;credit note&quot;,-1,1)"/-->
-			<!-- RTS -->
 			<!-- For Amazon -->
 			<ACTUALQTY FORMULA="={Round((if(U#=49,0,Q#)),2)}"/>
 			<BILLEDQTY FORMULA="={Round((if(U#=49,0,Q#)),2)}"/>
@@ -301,12 +332,10 @@
 				<GODOWNNAME FORMULA="=if(len(trim((&quot;Amazon Godown&quot;)))=0,&quot;Main Location&quot;,(&quot;Amazon Godown&quot;))"/>
 				<DESTINATIONGODOWNNAME FORMULA="=if(len(trim((&quot;Amazon Godown&quot;)))=0,&quot;Main Location&quot;,(&quot;Amazon Godown&quot;))"/>
 				<BATCHNAME FORMULA="=(null)"/>
-				<!-- RTS -->
 				<!-- For Amazon -->
 				<AMOUNT FORMULA="={Round((Round(Q#*(Abs(V#)-Abs(AU#)),2)),2)}*if(lower(trim((if(lower(O#[1])=&quot;shipment&quot;,&quot;Sales&quot;,&quot;Credit Note&quot;))))=&quot;credit note&quot;,-1,1)"/>
 				<!-- For Flipkart, Snapdeal -->
 				<!--AMOUNT FORMULA="=Round((Round(Q#*(Abs(V#)-Abs(AU#)),2)),2)*if(lower(trim((if(lower(O#[1])=&quot;shipment&quot;,&quot;Sales&quot;,&quot;Credit Note&quot;))))=&quot;credit note&quot;,-1,1)"/-->
-				<!-- RTS -->
 				<!-- For Amazon -->
 				<ACTUALQTY FORMULA="={Round((if(U#=49,0,Q#)),2)}"/>
 				<BILLEDQTY FORMULA="={Round((if(U#=49,0,Q#)),2)}"/>
@@ -318,7 +347,6 @@
 				<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__((if(Round(Abs(W#),2)=0,&quot;&quot;,if(lower(Y#)=lower(AD#),&quot;VAT &quot;,&quot;CST &quot;) &amp; Round(Abs(W#)/Abs(V#)*100,1) &amp; &quot;%&quot;)) &amp; &quot;-VATCLASS&quot;)__&quot;"/>
 				<LEDGERNAME FORMULA="=&quot;__LOOKUP__((if(Round(Abs(W#),2)=0,&quot;&quot;,if(lower(Y#)=lower(AD#),&quot;VAT &quot;,&quot;CST &quot;) &amp; Round(Abs(W#)/Abs(V#)*100,1) &amp; &quot;%&quot;)) &amp; &quot;-SALELEDGER&quot;)__&quot;"/>
 				<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim((if(lower(O#[1])=&quot;shipment&quot;,&quot;Sales&quot;,&quot;Credit Note&quot;))))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
-				<!-- RTS -->
 				<!-- For Amazon -->
 				<AMOUNT FORMULA="={Round((Round(Q#*(Abs(V#)-Abs(AU#)),2)),2)}*if(lower(trim((if(lower(O#[1])=&quot;shipment&quot;,&quot;Sales&quot;,&quot;Credit Note&quot;))))=&quot;credit note&quot;,-1,1)"/>
 				<!-- For Flipkart, Snapdeal -->
