@@ -51,12 +51,12 @@ New Features in v5.0
 		<!-- Required for VAT and CST both -->
 		<TAXTYPE SKIP="=Len(trim(V$4))=0" FORMULA="=V$4"/>
 		<!-- For VAT only -->
-		<BASICTYPEOFDUTY SKIP="=Or(Len(trim(V$4))=0,Not(V$4=&quot;VAT&quot;))">On VAT Rate</BASICTYPEOFDUTY>
+		<BASICTYPEOFDUTY SKIP="=Or(Len(trim(V$4))=0,Not(lower(V$4)=&quot;vat&quot;))">On VAT Rate</BASICTYPEOFDUTY>
 		<!-- For VAT only -->
-		<SUBTAXTYPE SKIP="=Or(Len(trim(V$4))=0,Not(V$4=&quot;VAT&quot;))">Output VAT</SUBTAXTYPE>
+		<SUBTAXTYPE SKIP="=Or(Len(trim(V$4))=0,Not(lower(V$4)=&quot;vat&quot;))">Output VAT</SUBTAXTYPE>
 		<!-- CostCentre Required or not -->
 		<ISCOSTCENTRESON SKIP="=Len(trim(V$1))=0" FORMULA="=V$9"/>
-		<!-- For VAT Ledger only. Required for Tally ERP 9 Release 5.1 and higher -->
+		<!-- For VAT only -->
 		<RATEOFTAXCALCULATION SKIP="=Or(Len(trim(V$4))=0,Not(lower(V$4)=&quot;vat&quot;))" FORMULA="=V$2"/>
 		<!-- For Sales Ledger only. Required for Tally ERP 9 Release 5.1 and higher -->
 		<VATDETAILS.LIST SKIP="=not(lower(V$1)=&quot;yes&quot;)">
