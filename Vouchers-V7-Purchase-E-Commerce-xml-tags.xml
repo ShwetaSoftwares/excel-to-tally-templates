@@ -5,9 +5,7 @@
 		<COLUMNNAME>ID</COLUMNNAME>
 		<COLUMNNAME>NAME</COLUMNNAME>
 	</COLUMNNAME.LIST>
-	<!-- For macro -->
-	<!--VBA LOADFILE="Vouchers-V6-Purchase-E-Commerce-macro.txt" RUNMACROATSTARTUP="NewColumns,A#"/-->
-	<DATA LOADFILE="Vouchers-V6-Purchase-E-Commerce-settings.csv"/>
+	<DATA LOADFILE="Vouchers-V7-Purchase-E-Commerce-settings.csv"/>
 	<!-- Create VOUCHERTYPE Master -->
 	<MASTER TYPE="VOUCHERTYPE">
 		<NAME.LIST TYPE="String">
@@ -29,7 +27,12 @@
 		</MAILINGNAME.LIST>
 		<PARENT>Sundry Creditors</PARENT>
 		<ISBILLWISEON>Yes</ISBILLWISEON>
+		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
+		<COUNTRYNAME SKIP="=len(trim(R#))=0">India</COUNTRYNAME>
+		<LEDSTATENAME COLUMNREFERENCE="R"/>
+		<VATDEALERTYPE>Registered</VATDEALERTYPE>
 	</MASTER>
+	
 	<!-- Create Ledger Master -->
 	<MASTER TYPE="LEDGER">
 		<NAME.LIST>
@@ -42,6 +45,18 @@
 		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
 		<AFFECTSSTOCK>Yes</AFFECTSSTOCK>
 		<USEFORVAT>Yes</USEFORVAT>
+		
+		<!-- Tally ERP 9 Release 5.1 -->
+		<VATDETAILS.LIST>
+			<FROMDATE>20100401</FROMDATE>
+			<TAXTYPE>Taxable</TAXTYPE>
+			<ISINVDETAILSENABLE>Yes</ISINVDETAILSENABLE>
+			<ISCALCONACTUALQTY>No</ISCALCONACTUALQTY>
+			<RATEOFVAT FORMULA="=&quot;__LOOKUP__(AB# &amp; &quot;-VATRATE&quot;)__&quot;"/>
+			<ADDITIONALTAX FORMULA="=&quot;__LOOKUP__(AB# &amp; &quot;-ADDLVATRATE&quot;)__&quot;"/>
+			<!--<VATCOMMODITYNAME FORMULA="=&quot;__LOOKUP__(AB# &amp; &quot;-VATRATE&quot;)__&quot;"/>
+			<VATCOMMODITYCODE FORMULA="=&quot;__LOOKUP__(AB# &amp; &quot;-VATRATE&quot;)__&quot;"/>-->
+		</VATDETAILS.LIST>			
 	</MASTER>
 	<!-- Create TAX LEDGER Master -->
 	<MASTER TYPE="LEDGER">
@@ -79,25 +94,26 @@
 		<PARENT>Indirect Expenses</PARENT>
 	</MASTER>
 	<!-- Create LEDGER Master -->
-	<MASTER TYPE="LEDGER" SINGLERECORD="YES">
+	<MASTER TYPE="LEDGER">
 		<NAME.LIST>
-			<!-- RTS -->
-			<!--NAME FORMULA="=AE$1"/-->
-			<NAME>Shipping Charges</NAME>
+			<NAME COLUMNREFERENCE="AE"/>
+			<!--<NAME>Shipping Charges</NAME>-->
 		</NAME.LIST>
 		<PARENT>Indirect Expenses</PARENT>
 	</MASTER>
 	<!-- Create LEDGER Master -->
-	<MASTER TYPE="LEDGER" SINGLERECORD="YES">
+	<MASTER TYPE="LEDGER">
 		<NAME.LIST>
-			<NAME FORMULA="=AF$1"/>
+			<NAME COLUMNREFERENCE="AG"/>
+			<!--<NAME>Other Charges1</NAME>-->
 		</NAME.LIST>
 		<PARENT>Indirect Expenses</PARENT>
 	</MASTER>
 	<!-- Create LEDGER Master -->
-	<MASTER TYPE="LEDGER" SINGLERECORD="YES">
+	<MASTER TYPE="LEDGER">
 		<NAME.LIST>
-			<NAME FORMULA="=AG$1"/>
+			<NAME COLUMNREFERENCE="AI"/>
+			<!--<NAME>Other Charges2</NAME>-->
 		</NAME.LIST>
 		<PARENT>Indirect Expenses</PARENT>
 	</MASTER>
@@ -126,7 +142,7 @@
 		<VOUCHERTYPENAME COLUMNREFERENCE="F"/>
 		<REFERENCE COLUMNREFERENCE="B"/>
 		<VOUCHERNUMBER COLUMNREFERENCE="G"/>
-		<NARRATION COLUMNREFERENCE="AH"/>
+		<NARRATION COLUMNREFERENCE="AK"/>
 		<PARTYNAME COLUMNREFERENCE="H"/>
 		<PARTYLEDGERNAME COLUMNREFERENCE="H"/>
 		<BASICBASEPARTYNAME COLUMNREFERENCE="H"/>
@@ -159,20 +175,22 @@
 			<BASICORDERDATE COLUMNREFERENCE="M"/>
 			<BASICPURCHASEORDERNO COLUMNREFERENCE="L"/>
 		</INVOICEORDERLIST.LIST>
-		<STATADJUSTMENTTYPE COLUMNREFERENCE="AL"/>
+		<STATADJUSTMENTTYPE COLUMNREFERENCE="AO"/>
+		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
+		<STATENAME COLUMNREFERENCE="R"/>
+		
 		<!-- Party Ledger to be credited -->
 		<LEDGERENTRIES.LIST>
 			<LEDGERNAME COLUMNREFERENCE="H"/>
 			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(E#[1]))=&quot;purchase&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
-			<AMOUNT FORMULA="={Round(Round(AA#,2)+Round(AC#,2)+Round(AD#,2)+Round(AE#+AF#+AG#,2),2)}*if(lower(trim(E#[1]))=&quot;purchase&quot;,1,-1)"/>
-			<!-- RTS -->
-			<BILLALLOCATIONS.LIST GROUPBY="=trim(AJ#)" SKIP="=Or(Len(trim(AJ#))=0,Round(Round(AA#,2)+Round(AC#,2)+Round(AD#,2)+Round(AE#+AF#+AG#,2),2)=0)">
-				<!--BILLALLOCATIONS.LIST SCROLL="YES" SKIP="=Or(Len(trim(AJ#))=0,Round(Round(AA#,2)+Round(AC#,2)+Round(AD#,2)+Round(AE#+AF#+AG#,2),2)=0)"-->
-				<NAME COLUMNREFERENCE="AJ"/>
-				<BILLTYPE COLUMNREFERENCE="AI"/>
-				<DUMMY COLUMNREFERENCE="AK"/>
-				<AMOUNT FORMULA="=Round({Round(AA#,2)+Round(AC#,2)+Round(AD#,2)+Round(AE#+AF#+AG#,2)},2)*if(lower(trim(E#[1]))=&quot;purchase&quot;,1,-1)"/>
-				<!--AMOUNT FORMULA="=Round(Round(AA#,2)+Round(AC#,2)+Round(AD#,2)+Round(AE#+AF#+AG#,2),2)*if(lower(trim(E#[1]))=&quot;purchase&quot;,1,-1)"/-->
+			<AMOUNT FORMULA="={Round(Round(AA#,2)+Round(AC#,2)+Round(AD#,2)+Round(AF#+AH#+AJ#,2),2)}*if(lower(trim(E#[1]))=&quot;purchase&quot;,1,-1)"/>
+			<BILLALLOCATIONS.LIST GROUPBY="=trim(AM#)" SKIP="=Or(Len(trim(AM#))=0,Round(Round(AA#,2)+Round(AC#,2)+Round(AD#,2)+Round(AF#+AH#+AJ#,2),2)=0)">
+				<!--BILLALLOCATIONS.LIST SCROLL="YES" SKIP="=Or(Len(trim(AM#))=0,Round(Round(AA#,2)+Round(AC#,2)+Round(AD#,2)+Round(AF#+AH#+AJ#,2),2)=0)"-->
+				<NAME COLUMNREFERENCE="AM"/>
+				<BILLTYPE COLUMNREFERENCE="AL"/>
+				<DUMMY COLUMNREFERENCE="AN"/>
+				<AMOUNT FORMULA="=Round({Round(AA#,2)+Round(AC#,2)+Round(AD#,2)+Round(AF#+AH#+AJ#,2)},2)*if(lower(trim(E#[1]))=&quot;purchase&quot;,1,-1)"/>
+				<!--AMOUNT FORMULA="=Round(Round(AA#,2)+Round(AC#,2)+Round(AD#,2)+Round(AF#+AH#+AJ#,2),2)*if(lower(trim(E#[1]))=&quot;purchase&quot;,1,-1)"/-->
 			</BILLALLOCATIONS.LIST>
 		</LEDGERENTRIES.LIST>
 		<!-- VAT / CST Ledger -->
@@ -250,79 +268,72 @@
 			</UDF:MAHWCASSESSABLEVALUE.LIST>
 		</LEDGERENTRIES.LIST>
 		<!-- Shipping charges -->
-		<!-- RTS -->
-		<LEDGERENTRIES.LIST SKIP="={Round(AE#,2)}=0">
-			<!-- RTS -->
-			<!--LEDGERNAME FORMULA="=AE$1"/-->
-			<LEDGERNAME>Shipping Charges</LEDGERNAME>
-			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(E#[1]))=&quot;purchase&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
-			<AMOUNT FORMULA="={Round(AE#,2)}*if(lower(trim(E#[1]))=&quot;purchase&quot;,-1,1)"/>
-		</LEDGERENTRIES.LIST>
-		<!-- Other charges1 -->
-		<LEDGERENTRIES.LIST SKIP="=Round(AF#,2)=0">
-			<LEDGERNAME FORMULA="=AF$1"/>
+		<LEDGERENTRIES.LIST SKIP="={Round(AF#,2)}=0">
+			<LEDGERNAME COLUMNREFERENCE="AE"/>
+			<!--<LEDGERNAME>Shipping Charges</LEDGERNAME>-->
 			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(E#[1]))=&quot;purchase&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
 			<AMOUNT FORMULA="={Round(AF#,2)}*if(lower(trim(E#[1]))=&quot;purchase&quot;,-1,1)"/>
 		</LEDGERENTRIES.LIST>
-		<!-- Other charges2 -->
-		<LEDGERENTRIES.LIST SKIP="=Round(AG#,2)=0">
-			<LEDGERNAME FORMULA="=AG$1"/>
+		<!-- Other charges1 -->
+		<LEDGERENTRIES.LIST SKIP="=Round(AH#,2)=0">
+			<LEDGERNAME COLUMNREFERENCE="AG"/>
+			<!--<LEDGERNAME>Other Charges1</LEDGERNAME>-->
 			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(E#[1]))=&quot;purchase&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
-			<AMOUNT FORMULA="={Round(AG#,2)}*if(lower(trim(E#[1]))=&quot;purchase&quot;,-1,1)"/>
+			<AMOUNT FORMULA="={Round(AH#,2)}*if(lower(trim(E#[1]))=&quot;purchase&quot;,-1,1)"/>
 		</LEDGERENTRIES.LIST>
-		<!-- RTS -->
+		<!-- Other charges2 -->
+		<LEDGERENTRIES.LIST SKIP="=Round(AJ#,2)=0">
+			<LEDGERNAME COLUMNREFERENCE="AI"/>
+			<!--<LEDGERNAME>Other Charges2</LEDGERNAME>-->
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(E#[1]))=&quot;purchase&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+			<AMOUNT FORMULA="={Round(AJ#,2)}*if(lower(trim(E#[1]))=&quot;purchase&quot;,-1,1)"/>
+		</LEDGERENTRIES.LIST>
 		<!-- For Amazon -->
-		<ALLINVENTORYENTRIES.LIST GROUPBY="=trim(U#) &amp; AM#" SKIP="=Or(len(trim(U#))=0,len(trim(AB#))=0)">
-			<!-- For Flipkart, Snapdeal -->
-			<!--ALLINVENTORYENTRIES.LIST SCROLL="YES" SKIP="=Or(len(trim(U#))=0,len(trim(AB#))=0)"-->
+		<!--<ALLINVENTORYENTRIES.LIST GROUPBY="=trim(U#) &amp; AP#" SKIP="=Or(len(trim(U#))=0,len(trim(AB#))=0)">-->
+		<!-- For Flipkart, Snapdeal -->
+		<ALLINVENTORYENTRIES.LIST SCROLL="YES" SKIP="=Or(len(trim(U#))=0,len(trim(AB#))=0)">
 			<BASICUSERDESCRIPTION.LIST>
 				<BASICUSERDESCRIPTION COLUMNREFERENCE="V"/>
 			</BASICUSERDESCRIPTION.LIST>
 			<STOCKITEMNAME COLUMNREFERENCE="U"/>
 			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(E#[1]))=&quot;purchase&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
-			<!-- RTS -->
 			<!-- For Amazon -->
-			<RATE FORMULA="=If({Round(X#,2)}&gt;0,Round({Round(AA#,2)}/{Round(X#,2)},2),Round(Y#,2))"/>
+			<!--<RATE FORMULA="=If({Round(X#,2)}&gt;0,Round({Round(AA#,2)}/{Round(X#,2)},2),Round(Y#,2))"/>-->
 			<!-- For Flipkart, Snapdeal -->
-			<!--RATE COLUMNREFERENCE="Y"/-->
-			<!-- RTS -->
+			<RATE COLUMNREFERENCE="Y"/>
 			<!-- For Amazon -->
-			<AMOUNT FORMULA="={Round(AA#,2)}*if(lower(trim(E#[1]))=&quot;purchase&quot;,-1,1)"/>
+			<!--<AMOUNT FORMULA="={Round(AA#,2)}*if(lower(trim(E#[1]))=&quot;purchase&quot;,-1,1)"/>-->
 			<!-- For Flipkart, Snapdeal -->
-			<!--AMOUNT FORMULA="=Round(AA#,2)*if(lower(trim(E#[1]))=&quot;purchase&quot;,-1,1)"/-->
-			<!-- RTS -->
+			<AMOUNT FORMULA="=Round(AA#,2)*if(lower(trim(E#[1]))=&quot;purchase&quot;,-1,1)"/>
 			<!-- For Amazon -->
-			<ACTUALQTY FORMULA="={Round(X#,2)}"/>
-			<BILLEDQTY FORMULA="={Round(X#,2)}"/>
+			<!--<ACTUALQTY FORMULA="={Round(X#,2)}"/>
+			<BILLEDQTY FORMULA="={Round(X#,2)}"/>-->
 			<!-- For Flipkart, Snapdeal -->
-			<!--ACTUALQTY COLUMNREFERENCE="X"/>
-			<BILLEDQTY COLUMNREFERENCE="X"/-->
+			<ACTUALQTY COLUMNREFERENCE="X"/>
+			<BILLEDQTY COLUMNREFERENCE="X"/>
 			<BATCHALLOCATIONS.LIST>
 				<GODOWNNAME FORMULA="=if(len(trim(S#))=0,&quot;Main Location&quot;,S#)"/>
 				<DESTINATIONGODOWNNAME FORMULA="=if(len(trim(S#))=0,&quot;Main Location&quot;,S#)"/>
 				<BATCHNAME COLUMNREFERENCE="T"/>
-				<!-- RTS -->
 				<!-- For Amazon -->
-				<AMOUNT FORMULA="={Round(AA#,2)}*if(lower(trim(E#[1]))=&quot;purchase&quot;,-1,1)"/>
+				<!--<AMOUNT FORMULA="={Round(AA#,2)}*if(lower(trim(E#[1]))=&quot;purchase&quot;,-1,1)"/>-->
 				<!-- For Flipkart, Snapdeal -->
-				<!--AMOUNT FORMULA="=Round(AA#,2)*if(lower(trim(E#[1]))=&quot;purchase&quot;,-1,1)"/-->
-				<!-- RTS -->
+				<AMOUNT FORMULA="=Round(AA#,2)*if(lower(trim(E#[1]))=&quot;purchase&quot;,-1,1)"/>
 				<!-- For Amazon -->
-				<ACTUALQTY FORMULA="={Round(X#,2)}"/>
-				<BILLEDQTY FORMULA="={Round(X#,2)}"/>
+				<!--<ACTUALQTY FORMULA="={Round(X#,2)}"/>
+				<BILLEDQTY FORMULA="={Round(X#,2)}"/>-->
 				<!-- For Flipkart, Snapdeal -->
-				<!--ACTUALQTY COLUMNREFERENCE="X"/>
-				<BILLEDQTY COLUMNREFERENCE="X"/-->
+				<ACTUALQTY COLUMNREFERENCE="X"/>
+				<BILLEDQTY COLUMNREFERENCE="X"/>
 			</BATCHALLOCATIONS.LIST>
 			<ACCOUNTINGALLOCATIONS.LIST>
 				<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(AB# &amp; &quot;-VATCLASS&quot;)__&quot;"/>
 				<LEDGERNAME FORMULA="=&quot;__LOOKUP__(AB# &amp; &quot;-PURCLEDGER&quot;)__&quot;"/>
 				<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(E#[1]))=&quot;purchase&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
-				<!-- RTS -->
 				<!-- For Amazon -->
-				<AMOUNT FORMULA="={Round(AA#,2)}*if(lower(trim(E#[1]))=&quot;purchase&quot;,-1,1)"/>
+				<!--<AMOUNT FORMULA="={Round(AA#,2)}*if(lower(trim(E#[1]))=&quot;purchase&quot;,-1,1)"/>-->
 				<!-- For Flipkart, Snapdeal -->
-				<!--AMOUNT FORMULA="=Round(AA#,2)*if(lower(trim(E#[1]))=&quot;purchase&quot;,-1,1)"/-->
+				<AMOUNT FORMULA="=Round(AA#,2)*if(lower(trim(E#[1]))=&quot;purchase&quot;,-1,1)"/>
 			</ACCOUNTINGALLOCATIONS.LIST>
 		</ALLINVENTORYENTRIES.LIST>
 		<UDF:REFERENCEDATE.LIST DESC="`ReferenceDate`" ISLIST="YES" TYPE="Date" INDEX="10000">
@@ -330,4 +341,3 @@
 		</UDF:REFERENCEDATE.LIST>
 	</VOUCHER>
 </XMLTAGS>
-
