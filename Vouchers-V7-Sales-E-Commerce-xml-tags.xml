@@ -7,7 +7,7 @@
 	</COLUMNNAME.LIST>
 	<!-- For macro -->
 	<!--VBA LOADFILE="Vouchers-V6-Sales-E-Commerce-macro.txt" RUNMACROATSTARTUP="NewColumns,A#"/-->
-	<DATA LOADFILE="Vouchers-V6-Sales-E-Commerce-settings.csv"/>
+	<DATA LOADFILE="Vouchers-V7-Sales-E-Commerce-settings.csv"/>
 	<!-- Create VOUCHERTYPE Master -->
 	<MASTER TYPE="VOUCHERTYPE">
 		<NAME.LIST TYPE="String">
@@ -32,6 +32,7 @@
 		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
 		<COUNTRYNAME SKIP="=len(trim(Q#))=0">India</COUNTRYNAME>
 		<LEDSTATENAME COLUMNREFERENCE="Q"/>
+		<VATDEALERTYPE>Unregistered</VATDEALERTYPE>
 	</MASTER>
 	<!-- Create  Sales Ledger Master -->
 	<MASTER TYPE="LEDGER">
@@ -48,7 +49,7 @@
 		<VATAPPLICABLE>Applicable</VATAPPLICABLE>
 		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
 		<VATDETAILS.LIST>
-			<FROMDATE>20150401</FROMDATE>
+			<FROMDATE>20100401</FROMDATE>
 			<TAXTYPE>Taxable</TAXTYPE>
 			<ISINVDETAILSENABLE>Yes</ISINVDETAILSENABLE>
 			<ISCALCONACTUALQTY>No</ISCALCONACTUALQTY>
