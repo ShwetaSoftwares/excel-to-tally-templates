@@ -6,7 +6,7 @@
 		<COLUMNNAME>NAME</COLUMNNAME>
 	</COLUMNNAME.LIST>
 	<!-- For macro -->
-	<!--VBA LOADFILE="Vouchers-V6-Sales-E-Commerce-macro.txt" RUNMACROATSTARTUP="NewColumns,A#"/-->
+	<!--VBA LOADFILE="Vouchers-V7-Sales-E-Commerce-macro.txt" RUNMACROATSTARTUP="NewColumns,A#"/-->
 	<DATA LOADFILE="Vouchers-V7-Sales-E-Commerce-settings.csv"/>
 	<!-- Create VOUCHERTYPE Master -->
 	<MASTER TYPE="VOUCHERTYPE">
@@ -55,8 +55,8 @@
 			<ISCALCONACTUALQTY>No</ISCALCONACTUALQTY>
 			<RATEOFVAT FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-VATRATE&quot;)__&quot;"/>
 			<ADDITIONALTAX FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-ADDLVATRATE&quot;)__&quot;"/>
-		    <VATCOMMODITYNAME FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-VATRATE&quot;)__&quot;"/>
-		    <VATCOMMODITYCODE FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-VATRATE&quot;)__&quot;"/>
+			<VATCOMMODITYNAME FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-VATRATE&quot;)__&quot;"/>
+			<VATCOMMODITYCODE FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-VATRATE&quot;)__&quot;"/>
 		</VATDETAILS.LIST>
 	</MASTER>
 	<!-- Create TAX LEDGER Master -->
@@ -95,24 +95,26 @@
 		<PARENT>Indirect Expenses</PARENT>
 	</MASTER>
 	<!-- Create LEDGER Master -->
-	<MASTER TYPE="LEDGER" SINGLERECORD="YES">
+	<MASTER TYPE="LEDGER">
 		<NAME.LIST>
-			<!--NAME FORMULA="=AD$1"/-->
-			<NAME>Shipping Charges</NAME>
+			<NAME COLUMNREFERENCE="AD"/>
+			<!--<NAME>Shipping Charges</NAME>-->
 		</NAME.LIST>
 		<PARENT>Indirect Expenses</PARENT>
 	</MASTER>
 	<!-- Create LEDGER Master -->
-	<MASTER TYPE="LEDGER" SINGLERECORD="YES">
+	<MASTER TYPE="LEDGER">
 		<NAME.LIST>
-			<NAME FORMULA="=AE$1"/>
+			<NAME COLUMNREFERENCE="AF"/>
+			<!--<NAME>Other Charges1</NAME>-->
 		</NAME.LIST>
 		<PARENT>Indirect Expenses</PARENT>
 	</MASTER>
 	<!-- Create LEDGER Master -->
-	<MASTER TYPE="LEDGER" SINGLERECORD="YES">
+	<MASTER TYPE="LEDGER">
 		<NAME.LIST>
-			<NAME FORMULA="=AF$1"/>
+			<NAME COLUMNREFERENCE="AH"/>
+			<!--<NAME>Other Charges2</NAME>-->
 		</NAME.LIST>
 		<PARENT>Indirect Expenses</PARENT>
 	</MASTER>
@@ -140,8 +142,8 @@
 		<EFFECTIVEDATE COLUMNREFERENCE="C"/>
 		<VOUCHERTYPENAME COLUMNREFERENCE="E"/>
 		<REFERENCE COLUMNREFERENCE="F"/>
-		<VOUCHERNUMBER COLUMNREFERENCE="AI"/>
-		<NARRATION COLUMNREFERENCE="AG"/>
+		<VOUCHERNUMBER COLUMNREFERENCE="AL"/>
+		<NARRATION COLUMNREFERENCE="AJ"/>
 		<PARTYNAME COLUMNREFERENCE="G"/>
 		<PARTYLEDGERNAME COLUMNREFERENCE="G"/>
 		<BASICBASEPARTYNAME COLUMNREFERENCE="G"/>
@@ -174,22 +176,21 @@
 			<BASICORDERDATE COLUMNREFERENCE="L"/>
 			<BASICPURCHASEORDERNO COLUMNREFERENCE="K"/>
 		</INVOICEORDERLIST.LIST>
-		<STATADJUSTMENTTYPE COLUMNREFERENCE="AK"/>
+		<STATADJUSTMENTTYPE COLUMNREFERENCE="AN"/>
 		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
 		<STATENAME COLUMNREFERENCE="Q"/>
-		
 		<!-- Party Ledger to be debited -->
 		<LEDGERENTRIES.LIST>
 			<LEDGERNAME COLUMNREFERENCE="G"/>
 			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
-			<AMOUNT FORMULA="={Round(Round(Z#,2)+Round(AB#,2)+Round(AC#,2)+Round(AD#+AE#+AF#,2),2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,1,-1)"/>
-			<BILLALLOCATIONS.LIST GROUPBY="=trim(AI#)" SKIP="=Or(Len(trim(AI#))=0,Round(Round(Z#,2)+Round(AB#,2)+Round(AC#,2)+Round(AD#+AE#+AF#,2),2)=0)">
-				<!--BILLALLOCATIONS.LIST SCROLL="YES" SKIP="=Or(Len(trim(AI#))=0,Round(Round(Z#,2)+Round(AB#,2)+Round(AC#,2)+Round(AD#+AE#+AF#,2),2)=0)"-->
-				<NAME COLUMNREFERENCE="AI"/>
-				<BILLTYPE COLUMNREFERENCE="AH"/>
-				<DUMMY COLUMNREFERENCE="AJ"/>
-				<AMOUNT FORMULA="=Round({Round(Z#,2)+Round(AB#,2)+Round(AC#,2)+Round(AD#+AE#+AF#,2)},2)*if(lower(trim(D#[1]))=&quot;credit note&quot;,1,-1)"/>
-				<!--AMOUNT FORMULA="=Round(Round(Z#,2)+Round(AB#,2)+Round(AC#,2)+Round(AD#+AE#+AF#,2),2)*if(lower(trim(D#[1]))=&quot;credit note&quot;,1,-1)"/-->
+			<AMOUNT FORMULA="={Round(Round(Z#,2)+Round(AB#,2)+Round(AC#,2)+Round(AE#+AG#+AI#,2),2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,1,-1)"/>
+			<BILLALLOCATIONS.LIST GROUPBY="=trim(AL#)" SKIP="=Or(Len(trim(AL#))=0,Round(Round(Z#,2)+Round(AB#,2)+Round(AC#,2)+Round(AE#+AG#+AI#,2),2)=0)">
+				<!--BILLALLOCATIONS.LIST SCROLL="YES" SKIP="=Or(Len(trim(AL#))=0,Round(Round(Z#,2)+Round(AB#,2)+Round(AC#,2)+Round(AE#+AG#+AI#,2),2)=0)"-->
+				<NAME COLUMNREFERENCE="AL"/>
+				<BILLTYPE COLUMNREFERENCE="AK"/>
+				<DUMMY COLUMNREFERENCE="AM"/>
+				<AMOUNT FORMULA="=Round({Round(Z#,2)+Round(AB#,2)+Round(AC#,2)+Round(AE#+AG#+AI#,2)},2)*if(lower(trim(D#[1]))=&quot;credit note&quot;,1,-1)"/>
+				<!--AMOUNT FORMULA="=Round(Round(Z#,2)+Round(AB#,2)+Round(AC#,2)+Round(AE#+AG#+AI#,2),2)*if(lower(trim(D#[1]))=&quot;credit note&quot;,1,-1)"/-->
 			</BILLALLOCATIONS.LIST>
 		</LEDGERENTRIES.LIST>
 		<!-- VAT / CST Ledger -->
@@ -267,26 +268,28 @@
 			</UDF:MAHWCASSESSABLEVALUE.LIST>
 		</LEDGERENTRIES.LIST>
 		<!-- Shipping charges -->
-		<LEDGERENTRIES.LIST SKIP="={Round(AD#,2)}=0">
-			<!--LEDGERNAME FORMULA="=AD$1"/-->
-			<LEDGERNAME>Shipping Charges</LEDGERNAME>
-			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
-			<AMOUNT FORMULA="={Round(AD#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
-		</LEDGERENTRIES.LIST>
-		<!-- Other charges1 -->
-		<LEDGERENTRIES.LIST SKIP="=Round(AE#,2)=0">
-			<LEDGERNAME FORMULA="=AE$1"/>
+		<LEDGERENTRIES.LIST GROUPBY="=trim(AD#)">
+			<LEDGERNAME COLUMNREFERENCE="AD"/>
+			<!--<LEDGERNAME>Shipping Charges</LEDGERNAME>-->
 			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
 			<AMOUNT FORMULA="={Round(AE#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
 		</LEDGERENTRIES.LIST>
-		<!-- Other charges2 -->
-		<LEDGERENTRIES.LIST SKIP="=Round(AF#,2)=0">
-			<LEDGERNAME FORMULA="=AF$1"/>
+		<!-- Other charges1 -->
+		<LEDGERENTRIES.LIST GROUPBY="=trim(AF#)">
+			<LEDGERNAME COLUMNREFERENCE="AF"/>
+			<!--<LEDGERNAME>Other Charges1</LEDGERNAME>-->
 			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
-			<AMOUNT FORMULA="={Round(AF#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+			<AMOUNT FORMULA="={Round(AG#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+		</LEDGERENTRIES.LIST>
+		<!-- Other charges2 -->
+		<LEDGERENTRIES.LIST GROUPBY="=trim(AH#)">
+			<LEDGERNAME COLUMNREFERENCE="AH"/>
+			<!--<LEDGERNAME>Other Charges2</LEDGERNAME>-->
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+			<AMOUNT FORMULA="={Round(AI#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
 		</LEDGERENTRIES.LIST>
 		<!-- For Amazon -->
-		<!--<ALLINVENTORYENTRIES.LIST GROUPBY="=trim(T#) &amp; AL#" SKIP="=Or(len(trim(T#))=0,len(trim(AA#))=0)">-->
+		<!--<ALLINVENTORYENTRIES.LIST GROUPBY="=trim(T#) &amp; AO#" SKIP="=Or(len(trim(T#))=0,len(trim(AA#))=0)">-->
 		<!-- For Flipkart, Snapdeal -->
 		<ALLINVENTORYENTRIES.LIST SCROLL="YES" SKIP="=Or(len(trim(T#))=0,len(trim(AA#))=0)">
 			<BASICUSERDESCRIPTION.LIST>
@@ -300,7 +303,6 @@
 			<RATE COLUMNREFERENCE="X"/>
 			<!-- In Percentage -->
 			<DISCOUNT COLUMNREFERENCE="Y"/>
-
 			<!-- For Amazon -->
 			<!--<AMOUNT FORMULA="={Round(Z#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>-->
 			<!-- For Flipkart, Snapdeal -->
