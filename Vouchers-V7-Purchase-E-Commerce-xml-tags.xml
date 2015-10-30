@@ -30,7 +30,7 @@
 		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
 		<COUNTRYNAME SKIP="=len(trim(R#))=0">India</COUNTRYNAME>
 		<LEDSTATENAME COLUMNREFERENCE="R"/>
-		<VATDEALERTYPE>Registered</VATDEALERTYPE>
+		<VATDEALERTYPE>Regular</VATDEALERTYPE>
 	</MASTER>
 	
 	<!-- Create Ledger Master -->
@@ -268,21 +268,21 @@
 			</UDF:MAHWCASSESSABLEVALUE.LIST>
 		</LEDGERENTRIES.LIST>
 		<!-- Shipping charges -->
-		<LEDGERENTRIES.LIST SKIP="={Round(AF#,2)}=0">
+		<LEDGERENTRIES.LIST GROUPBY="=trim(AE#)">
 			<LEDGERNAME COLUMNREFERENCE="AE"/>
 			<!--<LEDGERNAME>Shipping Charges</LEDGERNAME>-->
 			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(E#[1]))=&quot;purchase&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
 			<AMOUNT FORMULA="={Round(AF#,2)}*if(lower(trim(E#[1]))=&quot;purchase&quot;,-1,1)"/>
 		</LEDGERENTRIES.LIST>
 		<!-- Other charges1 -->
-		<LEDGERENTRIES.LIST SKIP="=Round(AH#,2)=0">
+		<LEDGERENTRIES.LIST GROUPBY="=trim(AG#)">
 			<LEDGERNAME COLUMNREFERENCE="AG"/>
 			<!--<LEDGERNAME>Other Charges1</LEDGERNAME>-->
 			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(E#[1]))=&quot;purchase&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
 			<AMOUNT FORMULA="={Round(AH#,2)}*if(lower(trim(E#[1]))=&quot;purchase&quot;,-1,1)"/>
 		</LEDGERENTRIES.LIST>
 		<!-- Other charges2 -->
-		<LEDGERENTRIES.LIST SKIP="=Round(AJ#,2)=0">
+		<LEDGERENTRIES.LIST GROUPBY="=trim(AI#)">
 			<LEDGERNAME COLUMNREFERENCE="AI"/>
 			<!--<LEDGERNAME>Other Charges2</LEDGERNAME>-->
 			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(E#[1]))=&quot;purchase&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
