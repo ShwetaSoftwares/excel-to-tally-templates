@@ -32,7 +32,7 @@
 		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
 		<COUNTRYNAME SKIP="=len(trim(Q#))=0">India</COUNTRYNAME>
 		<LEDSTATENAME COLUMNREFERENCE="Q"/>
-		<VATDEALERTYPE>Unregistered</VATDEALERTYPE>
+		<VATDEALERTYPE>Regular</VATDEALERTYPE>
 	</MASTER>
 	<!-- Create  Sales Ledger Master -->
 	<MASTER TYPE="LEDGER">
