@@ -1,0 +1,140 @@
+<!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
+<!-- 
+New Features in v5.0
+1) FROMROW attribute
+   In the earlier version (prior to v5.0), it was presumed that HEADINGS are in ROW 1 and DATA starts from ROW 2. Now, you can use the FROMROW attribute to 
+   specify the Excel sheet ROW Number from where the DATA begins.
+2) SCROLLHORIZONTALLY attribute
+   The SCROLLHORIZONTALLY attribute uses an internal mechanism which increments the COLUMN in the specified FORMULA. This enables you to have virtually 
+   any number of COLUMNs for your DATA.
+-->
+<XMLTAGS CELLREFERENCE="A1" FROMROW="7" xmlns:UDF="TallyUDF">
+	<!-- Specifies that this (i.e Column as mentioned above) is the key field -->
+	<COLUMNNAME.LIST>
+		<COLUMNNAME>ID</COLUMNNAME>
+		<COLUMNNAME>NAME</COLUMNNAME>
+	</COLUMNNAME.LIST>
+	<!-- Create Vouchertype Masters -->
+	<MASTER TYPE="VOUCHERTYPE">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="E"/>
+		</NAME.LIST>
+		<PARENT COLUMNREFERENCE="D"/>
+		<NUMBERINGMETHOD>Manual</NUMBERINGMETHOD>
+		<ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
+		<ADDITIONALNAME FORMULA="=If(lower($D#)=&quot;purchase&quot;,&quot;Purc&quot;,&quot;C.Note&quot;)"/>
+		<ISDEEMEDPOSITIVE FORMULA="=If(lower($D#)=&quot;purchase&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+		<AFFECTSSTOCK>No</AFFECTSSTOCK>
+		<PREVENTDUPLICATES>No</PREVENTDUPLICATES>
+		<PREFILLZERO>No</PREFILLZERO>
+		<PRINTAFTERSAVE>No</PRINTAFTERSAVE>
+		<FORMALRECEIPT>No</FORMALRECEIPT>
+		<COMMONNARRATION>Yes</COMMONNARRATION>
+	</MASTER>
+	<!-- Create Ledger Masters -->
+	<!-- 
+		The SCROLLHORIZONTALLY specifies the condition (any valid Excel formula). Herein, the condition is to check the length of cell H4
+		and if it is greater than 0, a Ledger Master is created (based on value in H4). The loop executes and now H4 becomes I4.
+		If length of cell I4 is greater than 0, Ledger Master is created (based on value given in I4). The loop go on (say J4, K4, L4... till the
+		conditions becomes false.
+	-->
+	<MASTER TYPE="LEDGER" SCROLLHORIZONTALLY="=Len(trim(L$6))&gt;0">
+		<NAME.LIST>
+			<NAME FORMULA="=+L$6"/>
+		</NAME.LIST>
+		<PARENT FORMULA="=+L$5"/>
+		<TAXCLASSIFICATIONNAME SKIP="=Len(trim(L$4))=0" FORMULA="=+L$4"/>
+		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+		<AFFECTSSTOCK>No</AFFECTSSTOCK>
+		<!-- Tally ERP 9 Release 5.1 -->
+		<VATDETAILS.LIST SKIP="=Not(Len(trim(L$3))=0)">
+			<FROMDATE>20100401</FROMDATE>
+			<TAXTYPE>Taxable</TAXTYPE>
+			<ISINVDETAILSENABLE>Yes</ISINVDETAILSENABLE>
+			<ISCALCONACTUALQTY>No</ISCALCONACTUALQTY>
+			<RATEOFVAT FORMULA="=+L$2"/>
+		</VATDETAILS.LIST>
+		
+		<!-- For Sales only -->
+        <USEFORVAT SKIP="=Not(Len(trim(L$3))=0)">Yes</USEFORVAT>
+		<!-- For VAT only -->
+        <BASICTYPEOFDUTY SKIP="=Or(Len(trim(L$3))=0,Not(lower(L$3)=&quot;vat&quot;))">On VAT Rate</BASICTYPEOFDUTY>
+		<SUBTAXTYPE SKIP="=Or(Len(trim(L$3))=0,Not(lower(L$3)=&quot;vat&quot;))">Output VAT</SUBTAXTYPE>
+		<!-- Required for VAT and CST both -->
+        <TAXTYPE SKIP="=Len(trim(L$3))=0" FORMULA="=L$3" />
+		<RATEOFTAXCALCULATION SKIP="=Len(trim(L$3))=0" FORMULA="=L$2"/>		
+	</MASTER>
+	
+	<!-- Create Party Ledger Master-->
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="F"/>
+		</NAME.LIST>
+		<PARENT>Sundry Creditors</PARENT>
+		<ISBILLWISEON>Yes</ISBILLWISEON>
+		<AFFECTSSTOCK>No</AFFECTSSTOCK>
+		<USEFORVAT>No</USEFORVAT>
+		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
+		<LEDSTATENAME COLUMNREFERENCE="G" />
+		<COUNTRYNAME SKIP="len(trim(G#))=0">India</COUNTRYNAME>
+		<VATDEALERTYPE SKIP="=len(trim(G#))=0" COLUMNREFERENCE="H" />
+		<VATTINNUMBER SKIP="=len(trim(G#))=0" COLUMNREFERENCE="I"/>
+	</MASTER>
+	
+	<!-- Purchase VOUCHER-->
+	<VOUCHER>
+		<GUID FORMULA="=+&quot;udi-H7DW5Z-&quot; &amp; A# &amp; &quot;-&quot; &amp; C#"/>
+		<!--GUID FORMULA="=+&quot;udi-purc-&quot; &amp; A# &amp; &quot;-&quot; &amp; C#" /-->
+		<DATE COLUMNREFERENCE="C"/>
+		<EFFECTIVEDATE COLUMNREFERENCE="C"/>
+		<VOUCHERTYPENAME COLUMNREFERENCE="E"/>
+		<ISINVOICE>No</ISINVOICE>
+		<PERSISTEDVIEW>Accounting Voucher View</PERSISTEDVIEW>
+		<PARTYLEDGERNAME COLUMNREFERENCE="F"/>
+		<REFERENCE COLUMNREFERENCE="B"/>
+		<VOUCHERNUMBER FORMULA="=If(len(trim(J#))=0,A#,J#)"/>
+
+		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
+		<STATENAME COLUMNREFERENCE="G"/>
+		<VATDEALERTYPE COLUMNREFERENCE="H"/>
+		<BASICBUYERSSALESTAXNO COLUMNREFERENCE="I"/>
+		
+		<!-- Purchase  : Party Ledger to be Credited -->
+		<!-- Purc Rtrn : Party Ledger to be Debited -->
+		<ALLLEDGERENTRIES.LIST>
+			<LEDGERNAME COLUMNREFERENCE="F"/>
+			<ISDEEMEDPOSITIVE FORMULA="=If(lower($D#)=&quot;purchase&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+			<AMOUNT FORMULA="=Round(K#,2)*If(lower($D#)=&quot;purchase&quot;,1,-1)"/>
+			<BILLALLOCATIONS.LIST SKIP="=Len(Trim(B#))=0">
+				<NAME COLUMNREFERENCE="B"/>
+				<BILLTYPE>New Ref</BILLTYPE>
+				<AMOUNT FORMULA="=Round(K#,2)*If(lower($D#)=&quot;purchase&quot;,1,-1)"/>
+			</BILLALLOCATIONS.LIST>
+		</ALLLEDGERENTRIES.LIST>
+		<!-- Purchase and VAT Ledgers -->
+		<!-- The SCROLLHORIZONTALLY is supported in v 5.0 only -->
+		<!-- SCROLLHORIZONTALLY attribute value is evaluated at runtime and incremented COLUMNWISE till condition evaluates to be true -->
+		<ALLLEDGERENTRIES.LIST SKIP="=+Round(L#,2)=0" SCROLLHORIZONTALLY="=Len(trim(L$6))&gt;0">
+			<!-- VAT Class to be taken from H2, I2.... and so on -->
+			<TAXCLASSIFICATIONNAME SKIP="=Len(trim(L$4))=0" FORMULA="=+L$4"/>
+			<!-- LedgerName to be taken from H4, I4.... and so on -->
+			<LEDGERNAME FORMULA="=+L$6"/>
+			<!-- For Purchase -->
+			<ISDEEMEDPOSITIVE SKIP="=Not(lower($D#)=&quot;purchase&quot;)" FORMULA="=If(Round(L#,2)&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+			<!-- For Purchase Return -->
+			<ISDEEMEDPOSITIVE SKIP="=lower($D#)=&quot;purchase&quot;" FORMULA="=If(Round(L#,2)&gt;0,&quot;No&quot;,&quot;Yes&quot;)"/>
+			<!-- Amount to be taken from L#, M#, N#.... and so on. The # symbol is substituted  by row numbers at run time-->
+			<!-- For Purchase -->
+			<AMOUNT SKIP="=Not(lower($D#)=&quot;purchase&quot;)" FORMULA="=+Round(L#,2)*-1"/>
+			<!-- For Purchase Return -->
+			<AMOUNT SKIP="=lower($D#)=&quot;purchase&quot;" FORMULA="=+Round(L#,2)*1"/>
+			<!-- FORMULA2 attribute is supported in version 5.0 onwards. This is used when result of the Excel Formala is itself a Formula 
+			     which is to be evaluated again. The process continues till the result contains # which is to be replaced by the Row Number 
+				 at runtime.
+			-->
+			<VATASSESSABLEVALUE SKIP="=Len(trim(L$1))=0" FORMULA2="=L$1"/>
+		</ALLLEDGERENTRIES.LIST>
+	</VOUCHER>
+</XMLTAGS>
+

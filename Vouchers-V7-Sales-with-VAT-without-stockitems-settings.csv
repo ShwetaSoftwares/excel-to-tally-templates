@@ -1,12 +1,12 @@
 VAT-TYPE,SALETYPE,SALELEDGER,VATLEDGER,ADDLVATLEDGER,VATCLASS,ADDLVATCLASS,VATRATE,ADDLVATRATE,FORM
 CST 2%,CST,Sales (2% CST),CST @ 2%,,CST @ 2% Against Form C,,2,0,C Form
 VAT 5%,VAT,Sales @ 5%,Output VAT @ 5%,,Output VAT @ 5%,,5,
-CST 5%,CST,Sales (5% CST),CST @ 5%,,Inter-State Sales,,5,0
+CST 5%,CST,Sales (Interstate @ 5%),CST @ 5%,,Inter-State Sales,,5,0
 VAT 15%,VAT,Sales @ 15%,Output VAT @ 15%,,Output VAT @ 15%,,15,0
-CST 15%,CST,Sales (15% CST),CST @ 15%,,Inter-State Sales,,15,0
+CST 15%,CST,Sales (Interstate @ 15%),CST @ 15%,,Inter-State Sales,,15,0
 VAT 5.5%,VAT,Sales @ 5.5%,Output VAT @ 5.5%,,Output VAT @ 5.5%,,5.5,
-CST 5.5%,CST,Sales (5.5% CST),CST @ 5.5%,,Inter-State Sales,,5.5,0
+CST 5.5%,CST,Sales (Interstate @ 5.5%),CST @ 5.5%,,Inter-State Sales,,5.5,0
 VAT 14.5%,VAT,Sales @ 14.5%,Output VAT @ 14.5%,,Output VAT @ 14.5%,,14.5,0
-CST 14.5%,CST,Sales (14.5% CST),CST @ 14.5%,,Inter-State Sales,,14.5,0
+CST 14.5%,CST,Sales (Interstate @ 14.5%),CST @ 14.5%,,Inter-State Sales,,14.5,0
 VAT 12.5%,VAT,Sales @ 12.5%,Output VAT @ 12.5%,,Output VAT @ 12.5%,,12.5,0
-CST 12.5%,CST,Sales (12.5% CST),CST @ 12.5%,,Inter-State Sales,,12.5,0
+CST 12.5%,CST,Sales (Interstate @ 12.5%),CST @ 12.5%,,Inter-State Sales,,12.5,0
