@@ -200,7 +200,6 @@
 				<!--BILLALLOCATIONS.LIST SCROLL="YES" SKIP="=Or(Len(trim(A#))=0,Round(Round((Round(Q#*(Abs(V#)-Abs(AU#)),2)),2)+Round((Abs(W#)),2)+Round((null),2)+Round((if(Round(Abs(V#)-Abs(AU#),2)=0,Round(U#,2),0))+(null)+(null),2),2)=0)"-->
 				<NAME COLUMNREFERENCE="A"/>
 				<BILLTYPE>New Ref</BILLTYPE>
-				<DUMMY FORMULA="=(Round(U#,2))"/>
 				<AMOUNT FORMULA="=Round({Round((Round(Q#*(Abs(V#)-Abs(AU#)),2)),2)+Round((Abs(W#)),2)+Round((null),2)+Round((if(Round(Abs(V#)-Abs(AU#),2)=0,Round(U#,2),0))+(null)+(null),2)},2)*if(lower(trim((if(lower(O#[1])=&quot;shipment&quot;,&quot;Sales&quot;,&quot;Credit Note&quot;))))=&quot;credit note&quot;,1,-1)"/>
 				<!--AMOUNT FORMULA="=Round(Round((Round(Q#*(Abs(V#)-Abs(AU#)),2)),2)+Round((Abs(W#)),2)+Round((null),2)+Round((if(Round(Abs(V#)-Abs(AU#),2)=0,Round(U#,2),0))+(null)+(null),2),2)*if(lower(trim((if(lower(O#[1])=&quot;shipment&quot;,&quot;Sales&quot;,&quot;Credit Note&quot;))))=&quot;credit note&quot;,1,-1)"/-->
 			</BILLALLOCATIONS.LIST>

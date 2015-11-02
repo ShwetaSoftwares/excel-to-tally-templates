@@ -192,7 +192,6 @@
 				<!--BILLALLOCATIONS.LIST SCROLL="YES" SKIP="=Or(Len(trim(AN#))=0,Round(Round(AB#,2)+Round(AD#,2)+Round(AE#,2)+Round(AG#+AI#+AK#,2),2)=0)"-->
 				<NAME COLUMNREFERENCE="AN"/>
 				<BILLTYPE COLUMNREFERENCE="AM"/>
-				<DUMMY COLUMNREFERENCE="AO"/>
 				<AMOUNT FORMULA="=Round({Round(AB#,2)+Round(AD#,2)+Round(AE#,2)+Round(AG#+AI#+AK#,2)},2)*if(lower(trim(D#[1]))=&quot;credit note&quot;,1,-1)"/>
 				<!--AMOUNT FORMULA="=Round(Round(AB#,2)+Round(AD#,2)+Round(AE#,2)+Round(AG#+AI#+AK#,2),2)*if(lower(trim(D#[1]))=&quot;credit note&quot;,1,-1)"/-->
 			</BILLALLOCATIONS.LIST>
