@@ -81,7 +81,7 @@
 		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
 		<COUNTRYNAME SKIP="=len(trim(G#))=0">India</COUNTRYNAME>
 		<LEDSTATENAME COLUMNREFERENCE="G"/>
-		<VATDEALERTYPE>Unregistered</VATDEALERTYPE>
+		<VATDEALERTYPE SKIP="=len(trim(G#))=0">Unregistered</VATDEALERTYPE>
 	</MASTER>
 	<!-- Create UNIT Masters -->
 	<MASTER TYPE="UNIT">
