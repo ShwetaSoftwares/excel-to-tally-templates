@@ -84,10 +84,11 @@ New Features in v6.0
 			<!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
 			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; F#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(F#),1)))">
 				<DATE COLUMNREFERENCE="B" />
-				<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>
 				<INSTRUMENTNUMBER COLUMNREFERENCE="J" />
 				<INSTRUMENTDATE COLUMNREFERENCE="K" />
 				<PAYMENTFAVOURING COLUMNREFERENCE="F" />
+				<!--<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>-->
+				<TRANSACTIONTYPE FORMULA="=if(len(trim(L#))=0,&quot;Cheque/DD&quot;,L#)"/>
 				<STATUS>No</STATUS>
 				<AMOUNT FORMULA="=Round(H# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(C#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(C#),1)))),0,1),2)" />
 				<PAYMENTMODE>Transacted</PAYMENTMODE>
@@ -107,10 +108,11 @@ New Features in v6.0
 			<!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
 			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; G#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(G#),1)))">
 				<DATE COLUMNREFERENCE="B" />
-				<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>
 				<INSTRUMENTNUMBER COLUMNREFERENCE="J" />
 				<INSTRUMENTDATE COLUMNREFERENCE="K" />
 				<PAYMENTFAVOURING COLUMNREFERENCE="G" />
+				<!--<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>-->
+				<TRANSACTIONTYPE FORMULA="=if(len(trim(L#))=0,&quot;Cheque/DD&quot;,L#)"/>
 				<STATUS>No</STATUS>
                 <AMOUNT FORMULA="=Round(H#,2)*1" />
 				<PAYMENTMODE>Transacted</PAYMENTMODE>
@@ -130,10 +132,11 @@ New Features in v6.0
 			<!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
 			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; F#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(F#),1)))">
 				<DATE COLUMNREFERENCE="B" />
-				<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>
 				<INSTRUMENTNUMBER COLUMNREFERENCE="J" />
 				<INSTRUMENTDATE COLUMNREFERENCE="K" />
 				<PAYMENTFAVOURING COLUMNREFERENCE="F" />
+				<!--<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>-->
+				<TRANSACTIONTYPE FORMULA="=if(len(trim(L#))=0,&quot;Cheque/DD&quot;,L#)"/>
 				<STATUS>No</STATUS>
 				<AMOUNT FORMULA="=Round(H# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(C#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(C#),1)))),1,0),2)" />
 				<PAYMENTMODE>Transacted</PAYMENTMODE>
