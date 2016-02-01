@@ -86,9 +86,11 @@ New Features in v6.0
 				<DATE COLUMNREFERENCE="B" />
 				<INSTRUMENTNUMBER COLUMNREFERENCE="J" />
 				<INSTRUMENTDATE COLUMNREFERENCE="K" />
-				<PAYMENTFAVOURING COLUMNREFERENCE="F" />
 				<!--<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>-->
 				<TRANSACTIONTYPE FORMULA="=if(len(trim(L#))=0,&quot;Cheque/DD&quot;,L#)"/>
+				<PAYMENTFAVOURING FORMULA="if(len(trim(M#))=0,F#,M#)"/>
+				<CHEQUECROSSCOMMENT COLUMNREFERENCE="N" />
+
 				<STATUS>No</STATUS>
 				<AMOUNT FORMULA="=Round(H# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(C#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(C#),1)))),0,1),2)" />
 				<PAYMENTMODE>Transacted</PAYMENTMODE>
@@ -110,9 +112,11 @@ New Features in v6.0
 				<DATE COLUMNREFERENCE="B" />
 				<INSTRUMENTNUMBER COLUMNREFERENCE="J" />
 				<INSTRUMENTDATE COLUMNREFERENCE="K" />
-				<PAYMENTFAVOURING COLUMNREFERENCE="G" />
 				<!--<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>-->
 				<TRANSACTIONTYPE FORMULA="=if(len(trim(L#))=0,&quot;Cheque/DD&quot;,L#)"/>
+				<PAYMENTFAVOURING FORMULA="if(len(trim(M#))=0,G#,M#)"/>
+				<CHEQUECROSSCOMMENT COLUMNREFERENCE="N" />
+
 				<STATUS>No</STATUS>
                 <AMOUNT FORMULA="=Round(H#,2)*1" />
 				<PAYMENTMODE>Transacted</PAYMENTMODE>
@@ -134,9 +138,12 @@ New Features in v6.0
 				<DATE COLUMNREFERENCE="B" />
 				<INSTRUMENTNUMBER COLUMNREFERENCE="J" />
 				<INSTRUMENTDATE COLUMNREFERENCE="K" />
-				<PAYMENTFAVOURING COLUMNREFERENCE="F" />
 				<!--<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>-->
+				
 				<TRANSACTIONTYPE FORMULA="=if(len(trim(L#))=0,&quot;Cheque/DD&quot;,L#)"/>
+				<PAYMENTFAVOURING FORMULA="if(len(trim(M#))=0,F#,M#)"/>
+				<CHEQUECROSSCOMMENT COLUMNREFERENCE="N" />
+				
 				<STATUS>No</STATUS>
 				<AMOUNT FORMULA="=Round(H# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(C#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(C#),1)))),1,0),2)" />
 				<PAYMENTMODE>Transacted</PAYMENTMODE>
