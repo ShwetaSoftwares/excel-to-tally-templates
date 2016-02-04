@@ -4,7 +4,6 @@ New Features in v6.0
 1) FETCHOBJECT tag
    This is used to retrieve data from Tally (as it is not there in the Excel sheet)
 -->
-
 <!-- 
 New Features in v5.0
 1) FROMROW attribute
@@ -15,128 +14,135 @@ New Features in v5.0
    any number of COLUMNs for your DATA.
 -->
 <XMLTAGS CELLREFERENCE="A1" FROMROW="5" xmlns:UDF="TallyUDF">
-    <!-- Specifies that this (i.e Column as mentioned above) is the key field -->
-    <COLUMNNAME.LIST>
-        <COLUMNNAME>ID</COLUMNNAME>
-        <COLUMNNAME>NAME</COLUMNNAME>
-    </COLUMNNAME.LIST>
-	
+	<!-- Specifies that this (i.e Column as mentioned above) is the key field -->
+	<COLUMNNAME.LIST>
+		<COLUMNNAME>ID</COLUMNNAME>
+		<COLUMNNAME>NAME</COLUMNNAME>
+	</COLUMNNAME.LIST>
 	<!-- Fields to fetch from Tally -->
 	<FETCHOBJECT TYPE="LEDGER">
-		<OBJECT FORMULA="=J$4" SCROLLHORIZONTALLY="=Len(trim(J$4))&gt;0" NAME="" ISMODIFY="No" ISFIXED="No" ISINITIALIZE="No" ISOPTION="No" ISINTERNAL="No"/>
+		<OBJECT FORMULA="=L$4" SCROLLHORIZONTALLY="=Len(trim(L$4))&gt;0" NAME="" ISMODIFY="No" ISFIXED="No" ISINITIALIZE="No" ISOPTION="No" ISINTERNAL="No"/>
 		<!-- Fetch the GROUP Name of Ledger -->
 		<FIELD NAME="PARENT" ISMODIFY="NO" ISFIXED="NO" ISINITIALIZE="NO" ISOPTION="NO" ISINTERNAL="NO">
-			<USE>NAME FIELD</USE> 
-			<SET>$PARENT:LEDGER:$KEY</SET> 
+			<USE>NAME FIELD</USE>
+			<SET>$PARENT:LEDGER:$KEY</SET>
 		</FIELD>
 		<!-- Fetch whether the PARENT/GROUP is Bank or not -->
 		<FIELD NAME="ISBANKLEDGER" ISMODIFY="NO" ISFIXED="NO" ISINITIALIZE="NO" ISOPTION="NO" ISINTERNAL="NO">
-			<USE>NAME FIELD</USE> 
-			<SET>$$IsLedOfGrp:$KEY:$$GroupBank OR $$IsLedOfGrp:$KEY:$$GroupBankOD</SET> 
+			<USE>NAME FIELD</USE>
+			<SET>$$IsLedOfGrp:$KEY:$$GroupBank OR $$IsLedOfGrp:$KEY:$$GroupBankOD</SET>
 		</FIELD>
 	</FETCHOBJECT>
-	
-    <!-- Create VOUCHERTYPE Masters -->
-    <MASTER TYPE="VOUCHERTYPE">
-        <NAME.LIST>
-            <NAME COLUMNREFERENCE="D" />
-        </NAME.LIST>
-        <PARENT COLUMNREFERENCE="C" />
-        <NUMBERINGMETHOD>Manual</NUMBERINGMETHOD>
-        <ISDEEMEDPOSITIVE FORMULA="=If(Or(C#=&quot;Payment&quot;,C#=&quot;Sales&quot;,C#=&quot;Debit Note&quot;,C#=&quot;Journal&quot;,C#=&quot;Sales Order&quot;),&quot;Yes&quot;,&quot;No&quot;)" />
-        <COMMONNARRATION>Yes</COMMONNARRATION>
-    </MASTER>
-
+	<!-- Create VOUCHERTYPE Masters -->
+	<MASTER TYPE="VOUCHERTYPE">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="D"/>
+		</NAME.LIST>
+		<PARENT COLUMNREFERENCE="C"/>
+		<NUMBERINGMETHOD>Manual</NUMBERINGMETHOD>
+		<ISDEEMEDPOSITIVE FORMULA="=If(Or(C#=&quot;Payment&quot;,C#=&quot;Sales&quot;,C#=&quot;Debit Note&quot;,C#=&quot;Journal&quot;,C#=&quot;Sales Order&quot;),&quot;Yes&quot;,&quot;No&quot;)"/>
+		<COMMONNARRATION>Yes</COMMONNARRATION>
+	</MASTER>
 	<!-- Create Party Ledgers -->
-    <MASTER TYPE="LEDGER">
-        <NAME.LIST>
-            <NAME COLUMNREFERENCE="G" />
-        </NAME.LIST>
-        <PARENT FORMULA="=if(len(trim(G$3))=0,&quot;Sundry Debtors&quot;,G$3)" />
-        <ISCOSTCENTRESON FORMULA="=If(Len(trim(G$2))&gt;0,&quot;Yes&quot;,&quot;No&quot;)" />
-        <AFFECTSSTOCK>No</AFFECTSSTOCK>
-    </MASTER>
-	
-    <!-- Create Ledger Masters -->
-    <!-- 
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="G"/>
+		</NAME.LIST>
+		<PARENT FORMULA="=if(len(trim(G$3))=0,&quot;Sundry Debtors&quot;,G$3)"/>
+		<ISCOSTCENTRESON FORMULA="=If(Len(trim(G$2))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+		<AFFECTSSTOCK>No</AFFECTSSTOCK>
+	</MASTER>
+	<!-- Create Ledger Masters -->
+	<!-- 
                 The SCROLLHORIZONTALLY specifies the condition (any valid Excel formula). Herein, the condition is to check the length of cell H2
                 and if it is greater than 0, a Ledger Master is created. The loop executes and now H2 becomes I2. If length of cell I2 is greater 
                 than 0, Ledger Master is created. The loop go on till the conditions becomes false.
         -->
-    <MASTER TYPE="LEDGER" SINGLERECORD="YES" SCROLLHORIZONTALLY="=Len(trim(J$4))&gt;0">
-        <NAME.LIST>
-            <NAME SKIP="=Len(trim(J$4))=0" FORMULA="=+J$4" />
-        </NAME.LIST>
-        <PARENT FORMULA="=+J$3" />
-        <ISCOSTCENTRESON FORMULA="=If(Len(trim(J$2))&gt;0,&quot;Yes&quot;,&quot;No&quot;)" />
-        <AFFECTSSTOCK>No</AFFECTSSTOCK>
-    </MASTER>
-    <!-- Create COSTCENTRE Masters -->
-    <MASTER TYPE="COSTCENTRE" SINGLERECORD="YES" SCROLLHORIZONTALLY="=Len(J$4)&gt;0">
-        <NAME.LIST>
-            <NAME SKIP="=Len(trim(J$2))=0" FORMULA="=+J$2" />
-        </NAME.LIST>
-    </MASTER>
-    <!-- Create a single COSTCENTRE Master -->
-    <MASTER TYPE="COSTCENTRE" SINGLERECORD="YES">
-        <NAME.LIST>
-            <NAME SKIP="=Len(trim(G$2))=0" FORMULA="=+G$2" />
-        </NAME.LIST>
-    </MASTER>
-    <!-- Voucher -->
-    <VOUCHER>
-        <GUID FORMULA="=+&quot;udi-MH5WDG-&quot; &amp; A# &amp; &quot;-&quot; &amp; B# &amp; &quot;-&quot; &amp; C#" />
-        <DATE COLUMNREFERENCE="B" />
-        <EFFECTIVEDATE COLUMNREFERENCE="B" />
-        <VOUCHERTYPENAME COLUMNREFERENCE="D" />
-        <ISINVOICE>No</ISINVOICE>
-        <PERSISTEDVIEW>Accounting Voucher View</PERSISTEDVIEW>
-        <REFERENCE COLUMNREFERENCE="E" />
-        <VOUCHERNUMBER COLUMNREFERENCE="E" />
-		<NARRATION COLUMNREFERENCE="F" />
-
-        <!-- Party Ledger -->
-        <ALLLEDGERENTRIES.LIST SKIP="=Or(len(trim(G#))=0,Round(H#,2)=0)">
-            <LEDGERNAME COLUMNREFERENCE="G" />
-            <ISDEEMEDPOSITIVE FORMULA="=If(trim(I#)=&quot;Cr&quot;,&quot;No&quot;,&quot;Yes&quot;)" />
-            <AMOUNT FORMULA="=+Round(H#,2)* if(trim(I#)=&quot;Cr&quot;,1,-1)" />
-            <CATEGORYALLOCATIONS.LIST SKIP="=Len(Trim(G$2))=0">
-                <CATEGORY>Primary Cost Category</CATEGORY>
-                <ISDEEMEDPOSITIVE FORMULA="=If(trim(I#)=&quot;Cr&quot;,&quot;No&quot;,&quot;Yes&quot;)" />
-                <COSTCENTREALLOCATIONS.LIST>
-                    <NAME FORMULA="=+G$2" />
-                    <AMOUNT FORMULA="=+Round(H#,2)* if(trim(I#)=&quot;Cr&quot;,1,-1)" />
-                </COSTCENTREALLOCATIONS.LIST>
-            </CATEGORYALLOCATIONS.LIST>
-        </ALLLEDGERENTRIES.LIST>
-
-        <!-- Ledgers -->
-        <ALLLEDGERENTRIES.LIST SKIP="=+Round(J#,2)=0" SCROLLHORIZONTALLY="=Len(trim(J$4))&gt;0">
-            <!-- LedgerName to be taken from J#,K#.... and so on -->
-            <LEDGERNAME FORMULA="=+J$4" />
-            <ISDEEMEDPOSITIVE FORMULA="=If(trim(J$1)=&quot;Cr&quot;,&quot;No&quot;,&quot;Yes&quot;)" />
-            <!-- Amount to be taken from J#,K#.... and so on. The # symbol is substituted  by row numbers at run time-->
-            <AMOUNT FORMULA="=+Round(J#,2)* if(J$1=&quot;Cr&quot;,1,-1)" />
-            <CATEGORYALLOCATIONS.LIST SKIP="=Len(Trim(J$2))=0">
-                <CATEGORY>Primary Cost Category</CATEGORY>
-                <ISDEEMEDPOSITIVE FORMULA="=If(trim(J$1)=&quot;Cr&quot;,&quot;No&quot;,&quot;Yes&quot;)" />
-                <COSTCENTREALLOCATIONS.LIST>
-                    <NAME FORMULA="=+J$2" />
-                    <AMOUNT FORMULA="=+Round(J#,2)* if(J$1=&quot;Cr&quot;,1,-1)" />
-                </COSTCENTREALLOCATIONS.LIST>
-            </CATEGORYALLOCATIONS.LIST>
+	<MASTER TYPE="LEDGER" SINGLERECORD="YES" SCROLLHORIZONTALLY="=Len(trim(L$4))&gt;0">
+		<NAME.LIST>
+			<NAME SKIP="=Len(trim(L$4))=0" FORMULA="=+L$4"/>
+		</NAME.LIST>
+		<PARENT FORMULA="=+L$3"/>
+		<ISCOSTCENTRESON FORMULA="=If(Len(trim(L$2))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+		<AFFECTSSTOCK>No</AFFECTSSTOCK>
+	</MASTER>
+	<!-- Create COSTCENTRE Masters -->
+	<MASTER TYPE="COSTCENTRE" SINGLERECORD="YES" SCROLLHORIZONTALLY="=Len(L$4)&gt;0">
+		<NAME.LIST>
+			<NAME SKIP="=Len(trim(L$2))=0" FORMULA="=+L$2"/>
+		</NAME.LIST>
+	</MASTER>
+	<!-- Create a single COSTCENTRE Master -->
+	<MASTER TYPE="COSTCENTRE" SINGLERECORD="YES">
+		<NAME.LIST>
+			<NAME SKIP="=Len(trim(G$2))=0" FORMULA="=+G$2"/>
+		</NAME.LIST>
+	</MASTER>
+	<!-- Voucher -->
+	<VOUCHER>
+		<GUID FORMULA="=+&quot;udi-MH5WDG-&quot; &amp; A# &amp; &quot;-&quot; &amp; B# &amp; &quot;-&quot; &amp; C#"/>
+		<DATE COLUMNREFERENCE="B"/>
+		<EFFECTIVEDATE COLUMNREFERENCE="B"/>
+		<VOUCHERTYPENAME COLUMNREFERENCE="D"/>
+		<ISINVOICE>No</ISINVOICE>
+		<PERSISTEDVIEW>Accounting Voucher View</PERSISTEDVIEW>
+		<REFERENCE COLUMNREFERENCE="E"/>
+		<VOUCHERNUMBER COLUMNREFERENCE="E"/>
+		<NARRATION COLUMNREFERENCE="F"/>
+		<!-- Party Ledger -->
+		<ALLLEDGERENTRIES.LIST SKIP="=Or(len(trim(G#))=0,Round(H#,2)=0)">
+			<LEDGERNAME COLUMNREFERENCE="G"/>
+			<ISDEEMEDPOSITIVE FORMULA="=If(trim(I#)=&quot;Cr&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+			<AMOUNT FORMULA="=+Round(H#,2)* if(trim(I#)=&quot;Cr&quot;,1,-1)"/>
+			<CATEGORYALLOCATIONS.LIST SKIP="=Len(Trim(G$2))=0">
+				<CATEGORY>Primary Cost Category</CATEGORY>
+				<ISDEEMEDPOSITIVE FORMULA="=If(trim(I#)=&quot;Cr&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+				<COSTCENTREALLOCATIONS.LIST>
+					<NAME FORMULA="=+G$2"/>
+					<AMOUNT FORMULA="=+Round(H#,2)* if(trim(I#)=&quot;Cr&quot;,1,-1)"/>
+				</COSTCENTREALLOCATIONS.LIST>
+			</CATEGORYALLOCATIONS.LIST>
 			
+			<BILLALLOCATIONS.LIST SKIP="=Or(len(trim(K#))=0,len(trim(J#))=0)">
+                <NAME COLUMNREFERENCE="K" />
+                <BILLTYPE COLUMNREFERENCE="J" />
+                <AMOUNT FORMULA="=+Round(H#,2)* if(trim(I#)=&quot;Cr&quot;,1,-1)"/>
+            </BILLALLOCATIONS.LIST>			
+			
+		</ALLLEDGERENTRIES.LIST>
+		<!-- Ledgers -->
+		<ALLLEDGERENTRIES.LIST SKIP="=+Round(L#,2)=0" SCROLLHORIZONTALLY="=Len(trim(L$4))&gt;0">
+			<!-- LedgerName to be taken from L#,M#.... and so on -->
+			<LEDGERNAME FORMULA="=+L$4"/>
+			<ISDEEMEDPOSITIVE FORMULA="=If(trim(L$1)=&quot;Cr&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+			<!-- Amount to be taken from L#,M#.... and so on. The # symbol is substituted  by row numbers at run time-->
+			<AMOUNT FORMULA="=+Round(L#,2)* if(L$1=&quot;Cr&quot;,1,-1)"/>
+			<CATEGORYALLOCATIONS.LIST SKIP="=Len(Trim(L$2))=0">
+				<CATEGORY>Primary Cost Category</CATEGORY>
+				<ISDEEMEDPOSITIVE FORMULA="=If(trim(L$1)=&quot;Cr&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+				<COSTCENTREALLOCATIONS.LIST>
+					<NAME FORMULA="=+L$2"/>
+					<AMOUNT FORMULA="=+Round(L#,2)* if(L$1=&quot;Cr&quot;,1,-1)"/>
+				</COSTCENTREALLOCATIONS.LIST>
+			</CATEGORYALLOCATIONS.LIST>
 			<!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
-			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; J$4)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(J$3),1)))">
+			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; L$4)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(L$3),1)))">
 				<DATE FORMULA="=$B#"/>
 				<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>
-				<PAYMENTFAVOURING FORMULA="=+J$4" />
+				<PAYMENTFAVOURING FORMULA="=+L$4"/>
 				<STATUS>No</STATUS>
-				<AMOUNT FORMULA="=+Round(J#,2)* if(J$1=&quot;Cr&quot;,1,-1)" />
+				<AMOUNT FORMULA="=+Round(L#,2)* if(L$1=&quot;Cr&quot;,1,-1)"/>
 				<PAYMENTMODE>Transacted</PAYMENTMODE>
-				<NAME FORMULA="=+&quot;udi-&quot; &amp; $A# &amp; &quot;-&quot; &amp; $B# &amp; &quot;-&quot; &amp; $C#" />
-			</BANKALLOCATIONS.LIST>				
+				<NAME FORMULA="=+&quot;udi-&quot; &amp; $A# &amp; &quot;-&quot; &amp; $B# &amp; &quot;-&quot; &amp; $C#"/>
+			</BANKALLOCATIONS.LIST>
+
+			<BILLALLOCATIONS.LIST SKIP="=Or(len(trim($K#))=0,len(trim($J#))=0)">
+                <NAME FORMULA="=$K#"/>
+                <BILLTYPE FORMULA="=$J#"/>
+				<AMOUNT FORMULA="=+Round(L#,2)* if(L$1=&quot;Cr&quot;,1,-1)"/>
+            </BILLALLOCATIONS.LIST>			
 			
-        </ALLLEDGERENTRIES.LIST>
-    </VOUCHER>
+		</ALLLEDGERENTRIES.LIST>
+	</VOUCHER>
 </XMLTAGS>
+
