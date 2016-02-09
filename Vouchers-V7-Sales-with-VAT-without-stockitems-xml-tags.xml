@@ -92,6 +92,42 @@
 		</NAME.LIST>
 		<PARENT>Indirect Expenses</PARENT>
 	</MASTER>
+	<!-- Create LEDGER Master -->
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="M"/>
+		</NAME.LIST>
+		<PARENT>Indirect Expenses</PARENT>
+	</MASTER>
+	<!-- Create LEDGER Master -->
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="O"/>
+		</NAME.LIST>
+		<PARENT>Indirect Expenses</PARENT>
+	</MASTER>
+	<!-- Create LEDGER Master -->
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="Q"/>
+		</NAME.LIST>
+		<PARENT>Indirect Expenses</PARENT>
+	</MASTER>
+	<!-- Create LEDGER Master -->
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="S"/>
+		</NAME.LIST>
+		<PARENT>Indirect Expenses</PARENT>
+	</MASTER>
+	<!-- Create LEDGER Master -->
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="U"/>
+		</NAME.LIST>
+		<PARENT>Indirect Expenses</PARENT>
+	</MASTER>
+
 	<VOUCHER>
 		<GUID FORMULA="=+&quot;udi-HK83DE-&quot; &amp; A# &amp; &quot;-&quot; &amp; C# &amp; &quot;-&quot; &amp; D#"/>
 		<DATE COLUMNREFERENCE="C"/>
@@ -112,11 +148,11 @@
 		<ALLLEDGERENTRIES.LIST>
 			<LEDGERNAME COLUMNREFERENCE="F"/>
 			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
-			<AMOUNT FORMULA="={Round(M#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,1,-1)"/>
+			<AMOUNT FORMULA="={Round(W#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,1,-1)"/>
 			<BILLALLOCATIONS.LIST>
 				<NAME COLUMNREFERENCE="B"/>
 				<BILLTYPE>New Ref</BILLTYPE>
-				<AMOUNT FORMULA="={Round(M#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,1,-1)"/>
+				<AMOUNT FORMULA="={Round(W#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,1,-1)"/>
 			</BILLALLOCATIONS.LIST>
 		</ALLLEDGERENTRIES.LIST>
 		<!-- Sales Ledger -->
@@ -148,6 +184,36 @@
 				<UDF:ADDNLVATCLASSAMT DESC="`AddnlVATClassAmt`" FORMULA="={Round(J#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
 			</UDF:ADDNLVATCLASSAMT.LIST>
 		</ALLLEDGERENTRIES.LIST>
+		<!-- Ledger1 -->
+		<ALLLEDGERENTRIES.LIST SKIP="={Round(N#,2)}=0">
+			<LEDGERNAME COLUMNREFERENCE="M"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+			<AMOUNT FORMULA="={Round(N#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+		</ALLLEDGERENTRIES.LIST>		
+		<!-- Ledger2 -->
+		<ALLLEDGERENTRIES.LIST SKIP="={Round(P#,2)}=0">
+			<LEDGERNAME COLUMNREFERENCE="O"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+			<AMOUNT FORMULA="={Round(P#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+		</ALLLEDGERENTRIES.LIST>		
+		<!-- Ledger3 -->
+		<ALLLEDGERENTRIES.LIST SKIP="={Round(R#,2)}=0">
+			<LEDGERNAME COLUMNREFERENCE="Q"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+			<AMOUNT FORMULA="={Round(R#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+		</ALLLEDGERENTRIES.LIST>		
+		<!-- Ledger4 -->
+		<ALLLEDGERENTRIES.LIST SKIP="={Round(T#,2)}=0">
+			<LEDGERNAME COLUMNREFERENCE="S"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+			<AMOUNT FORMULA="={Round(T#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+		</ALLLEDGERENTRIES.LIST>		
+		<!-- Ledger5 -->
+		<ALLLEDGERENTRIES.LIST SKIP="={Round(V#,2)}=0">
+			<LEDGERNAME COLUMNREFERENCE="U"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+			<AMOUNT FORMULA="={Round(V#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+		</ALLLEDGERENTRIES.LIST>		
 	</VOUCHER>
 </XMLTAGS>
 
