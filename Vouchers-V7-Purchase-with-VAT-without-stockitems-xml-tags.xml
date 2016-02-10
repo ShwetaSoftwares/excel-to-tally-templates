@@ -54,8 +54,7 @@
 			<ADDITIONALTAX FORMULA="=&quot;__LOOKUP__(K# &amp; &quot;-ADDLVATRATE&quot;)__&quot;"/>
 			<!--<VATCOMMODITYNAME FORMULA="=&quot;__LOOKUP__(K# &amp; &quot;-VATRATE&quot;)__&quot;"/>
 			<VATCOMMODITYCODE FORMULA="=&quot;__LOOKUP__(K# &amp; &quot;-VATRATE&quot;)__&quot;"/>-->
-		</VATDETAILS.LIST>			
-		
+		</VATDETAILS.LIST>
 	</MASTER>
 	<!-- Create TAX LEDGER Master -->
 	<MASTER TYPE="LEDGER">
@@ -92,6 +91,46 @@
 		</NAME.LIST>
 		<PARENT>Indirect Expenses</PARENT>
 	</MASTER>
+	<!-- Create LEDGER Master -->
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="O"/>
+		</NAME.LIST>
+		<PARENT>Indirect Expenses</PARENT>
+		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+	</MASTER>
+	<!-- Create LEDGER Master -->
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="Q"/>
+		</NAME.LIST>
+		<PARENT>Indirect Expenses</PARENT>
+		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+	</MASTER>
+	<!-- Create LEDGER Master -->
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="S"/>
+		</NAME.LIST>
+		<PARENT>Indirect Expenses</PARENT>
+		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+	</MASTER>
+	<!-- Create LEDGER Master -->
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="U"/>
+		</NAME.LIST>
+		<PARENT>Indirect Expenses</PARENT>
+		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+	</MASTER>
+	<!-- Create LEDGER Master -->
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="W"/>
+		</NAME.LIST>
+		<PARENT>Indirect Expenses</PARENT>
+		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+	</MASTER>
 	<VOUCHER>
 		<GUID FORMULA="=+&quot;udi-HC63AM-&quot; &amp; A# &amp; &quot;-&quot; &amp; C# &amp; &quot;-&quot; &amp; F#"/>
 		<DATE COLUMNREFERENCE="D"/>
@@ -108,16 +147,15 @@
 		<CSTFORMRECVTYPE FORMULA="=&quot;__LOOKUP__(K# &amp; &quot;-FORM&quot;)__&quot;"/>
 		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
 		<STATENAME COLUMNREFERENCE="I"/>
-		
 		<!-- Party Ledger -->
 		<ALLLEDGERENTRIES.LIST>
 			<LEDGERNAME COLUMNREFERENCE="H"/>
 			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(F#[1]))=&quot;debit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
-			<AMOUNT FORMULA="={Round(O#,2)}*if(lower(trim(F#[1]))=&quot;debit note&quot;,-1,1)"/>
+			<AMOUNT FORMULA="={Round(Y#,2)}*if(lower(trim(F#[1]))=&quot;debit note&quot;,-1,1)"/>
 			<BILLALLOCATIONS.LIST>
 				<NAME COLUMNREFERENCE="B"/>
 				<BILLTYPE>New Ref</BILLTYPE>
-				<AMOUNT FORMULA="={Round(O#,2)}*if(lower(trim(F#[1]))=&quot;debit note&quot;,-1,1)"/>
+				<AMOUNT FORMULA="={Round(Y#,2)}*if(lower(trim(F#[1]))=&quot;debit note&quot;,-1,1)"/>
 			</BILLALLOCATIONS.LIST>
 		</ALLLEDGERENTRIES.LIST>
 		<!-- Purchase Ledger -->
@@ -149,8 +187,40 @@
 				<UDF:ADDNLVATCLASSAMT DESC="`AddnlVATClassAmt`" FORMULA="={Round(L#,2)}*if(lower(trim(F#[1]))=&quot;debit note&quot;,1,-1)"/>
 			</UDF:ADDNLVATCLASSAMT.LIST>
 		</ALLLEDGERENTRIES.LIST>
+		<!-- Ledger1 -->
+		<LEDGERENTRIES.LIST SKIP="={Round(P#,2)}=0">
+			<LEDGERNAME COLUMNREFERENCE="O"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(F#[1]))=&quot;debit note&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+			<AMOUNT FORMULA="={Round(P#,2)}*if(lower(trim(F#[1]))=&quot;debit note&quot;,1,-1)"/>
+		</LEDGERENTRIES.LIST>		
+		<!-- Ledger2 -->
+		<LEDGERENTRIES.LIST SKIP="={Round(R#,2)}=0">
+			<LEDGERNAME COLUMNREFERENCE="Q"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(F#[1]))=&quot;debit note&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+			<AMOUNT FORMULA="={Round(R#,2)}*if(lower(trim(F#[1]))=&quot;debit note&quot;,1,-1)"/>
+		</LEDGERENTRIES.LIST>		
+		<!-- Ledger3 -->
+		<LEDGERENTRIES.LIST SKIP="={Round(T#,2)}=0">
+			<LEDGERNAME COLUMNREFERENCE="S"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(F#[1]))=&quot;debit note&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+			<AMOUNT FORMULA="={Round(T#,2)}*if(lower(trim(F#[1]))=&quot;debit note&quot;,1,-1)"/>
+		</LEDGERENTRIES.LIST>		
+		<!-- Ledger4 -->
+		<LEDGERENTRIES.LIST SKIP="={Round(V#,2)}=0">
+			<LEDGERNAME COLUMNREFERENCE="U"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(F#[1]))=&quot;debit note&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+			<AMOUNT FORMULA="={Round(V#,2)}*if(lower(trim(F#[1]))=&quot;debit note&quot;,1,-1)"/>
+		</LEDGERENTRIES.LIST>		
+		<!-- Ledger5 -->
+		<LEDGERENTRIES.LIST SKIP="={Round(X#,2)}=0">
+			<LEDGERNAME COLUMNREFERENCE="W"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(F#[1]))=&quot;debit note&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+			<AMOUNT FORMULA="={Round(X#,2)}*if(lower(trim(F#[1]))=&quot;debit note&quot;,1,-1)"/>
+		</LEDGERENTRIES.LIST>		
+		
 		<UDF:REFERENCEDATE.LIST DESC="`ReferenceDate`" ISLIST="YES" TYPE="Date">
 			<UDF:REFERENCEDATE DESC="`ReferenceDate`" COLUMNREFERENCE="C"/>
 		</UDF:REFERENCEDATE.LIST>
 	</VOUCHER>
 </XMLTAGS>
+
