@@ -190,31 +190,44 @@
 		<!-- Ledger1 -->
 		<LEDGERENTRIES.LIST SKIP="={Round(P#,2)}=0">
 			<LEDGERNAME COLUMNREFERENCE="O"/>
-			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(F#[1]))=&quot;debit note&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+			<!---
+			Purchase
+			a) P < 0,		No,			Credit
+			b) P > 0,		Yes,		Debit
+			Debit Note
+			a) P < 0,		Yes,		Debit
+			b) P > 0,		No,			Credit
+
+			if(lower(trim(F#[1]))=&quot;debit note&quot;,
+			If({Round(P#,2)}&lt;0,&quot;Yes&quot;,&quot;No&quot;),
+			If({Round(P#,2)}&lt;0,&quot;No&quot;,&quot;Yes&quot;)
+			)
+			-->
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(F#[1]))=&quot;debit note&quot;,If({Round(P#,2)}&lt;0,&quot;Yes&quot;,&quot;No&quot;),If({Round(P#,2)}&lt;0,&quot;No&quot;,&quot;Yes&quot;))"/>
 			<AMOUNT FORMULA="={Round(P#,2)}*if(lower(trim(F#[1]))=&quot;debit note&quot;,1,-1)"/>
 		</LEDGERENTRIES.LIST>		
 		<!-- Ledger2 -->
 		<LEDGERENTRIES.LIST SKIP="={Round(R#,2)}=0">
 			<LEDGERNAME COLUMNREFERENCE="Q"/>
-			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(F#[1]))=&quot;debit note&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(F#[1]))=&quot;debit note&quot;,If({Round(P#,2)}&lt;0,&quot;Yes&quot;,&quot;No&quot;),If({Round(P#,2)}&lt;0,&quot;No&quot;,&quot;Yes&quot;))"/>
 			<AMOUNT FORMULA="={Round(R#,2)}*if(lower(trim(F#[1]))=&quot;debit note&quot;,1,-1)"/>
 		</LEDGERENTRIES.LIST>		
 		<!-- Ledger3 -->
 		<LEDGERENTRIES.LIST SKIP="={Round(T#,2)}=0">
 			<LEDGERNAME COLUMNREFERENCE="S"/>
-			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(F#[1]))=&quot;debit note&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(F#[1]))=&quot;debit note&quot;,If({Round(P#,2)}&lt;0,&quot;Yes&quot;,&quot;No&quot;),If({Round(P#,2)}&lt;0,&quot;No&quot;,&quot;Yes&quot;))"/>
 			<AMOUNT FORMULA="={Round(T#,2)}*if(lower(trim(F#[1]))=&quot;debit note&quot;,1,-1)"/>
 		</LEDGERENTRIES.LIST>		
 		<!-- Ledger4 -->
 		<LEDGERENTRIES.LIST SKIP="={Round(V#,2)}=0">
 			<LEDGERNAME COLUMNREFERENCE="U"/>
-			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(F#[1]))=&quot;debit note&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(F#[1]))=&quot;debit note&quot;,If({Round(P#,2)}&lt;0,&quot;Yes&quot;,&quot;No&quot;),If({Round(P#,2)}&lt;0,&quot;No&quot;,&quot;Yes&quot;))"/>
 			<AMOUNT FORMULA="={Round(V#,2)}*if(lower(trim(F#[1]))=&quot;debit note&quot;,1,-1)"/>
 		</LEDGERENTRIES.LIST>		
 		<!-- Ledger5 -->
 		<LEDGERENTRIES.LIST SKIP="={Round(X#,2)}=0">
 			<LEDGERNAME COLUMNREFERENCE="W"/>
-			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(F#[1]))=&quot;debit note&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(F#[1]))=&quot;debit note&quot;,If({Round(P#,2)}&lt;0,&quot;Yes&quot;,&quot;No&quot;),If({Round(P#,2)}&lt;0,&quot;No&quot;,&quot;Yes&quot;))"/>
 			<AMOUNT FORMULA="={Round(X#,2)}*if(lower(trim(F#[1]))=&quot;debit note&quot;,1,-1)"/>
 		</LEDGERENTRIES.LIST>		
 		
