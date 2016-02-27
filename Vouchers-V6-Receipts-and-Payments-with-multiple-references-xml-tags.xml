@@ -1,0 +1,102 @@
+<!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
+<!-- 
+New Features in v6.0
+1) FETCHOBJECT tag
+   This is used to retrieve data from Tally (as it is not there in the Excel sheet)
+-->
+<XMLTAGS CELLREFERENCE="A1" xmlns:UDF="TallyUDF">
+	<!-- Specifies that this (i.e Column as mentioned above) is the key field -->
+	<COLUMNNAME.LIST>
+		<COLUMNNAME>ID</COLUMNNAME>
+		<COLUMNNAME>NAME</COLUMNNAME>
+	</COLUMNNAME.LIST>
+	<!-- Fields to fetch from Tally -->
+	<FETCHOBJECT TYPE="LEDGER">
+		<OBJECT COLUMNREFERENCE="F" NAME="" ISMODIFY="No" ISFIXED="No" ISINITIALIZE="No" ISOPTION="No" ISINTERNAL="No"/>
+		<!-- Fetch whether the PARENT/GROUP is Bank or not -->
+		<FIELD NAME="ISBANKLEDGER" ISMODIFY="NO" ISFIXED="NO" ISINITIALIZE="NO" ISOPTION="NO" ISINTERNAL="NO">
+			<USE>NAME FIELD</USE>
+			<SET>$$IsLedOfGrp:$KEY:$$GroupBank OR $$IsLedOfGrp:$KEY:$$GroupBankOD</SET>
+		</FIELD>
+	</FETCHOBJECT>
+	<!-- Create VOUCHERTYPE Master -->
+	<MASTER TYPE="VOUCHERTYPE">
+		<NAME.LIST TYPE="String">
+			<NAME COLUMNREFERENCE="D"/>
+		</NAME.LIST>
+		<PARENT COLUMNREFERENCE="C"/>
+		<MAILINGNAME>Rcpt</MAILINGNAME>
+		<NUMBERINGMETHOD>Manual</NUMBERINGMETHOD>
+		<ISDEEMEDPOSITIVE FORMULA="=if(C#=&quot;receipt&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+	</MASTER>
+	<!-- Create BANK Ledgers -->
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST TYPE="String">
+			<NAME COLUMNREFERENCE="F"/>
+		</NAME.LIST>
+		<MAILINGNAME.LIST TYPE="String">
+			<MAILINGNAME COLUMNREFERENCE="F"/>
+		</MAILINGNAME.LIST>
+		<PARENT>Bank Accounts</PARENT>
+		<TAXTYPE>Others</TAXTYPE>
+		<ISBILLWISEON>No</ISBILLWISEON>
+		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+	</MASTER>
+	<!-- Create Party Ledgers -->
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST TYPE="String">
+			<NAME COLUMNREFERENCE="G"/>
+		</NAME.LIST>
+		<MAILINGNAME.LIST TYPE="String">
+			<MAILINGNAME COLUMNREFERENCE="G"/>
+		</MAILINGNAME.LIST>
+		<PARENT>Sundry Debtors</PARENT>
+		<TAXTYPE>Others</TAXTYPE>
+		<ISBILLWISEON>Yes</ISBILLWISEON>
+		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+	</MASTER>
+	<VOUCHER>
+		<GUID FORMULA="=&quot;udi-HV6W4F-&quot; &amp; A# &amp; &quot;-&quot; &amp; B# &amp; &quot;-&quot; &amp; D#"/>
+		<DATE COLUMNREFERENCE="B"/>
+		<EFFECTIVEDATE COLUMNREFERENCE="B"/>
+		<VOUCHERTYPENAME COLUMNREFERENCE="D"/>
+		<VOUCHERNUMBER COLUMNREFERENCE="E"/>
+		<ISINVOICE>No</ISINVOICE>
+		<PERSISTEDVIEW>Accounting Voucher View</PERSISTEDVIEW>
+		<NARRATION COLUMNREFERENCE="L"/>
+		<PARTYLEDGERNAME COLUMNREFERENCE="G"/>
+		<!-- Party Ledgers to be credited -->
+		<ALLLEDGERENTRIES.LIST SCROLL="Yes" SKIP="=len(trim(G#))=0">
+			<LEDGERNAME COLUMNREFERENCE="G"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if(C#[1]=&quot;receipt&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+			<AMOUNT FORMULA="=Round(H#,2)*if(C#[1]=&quot;receipt&quot;,1,-1)"/>
+			<BILLALLOCATIONS.LIST SCROLL="Yes" SCROLLCOLUMN="=Sum(Column(G#))" SKIP="=Or(len(trim(I#))=0,Round(J#,2)=0)">
+				<NAME COLUMNREFERENCE="I"/>
+				<BILLTYPE COLUMNREFERENCE="K"/>
+				<AMOUNT FORMULA="=Round(J#,2)*if(C#[1]=&quot;receipt&quot;,1,-1)"/>
+			</BILLALLOCATIONS.LIST>
+		</ALLLEDGERENTRIES.LIST>
+		<!-- Cash or Bank Ledger to be debited -->
+		<ALLLEDGERENTRIES.LIST>
+			<LEDGERNAME COLUMNREFERENCE="F"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if(C#[1]=&quot;receipt&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+			<AMOUNT FORMULA="={Round(H#,2)}*if(C#[1]=&quot;receipt&quot;,-1,1)"/>
+			<!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
+			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; F#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(F#),1)),len(trim(M#))=0,len(trim(N#))=0)">
+				<DATE COLUMNREFERENCE="B"/>
+				<INSTRUMENTNUMBER COLUMNREFERENCE="M"/>
+				<INSTRUMENTDATE COLUMNREFERENCE="N"/>
+
+				<TRANSACTIONTYPE FORMULA="=if(len(trim(O#))=0,&quot;Cheque/DD&quot;,O#)"/>
+				<PAYMENTFAVOURING FORMULA="if(len(trim(P#))=0,G#,P#)"/>
+				<CHEQUECROSSCOMMENT COLUMNREFERENCE="Q" />
+				<BANKERSDATE COLUMNREFERENCE="R" />
+				
+				<AMOUNT FORMULA="={Round(H#,2)}*if(C#[1]=&quot;receipt&quot;,-1,1)"/>
+				<PAYMENTMODE>Transacted</PAYMENTMODE>
+				<NAME FORMULA="=&quot;udi-rcpt-multi-ref-&quot; &amp; A# &amp; &quot;-&quot; &amp; B# &amp; &quot;-&quot; &amp; F#"/>
+			</BANKALLOCATIONS.LIST>
+		</ALLLEDGERENTRIES.LIST>
+	</VOUCHER>
+</XMLTAGS>
+
