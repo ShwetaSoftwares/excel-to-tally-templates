@@ -1,18 +1,16 @@
 <!-- These XML tags are added to Excel sheet specified Cell at run-time by UDIMAGIC  -->
 <XMLTAGS CELLREFERENCE="A1" xmlns:UDF="TallyUDF">
-
 	<!-- Specifies that the Cell as mentioned above is the key field -->
 	<COLUMNNAME.LIST>
 		<COLUMNNAME>ID</COLUMNNAME>
 		<COLUMNNAME>NAME</COLUMNNAME>
 	</COLUMNNAME.LIST>
-
 	<!-- Create a Single VOUCHERTYPE Master record -->
 	<MASTER TYPE="VOUCHERTYPE" SINGLERECORD="Yes">
 		<NAME.LIST TYPE="String">
-			<NAME>Production</NAME>
+			<NAME COLUMNREFERENCE="C"/>
 		</NAME.LIST>
-		<PARENT>Stock Journal</PARENT>
+		<PARENT COLUMNREFERENCE="B"/>
 		<MAILINGNAME>Stk Jrnl</MAILINGNAME>
 		<NUMBERINGMETHOD>Automatic</NUMBERINGMETHOD>
 		<ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
@@ -20,100 +18,91 @@
 		<PREVENTDUPLICATES>No</PREVENTDUPLICATES>
 		<PREFILLZERO>No</PREFILLZERO>
 	</MASTER>
-
 	<!-- Create UNIT Master -->
-	<MASTER TYPE="UNIT" >
-		<NAME COLUMNREFERENCE="D"/>
+	<MASTER TYPE="UNIT">
+		<NAME COLUMNREFERENCE="G"/>
 		<ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
 	</MASTER>
 	<MASTER TYPE="UNIT">
-		<NAME COLUMNREFERENCE="J"/>
+		<NAME COLUMNREFERENCE="M"/>
 		<ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
 	</MASTER>
-
 	<!-- Create Godown Masters -->
 	<MASTER TYPE="GODOWN">
 		<NAME.LIST>
-			<NAME COLUMNREFERENCE="E"/>
+			<NAME COLUMNREFERENCE="H"/>
 		</NAME.LIST>
 		<PARENT/>
 	</MASTER>
-
 	<!-- Create Godown Masters -->
 	<MASTER TYPE="GODOWN">
 		<NAME.LIST>
-			<NAME COLUMNREFERENCE="K"/>
+			<NAME COLUMNREFERENCE="N"/>
 		</NAME.LIST>
 		<PARENT/>
 	</MASTER>
-
 	<!-- Create StockItem Masters -->
 	<MASTER TYPE="STOCKITEM">
 		<NAME.LIST>
-			<NAME COLUMNREFERENCE="C"/>
+			<NAME COLUMNREFERENCE="F"/>
 		</NAME.LIST>
 		<PARENT/>
 		<COSTINGMETHOD>Avg. Cost</COSTINGMETHOD>
 		<VALUATIONMETHOD>Avg. Price</VALUATIONMETHOD>
-		<BASEUNITS COLUMNREFERENCE="D"/>
+		<BASEUNITS COLUMNREFERENCE="G"/>
 	</MASTER>
-
 	<!-- Create StockItem Masters -->
 	<MASTER TYPE="STOCKITEM">
 		<NAME.LIST>
-			<NAME COLUMNREFERENCE="I"/>
+			<NAME COLUMNREFERENCE="L"/>
 		</NAME.LIST>
 		<PARENT/>
 		<COSTINGMETHOD>Avg. Cost</COSTINGMETHOD>
 		<VALUATIONMETHOD>Avg. Price</VALUATIONMETHOD>
-		<BASEUNITS COLUMNREFERENCE="J"/>
+		<BASEUNITS COLUMNREFERENCE="M"/>
 	</MASTER>
-
 	<!-- XML tags for creating Vouchers -->
 	<VOUCHER>
-		<GUID FORMULA="=&quot;udi-G94MRN-&quot; &amp; A# &amp; &quot;-&quot; &amp; B#"/>
-		<!--GUID FORMULA="=&quot;udi-stock-jrnl-&quot; &amp; A# &amp; &quot;-&quot; &amp; B#"/-->
-
-		<DATE COLUMNREFERENCE="B"/>
-		<EFFECTIVEDATE COLUMNREFERENCE="B"/>
-		<VOUCHERTYPENAME>Production</VOUCHERTYPENAME>
+		<GUID FORMULA="=&quot;udi-G94MRN-&quot; &amp; A# &amp; &quot;-&quot; &amp; E#"/>
+		<!--GUID FORMULA="=&quot;udi-stock-jrnl-&quot; &amp; A# &amp; &quot;-&quot; &amp; E#"/-->
+		<DATE COLUMNREFERENCE="E"/>
+		<EFFECTIVEDATE COLUMNREFERENCE="E"/>
+		<VOUCHERTYPENAME COLUMNREFERENCE="C"/>
 		<ISINVOICE>Yes</ISINVOICE>
 		<VOUCHERNUMBER COLUMNREFERENCE="A"/>
-		<NARRATION COLUMNREFERENCE="O"/>
-
+		<NARRATION COLUMNREFERENCE="R"/>
 		<!-- StockIn-->
 		<INVENTORYENTRIESIN.LIST SCROLL="Yes">
-			<STOCKITEMNAME  COLUMNREFERENCE="I"/>
+			<STOCKITEMNAME COLUMNREFERENCE="L"/>
 			<ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
-			<RATE FORMULA="=Round(M#,2)"/>
-			<AMOUNT  FORMULA="=Round(N#,2)*-1"/>
-			<ACTUALQTY FORMULA="=Round(L#,2)"/>
-			<BILLEDQTY FORMULA="=Round(L#,2)"/>
+			<RATE FORMULA="=Round(P#,2)"/>
+			<AMOUNT FORMULA="=Round(Q#,2)*-1"/>
+			<ACTUALQTY FORMULA="=Round(O#,2)"/>
+			<BILLEDQTY FORMULA="=Round(O#,2)"/>
 			<BATCHALLOCATIONS.LIST>
-				<GODOWNNAME FORMULA="=if(len(trim(K#))=0,&quot;Main Location&quot;,K#)"/>
+				<GODOWNNAME FORMULA="=if(len(trim(N#))=0,&quot;Main Location&quot;,N#)"/>
 				<BATCHNAME>Primary Batch</BATCHNAME>
-				<DESTINATIONGODOWNNAME COLUMNREFERENCE="K"/>
-				<AMOUNT FORMULA="=Round(N#,2)*-1"/>
-				<ACTUALQTY  FORMULA="=Round(L#,2)"/>
-				<BILLEDQTY  FORMULA="=Round(L#,2)"/>
+				<DESTINATIONGODOWNNAME COLUMNREFERENCE="N"/>
+				<AMOUNT FORMULA="=Round(Q#,2)*-1"/>
+				<ACTUALQTY FORMULA="=Round(O#,2)"/>
+				<BILLEDQTY FORMULA="=Round(O#,2)"/>
 			</BATCHALLOCATIONS.LIST>
 		</INVENTORYENTRIESIN.LIST>
-
 		<INVENTORYENTRIESOUT.LIST SCROLL="YES">
-			<STOCKITEMNAME COLUMNREFERENCE="C"/>
+			<STOCKITEMNAME COLUMNREFERENCE="F"/>
 			<ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
-			<RATE  FORMULA="=Round(G#,2)"/>
-			<AMOUNT FORMULA="=Round(H#,2)"/>
-			<ACTUALQTY FORMULA="=Round(F#,2)"/>
-			<BILLEDQTY FORMULA="=Round(F#,2)"/>
+			<RATE FORMULA="=Round(J#,2)"/>
+			<AMOUNT FORMULA="=Round(K#,2)"/>
+			<ACTUALQTY FORMULA="=Round(I#,2)"/>
+			<BILLEDQTY FORMULA="=Round(I#,2)"/>
 			<BATCHALLOCATIONS.LIST>
-				<GODOWNNAME FORMULA="=if(len(trim(E#))=0,&quot;Main Location&quot;,E#)"/>
+				<GODOWNNAME FORMULA="=if(len(trim(H#))=0,&quot;Main Location&quot;,H#)"/>
 				<BATCHNAME>Primary Batch</BATCHNAME>
-				<AMOUNT  FORMULA="=Round(H#,2)"/>
-				<ACTUALQTY FORMULA="=Round(F#,2)"/>
-				<BILLEDQTY FORMULA="=Round(F#,2)"/>
+				<AMOUNT FORMULA="=Round(K#,2)"/>
+				<ACTUALQTY FORMULA="=Round(I#,2)"/>
+				<BILLEDQTY FORMULA="=Round(I#,2)"/>
 			</BATCHALLOCATIONS.LIST>
 		</INVENTORYENTRIESOUT.LIST>
-
 	</VOUCHER>
 </XMLTAGS>
+
