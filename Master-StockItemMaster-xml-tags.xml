@@ -1,40 +1,207 @@
-<!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
+<!-- These XML tags are added to Excel sheet Cell A1 at run-time by UDIMAGIC  -->
 <XMLTAGS CELLREFERENCE="A1" xmlns:UDF="TallyUDF">
-	<!-- Specifies that this (i.e Column as mentioned above) is the key field -->
+	<!-- This loads and processes the macro-file which certain performs calculations  -->
+	<VBA1 LOADFILE="stockitem-master-with-udf-macro.txt" RUNMACROATSTARTUP="NewColumns"/>
+	<!-- Specifies that the Column A is the key-field -->
 	<COLUMNNAME.LIST>
-		<COLUMNNAME>ID</COLUMNNAME>
 		<COLUMNNAME>NAME</COLUMNNAME>
+		<COLUMNNAME>ID</COLUMNNAME>
 	</COLUMNNAME.LIST>
+	<!-- Create TARIFFCLASSIFICATION Masters -->
+	<MASTER TYPE="TARIFFCLASSIFICATION">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="AI"/>
+		</NAME.LIST>
+		<!--<SCHEDULENUMBER>SchNo</SCHEDULENUMBER>
+		<SCHEDULESERIALNUMBER>SchSrNo</SCHEDULESERIALNUMBER>-->
+		<USEDFOR>VAT</USEDFOR>
+		<UDF:COMMODITYVATRATE.LIST DESC="`CommodityVATRate`" ISLIST="YES" TYPE="Number" INDEX="10004">
+			<UDF:COMMODITYVATRATE DESC="`CommodityVATRate`" COLUMNREFERENCE="AJ"/>
+		</UDF:COMMODITYVATRATE.LIST>
+	</MASTER>
+	<!-- Create TARIFFCLASSIFICATION Masters -->
+	<MASTER TYPE="TARIFFCLASSIFICATION">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="AM"/>
+		</NAME.LIST>
+		<USEDFOR>Both</USEDFOR>
+	</MASTER>
+	<!-- Create UNIT Masters -->
 	<MASTER TYPE="UNIT">
-		<NAME COLUMNREFERENCE="C"/>
-		<ORIGINALSYMBOL FORMULA="=+C# &amp; &quot;&apos;&quot;"/>
+		<!-- The UNIT Master does not support Aliases. -->
+		<!-- As a result, we must not use the NAME.LIST tag, but directly use the NAME tag -->
+		<NAME COLUMNREFERENCE="J"/>
 		<ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
 	</MASTER>
+	<!-- Create UNIT Masters -->
+	<MASTER TYPE="UNIT">
+		<!-- The UNIT Master does not support Aliases. -->
+		<!-- As a result, we must not use the NAME.LIST tag, but directly use the NAME tag -->
+		<NAME COLUMNREFERENCE="K"/>
+		<ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
+	</MASTER>
+	<!-- Create STOCKGROUP Masters -->
 	<MASTER TYPE="STOCKGROUP">
 		<NAME.LIST>
-			<NAME COLUMNREFERENCE="B"/>
+			<NAME COLUMNREFERENCE="F"/>
 		</NAME.LIST>
 	</MASTER>
+	<!-- Create STOCKCATEGORY Masters -->
+	<MASTER TYPE="STOCKCATEGORY">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="G"/>
+		</NAME.LIST>
+	</MASTER>
+	<!-- Create GODOWN Masters -->
+	<MASTER TYPE="GODOWN">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="AA"/>
+		</NAME.LIST>
+	</MASTER>
+	<!-- Create LEDGER Masters -->
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="W"/>
+		</NAME.LIST>
+		<PARENT COLUMNREFERENCE="X"/>
+		<ISCOSTCENTREON>No</ISCOSTCENTREON>
+		<!-- No for Duties and Taxes -->
+		<AFFECTSSTOCK FORMULA="=if(trim(X#)=&quot;duties &amp; taxes&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+		<USEFORVAT FORMULA="=if(trim(X#)=&quot;duties &amp; taxes&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+		<TAXCLASSIFICATIONNAME COLUMNREFERENCE="Y"/>
+	</MASTER>
+	<!-- Create STOCKITEM Masters -->
 	<MASTER TYPE="STOCKITEM">
 		<NAME.LIST>
-			<NAME COLUMNREFERENCE="A"/>
-			<NAME COLUMNREFERENCE="D"/>
+			<NAME COLUMNREFERENCE="B"/>
+			<NAME SCROLL="YES" COLUMNREFERENCE="C"/>
 		</NAME.LIST>
-		<PARENT COLUMNREFERENCE="B"/>
-		<BASEUNITS COLUMNREFERENCE="C"/>
-		<ADDITIONALNAME.LIST SKIP="=len(trim(E#))=0">
-			<ADDITIONALNAME COLUMNREFERENCE="E"/>
+		<ADDITIONALNAME.LIST>
+			<ADDITIONALNAME COLUMNREFERENCE="D"/>
+			<ADDITIONALNAME SCROLL="YES" COLUMNREFERENCE="E"/>
 		</ADDITIONALNAME.LIST>
-		<STANDARDCOSTLIST.LIST SKIP="=Round(F#,2)=0">
-			<RATE COLUMNREFERENCE="F"/>
-			<DATE COLUMNREFERENCE="G"/>
+		<!-- StockGroup Name  -->
+		<PARENT COLUMNREFERENCE="F"/>
+		<!-- StockCategory Name  -->
+		<CATEGORY COLUMNREFERENCE="G"/>
+		<!-- Description -->
+		<DESCRIPTION COLUMNREFERENCE="H"/>
+		<!-- Remarks -->
+		<NARRATION COLUMNREFERENCE="I"/>
+		<!-- BaseUnits  -->
+		<BASEUNITS COLUMNREFERENCE="J"/>
+		<!-- Alternate Unit  -->
+		<ADDITIONALUNITS FORMULA="=IF(len(trim(L#))=0,&quot;&quot;,K#)"/>
+		<!-- Whether to Maintain in batches or not -->
+		<ISBATCHWISEON FORMULA="=IF(len(trim(M#))=0,&quot;No&quot;,M#)"/>
+		<!-- Whether to Track date of Mfg or not.  -->
+		<!-- If set to Yes, then the Mfg.Date has to be given. -->
+		<HASMFGDATE FORMULA="=IF(len(trim(AC#))=0,&quot;No&quot;,N#)"/>
+		<!-- Whether to use Expiry dates or not.  -->
+		<!-- If set to Yes, then the Expiry.Date has to be given. -->
+		<ISPERISHABLEON FORMULA="=IF(len(trim(AD#))=0,&quot;No&quot;,O#)"/>
+		<!-- Standard Cost details -->
+		<STANDARDCOSTLIST.LIST SCROLL="Yes" SKIP="=len(trim(P#))=0" APPEND="No">
+			<DATE COLUMNREFERENCE="P"/>
+			<RATE FORMULA="=Q# &amp; &quot;/&quot; &amp; +R#"/>
 		</STANDARDCOSTLIST.LIST>
-		<STANDARDPRICELIST.LIST SKIP="=Round(H#,2)=0">
-			<RATE COLUMNREFERENCE="H"/>
-			<DATE COLUMNREFERENCE="I"/>
+		<!-- Standard Price details -->
+		<STANDARDPRICELIST.LIST SCROLL="Yes" SKIP="=len(trim(S#))=0" APPEND="No">
+			<DATE COLUMNREFERENCE="S"/>
+			<RATE FORMULA="=T# &amp; &quot;/&quot; &amp; +U#"/>
 		</STANDARDPRICELIST.LIST>
-		<OPENINGBALANCE SKIP="=Round(J#,2)=0" COLUMNREFERENCE="J"/>
-		<OPENINGRATE SKIP="=Round(K#,2)=0" COLUMNREFERENCE="K"/>
-		<OPENINGVALUE SKIP="=Round(L#,2)=0" FORMULA="=Round(L#,2)*-1"/>
+		<!-- Default Sales Ledger Name and VAT Class -->
+		<SALESLIST.LIST SCROLL="YES" SKIP="=not(trim(V#)=&quot;sales&quot;)">
+			<NAME COLUMNREFERENCE="W"/>
+			<TAXCLASSIFICATIONNAME1 COLUMNREFERENCE="Y"/>
+			<CLASSRATE COLUMNREFERENCE="Z"/>
+		</SALESLIST.LIST>
+		<!-- Default Purchase Ledger Name and VAT Class -->
+		<PURCHASELIST.LIST SCROLL="YES" SKIP="=not(trim(V#)=&quot;purchase&quot;)">
+			<NAME COLUMNREFERENCE="W"/>
+			<TAXCLASSIFICATIONNAME COLUMNREFERENCE="Y"/>
+			<CLASSRATE COLUMNREFERENCE="Z"/>
+		</PURCHASELIST.LIST>
+		<!-- Stock-item Opening Qty  -->
+		<OPENINGBALANCE SKIP="={Round(AE#,2)}=0" FORMULA="={Round(AE#,2)}"/>
+		<!-- Stock-item Rate -->
+		<OPENINGRATE SKIP="={Round(AH#,2)}=0" FORMULA="=IF({Round(AE#,2)}&gt;0,Round({Round(AH#,2)}/{Round(AE#,2)},2) &amp; &quot;/&quot; &amp; AG#,0)"/>
+		<!-- Stock-item Value -->
+		<OPENINGVALUE SKIP="={Round(AH#,2)}=0" FORMULA="={Round(AH#,2)} * -1"/>
+		<!-- Batch wise Opening Stock details details-->
+		<BATCHALLOCATIONS.LIST SCROLL="Yes" SKIP="=len(trim(AB#))=0">
+			<NAME COLUMNREFERENCE="AB"/>
+			<BATCHNAME COLUMNREFERENCE="AB"/>
+			<!-- If GodownName is not specified i.e. Column U value is blank, then the Godown Name must be Main Location else value of Column U-->
+			<GODOWNNAME FORMULA="=IF(len(trim(AA#))=0,&quot;Main Location&quot;,+AA#)"/>
+			<MFDON FORMULA="=IF(len(trim(AC#))=0,&quot;&quot;,AC#)"/>
+			<EXPIRYPERIOD FORMULA="=IF(len(trim(AD#))=0,&quot;&quot;,AD#)"/>
+			<!-- Stock-item Opening Qty  -->
+			<OPENINGBALANCE SKIP="=Round(AE#,2)=0" COLUMNREFERENCE="AE"/>
+			<!-- Stock-item Rate -->
+			<OPENINGRATE SKIP="=Round(AF#,2)=0" FORMULA="=AF# &amp; &quot;/&quot; &amp; AG#"/>
+			<!-- Stock-item Value -->
+			<OPENINGVALUE SKIP="=Round(AH#,2)=0" FORMULA="=Round(AH#,2) * -1"/>
+		</BATCHALLOCATIONS.LIST>
+		<!-- VAT Commodity -->
+		<VATCOMMODITY COLUMNREFERENCE="AI"/>
+		<!-- Rate of VAT-->
+		<RATEOFVAT COLUMNREFERENCE="AJ"/>
+		<!-- For Tally ERP 9 Release 5.0 or higher -->
+		<VATDETAILS.LIST>
+			<FROMDATE COLUMNREFERENCE="AL"/>
+			<TAXTYPE>Taxable</TAXTYPE>
+			<ISINVDETAILSENABLE>Yes</ISINVDETAILSENABLE>
+			<RATEOFVAT COLUMNREFERENCE="AJ"/>
+			<ADDITIONALTAX COLUMNREFERENCE="AK"/>
+		</VATDETAILS.LIST>
+		<!-- Tariff Classification -->
+		<BASICTARIFFTYPE COLUMNREFERENCE="AM"/>
+		<!-- Rate of Excise Duty -->
+		<BASICRATEOFEXCISE COLUMNREFERENCE="AN"/>
+		<!-- For Tally ERP 9 Release 5.0 or higher -->
+		<EXCISETARIFFDETAILS.LIST>
+			<APPLICABLEFROM>20150401</APPLICABLEFROM>
+			<TYPEOFTARIFF>Dutiable</TYPEOFTARIFF>
+			<REPORTINGUOM COLUMNREFERENCE="AP"/>
+			<TARIFFNAME COLUMNREFERENCE="AM"/>
+			<VALUATIONTYPE FORMULA="=if(len(trim(A#))=0,&quot;Ad Valorem&quot;,AQ#)"/>
+			<ISEXCISECALCULATEONMRP>No</ISEXCISECALCULATEONMRP>
+			<ISNONDUTIABLE>No</ISNONDUTIABLE>
+			<EXCISEDUTYHEADDETAILS.LIST>
+				<VALUATIONTYPE FORMULA="=if(len(trim(A#))=0,&quot;Ad Valorem&quot;,AQ#)"/>
+				<DUTYHEAD>Basic Excise Duty</DUTYHEAD>
+				<EXCISERATE COLUMNREFERENCE="AN"/>
+			</EXCISEDUTYHEADDETAILS.LIST>
+		</EXCISETARIFFDETAILS.LIST>
+		<!-- MRP -->
+		<RATEOFMRP COLUMNREFERENCE="AS"/>
+		<!-- Use MRP to print -->
+		<CALCONMRP COLUMNREFERENCE="AT"/>
+		<!-- MRP Incl of VAT -->
+		<ISMRPINCLOFTAX COLUMNREFERENCE="AU"/>
+		<!-- Behaviour -->
+		<COSTINGMETHOD COLUMNREFERENCE="AV"/>
+		<VALUATIONMETHOD COLUMNREFERENCE="AW"/>
+		<IGNOREPHYSICALDIFFERENCE COLUMNREFERENCE="AX"/>
+		<IGNORENEGATIVESTOCK COLUMNREFERENCE="AY"/>
+		<TREATSALESASMANUFACTURED COLUMNREFERENCE="AZ"/>
+		<TREATPURCHASESASCONSUMED COLUMNREFERENCE="BA"/>
+		<TREATREJECTSASSCRAP COLUMNREFERENCE="BB"/>
+		<!-- REORDER DETAILS -->
+		<REORDERBASE COLUMNREFERENCE="BC"/>
+		<REORDERPERIODLENGTH COLUMNREFERENCE="BD"/>
+		<REORDERPERIOD COLUMNREFERENCE="BE"/>
+		<!-- Reorder Level -->
+		<REORDERASHIGHER FORMULA="=If(BF#=&quot;Higher&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+		<!-- MINIMUM REORDER DETAILS -->
+		<MINIMUMORDERBASE COLUMNREFERENCE="BG"/>
+		<MINORDERPERIODLENGTH COLUMNREFERENCE="BH"/>
+		<MINORDERPERIOD COLUMNREFERENCE="BI"/>
+		<MINORDERASHIGHER FORMULA="=If(BJ#=&quot;Higher&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+		<!-- Conversion factor details-->
+		<DENOMINATOR FORMULA="=IF(len(trim(K#))=0,&quot;&quot;,L#)"/>
+		<CONVERSION FORMULA="=IF(len(trim(K#))=0,&quot;&quot;,1)"/>
 	</MASTER>
 </XMLTAGS>
+
