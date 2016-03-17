@@ -13,7 +13,7 @@ New Features in v5.0
    The SCROLLHORIZONTALLY attribute uses an internal mechanism which increments the COLUMN in the specified FORMULA. This enables you to have virtually 
    any number of COLUMNs for your DATA.
 -->
-<XMLTAGS CELLREFERENCE="A1" FROMROW="5" xmlns:UDF="TallyUDF">
+<XMLTAGS CELLREFERENCE="A1" FROMROW="6" xmlns:UDF="TallyUDF">
 	<!-- Specifies that this (i.e Column as mentioned above) is the key field -->
 	<COLUMNNAME.LIST>
 		<COLUMNNAME>ID</COLUMNNAME>
@@ -21,7 +21,7 @@ New Features in v5.0
 	</COLUMNNAME.LIST>
 	<!-- Fields to fetch from Tally -->
 	<FETCHOBJECT TYPE="LEDGER">
-		<OBJECT FORMULA="=L$4" SCROLLHORIZONTALLY="=Len(trim(L$4))&gt;0" NAME="" ISMODIFY="No" ISFIXED="No" ISINITIALIZE="No" ISOPTION="No" ISINTERNAL="No"/>
+		<OBJECT FORMULA="=L$5" SCROLLHORIZONTALLY="=Len(trim(L$5))&gt;0" NAME="" ISMODIFY="No" ISFIXED="No" ISINITIALIZE="No" ISOPTION="No" ISINTERNAL="No"/>
 		<!-- Fetch the GROUP Name of Ledger -->
 		<FIELD NAME="PARENT" ISMODIFY="NO" ISFIXED="NO" ISINITIALIZE="NO" ISOPTION="NO" ISINTERNAL="NO">
 			<USE>NAME FIELD</USE>
@@ -48,8 +48,8 @@ New Features in v5.0
 		<NAME.LIST>
 			<NAME COLUMNREFERENCE="G"/>
 		</NAME.LIST>
-		<PARENT FORMULA="=if(len(trim(G$3))=0,&quot;Sundry Debtors&quot;,G$3)"/>
-		<ISCOSTCENTRESON FORMULA="=If(Len(trim(G$2))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+		<PARENT FORMULA="=if(len(trim(G$4))=0,&quot;Sundry Debtors&quot;,G$4)"/>
+		<ISCOSTCENTRESON FORMULA="=If(Len(trim(G$3))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
 		<AFFECTSSTOCK>No</AFFECTSSTOCK>
 	</MASTER>
 	<!-- Create Ledger Masters -->
@@ -58,24 +58,31 @@ New Features in v5.0
                 and if it is greater than 0, a Ledger Master is created. The loop executes and now H2 becomes I2. If length of cell I2 is greater 
                 than 0, Ledger Master is created. The loop go on till the conditions becomes false.
         -->
-	<MASTER TYPE="LEDGER" SINGLERECORD="YES" SCROLLHORIZONTALLY="=Len(trim(L$4))&gt;0">
+	<MASTER TYPE="LEDGER" SINGLERECORD="YES" SCROLLHORIZONTALLY="=Len(trim(L$5))&gt;0">
 		<NAME.LIST>
-			<NAME SKIP="=Len(trim(L$4))=0" FORMULA="=+L$4"/>
+			<NAME SKIP="=Len(trim(L$5))=0" FORMULA="=+L$5"/>
 		</NAME.LIST>
-		<PARENT FORMULA="=+L$3"/>
-		<ISCOSTCENTRESON FORMULA="=If(Len(trim(L$2))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+		<PARENT FORMULA="=+L$4"/>
+		<ISCOSTCENTRESON FORMULA="=If(Len(trim(L$3))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
 		<AFFECTSSTOCK>No</AFFECTSSTOCK>
 	</MASTER>
-	<!-- Create COSTCENTRE Masters -->
-	<MASTER TYPE="COSTCENTRE" SINGLERECORD="YES" SCROLLHORIZONTALLY="=Len(L$4)&gt;0">
+	<!-- Create COSTCATEGORY Masters -->
+	<MASTER TYPE="COSTCATEGORY" SINGLERECORD="YES" SCROLLHORIZONTALLY="=Len(L$5)&gt;0">
 		<NAME.LIST>
 			<NAME SKIP="=Len(trim(L$2))=0" FORMULA="=+L$2"/>
 		</NAME.LIST>
 	</MASTER>
+	<!-- Create COSTCENTRE Masters -->
+	<MASTER TYPE="COSTCENTRE" SINGLERECORD="YES" SCROLLHORIZONTALLY="=Len(L$5)&gt;0">
+		<NAME.LIST>
+			<NAME SKIP="=Len(trim(L$3))=0" FORMULA="=+L$3"/>
+		</NAME.LIST>
+		<CATEGORY FORMULA="=if(len(trim(L$2))=0,&quot;Primary Cost Category&quot;,L$2)"/>
+	</MASTER>
 	<!-- Create a single COSTCENTRE Master -->
 	<MASTER TYPE="COSTCENTRE" SINGLERECORD="YES">
 		<NAME.LIST>
-			<NAME SKIP="=Len(trim(G$2))=0" FORMULA="=+G$2"/>
+			<NAME SKIP="=Len(trim(G$3))=0" FORMULA="=+G$3"/>
 		</NAME.LIST>
 	</MASTER>
 	<!-- Voucher -->
@@ -94,11 +101,11 @@ New Features in v5.0
 			<LEDGERNAME COLUMNREFERENCE="G"/>
 			<ISDEEMEDPOSITIVE FORMULA="=If(trim(I#)=&quot;Cr&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
 			<AMOUNT FORMULA="=+Round(H#,2)* if(trim(I#)=&quot;Cr&quot;,1,-1)"/>
-			<CATEGORYALLOCATIONS.LIST SKIP="=Len(Trim(G$2))=0">
-				<CATEGORY>Primary Cost Category</CATEGORY>
+			<CATEGORYALLOCATIONS.LIST SKIP="=Len(Trim(G$3))=0">
+				<CATEGORY FORMULA="=if(len(trim(L$2))=0,&quot;Primary Cost Category&quot;,L$2)"/>
 				<ISDEEMEDPOSITIVE FORMULA="=If(trim(I#)=&quot;Cr&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
 				<COSTCENTREALLOCATIONS.LIST>
-					<NAME FORMULA="=+G$2"/>
+					<NAME FORMULA="=+G$3"/>
 					<AMOUNT FORMULA="=+Round(H#,2)* if(trim(I#)=&quot;Cr&quot;,1,-1)"/>
 				</COSTCENTREALLOCATIONS.LIST>
 			</CATEGORYALLOCATIONS.LIST>
@@ -111,25 +118,25 @@ New Features in v5.0
 			
 		</ALLLEDGERENTRIES.LIST>
 		<!-- Ledgers -->
-		<ALLLEDGERENTRIES.LIST SKIP="=+Round(L#,2)=0" SCROLLHORIZONTALLY="=Len(trim(L$4))&gt;0">
+		<ALLLEDGERENTRIES.LIST SKIP="=+Round(L#,2)=0" SCROLLHORIZONTALLY="=Len(trim(L$5))&gt;0">
 			<!-- LedgerName to be taken from L#,M#.... and so on -->
-			<LEDGERNAME FORMULA="=+L$4"/>
+			<LEDGERNAME FORMULA="=+L$5"/>
 			<ISDEEMEDPOSITIVE FORMULA="=If(trim(L$1)=&quot;Cr&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
 			<!-- Amount to be taken from L#,M#.... and so on. The # symbol is substituted  by row numbers at run time-->
 			<AMOUNT FORMULA="=+Round(L#,2)* if(L$1=&quot;Cr&quot;,1,-1)"/>
-			<CATEGORYALLOCATIONS.LIST SKIP="=Len(Trim(L$2))=0">
-				<CATEGORY>Primary Cost Category</CATEGORY>
+			<CATEGORYALLOCATIONS.LIST SKIP="=Len(Trim(L$3))=0">
+				<CATEGORY FORMULA="=if(len(trim(L$2))=0,&quot;Primary Cost Category&quot;,L$2)"/>
 				<ISDEEMEDPOSITIVE FORMULA="=If(trim(L$1)=&quot;Cr&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
 				<COSTCENTREALLOCATIONS.LIST>
-					<NAME FORMULA="=+L$2"/>
+					<NAME FORMULA="=+L$3"/>
 					<AMOUNT FORMULA="=+Round(L#,2)* if(L$1=&quot;Cr&quot;,1,-1)"/>
 				</COSTCENTREALLOCATIONS.LIST>
 			</CATEGORYALLOCATIONS.LIST>
 			<!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
-			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; L$4)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(L$3),1)))">
+			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; L$5)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(L$4),1)))">
 				<DATE FORMULA="=$B#"/>
 				<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>
-				<PAYMENTFAVOURING FORMULA="=+L$4"/>
+				<PAYMENTFAVOURING FORMULA="=+L$5"/>
 				<STATUS>No</STATUS>
 				<AMOUNT FORMULA="=+Round(L#,2)* if(L$1=&quot;Cr&quot;,1,-1)"/>
 				<PAYMENTMODE>Transacted</PAYMENTMODE>
