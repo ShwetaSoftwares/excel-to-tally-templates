@@ -1,3 +1,7 @@
+<!--
+Set the PriceLevel and Discount for StockItem
+-->
+
 <!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
 <XMLTAGS CELLREFERENCE="A1" xmlns:UDF="TallyUDF">
 
@@ -18,7 +22,8 @@
 
 	<!-- Get the Price levels from Company -->
 	<FETCHOBJECT TYPE="COMPANY">
-		<OBJECT FORMULA="=E$1" SCROLLHORIZONTALLY="=len(trim(E$1))&gt;0" NAME="" ISMODIFY="No" ISFIXED="No" ISINITIALIZE="No" ISOPTION="No" ISINTERNAL="No"/>
+		<!--<OBJECT FORMULA="=E$1" SCROLLHORIZONTALLY="=len(trim(E$1))&gt;0" NAME="" ISMODIFY="No" ISFIXED="No" ISINITIALIZE="No" ISOPTION="No" ISINTERNAL="No"/>-->
+		<OBJECT FORMULA="=E$1" SKIP="=Or(trim(E$1)=&quot;&quot;,trim(E$1)=&quot;discount&quot;)" SCROLLHORIZONTALLY="=Or(len(trim(E$1))&gt;0,len(trim(Offset(E$1,0,1)))&gt;0)" NAME="" ISMODIFY="No" ISFIXED="No" ISINITIALIZE="No" ISOPTION="No" ISINTERNAL="No"/>
 		<VARIABLE NAME="vRTS_KEY">
 			<TYPE>String</TYPE>
 		</VARIABLE>
@@ -62,7 +67,8 @@
 		<OLDNAME FORMULA="=&quot;__LOOKUP__(&quot;COMPANY-RTS_COMPANYNAME-&quot; &amp; &quot;DVALUE&quot;)__&quot;"/>
 		<IMPORTDUPS>Modify with New data</IMPORTDUPS>
 		<USEPRICELEVELS>Yes</USEPRICELEVELS>
-		<PRICELEVEL.LIST SKIP="=&quot;__LOOKUP__(&quot;COMPANY-RTS_PRICELEVEL_EXISTS-&quot; &amp; E$1)__&quot;=&quot;Yes&quot;" SCROLLHORIZONTALLY="=len(trim(E$1))&gt;0" APPEND="YES">
+		<!--<PRICELEVEL.LIST SKIP="=&quot;__LOOKUP__(&quot;COMPANY-RTS_PRICELEVEL_EXISTS-&quot; &amp; E$1)__&quot;=&quot;Yes&quot;" SCROLLHORIZONTALLY="=len(trim(E$1))&gt;0" APPEND="YES">-->
+		<PRICELEVEL.LIST SKIP="=Or(trim(E$1)=&quot;&quot;,trim(E$1)=&quot;discount&quot;,&quot;__LOOKUP__(&quot;COMPANY-RTS_PRICELEVEL_EXISTS-&quot; &amp; E$1)__&quot;=&quot;Yes&quot;)" SCROLLHORIZONTALLY="=len(trim(E$1))&gt;0" APPEND="YES">
 			<PRICELEVEL FORMULA="=E$1"/>
 		</PRICELEVEL.LIST>
 	</MASTER>
@@ -77,11 +83,12 @@
 		<!-- UNITs -->
 		<BASEUNITS COLUMNREFERENCE="C"/>
 
-		<FULLPRICELIST.LIST SCROLLHORIZONTALLY="=len(trim(E$1))&gt;0">
+		<FULLPRICELIST.LIST SKIP="=Or(trim(E$1)=&quot;&quot;,trim(E$1)=&quot;discount&quot;)" SCROLLHORIZONTALLY="=Or(len(trim(E$1))&gt;0,len(trim(Offset(E$1,0,1)))&gt;0)">
 			<DATE FORMULA="=$D$2"/>
 			<PRICELEVEL FORMULA="=E$1"/>
 			<PRICELEVELLIST.LIST>
 				<RATE FORMULA="=Round(E#,2)"/>
+				<DISCOUNT FORMULA="=Round(Offset(E#,0,1),2)"/>
 			</PRICELEVELLIST.LIST>
 		</FULLPRICELIST.LIST>
 	</MASTER>
