@@ -22,7 +22,6 @@ New Features in v5.0
 		<PARENT COLUMNREFERENCE="C" />
         <ADDITIONALNAME FORMULA="=If(lower(trim($C#))=&quot;sales&quot;,&quot;Sale&quot;,&quot;D.Note&quot;)"/>
         <ISDEEMEDPOSITIVE FORMULA="=If(lower(trim($C#))=&quot;sales&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
-		
         <NUMBERINGMETHOD>Manual</NUMBERINGMETHOD>
         <AFFECTSSTOCK>No</AFFECTSSTOCK>
         <PREVENTDUPLICATES>Yes</PREVENTDUPLICATES>
@@ -90,7 +89,8 @@ New Features in v5.0
 		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
 		<LEDSTATENAME COLUMNREFERENCE="F" />
 		<COUNTRYNAME SKIP="len(trim(F#))=0">India</COUNTRYNAME>
-		<VATDEALERTYPE>Unregistered</VATDEALERTYPE>
+		<VATDEALERTYPE SKIP="=len(trim(F#))=0" FORMULA="=if(len(trim(G#))=0,&quot;Unregistered&quot;,G#)"/>
+		<VATTINNUMBER SKIP="=len(trim(F#))=0" COLUMNREFERENCE="H"/>		
     </MASTER>
     <!-- VOUCHER-->
     <VOUCHER>
@@ -104,7 +104,8 @@ New Features in v5.0
         <PARTYLEDGERNAME COLUMNREFERENCE="E" />
         <REFERENCE COLUMNREFERENCE="A" />
         <VOUCHERNUMBER COLUMNREFERENCE="A" />
-		<NARRATION COLUMNREFERENCE="G" />
+		<BASICBUYERSSALESTAXNO COLUMNREFERENCE="H"/>
+		<NARRATION COLUMNREFERENCE="I" />
 		
 		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
 		<STATENAME COLUMNREFERENCE="F"/>
