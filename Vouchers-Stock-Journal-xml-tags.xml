@@ -24,7 +24,7 @@
 		<ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
 	</MASTER>
 	<MASTER TYPE="UNIT">
-		<NAME COLUMNREFERENCE="M"/>
+		<NAME COLUMNREFERENCE="P"/>
 		<ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
 	</MASTER>
 	<!-- Create Godown Masters -->
@@ -37,7 +37,7 @@
 	<!-- Create Godown Masters -->
 	<MASTER TYPE="GODOWN">
 		<NAME.LIST>
-			<NAME COLUMNREFERENCE="N"/>
+			<NAME COLUMNREFERENCE="Q"/>
 		</NAME.LIST>
 		<PARENT/>
 	</MASTER>
@@ -50,16 +50,22 @@
 		<COSTINGMETHOD>Avg. Cost</COSTINGMETHOD>
 		<VALUATIONMETHOD>Avg. Price</VALUATIONMETHOD>
 		<BASEUNITS COLUMNREFERENCE="G"/>
+		<ISBATCHWISEON FORMULA="=if((len(trim(I#))+len(trim(J#))+len(trim(K#)))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+		<HASMFGDATE FORMULA="=if(len(trim(J#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+		<ISPERISHABLEON FORMULA="=if(len(trim(J#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
 	</MASTER>
 	<!-- Create StockItem Masters -->
 	<MASTER TYPE="STOCKITEM">
 		<NAME.LIST>
-			<NAME COLUMNREFERENCE="L"/>
+			<NAME COLUMNREFERENCE="O"/>
 		</NAME.LIST>
 		<PARENT/>
 		<COSTINGMETHOD>Avg. Cost</COSTINGMETHOD>
 		<VALUATIONMETHOD>Avg. Price</VALUATIONMETHOD>
-		<BASEUNITS COLUMNREFERENCE="M"/>
+		<BASEUNITS COLUMNREFERENCE="P"/>
+		<ISBATCHWISEON FORMULA="=if((len(trim(R#))+len(trim(S#))+len(trim(T#)))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+		<HASMFGDATE FORMULA="=if(len(trim(S#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+		<ISPERISHABLEON FORMULA="=if(len(trim(T#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
 	</MASTER>
 	<!-- XML tags for creating Vouchers -->
 	<VOUCHER>
@@ -70,37 +76,43 @@
 		<VOUCHERTYPENAME COLUMNREFERENCE="C"/>
 		<ISINVOICE>Yes</ISINVOICE>
 		<VOUCHERNUMBER COLUMNREFERENCE="A"/>
-		<NARRATION COLUMNREFERENCE="R"/>
+		<NARRATION COLUMNREFERENCE="X"/>
 		<!-- StockIn-->
 		<INVENTORYENTRIESIN.LIST SCROLL="Yes">
-			<STOCKITEMNAME COLUMNREFERENCE="L"/>
+			<STOCKITEMNAME COLUMNREFERENCE="O"/>
 			<ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
-			<RATE FORMULA="=Round(P#,2)"/>
-			<AMOUNT FORMULA="=Round(Q#,2)*-1"/>
-			<ACTUALQTY FORMULA="=Round(O#,2)"/>
-			<BILLEDQTY FORMULA="=Round(O#,2)"/>
+			<RATE FORMULA="=Round(V#,2)"/>
+			<AMOUNT FORMULA="=Round(W#,2)*-1"/>
+			<ACTUALQTY FORMULA="=Round(U#,2)"/>
+			<BILLEDQTY FORMULA="=Round(U#,2)"/>
 			<BATCHALLOCATIONS.LIST>
-				<GODOWNNAME FORMULA="=if(len(trim(N#))=0,&quot;Main Location&quot;,N#)"/>
-				<BATCHNAME>Primary Batch</BATCHNAME>
-				<DESTINATIONGODOWNNAME COLUMNREFERENCE="N"/>
-				<AMOUNT FORMULA="=Round(Q#,2)*-1"/>
-				<ACTUALQTY FORMULA="=Round(O#,2)"/>
-				<BILLEDQTY FORMULA="=Round(O#,2)"/>
+				<GODOWNNAME FORMULA="=if(len(trim(Q#))=0,&quot;Main Location&quot;,Q#)"/>
+				<!--<BATCHNAME>Primary Batch</BATCHNAME>-->
+				<BATCHNAME COLUMNREFERENCE="R" />
+				<MFDON SKIP="=Len(trim(S#))=0" COLUMNREFERENCE="S" />
+				<EXPIRYPERIOD SKIP="=Len(trim(T#))=0" COLUMNREFERENCE="T" />
+				<DESTINATIONGODOWNNAME COLUMNREFERENCE="Q"/>
+				<AMOUNT FORMULA="=Round(W#,2)*-1"/>
+				<ACTUALQTY FORMULA="=Round(U#,2)"/>
+				<BILLEDQTY FORMULA="=Round(U#,2)"/>
 			</BATCHALLOCATIONS.LIST>
 		</INVENTORYENTRIESIN.LIST>
 		<INVENTORYENTRIESOUT.LIST SCROLL="YES">
 			<STOCKITEMNAME COLUMNREFERENCE="F"/>
 			<ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
-			<RATE FORMULA="=Round(J#,2)"/>
-			<AMOUNT FORMULA="=Round(K#,2)"/>
-			<ACTUALQTY FORMULA="=Round(I#,2)"/>
-			<BILLEDQTY FORMULA="=Round(I#,2)"/>
+			<RATE FORMULA="=Round(M#,2)"/>
+			<AMOUNT FORMULA="=Round(N#,2)"/>
+			<ACTUALQTY FORMULA="=Round(L#,2)"/>
+			<BILLEDQTY FORMULA="=Round(L#,2)"/>
 			<BATCHALLOCATIONS.LIST>
 				<GODOWNNAME FORMULA="=if(len(trim(H#))=0,&quot;Main Location&quot;,H#)"/>
-				<BATCHNAME>Primary Batch</BATCHNAME>
-				<AMOUNT FORMULA="=Round(K#,2)"/>
-				<ACTUALQTY FORMULA="=Round(I#,2)"/>
-				<BILLEDQTY FORMULA="=Round(I#,2)"/>
+				<!--<BATCHNAME>Primary Batch</BATCHNAME>-->
+				<BATCHNAME COLUMNREFERENCE="I" />
+				<MFDON SKIP="=Len(trim(J#))=0" COLUMNREFERENCE="J" />
+				<EXPIRYPERIOD SKIP="=Len(trim(K#))=0" COLUMNREFERENCE="K" />
+				<AMOUNT FORMULA="=Round(N#,2)"/>
+				<ACTUALQTY FORMULA="=Round(L#,2)"/>
+				<BILLEDQTY FORMULA="=Round(L#,2)"/>
 			</BATCHALLOCATIONS.LIST>
 		</INVENTORYENTRIESOUT.LIST>
 	</VOUCHER>
