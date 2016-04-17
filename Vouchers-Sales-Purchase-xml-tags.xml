@@ -51,9 +51,9 @@
 		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
 		<AFFECTSSTOCK>No</AFFECTSSTOCK>
 		<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(Q# &amp; &quot;-VATCLASS-FOR&quot; &amp; if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
-		<TAXTYPE FORMULA="=&quot;__LOOKUP__(Q# &amp; &quot;-SALETYPE-FOR&quot; &amp; if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
-		<BASICTYPEOFDUTY FORMULA="=if(&quot;__LOOKUP__(Q# &amp; &quot;-TAXTYPE-FOR&quot; &amp; if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;=&quot;CST&quot;,&quot;Sales Tax&quot;,&quot;On VAT Rate&quot;)"/>
-		<SUBTAXTYPE FORMULA="=if(&quot;__LOOKUP__(Q# &amp; &quot;-SALETYPE&quot;)__&quot;=&quot;CST&quot;,&quot;&quot;,&quot;Output VAT&quot;)"/>
+		<TAXTYPE FORMULA="=&quot;__LOOKUP__(Q# &amp; &quot;-TAXTYPE&quot;)__&quot;"/>
+		<BASICTYPEOFDUTY FORMULA="=if(&quot;__LOOKUP__(Q# &amp; &quot;-TAXTYPE&quot;)__&quot;=&quot;CST&quot;,&quot;Sales Tax&quot;,&quot;On VAT Rate&quot;)"/>
+		<SUBTAXTYPE FORMULA="=if(&quot;__LOOKUP__(Q# &amp; &quot;-TAXTYPE&quot;)__&quot;=&quot;CST&quot;,&quot;&quot;,&quot;Output VAT&quot;)"/>
 		<RATEOFTAXCALCULATION FORMULA="=&quot;__LOOKUP__(Q# &amp; &quot;-VATRATE-FOR&quot; &amp; if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
 	</MASTER>
 	<!-- Create ADDl. TAX LEDGER Master -->
@@ -64,10 +64,10 @@
 		<PARENT>Duties &amp; Taxes</PARENT>
 		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
 		<AFFECTSSTOCK>No</AFFECTSSTOCK>
-		<TAXTYPE FORMULA="=&quot;__LOOKUP__(Q# &amp; &quot;-TAXTYPE-FOR&quot; &amp; if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
+		<TAXTYPE FORMULA="=&quot;__LOOKUP__(Q# &amp; &quot;-TAXTYPE&quot;)__&quot;"/>
 		<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(Q# &amp; &quot;-ADDLVATCLASS-FOR&quot; &amp; if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
-		<BASICTYPEOFDUTY FORMULA="=if(&quot;__LOOKUP__(Q# &amp; &quot;-TAXTYPE-FOR&quot; &amp; if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;=&quot;CST&quot;,&quot;Sales Tax&quot;,&quot;Additional Tax&quot;)"/>
-		<SUBTAXTYPE FORMULA="=if(&quot;__LOOKUP__(Q# &amp; &quot;-TAXTYPE-FOR&quot; &amp; if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;=&quot;CST&quot;,&quot;&quot;,&quot;Output VAT&quot;)"/>
+		<BASICTYPEOFDUTY FORMULA="=if(&quot;__LOOKUP__(Q# &amp; &quot;-TAXTYPE&quot;)__&quot;=&quot;CST&quot;,&quot;Sales Tax&quot;,&quot;Additional Tax&quot;)"/>
+		<SUBTAXTYPE FORMULA="=if(&quot;__LOOKUP__(Q# &amp; &quot;-TAXTYPE&quot;)__&quot;=&quot;CST&quot;,&quot;&quot;,&quot;Output VAT&quot;)"/>
 		<RATEOFTAXCALCULATION FORMULA="=&quot;__LOOKUP__(Q# &amp; &quot;-ADDLVATRATE-FOR&quot; &amp; if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
 	</MASTER>
 	<!-- Create Party LEDGER Masters -->
@@ -194,9 +194,9 @@
 			<UDF:ADDNLVATCLASSAMT.LIST DESC="`AddnlVATClassAmt`" ISLIST="YES" TYPE="Amount" ISGROUPED="YES">
 				<UDF:ADDNLVATCLASSAMT DESC="`AddnlVATClassAmt`" FORMULA="={Round(P#,2)}*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
 			</UDF:ADDNLVATCLASSAMT.LIST>
-			<TAXOBJECTALLOCATIONS.LIST>
+			<TAXOBJECTALLOCATIONS.LIST SKIP="=len(trim(L#))=0">
 				<CATEGORY FORMULA="=&quot;__LOOKUP__(Q# &amp; &quot;-VATCLASS-FOR&quot; &amp; if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
-				<TAXTYPE FORMULA="=&quot;__LOOKUP__(Q# &amp; &quot;-SALETYPE-FOR&quot; &amp; if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
+				<TAXTYPE FORMULA="=&quot;__LOOKUP__(Q# &amp; &quot;-TAXTYPE&quot;)__&quot;"/>
 				<TAXNAME FORMULA="=trim(D#[1])"/>
 				<PARTYLEDGER FORMULA="=trim(H#[1])"/>
 				<REFTYPE>New Ref</REFTYPE>
@@ -205,7 +205,7 @@
 				<ZERORATED>No</ZERORATED>
 				<SUBCATEGORYALLOCATION.LIST SKIP="=len(trim(L#))=0" SCROLL="Yes">
 					<STOCKITEMNAME COLUMNREFERENCE="L"/>
-					<SUBCATEGORY FORMULA="=&quot;__LOOKUP__(Q# &amp; &quot;-SALETYPE-FOR&quot; &amp; if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
+					<SUBCATEGORY FORMULA="=&quot;__LOOKUP__(Q# &amp; &quot;-TAXTYPE&quot;)__&quot;"/>
 					<DUTYLEDGER FORMULA="=&quot;__LOOKUP__(Q# &amp; &quot;-VATLEDGER-FOR&quot; &amp; if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
 					<SUBCATZERORATED>No</SUBCATZERORATED>
 					<SUBCATEXEMPTED>No</SUBCATEXEMPTED>
@@ -230,9 +230,9 @@
 			<ISDEEMEDPOSITIVE FORMULA="=if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),&quot;Yes&quot;,&quot;No&quot;)"/>
 			<AMOUNT FORMULA="={Round(S#,2)}*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
 			<VATASSESSABLEVALUE FORMULA="={Round(P#,2)}*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
-			<TAXOBJECTALLOCATIONS.LIST>
+			<TAXOBJECTALLOCATIONS.LIST SKIP="=len(trim(L#))=0">
 				<CATEGORY FORMULA="=&quot;__LOOKUP__(Q# &amp; &quot;-ADDLVATCLASS-FOR&quot; &amp; if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
-				<TAXTYPE FORMULA="=&quot;__LOOKUP__(Q# &amp; &quot;-SALETYPE-FOR&quot; &amp; if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
+				<TAXTYPE FORMULA="=&quot;__LOOKUP__(Q# &amp; &quot;-TAXTYPE&quot;)__&quot;"/>
 				<TAXNAME FORMULA="=trim(D#[1])"/>
 				<PARTYLEDGER FORMULA="=trim(H#[1])"/>
 				<REFTYPE>New Ref</REFTYPE>
@@ -240,7 +240,7 @@
 				<ISPANVALID>No</ISPANVALID>
 				<SUBCATEGORYALLOCATION.LIST SKIP="=len(trim(L#))=0" SCROLL="Yes">
 					<STOCKITEMNAME COLUMNREFERENCE="L"/>
-					<SUBCATEGORY FORMULA="=&quot;__LOOKUP__(Q# &amp; &quot;-SALETYPE-FOR&quot; &amp; if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
+					<SUBCATEGORY FORMULA="=&quot;__LOOKUP__(Q# &amp; &quot;-TAXTYPE&quot;)__&quot;"/>
 					<DUTYLEDGER FORMULA="=&quot;__LOOKUP__(Q# &amp; &quot;-ADDLVATLEDGER-FOR&quot; &amp; if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
 					<TAXRATE FORMULA="=&quot;__LOOKUP__(Q# &amp; &quot;-ADDLVATRATE-FOR&quot; &amp; if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
 					<SUBCATZERORATED>No</SUBCATZERORATED>
