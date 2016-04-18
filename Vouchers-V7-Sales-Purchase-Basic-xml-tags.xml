@@ -61,6 +61,7 @@
 		<REFERENCE COLUMNREFERENCE="F"/>
 		<NARRATION COLUMNREFERENCE="O"/>
 		<ISINVOICE>Yes</ISINVOICE>
+		<PERSISTEDVIEW FORMULA="=if(len(trim(I#))=0,&quot;Accounting Voucher View&quot;,&quot;Invoice Voucher View&quot;)"/>
 		<!-- For Purchase -->
 		<UDF:REFERENCEDATE.LIST DESC="`ReferenceDate`" ISLIST="YES" TYPE="Date">
 			<UDF:REFERENCEDATE DESC="`ReferenceDate`" COLUMNREFERENCE="G"/>
