@@ -1,0 +1,197 @@
+<!-- These XML tags are added to Excel sheet Cell A1 at run-time by UDIMAGIC  -->
+<!-- 
+New Features in v6.0
+1) FETCHOBJECT tag
+   This is used to retrieve data from Tally (as it is not there in the Excel sheet)
+-->
+<XMLTAGS CELLREFERENCE="A1" xmlns:UDF="TallyUDF">
+	<!-- Specifies that the Cell as mentioned above is the key field -->
+	<COLUMNNAME.LIST>
+		<COLUMNNAME>ID</COLUMNNAME>
+		<COLUMNNAME>NAME</COLUMNNAME>
+	</COLUMNNAME.LIST>
+	<!-- Fields to fetch from Tally -->
+	<FETCHOBJECT TYPE="LEDGER">
+		<OBJECT COLUMNREFERENCE="F" NAME="" ISMODIFY="No" ISFIXED="No" ISINITIALIZE="No" ISOPTION="No" ISINTERNAL="No"/>
+		<OBJECT COLUMNREFERENCE="I" NAME="" ISMODIFY="No" ISFIXED="No" ISINITIALIZE="No" ISOPTION="No" ISINTERNAL="No"/>
+		<!-- Fetch the GROUP Name of Ledger -->
+		<FIELD NAME="PARENT" ISMODIFY="NO" ISFIXED="NO" ISINITIALIZE="NO" ISOPTION="NO" ISINTERNAL="NO">
+			<USE>NAME FIELD</USE>
+			<SET>$PARENT:LEDGER:$KEY</SET>
+		</FIELD>
+		<!-- Fetch whether the PARENT/GROUP is Bank or not -->
+		<FIELD NAME="ISBANKLEDGER" ISMODIFY="NO" ISFIXED="NO" ISINITIALIZE="NO" ISOPTION="NO" ISINTERNAL="NO">
+			<USE>NAME FIELD</USE>
+			<SET>$$IsLedOfGrp:$KEY:$$GroupBank OR $$IsLedOfGrp:$KEY:$$GroupBankOD</SET>
+		</FIELD>
+	</FETCHOBJECT>
+	<!-- Create a single Group Master -->
+	<MASTER TYPE="GROUP" SINGLERECORD="Yes">
+		<NAME.LIST>
+			<NAME>New Ledgers</NAME>
+		</NAME.LIST>
+		<PARENT/>
+	</MASTER>
+	<!-- Create VOUCHERTYPE Masters -->
+	<MASTER TYPE="VOUCHERTYPE">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="D"/>
+		</NAME.LIST>
+		<PARENT COLUMNREFERENCE="C"/>
+		<NUMBERINGMETHOD>Manual</NUMBERINGMETHOD>
+		<ISDEEMEDPOSITIVE FORMULA="=If(Or(lower(C#)=&quot;payment&quot;,lower(C#)=&quot;sales&quot;,lower(C#)=&quot;debit note&quot;,lower(C#)=&quot;journal&quot;,lower(C#)=&quot;sales Order&quot;),&quot;Yes&quot;,&quot;No&quot;)"/>
+		<COMMONNARRATION>Yes</COMMONNARRATION>
+	</MASTER>
+	<!-- Create Ledgers -->
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="F" SKIP="=Len(&quot;__LOOKUP__(&quot;LEDGER-PARENT-&quot; &amp; F#)__&quot;)&gt;0"/>
+		</NAME.LIST>
+		<PARENT FORMULA="=if(Not(IsError(Find(&quot;bank&quot;,lower(F#),1))),&quot;Bank Accounts&quot;,&quot;New Ledgers&quot;)"/>
+		<ISBILLWISEON>Yes</ISBILLWISEON>
+        <ISCOSTCENTRESON FORMULA="=if(len(H#)=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+	</MASTER>
+	<!-- Create Ledgers -->
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="I" SKIP="=Len(&quot;__LOOKUP__(&quot;LEDGER-PARENT-&quot; &amp; I#)__&quot;)&gt;0"/>
+		</NAME.LIST>
+		<PARENT FORMULA="=if(Not(IsError(Find(&quot;bank&quot;,lower(I#),1))),&quot;Bank Accounts&quot;,&quot;New Ledgers&quot;)"/>
+		<ISBILLWISEON>Yes</ISBILLWISEON>
+        <ISCOSTCENTRESON FORMULA="=if(len(K#)=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+	</MASTER>
+	<!-- Revision 1.0 -->
+    <MASTER TYPE="COSTCATEGORY">
+        <NAME.LIST>
+            <NAME COLUMNREFERENCE="G"/>
+        </NAME.LIST>
+    </MASTER>
+    <MASTER TYPE="COSTCATEGORY">
+        <NAME.LIST>
+            <NAME COLUMNREFERENCE="J"/>
+        </NAME.LIST>
+    </MASTER>
+    <MASTER TYPE="COSTCENTRE">
+        <NAME.LIST>
+            <NAME COLUMNREFERENCE="H"/>
+        </NAME.LIST>
+		<CATEGORY COLUMNREFERENCE="G"/>
+    </MASTER>
+    <MASTER TYPE="COSTCENTRE">
+        <NAME.LIST>
+            <NAME COLUMNREFERENCE="K"/>
+        </NAME.LIST>
+		<CATEGORY COLUMNREFERENCE="J"/>
+    </MASTER>
+	
+	<!-- XML tags for creating Vouchers -->
+	<VOUCHER>
+		<GUID FORMULA="=+&quot;udi-H4QC85-&quot; &amp; A# &amp; &quot;-&quot; &amp; B# &amp; &quot;-&quot; &amp; D#"/>
+		<DATE COLUMNREFERENCE="B"/>
+		<EFFECTIVEDATE COLUMNREFERENCE="B"/>
+		<VOUCHERTYPENAME COLUMNREFERENCE="D"/>
+		<VOUCHERNUMBER COLUMNREFERENCE="E"/>
+		<ISINVOICE>No</ISINVOICE>
+		<NARRATION COLUMNREFERENCE="M"/>
+		<!-- Debit Ledger -->
+		<ALLLEDGERENTRIES.LIST SKIP="=Round(L# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(C#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(C#),1)))),0,1),2)=0">
+			<LEDGERNAME COLUMNREFERENCE="F"/>
+			<ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+			<AMOUNT FORMULA="=Round(L# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(C#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(C#),1)))),0,1),2)"/>
+			<BILLALLOCATIONS.LIST SKIP="=Len(trim(E#))=0">
+				<NAME COLUMNREFERENCE="E"/>
+				<BILLTYPE>New Ref</BILLTYPE>
+				<AMOUNT FORMULA="=Round(L# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(C#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(C#),1)))),0,1),2)"/>
+			</BILLALLOCATIONS.LIST>
+			<!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
+			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; F#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(F#),1)))">
+				<DATE COLUMNREFERENCE="B"/>
+				<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>
+				<INSTRUMENTNUMBER COLUMNREFERENCE="N"/>
+				<INSTRUMENTDATE COLUMNREFERENCE="O"/>
+				<PAYMENTFAVOURING COLUMNREFERENCE="F"/>
+				<STATUS>No</STATUS>
+				<AMOUNT FORMULA="=Round(L# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(C#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(C#),1)))),0,1),2)"/>
+				<PAYMENTMODE>Transacted</PAYMENTMODE>
+				<NAME FORMULA="=+A# &amp; &quot;-&quot; &amp; B# &amp; &quot;-&quot; &amp; F#"/>
+			</BANKALLOCATIONS.LIST>
+			
+			<CATEGORYALLOCATIONS.LIST SKIP="=Len(trim(H#))=0">
+                <CATEGORY FORMULA="=if(len(trim(G#))=0,&quot;Primary Cost Category&quot;,G#)"/>
+				<ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+				<AMOUNT FORMULA="=Round(L# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(C#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(C#),1)))),0,1),2)"/>
+                <COSTCENTREALLOCATIONS.LIST>
+                    <NAME COLUMNREFERENCE="H" />
+					<AMOUNT FORMULA="=Round(L# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(C#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(C#),1)))),0,1),2)"/>
+                </COSTCENTREALLOCATIONS.LIST>
+            </CATEGORYALLOCATIONS.LIST>
+		</ALLLEDGERENTRIES.LIST>
+		<!-- Credit Ledger -->
+		<ALLLEDGERENTRIES.LIST>
+			<LEDGERNAME COLUMNREFERENCE="I"/>
+			<ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
+			<AMOUNT FORMULA="=Round(L#,2)*1"/>
+			<BILLALLOCATIONS.LIST SKIP="=Len(trim(E#))=0">
+				<NAME COLUMNREFERENCE="E"/>
+				<BILLTYPE>New Ref</BILLTYPE>
+				<AMOUNT FORMULA="=Round(L#,2)*1"/>
+			</BILLALLOCATIONS.LIST>
+			<!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
+			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; I#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(I#),1)))">
+				<DATE COLUMNREFERENCE="B"/>
+				<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>
+				<INSTRUMENTNUMBER COLUMNREFERENCE="N"/>
+				<INSTRUMENTDATE COLUMNREFERENCE="O"/>
+				<PAYMENTFAVOURING COLUMNREFERENCE="I"/>
+				<STATUS>No</STATUS>
+				<AMOUNT FORMULA="=Round(L#,2)*1"/>
+				<PAYMENTMODE>Transacted</PAYMENTMODE>
+				<NAME FORMULA="=+A# &amp; &quot;-&quot; &amp; B# &amp; &quot;-&quot; &amp; I#"/>
+			</BANKALLOCATIONS.LIST>
+			<CATEGORYALLOCATIONS.LIST SKIP="=Len(trim(K#))=0">
+                <CATEGORY FORMULA="=if(len(trim(J#))=0,&quot;Primary Cost Category&quot;,J#)"/>
+				<ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
+				<AMOUNT FORMULA="=Round(L#,2)*1"/>
+                <COSTCENTREALLOCATIONS.LIST>
+                    <NAME COLUMNREFERENCE="K" />
+					<AMOUNT FORMULA="=Round(L#,2)*1"/>
+                </COSTCENTREALLOCATIONS.LIST>
+            </CATEGORYALLOCATIONS.LIST>
+			
+		</ALLLEDGERENTRIES.LIST>
+		<!-- Debit Ledger -->
+		<ALLLEDGERENTRIES.LIST SKIP="=Round(L# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(C#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(C#),1)))),1,0),2)=0">
+			<LEDGERNAME COLUMNREFERENCE="F"/>
+			<ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+			<AMOUNT FORMULA="=Round(L# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(C#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(C#),1)))),1,0),2)"/>
+			<BILLALLOCATIONS.LIST SKIP="=Len(trim(E#))=0">
+				<NAME COLUMNREFERENCE="E"/>
+				<BILLTYPE>New Ref</BILLTYPE>
+				<AMOUNT FORMULA="=Round(L# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(C#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(C#),1)))),1,0),2)"/>
+			</BILLALLOCATIONS.LIST>
+			<!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
+			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; F#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(F#),1)))">
+				<DATE COLUMNREFERENCE="B"/>
+				<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>
+				<INSTRUMENTNUMBER COLUMNREFERENCE="N"/>
+				<INSTRUMENTDATE COLUMNREFERENCE="O"/>
+				<PAYMENTFAVOURING COLUMNREFERENCE="F"/>
+				<STATUS>No</STATUS>
+				<AMOUNT FORMULA="=Round(L# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(C#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(C#),1)))),1,0),2)"/>
+				<PAYMENTMODE>Transacted</PAYMENTMODE>
+				<NAME FORMULA="=+A# &amp; &quot;-&quot; &amp; B# &amp; &quot;-&quot; &amp; D#"/>
+			</BANKALLOCATIONS.LIST>
+			<CATEGORYALLOCATIONS.LIST SKIP="=Len(trim(H#))=0">
+                <CATEGORY FORMULA="=if(len(trim(G#))=0,&quot;Primary Cost Category&quot;,H#)"/>
+				<ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+				<AMOUNT FORMULA="=Round(L# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(C#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(C#),1)))),1,0),2)"/>
+                <COSTCENTREALLOCATIONS.LIST>
+                    <NAME COLUMNREFERENCE="H" />
+					<AMOUNT FORMULA="=Round(L# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(C#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(C#),1)))),1,0),2)"/>
+                </COSTCENTREALLOCATIONS.LIST>
+            </CATEGORYALLOCATIONS.LIST>
+			
+		</ALLLEDGERENTRIES.LIST>
+	</VOUCHER>
+</XMLTAGS>
+

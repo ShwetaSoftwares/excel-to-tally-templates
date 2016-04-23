@@ -1,0 +1,111 @@
+<!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
+<!-- 
+New Features in v6.0
+1) FETCHOBJECT tag
+   This is used to retrieve data from Tally (as it is not there in the Excel sheet)
+-->
+
+<!-- 
+New Features in v5.0
+1) FROMROW attribute
+   In the earlier version (prior to v5.0), it was presumed that HEADINGS are in ROW 1 and DATA starts from ROW 2. Now, you can use the FROMROW attribute to 
+   specify the Excel sheet ROW Number from where the DATA begins.
+2) SCROLLHORIZONTALLY attribute
+   The SCROLLHORIZONTALLY attribute uses an internal mechanism which increments the COLUMN in the specified FORMULA. This enables you to have virtually 
+   any number of COLUMNs for your DATA.
+-->
+<XMLTAGS CELLREFERENCE="A1" FROMROW="5" xmlns:UDF="TallyUDF">
+    <!-- Specifies that this (i.e Column as mentioned above) is the key field -->
+    <COLUMNNAME.LIST>
+        <COLUMNNAME>ID</COLUMNNAME>
+        <COLUMNNAME>NAME</COLUMNNAME>
+    </COLUMNNAME.LIST>
+	
+	<!-- Fields to fetch from Tally -->
+	<FETCHOBJECT TYPE="LEDGER">
+		<OBJECT FORMULA="=G$4" SCROLLHORIZONTALLY="=Len(trim(G$4))&gt;0" NAME="" ISMODIFY="No" ISFIXED="No" ISINITIALIZE="No" ISOPTION="No" ISINTERNAL="No"/>
+		<!-- Fetch the GROUP Name of Ledger -->
+		<FIELD NAME="PARENT" ISMODIFY="NO" ISFIXED="NO" ISINITIALIZE="NO" ISOPTION="NO" ISINTERNAL="NO">
+			<USE>NAME FIELD</USE> 
+			<SET>$PARENT:LEDGER:$KEY</SET> 
+		</FIELD>
+		<!-- Fetch whether the PARENT/GROUP is Bank or not -->
+		<FIELD NAME="ISBANKLEDGER" ISMODIFY="NO" ISFIXED="NO" ISINITIALIZE="NO" ISOPTION="NO" ISINTERNAL="NO">
+			<USE>NAME FIELD</USE> 
+			<SET>$$IsLedOfGrp:$KEY:$$GroupBank OR $$IsLedOfGrp:$KEY:$$GroupBankOD</SET> 
+		</FIELD>
+	</FETCHOBJECT>
+	
+    <!-- Create VOUCHERTYPE Masters -->
+    <MASTER TYPE="VOUCHERTYPE">
+        <NAME.LIST>
+            <NAME COLUMNREFERENCE="D" />
+        </NAME.LIST>
+        <PARENT COLUMNREFERENCE="C" />
+        <NUMBERINGMETHOD>Manual</NUMBERINGMETHOD>
+        <ISDEEMEDPOSITIVE FORMULA="=If(Or(C#=&quot;Payment&quot;,C#=&quot;Sales&quot;,C#=&quot;Debit Note&quot;,C#=&quot;Journal&quot;,C#=&quot;Sales Order&quot;),&quot;Yes&quot;,&quot;No&quot;)" />
+        <COMMONNARRATION>Yes</COMMONNARRATION>
+    </MASTER>
+    <!-- Create Ledger Masters -->
+    <!-- 
+                The SCROLLHORIZONTALLY specifies the condition (any valid Excel formula). Herein, the condition is to check the length of cell H2
+                and if it is greater than 0, a Ledger Master is created. The loop executes and now H2 becomes I2. If length of cell I2 is greater 
+                than 0, Ledger Master is created. The loop go on (say J2, K2, L2... till the conditions becomes false.
+        -->
+    <MASTER TYPE="LEDGER" SINGLERECORD="YES" SCROLLHORIZONTALLY="=Len(trim(G$4))&gt;0">
+        <NAME.LIST>
+            <NAME SKIP="=Len(trim(G$4))=0" FORMULA="=+G$4" />
+        </NAME.LIST>
+        <PARENT FORMULA="=+G$3" />
+        <ISCOSTCENTRESON FORMULA="=If(Len(trim(G$2))&gt;0,&quot;Yes&quot;,&quot;No&quot;)" />
+        <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    </MASTER>
+    <!-- Create COSTCENTRE Masters -->
+    <!-- Keep this as G4 -->
+    <MASTER TYPE="COSTCENTRE" SINGLERECORD="YES" SCROLLHORIZONTALLY="=Len(G$4)&gt;0">
+        <NAME.LIST>
+            <NAME SKIP="=Len(trim(G$2))=0" FORMULA="=+G$2" />
+        </NAME.LIST>
+    </MASTER>
+    <!-- Voucher -->
+    <VOUCHER>
+        <GUID FORMULA="=+&quot;udi-MH5WDG-&quot; &amp; A# &amp; &quot;-&quot; &amp; B# &amp; &quot;-&quot; &amp; C#" />
+        <DATE COLUMNREFERENCE="B" />
+        <EFFECTIVEDATE COLUMNREFERENCE="B" />
+        <VOUCHERTYPENAME COLUMNREFERENCE="D" />
+        <ISINVOICE>No</ISINVOICE>
+        <PERSISTEDVIEW>Accounting Voucher View</PERSISTEDVIEW>
+        <REFERENCE COLUMNREFERENCE="E" />
+        <VOUCHERNUMBER COLUMNREFERENCE="E" />
+		<NARRATION COLUMNREFERENCE="F" />
+        <!-- Ledgers -->
+        <ALLLEDGERENTRIES.LIST SKIP="=+Round(G#,2)=0" SCROLLHORIZONTALLY="=Len(trim(G$4))&gt;0">
+            <!-- LedgerName to be taken from G4,H4,I4,J4.... and so on -->
+            <LEDGERNAME FORMULA="=+G$4" />
+            <ISDEEMEDPOSITIVE FORMULA="=If(trim(G$1)=&quot;Cr&quot;,&quot;No&quot;,&quot;Yes&quot;)" />
+            <!-- Amount to be taken from G#,H#,I#,J#.... and so on. The # symbol is substituted  by row numbers at run time-->
+            <AMOUNT FORMULA="=+Round(G#,2)* if(G$1=&quot;Cr&quot;,1,-1)" />
+            <CATEGORYALLOCATIONS.LIST SKIP="=Len(Trim(G$2))=0">
+                <CATEGORY>Primary Cost Category</CATEGORY>
+                <ISDEEMEDPOSITIVE FORMULA="=If(trim(G$1)=&quot;Cr&quot;,&quot;No&quot;,&quot;Yes&quot;)" />
+                <COSTCENTREALLOCATIONS.LIST>
+                    <NAME FORMULA="=+G$2" />
+                    <!-- Amount to be taken from G#,H#,I#,J#.... and so on. The # symbol is substituted  by row numbers at run time-->
+                    <AMOUNT FORMULA="=+Round(G#,2)* if(G$1=&quot;Cr&quot;,1,-1)" />
+                </COSTCENTREALLOCATIONS.LIST>
+            </CATEGORYALLOCATIONS.LIST>
+			
+			<!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
+			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; G$4)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(G$3),1)))">
+				<DATE FORMULA="=$B#"/>
+				<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>
+				<PAYMENTFAVOURING FORMULA="=+G$4" />
+				<STATUS>No</STATUS>
+				<AMOUNT FORMULA="=+Round(G#,2)* if(G$1=&quot;Cr&quot;,1,-1)" />
+				<PAYMENTMODE>Transacted</PAYMENTMODE>
+				<NAME FORMULA="=+&quot;udi-&quot; &amp; $A# &amp; &quot;-&quot; &amp; $B# &amp; &quot;-&quot; &amp; $C#" />
+			</BANKALLOCATIONS.LIST>				
+			
+        </ALLLEDGERENTRIES.LIST>
+    </VOUCHER>
+</XMLTAGS>

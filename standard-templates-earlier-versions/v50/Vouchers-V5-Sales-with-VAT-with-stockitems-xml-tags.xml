@@ -1,0 +1,264 @@
+<!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
+<!-- 
+New Features in v5.0
+1) FROMROW attribute
+   In the earlier version (prior to v5.0), it was presumed that HEADINGS are in ROW 1 and DATA starts from ROW 2. Now, you can use the FROMROW attribute to 
+   specify the Excel sheet ROW Number from where the DATA begins.
+2) SCROLLHORIZONTALLY attribute
+   The SCROLLHORIZONTALLY attribute uses an internal mechanism which increments the COLUMN in the specified FORMULA. This enables you to have virtually 
+   any number of COLUMNs for your DATA.
+3) FORMULA2 attribute
+   
+-->
+<XMLTAGS CELLREFERENCE="A1" FROMROW="12" xmlns:UDF="TallyUDF">
+	<!-- Specifies that this (i.e Column as mentioned above) is the key field -->
+	<COLUMNNAME.LIST>
+		<COLUMNNAME>ID</COLUMNNAME>
+		<COLUMNNAME>NAME</COLUMNNAME>
+	</COLUMNNAME.LIST>
+	<!-- Create Vouchertype Masters -->
+	<MASTER TYPE="VOUCHERTYPE">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="C" />
+		</NAME.LIST>
+		<PARENT>Sales</PARENT>
+		<ADDITIONALNAME>Sale</ADDITIONALNAME>
+		<NUMBERINGMETHOD>Manual</NUMBERINGMETHOD>
+		<ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+		<AFFECTSSTOCK>No</AFFECTSSTOCK>
+		<PREVENTDUPLICATES>Yes</PREVENTDUPLICATES>
+		<PREFILLZERO>No</PREFILLZERO>
+		<PRINTAFTERSAVE>No</PRINTAFTERSAVE>
+		<FORMALRECEIPT>No</FORMALRECEIPT>
+		<COMMONNARRATION>Yes</COMMONNARRATION>
+	</MASTER>
+	<!-- 
+                The SCROLLHORIZONTALLY attribute specifies the condition (any valid Excel formula). Herein, the condition is to check the length of cell L8
+                and if it is greater than 0, a Ledger Master is created (based on value in L8). The loop executes and now L8 becomes M8.
+                If length of cell M8 is greater than 0, Ledger Master is created (based on value given in M8). The loop go on (say N8, O8, P8... till the
+                conditions becomes false.
+    -->
+	<!-- Create Ledger Masters -->
+	<MASTER TYPE="LEDGER" SINGLERECORD="YES" SCROLLHORIZONTALLY="=Len(trim(S$11))&gt;0">
+		<NAME.LIST>
+			<NAME FORMULA="=S$11" />
+		</NAME.LIST>
+		<PARENT FORMULA="=S$10" />
+		<TAXCLASSIFICATIONNAME SKIP="=Len(trim(S$6))=0" FORMULA="=S$6" />
+		<!-- Yes for Sales ledgers. No for others -->
+		<USEFORVAT SKIP="=Len(trim(S$1))=0" FORMULA="=S$1" />
+		<AFFECTSSTOCK SKIP="=Len(trim(S$1))=0" FORMULA="=S$1" />
+
+		<!-- Required for VAT and CST both -->
+		<TAXTYPE SKIP="=Len(trim(S$4))=0" FORMULA="=S$4" />
+		<!-- For VAT only -->
+		<BASICTYPEOFDUTY SKIP="=Or(Len(trim(S$4))=0,Not(S$4=&quot;VAT&quot;))">On VAT Rate</BASICTYPEOFDUTY>
+		<!-- For VAT only -->
+		<SUBTAXTYPE SKIP="=Or(Len(trim(S$4))=0,Not(S$4=&quot;VAT&quot;))">Output VAT</SUBTAXTYPE>
+
+		<!-- CostCentre Required or not -->
+		<ISCOSTCENTRESON SKIP="=Len(trim(S$1))=0" FORMULA="=S$9" />
+	</MASTER>
+	<!-- Create Party Ledger Master-->
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="D" />
+		</NAME.LIST>
+		<PARENT>Sundry Debtors</PARENT>
+		<ISBILLWISEON>Yes</ISBILLWISEON>
+		<AFFECTSSTOCK>No</AFFECTSSTOCK>
+		<USEFORVAT>No</USEFORVAT>
+		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+	</MASTER>
+
+	<!-- Create COSTCATEGORY Master-->
+	<MASTER TYPE="COSTCATEGORY">
+		<NAME.LIST TYPE="String">
+			<NAME COLUMNREFERENCE="N" />
+		</NAME.LIST>
+		<AFFECTSSTOCK>No</AFFECTSSTOCK>
+		<ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+		<ALLOCATENONREVENUE>No</ALLOCATENONREVENUE>
+	</MASTER>
+
+	<!-- Create COSTCENTRE Master-->
+	<MASTER TYPE="COSTCENTRE">
+		<NAME.LIST TYPE="String">
+			<NAME COLUMNREFERENCE="O" />
+		</NAME.LIST>
+		<PARENT/>
+		<CATEGORY COLUMNREFERENCE="N" />
+		<REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+		<AFFECTSSTOCK>No</AFFECTSSTOCK>
+		<FORPAYROLL>No</FORPAYROLL>
+		<FORJOBCOSTING>No</FORJOBCOSTING>
+		<ISEMPLOYEEGROUP>No</ISEMPLOYEEGROUP>
+	</MASTER>
+
+	<!-- Create UNIT Masters -->
+	<MASTER TYPE="UNIT">
+		<NAME COLUMNREFERENCE="F" />
+		<ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
+	</MASTER>
+	<!-- Create STOCKITEM Masters -->
+	<MASTER TYPE="STOCKITEM">
+		<NAME.LIST TYPE="String">
+			<NAME COLUMNREFERENCE="E" />
+		</NAME.LIST>
+		<BASEUNITS COLUMNREFERENCE="F" />
+	</MASTER>
+	<!-- Create GODOWN Masters -->
+	<MASTER TYPE="GODOWN">
+		<NAME.LIST TYPE="String">
+			<NAME COLUMNREFERENCE="M" />
+		</NAME.LIST>
+	</MASTER>
+
+	<!-- SALES VOUCHER-->
+	<VOUCHER>
+		<GUID FORMULA="=+&quot;udi-sale-&quot; &amp; A# &amp; &quot;-&quot; &amp; B#" />
+		<DATE COLUMNREFERENCE="B" />
+		<EFFECTIVEDATE COLUMNREFERENCE="B" />
+		<VOUCHERTYPENAME COLUMNREFERENCE="C" />
+		<ISINVOICE>Yes</ISINVOICE>
+		<PERSISTEDVIEW>Invoice Voucher View</PERSISTEDVIEW>
+		<PARTYLEDGERNAME COLUMNREFERENCE="D" />
+		<PARTYNAME COLUMNREFERENCE="D" />
+		<BASICBASEPARTYNAME COLUMNREFERENCE="D" />
+		<BASICBUYERNAME COLUMNREFERENCE="D" />
+		<REFERENCE COLUMNREFERENCE="A" />
+
+		<VOUCHERNUMBER COLUMNREFERENCE="P" />
+		<CSTFORMISSUETYPE COLUMNREFERENCE="Q" />
+		<CSTFORMRECVTYPE COLUMNREFERENCE="R" />
+
+		<NARRATION COLUMNREFERENCE="L" />
+
+		<!-- Party Ledger to be Debited -->
+		<LEDGERENTRIES.LIST>
+			<LEDGERNAME COLUMNREFERENCE="D" />
+			<ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+			<!-- Running Totals are computed using {} -->
+			<AMOUNT FORMULA="={Round(K#,2)*-1}" />
+			<BILLALLOCATIONS.LIST>
+				<NAME COLUMNREFERENCE="A" />
+				<BILLTYPE>New Ref</BILLTYPE>
+				<!-- Running Totals are computed using {} -->
+				<AMOUNT FORMULA="={Round(K#,2)*-1}" />
+			</BILLALLOCATIONS.LIST>
+		</LEDGERENTRIES.LIST>
+		<!-- VAT and other Ledgers Starting from Column L onwards -->
+		<LEDGERENTRIES.LIST SKIP="=Or(S$1=&quot;Yes&quot;,{Round(S#,2)}=0)" SCROLLHORIZONTALLY="=Len(trim(S$11))&gt;0">
+			<BASICRATEOFINVOICETAX.LIST SKIP="=Round(S$2,2)=0" TYPE="Number">
+				<BASICRATEOFINVOICETAX FORMULA="=S$2" />
+			</BASICRATEOFINVOICETAX.LIST>
+			<TAXCLASSIFICATIONNAME SKIP="=Len(trim(S$6))=0" FORMULA="=S$6" />
+			<LEDGERNAME FORMULA="=S$11" />
+			<ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
+			<AMOUNT FORMULA="={Round(S#,2)}" />
+			<VATASSESSABLEVALUE SKIP="=Len(trim(S$5))=0" FORMULA2="=S$5" />
+			<!-- Required when VAT Class is specified -->
+			<TAXOBJECTALLOCATIONS.LIST SKIP="=Or(Len(trim(S$6))=0,Len(trim(S$4))=0)">
+				<CATEGORY SKIP="=Len(S$6)=0" FORMULA="=S$6" />
+				<TAXTYPE FORMULA="=S$4" />
+				<!-- Do not increment Column Reference. Bill-Name is always in said Column -->
+				<TAXNAME FORMULA="=$A#" />
+				<!-- Do not increment Column Reference. Party-Name is always in said Column -->
+				<PARTYLEDGER FORMULA="=$D#" />
+				<REFTYPE>New Ref</REFTYPE>
+				<ISOPTIONAL>No</ISOPTIONAL>
+				<ISPANVALID>No</ISPANVALID>
+				<ZERORATED>No</ZERORATED>
+				<EXEMPTED>No</EXEMPTED>
+				<ISSPECIALRATE>No</ISSPECIALRATE>
+				<ISDEDUCTNOW>No</ISDEDUCTNOW>
+				<ISPANNOTAVAILABLE>No</ISPANNOTAVAILABLE>
+				<SUBCATEGORYALLOCATION.LIST SCROLL="Yes" SKIP="=Or(Len($E#)=0,Round(S#,2)=0)">
+					<!-- Do not increment Column Reference. Item-Name is always in said Column -->
+					<STOCKITEMNAME FORMULA="=$E#" />
+					<SUBCATEGORY FORMULA="=S$4" />
+					<DUTYLEDGER FORMULA="=S$11" />
+					<SUBCATZERORATED>No</SUBCATZERORATED>
+					<SUBCATEXEMPTED>No</SUBCATEXEMPTED>
+					<SUBCATISSPECIALRATE>No</SUBCATISSPECIALRATE>
+					<ASSESSABLEAMOUNT FORMULA2="=S$5" />
+					<TAX FORMULA="=Round(S#,2)*1" />
+					<!-- Do not increment Column Reference. Quantity is to be always taken for said Column -->
+					<BILLEDQTY FORMULA="=$G#" />
+				</SUBCATEGORYALLOCATION.LIST>
+			</TAXOBJECTALLOCATIONS.LIST>
+
+			<!-- Revision 1.0 -->
+			<CATEGORYALLOCATIONS.LIST SKIP="=Or(Len(trim($O#))=0,Not(upper(S$9)=&quot;YES&quot;))">
+				<CATEGORY FORMULA="=If(len(trim($N#))=0,&quot;Primary Cost Category&quot;,$N#)"/>
+				<ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+				<COSTCENTREALLOCATIONS.LIST>
+					<NAME FORMULA="=$O#"/>
+					<AMOUNT FORMULA="={Round(S#,2)}" />
+				</COSTCENTREALLOCATIONS.LIST>
+			</CATEGORYALLOCATIONS.LIST>		
+
+			<UDF:ADDNLVATCLASSAMT.LIST DESC="`AddnlVATClassAmt`" ISLIST="YES" TYPE="Amount" SKIP="=Not(S$4=&quot;VAT&quot;)">
+				<UDF:ADDNLVATCLASSAMT DESC="`AddnlVATClassAmt`" FORMULA2="=S$5" />
+			</UDF:ADDNLVATCLASSAMT.LIST>
+			<UDF:MAHWCASSESSABLEVALUE.LIST DESC="`MAHWCAssessableValue`" ISLIST="YES" TYPE="Amount" SKIP="=Not(S$4=&quot;VAT&quot;)">
+				<UDF:MAHWCASSESSABLEVALUE DESC="`MAHWCAssessableValue`" FORMULA2="=S$5" />
+			</UDF:MAHWCASSESSABLEVALUE.LIST>
+		</LEDGERENTRIES.LIST>
+		<!-- STOCKITEMS -->
+		<!-- SCROLL="Yes" means scroll vertically i.e. row-wise -->
+		<ALLINVENTORYENTRIES.LIST SCROLL="Yes" SKIP="=Len(trim(E#))=0">
+			<STOCKITEMNAME COLUMNREFERENCE="E" />
+			<ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
+			<RATE FORMULA="=Round(H#,2)" />
+			<AMOUNT FORMULA="=Round(I#,2)" />
+			<ACTUALQTY COLUMNREFERENCE="G" />
+			<BILLEDQTY COLUMNREFERENCE="G" />
+			<BATCHALLOCATIONS.LIST>
+				<GODOWNNAME FORMULA="=If(len(trim(M#))=0,&quot;Main Location&quot;,M#)"/>
+				<BATCHNAME>Primary Batch</BATCHNAME>
+				<AMOUNT FORMULA="=Round(I#,2)" />
+				<ACTUALQTY COLUMNREFERENCE="G" />
+				<BILLEDQTY COLUMNREFERENCE="G" />
+			</BATCHALLOCATIONS.LIST>
+			<!-- Sales Ledger details-->
+			<!-- For ZERO Value entries (when I# is 0) -->
+			<ACCOUNTINGALLOCATIONS.LIST SKIP="=Not(Round($I#,2)=0)">
+				<LEDGERNAME FORMULA="=S$11" />
+				<ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
+				<AMOUNT FORMULA="=Round($I#,2)" />
+
+				<CATEGORYALLOCATIONS.LIST SKIP="=Len(trim($N#))=0">
+					<CATEGORY FORMULA="=$N#"/>
+					<ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+					<COSTCENTREALLOCATIONS.LIST>
+						<NAME FORMULA="=$O#"/>
+						<AMOUNT FORMULA="=Round($I#,2)" />
+					</COSTCENTREALLOCATIONS.LIST>
+				</CATEGORYALLOCATIONS.LIST>				
+			</ACCOUNTINGALLOCATIONS.LIST>			
+
+			<!-- SCROLLHORIZONTALLY attribute is used herein -->
+			<ACCOUNTINGALLOCATIONS.LIST SCROLLHORIZONTALLY="=Len(trim(S$11))&gt;0" SKIP="=Or(Round(S#,2)=0,Not(S$1=&quot;Yes&quot;))">
+				<!-- Row number is fixed. Column will be incremented at run-time -->
+				<TAXCLASSIFICATIONNAME SKIP="=Len(trim(S$6))=0" FORMULA="=S$6" />
+				<!-- Row number is fixed. Column will be incremented at run-time -->
+				<LEDGERNAME FORMULA="=S$11" />
+				<ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
+				<!-- Column is Fixed. Row number will be incremented at run-time -->
+				<AMOUNT FORMULA="=Round($I#,2)" />
+
+				<!-- Revision 1.0 -->
+				<CATEGORYALLOCATIONS.LIST SKIP="=Or(Len(trim($O#))=0,Not(upper(S$9)=&quot;YES&quot;))">
+					<CATEGORY FORMULA="=If(len(trim($N#))=0,&quot;Primary Cost Category&quot;,$N#)"/>
+					<ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+					<COSTCENTREALLOCATIONS.LIST>
+						<NAME FORMULA="=$O#"/>
+						<AMOUNT FORMULA="=Round($I#,2)" />
+					</COSTCENTREALLOCATIONS.LIST>
+				</CATEGORYALLOCATIONS.LIST>
+
+			</ACCOUNTINGALLOCATIONS.LIST>
+		</ALLINVENTORYENTRIES.LIST>
+	</VOUCHER>
+</XMLTAGS>

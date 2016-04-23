@@ -1,0 +1,334 @@
+<!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
+<XMLTAGS CELLREFERENCE="A1" xmlns:UDF="TallyUDF">
+	<!-- Specifies that this (i.e Column as mentioned above) is the key field -->
+	<COLUMNNAME.LIST>
+		<COLUMNNAME>ID</COLUMNNAME>
+		<COLUMNNAME>NAME</COLUMNNAME>
+	</COLUMNNAME.LIST>
+	<!-- For macro -->
+	<!--VBA LOADFILE="Vouchers-V6-Sales-E-Commerce-macro.txt" RUNMACROATSTARTUP="NewColumns,A#"/-->
+	<DATA LOADFILE="Vouchers-V6-Sales-E-Commerce-settings.csv"/>
+	<!-- Create VOUCHERTYPE Master -->
+	<MASTER TYPE="VOUCHERTYPE">
+		<NAME.LIST TYPE="String">
+			<NAME COLUMNREFERENCE="E"/>
+		</NAME.LIST>
+		<PARENT COLUMNREFERENCE="D"/>
+		<MAILINGNAME>Sale</MAILINGNAME>
+		<NUMBERINGMETHOD>Manual</NUMBERINGMETHOD>
+		<EXCISEUNITNAME/>
+		<ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+	</MASTER>
+	<!-- Create Party LEDGER Masters -->
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="G"/>
+		</NAME.LIST>
+		<MAILINGNAME.LIST TYPE="String">
+			<MAILINGNAME COLUMNREFERENCE="G"/>
+		</MAILINGNAME.LIST>
+		<PARENT>Sundry Debtors</PARENT>
+		<ISBILLWISEON>Yes</ISBILLWISEON>
+	</MASTER>
+	<!-- Create  Sales Ledger Master -->
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST>
+			<NAME FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-SALELEDGER&quot;)__&quot;"/>
+		</NAME.LIST>
+		<PARENT>Sales Accounts</PARENT>
+		<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-VATCLASS&quot;)__&quot;"/>
+		<TAXTYPE>Others</TAXTYPE>
+		<ISBILLWISEON>No</ISBILLWISEON>
+		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+		<AFFECTSSTOCK>Yes</AFFECTSSTOCK>
+		<USEFORVAT>Yes</USEFORVAT>
+	</MASTER>
+	<!-- Create TAX LEDGER Master -->
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST>
+			<NAME FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-VATLEDGER&quot;)__&quot;"/>
+		</NAME.LIST>
+		<PARENT>Duties &amp; Taxes</PARENT>
+		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+		<AFFECTSSTOCK>No</AFFECTSSTOCK>
+		<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-VATCLASS&quot;)__&quot;"/>
+		<TAXTYPE FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-SALETYPE&quot;)__&quot;"/>
+		<BASICTYPEOFDUTY FORMULA="=if(&quot;__LOOKUP__(AA# &amp; &quot;-SALETYPE&quot;)__&quot;=&quot;CST&quot;,&quot;Sales Tax&quot;,&quot;On VAT Rate&quot;)"/>
+		<SUBTAXTYPE FORMULA="=if(&quot;__LOOKUP__(AA# &amp; &quot;-SALETYPE&quot;)__&quot;=&quot;CST&quot;,&quot;&quot;,&quot;Output VAT&quot;)"/>
+		<RATEOFTAXCALCULATION FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-VATRATE&quot;)__&quot;"/>
+	</MASTER>
+	<!-- Create ADDl. TAX LEDGER Master -->
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST>
+			<NAME FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-ADDLVATLEDGER&quot;)__&quot;"/>
+		</NAME.LIST>
+		<PARENT>Duties &amp; Taxes</PARENT>
+		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+		<AFFECTSSTOCK>No</AFFECTSSTOCK>
+		<TAXTYPE FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-SALETYPE&quot;)__&quot;"/>
+		<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-ADDLVATCLASS&quot;)__&quot;"/>
+		<BASICTYPEOFDUTY FORMULA="=if(&quot;__LOOKUP__(AA# &amp; &quot;-SALETYPE&quot;)__&quot;=&quot;CST&quot;,&quot;Sales Tax&quot;,&quot;Additional Tax&quot;)"/>
+		<SUBTAXTYPE FORMULA="=if(&quot;__LOOKUP__(AA# &amp; &quot;-SALETYPE&quot;)__&quot;=&quot;CST&quot;,&quot;&quot;,&quot;Output VAT&quot;)"/>
+		<RATEOFTAXCALCULATION FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-ADDLVATRATE&quot;)__&quot;"/>
+	</MASTER>
+	<!-- Create LEDGER Master -->
+	<MASTER TYPE="LEDGER" SINGLERECORD="YES">
+		<NAME.LIST>
+			<NAME>Rounding Off</NAME>
+		</NAME.LIST>
+		<PARENT>Indirect Expenses</PARENT>
+	</MASTER>
+	<!-- Create LEDGER Master -->
+	<MASTER TYPE="LEDGER" SINGLERECORD="YES">
+		<NAME.LIST>
+			<!-- RTS -->
+			<!--NAME FORMULA="=AD$1"/-->
+			<NAME>Shipping Charges</NAME>
+		</NAME.LIST>
+		<PARENT>Indirect Expenses</PARENT>
+	</MASTER>
+	<!-- Create LEDGER Master -->
+	<MASTER TYPE="LEDGER" SINGLERECORD="YES">
+		<NAME.LIST>
+			<NAME FORMULA="=AE$1"/>
+		</NAME.LIST>
+		<PARENT>Indirect Expenses</PARENT>
+	</MASTER>
+	<!-- Create LEDGER Master -->
+	<MASTER TYPE="LEDGER" SINGLERECORD="YES">
+		<NAME.LIST>
+			<NAME FORMULA="=AF$1"/>
+		</NAME.LIST>
+		<PARENT>Indirect Expenses</PARENT>
+	</MASTER>
+	<!-- Create UNIT Masters -->
+	<MASTER TYPE="UNIT">
+		<NAME COLUMNREFERENCE="V"/>
+		<ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
+	</MASTER>
+	<!-- Create Godown Masters -->
+	<MASTER TYPE="GODOWN">
+		<NAME COLUMNREFERENCE="R"/>
+		<PARENT/>
+	</MASTER>
+	<!-- Create STOCKITEM Masters -->
+	<MASTER TYPE="STOCKITEM">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="T"/>
+		</NAME.LIST>
+		<PARENT/>
+		<BASEUNITS COLUMNREFERENCE="V"/>
+	</MASTER>
+	<VOUCHER>
+		<GUID FORMULA="=+&quot;udi-HD7Q5X-&quot; &amp; A# &amp; &quot;-&quot; &amp; C# &amp; &quot;-&quot; &amp; E#"/>
+		<DATE COLUMNREFERENCE="C"/>
+		<EFFECTIVEDATE COLUMNREFERENCE="C"/>
+		<VOUCHERTYPENAME COLUMNREFERENCE="E"/>
+		<REFERENCE COLUMNREFERENCE="F"/>
+		<VOUCHERNUMBER COLUMNREFERENCE="AI"/>
+		<NARRATION COLUMNREFERENCE="AG"/>
+		<PARTYNAME COLUMNREFERENCE="G"/>
+		<PARTYLEDGERNAME COLUMNREFERENCE="G"/>
+		<BASICBASEPARTYNAME COLUMNREFERENCE="G"/>
+		<BASICBUYERNAME COLUMNREFERENCE="N"/>
+		<!-- Despatch through -->
+		<BASICSHIPPEDBY COLUMNREFERENCE="I"/>
+		<!-- Despatch Document No -->
+		<BASICSHIPDOCUMENTNO COLUMNREFERENCE="H"/>
+		<!-- Destination -->
+		<BASICFINALDESTINATION COLUMNREFERENCE="J"/>
+		<BASICORDERREF COLUMNREFERENCE="F"/>
+		<BASICDUEDATEOFPYMT COLUMNREFERENCE="M"/>
+		<PERSISTEDVIEW>Invoice Voucher View</PERSISTEDVIEW>
+		<ISINVOICE>Yes</ISINVOICE>
+		<ADDRESS.LIST TYPE="String">
+			<ADDRESS COLUMNREFERENCE="O"/>
+			<ADDRESS COLUMNREFERENCE="P"/>
+			<ADDRESS COLUMNREFERENCE="Q"/>
+		</ADDRESS.LIST>
+		<BASICBUYERADDRESS.LIST TYPE="String">
+			<BASICBUYERADDRESS COLUMNREFERENCE="O"/>
+			<BASICBUYERADDRESS COLUMNREFERENCE="P"/>
+			<BASICBUYERADDRESS COLUMNREFERENCE="Q"/>
+		</BASICBUYERADDRESS.LIST>
+		<BASICORDERTERMS.LIST TYPE="String">
+			<BASICORDERTERMS COLUMNREFERENCE="M"/>
+		</BASICORDERTERMS.LIST>
+		<!-- Order list -->
+		<INVOICEORDERLIST.LIST SCROLL="YES" SKIP="=len(trim(K#))=0">
+			<BASICORDERDATE COLUMNREFERENCE="L"/>
+			<BASICPURCHASEORDERNO COLUMNREFERENCE="K"/>
+		</INVOICEORDERLIST.LIST>
+		<STATADJUSTMENTTYPE COLUMNREFERENCE="AK"/>
+		<!-- Party Ledger to be debited -->
+		<LEDGERENTRIES.LIST>
+			<LEDGERNAME COLUMNREFERENCE="G"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+			<AMOUNT FORMULA="={Round(Round(Z#,2)+Round(AB#,2)+Round(AC#,2)+Round(AD#+AE#+AF#,2),2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,1,-1)"/>
+			<!-- RTS -->
+			<BILLALLOCATIONS.LIST GROUPBY="=trim(AI#)" SKIP="=Or(Len(trim(AI#))=0,Round(Round(Z#,2)+Round(AB#,2)+Round(AC#,2)+Round(AD#+AE#+AF#,2),2)=0)">
+				<!--BILLALLOCATIONS.LIST SCROLL="YES" SKIP="=Or(Len(trim(AI#))=0,Round(Round(Z#,2)+Round(AB#,2)+Round(AC#,2)+Round(AD#+AE#+AF#,2),2)=0)"-->
+				<NAME COLUMNREFERENCE="AI"/>
+				<BILLTYPE COLUMNREFERENCE="AH"/>
+				<DUMMY COLUMNREFERENCE="AJ"/>
+				<AMOUNT FORMULA="=Round({Round(Z#,2)+Round(AB#,2)+Round(AC#,2)+Round(AD#+AE#+AF#,2)},2)*if(lower(trim(D#[1]))=&quot;credit note&quot;,1,-1)"/>
+				<!--AMOUNT FORMULA="=Round(Round(Z#,2)+Round(AB#,2)+Round(AC#,2)+Round(AD#+AE#+AF#,2),2)*if(lower(trim(D#[1]))=&quot;credit note&quot;,1,-1)"/-->
+			</BILLALLOCATIONS.LIST>
+		</LEDGERENTRIES.LIST>
+		<!-- VAT / CST Ledger -->
+		<LEDGERENTRIES.LIST GROUPBY="=trim(AA#)" SKIP="=Round(AB#,2)=0">
+			<BASICRATEOFINVOICETAX.LIST TYPE="Number">
+				<BASICRATEOFINVOICETAX FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-VATRATE&quot;)__&quot;"/>
+			</BASICRATEOFINVOICETAX.LIST>
+			<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-VATCLASS&quot;)__&quot;"/>
+			<LEDGERNAME FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-VATLEDGER&quot;)__&quot;"/>
+			<RATEOFADDLVAT FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-ADDLVATRATE&quot;)__&quot;"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+			<AMOUNT FORMULA="={Round(AB#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+			<VATASSESSABLEVALUE FORMULA="={Round(Z#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+			<UDF:ADDNLVATCLASSAMT.LIST DESC="`AddnlVATClassAmt`" ISLIST="YES" TYPE="Amount" ISGROUPED="YES">
+				<UDF:ADDNLVATCLASSAMT DESC="`AddnlVATClassAmt`" FORMULA="={Round(Z#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+			</UDF:ADDNLVATCLASSAMT.LIST>
+			<TAXOBJECTALLOCATIONS.LIST>
+				<CATEGORY FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-VATCLASS&quot;)__&quot;"/>
+				<TAXTYPE FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-SALETYPE&quot;)__&quot;"/>
+				<TAXNAME FORMULA="=trim(B#[1])"/>
+				<PARTYLEDGER FORMULA="=trim(G#[1])"/>
+				<REFTYPE>New Ref</REFTYPE>
+				<ISOPTIONAL>No</ISOPTIONAL>
+				<ISPANVALID>No</ISPANVALID>
+				<ZERORATED>No</ZERORATED>
+				<SUBCATEGORYALLOCATION.LIST SKIP="=len(trim(T#))=0" SCROLL="Yes">
+					<STOCKITEMNAME COLUMNREFERENCE="T"/>
+					<SUBCATEGORY FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-SALETYPE&quot;)__&quot;"/>
+					<DUTYLEDGER FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-VATLEDGER&quot;)__&quot;"/>
+					<SUBCATZERORATED>No</SUBCATZERORATED>
+					<SUBCATEXEMPTED>No</SUBCATEXEMPTED>
+					<SUBCATISSPECIALRATE>No</SUBCATISSPECIALRATE>
+					<TAXRATE FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-VATRATE&quot;)__&quot;"/>
+					<ASSESSABLEAMOUNT FORMULA="=Round(Z#,2)*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+					<TAX FORMULA="=Round(AB#,2)*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+					<BILLEDQTY COLUMNREFERENCE="W"/>
+				</SUBCATEGORYALLOCATION.LIST>
+			</TAXOBJECTALLOCATIONS.LIST>
+			<UDF:MAHWCASSESSABLEVALUE.LIST DESC="`MAHWCAssessableValue`" ISLIST="YES" TYPE="Amount">
+				<UDF:MAHWCASSESSABLEVALUE DESC="`MAHWCAssessableValue`" FORMULA="={Round(Z#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+			</UDF:MAHWCASSESSABLEVALUE.LIST>
+		</LEDGERENTRIES.LIST>
+		<!-- Additional Tax-->
+		<LEDGERENTRIES.LIST GROUPBY="=trim(AA#)" SKIP="=Round(AC#,2)=0">
+			<BASICRATEOFINVOICETAX.LIST TYPE="Number">
+				<BASICRATEOFINVOICETAX FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-ADDLVATRATE&quot;)__&quot;"/>
+			</BASICRATEOFINVOICETAX.LIST>
+			<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-ADDLVATCLASS&quot;)__&quot;"/>
+			<LEDGERNAME FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-ADDLVATLEDGER&quot;)__&quot;"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+			<AMOUNT FORMULA="={Round(AC#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+			<VATASSESSABLEVALUE FORMULA="={Round(Z#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+			<TAXOBJECTALLOCATIONS.LIST>
+				<CATEGORY FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-ADDLVATCLASS&quot;)__&quot;"/>
+				<TAXTYPE FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-SALETYPE&quot;)__&quot;"/>
+				<TAXNAME FORMULA="=trim(B#[1])"/>
+				<PARTYLEDGER FORMULA="=trim(G#[1])"/>
+				<REFTYPE>New Ref</REFTYPE>
+				<ISOPTIONAL>No</ISOPTIONAL>
+				<ISPANVALID>No</ISPANVALID>
+				<SUBCATEGORYALLOCATION.LIST SCROLL="Yes">
+					<STOCKITEMNAME COLUMNREFERENCE="T"/>
+					<SUBCATEGORY FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-SALETYPE&quot;)__&quot;"/>
+					<DUTYLEDGER FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-ADDLVATLEDGER&quot;)__&quot;"/>
+					<TAXRATE FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-ADDLVATRATE&quot;)__&quot;"/>
+					<SUBCATZERORATED>No</SUBCATZERORATED>
+					<SUBCATEXEMPTED>No</SUBCATEXEMPTED>
+					<SUBCATISSPECIALRATE>No</SUBCATISSPECIALRATE>
+					<ASSESSABLEAMOUNT FORMULA="=Round(Z#,2)*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+					<TAX FORMULA="=Round(AC#,2)*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+				</SUBCATEGORYALLOCATION.LIST>
+			</TAXOBJECTALLOCATIONS.LIST>
+			<UDF:MAHWCASSESSABLEVALUE.LIST DESC="`MAHWCAssessableValue`" ISLIST="YES" TYPE="Amount">
+				<UDF:MAHWCASSESSABLEVALUE DESC="`MAHWCAssessableValue`" FORMULA="={Round(Z#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+			</UDF:MAHWCASSESSABLEVALUE.LIST>
+		</LEDGERENTRIES.LIST>
+		<!-- Shipping charges -->
+		<!-- RTS -->
+		<LEDGERENTRIES.LIST SKIP="={Round(AD#,2)}=0">
+			<!-- RTS -->
+			<!--LEDGERNAME FORMULA="=AD$1"/-->
+			<LEDGERNAME>Shipping Charges</LEDGERNAME>
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+			<AMOUNT FORMULA="={Round(AD#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+		</LEDGERENTRIES.LIST>
+		<!-- Other charges1 -->
+		<LEDGERENTRIES.LIST SKIP="=Round(AE#,2)=0">
+			<LEDGERNAME FORMULA="=AE$1"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+			<AMOUNT FORMULA="={Round(AE#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+		</LEDGERENTRIES.LIST>
+		<!-- Other charges2 -->
+		<LEDGERENTRIES.LIST SKIP="=Round(AF#,2)=0">
+			<LEDGERNAME FORMULA="=AF$1"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+			<AMOUNT FORMULA="={Round(AF#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+		</LEDGERENTRIES.LIST>
+		<!-- RTS -->
+		<!-- For Amazon -->
+		<!--<ALLINVENTORYENTRIES.LIST GROUPBY="=trim(T#) &amp; AL#" SKIP="=Or(len(trim(T#))=0,len(trim(AA#))=0)">-->
+		<!-- For Flipkart, Snapdeal -->
+		<ALLINVENTORYENTRIES.LIST SCROLL="YES" SKIP="=Or(len(trim(T#))=0,len(trim(AA#))=0)">
+			<BASICUSERDESCRIPTION.LIST>
+				<BASICUSERDESCRIPTION COLUMNREFERENCE="U"/>
+			</BASICUSERDESCRIPTION.LIST>
+			<STOCKITEMNAME COLUMNREFERENCE="T"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+			<!-- RTS -->
+			<!-- For Amazon -->
+			<!--<RATE FORMULA="=If({Round(W#,2)}&gt;0,Round({Round(Z#,2)}/{Round(W#,2)},2),Round(X#,2))"/>-->
+			<!-- For Flipkart, Snapdeal -->
+			<RATE COLUMNREFERENCE="X"/>
+			<!-- In Percentage -->
+			<DISCOUNT COLUMNREFERENCE="Y"/>
+
+			<!-- RTS -->
+			<!-- For Amazon -->
+			<!--<AMOUNT FORMULA="={Round(Z#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>-->
+			<!-- For Flipkart, Snapdeal -->
+			<AMOUNT FORMULA="=Round(Z#,2)*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+			<!-- RTS -->
+			<!-- For Amazon -->
+			<!--<ACTUALQTY FORMULA="={Round(W#,2)}"/>
+			<BILLEDQTY FORMULA="={Round(W#,2)}"/>-->
+			<!-- For Flipkart, Snapdeal -->
+			<ACTUALQTY COLUMNREFERENCE="W"/>
+			<BILLEDQTY COLUMNREFERENCE="W"/>
+			<BATCHALLOCATIONS.LIST>
+				<GODOWNNAME FORMULA="=if(len(trim(R#))=0,&quot;Main Location&quot;,R#)"/>
+				<DESTINATIONGODOWNNAME FORMULA="=if(len(trim(R#))=0,&quot;Main Location&quot;,R#)"/>
+				<BATCHNAME COLUMNREFERENCE="S"/>
+				<!-- RTS -->
+				<!-- For Amazon -->
+				<!--<AMOUNT FORMULA="={Round(Z#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>-->
+				<!-- For Flipkart, Snapdeal -->
+				<AMOUNT FORMULA="=Round(Z#,2)*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+				<!-- RTS -->
+				<!-- For Amazon -->
+				<!--<ACTUALQTY FORMULA="={Round(W#,2)}"/>
+				<BILLEDQTY FORMULA="={Round(W#,2)}"/>-->
+				<!-- For Flipkart, Snapdeal -->
+				<ACTUALQTY COLUMNREFERENCE="W"/>
+				<BILLEDQTY COLUMNREFERENCE="W"/>
+			</BATCHALLOCATIONS.LIST>
+			<ACCOUNTINGALLOCATIONS.LIST>
+				<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-VATCLASS&quot;)__&quot;"/>
+				<LEDGERNAME FORMULA="=&quot;__LOOKUP__(AA# &amp; &quot;-SALELEDGER&quot;)__&quot;"/>
+				<ISDEEMEDPOSITIVE FORMULA="=if(lower(trim(D#[1]))=&quot;credit note&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+				<!-- RTS -->
+				<!-- For Amazon -->
+				<!--<AMOUNT FORMULA="={Round(Z#,2)}*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>-->
+				<!-- For Flipkart, Snapdeal -->
+				<AMOUNT FORMULA="=Round(Z#,2)*if(lower(trim(D#[1]))=&quot;credit note&quot;,-1,1)"/>
+			</ACCOUNTINGALLOCATIONS.LIST>
+		</ALLINVENTORYENTRIES.LIST>
+	</VOUCHER>
+	<!--REMAP><COLUMN><SOURCE>R</SOURCE><DESTINATION>"Amazon Godown"</DESTINATION></COLUMN><COLUMN><SOURCE>AL</SOURCE><DESTINATION>AU</DESTINATION></COLUMN><COLUMN><SOURCE>L</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>X</SOURCE><DESTINATION>Round(Abs(V#)-Abs(AU#),2)</DESTINATION></COLUMN><COLUMN><SOURCE>AI</SOURCE><DESTINATION>A</DESTINATION></COLUMN><COLUMN><SOURCE>J</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>W</SOURCE><DESTINATION>if(U#=49,0,Q#)</DESTINATION></COLUMN><COLUMN><SOURCE>P</SOURCE><DESTINATION>AD</DESTINATION></COLUMN><COLUMN><SOURCE>V</SOURCE><DESTINATION>"Nos"</DESTINATION></COLUMN><COLUMN><SOURCE>AA</SOURCE><DESTINATION>if(Round(Abs(W#),2)=0,"",if(lower(Y#)=lower(AD#),"VAT ","CST ") &amp; Round(Abs(W#)/Abs(V#)*100,1) &amp; "%")</DESTINATION></COLUMN><COLUMN><SOURCE>K</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>F</SOURCE><DESTINATION>J</DESTINATION></COLUMN><COLUMN><SOURCE>O</SOURCE><DESTINATION>AC</DESTINATION></COLUMN><COLUMN><SOURCE>U</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>B</SOURCE><DESTINATION>J</DESTINATION></COLUMN><COLUMN><SOURCE>H</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>Q</SOURCE><DESTINATION>AF</DESTINATION></COLUMN><COLUMN><SOURCE>AF</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>AG</SOURCE><DESTINATION>"Order ID:" &amp; A#</DESTINATION></COLUMN><COLUMN><SOURCE>AK</SOURCE><DESTINATION>if(lower(O#)="shipment",null,"Goods sold returned")</DESTINATION></COLUMN><COLUMN><SOURCE>AH</SOURCE><DESTINATION>"New Ref"</DESTINATION></COLUMN><COLUMN><SOURCE>G</SOURCE><DESTINATION>"Amazon Sales"</DESTINATION></COLUMN><COLUMN><SOURCE>AB</SOURCE><DESTINATION>Abs(W#)</DESTINATION></COLUMN><COLUMN><SOURCE>E</SOURCE><DESTINATION>if(lower(O#)="shipment","Amazon Sales","Credit Note")</DESTINATION></COLUMN><COLUMN><SOURCE>AE</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>AC</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>Z</SOURCE><DESTINATION>Round(Q#*(Abs(V#)-Abs(AU#)),2)</DESTINATION></COLUMN><COLUMN><SOURCE>C</SOURCE><DESTINATION>Substitute(left(F#,10),"-","")</DESTINATION></COLUMN><COLUMN><SOURCE>AJ</SOURCE><DESTINATION>Round(U#,2)</DESTINATION></COLUMN><COLUMN><SOURCE>M</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>I</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>AD</SOURCE><DESTINATION>if(Round(Abs(V#)-Abs(AU#),2)=0,Round(U#,2),0)</DESTINATION></COLUMN><COLUMN><SOURCE>N</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>S</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>Y</SOURCE><DESTINATION>null</DESTINATION></COLUMN><COLUMN><SOURCE>T</SOURCE><DESTINATION>N</DESTINATION></COLUMN><COLUMN><SOURCE>D</SOURCE><DESTINATION>if(lower(O#)="shipment","Sales","Credit Note")</DESTINATION></COLUMN></REMAP-->
+</XMLTAGS>
+

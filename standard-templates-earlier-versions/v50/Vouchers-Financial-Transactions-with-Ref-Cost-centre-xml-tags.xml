@@ -1,0 +1,84 @@
+<!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
+<XMLTAGS CELLREFERENCE="A1" xmlns:UDF="TallyUDF">
+	<!-- Specifies that this (i.e Column as mentioned above) is the key field -->
+	<COLUMNNAME.LIST>
+		<COLUMNNAME>ID</COLUMNNAME>
+		<COLUMNNAME>NAME</COLUMNNAME>
+	</COLUMNNAME.LIST>
+	<!-- Create a single Group Master -->
+	<MASTER TYPE="GROUP" SINGLERECORD="Yes">
+		<NAME.LIST>
+			<NAME>New Ledgers</NAME>
+		</NAME.LIST>
+		<PARENT />
+	</MASTER>
+	<!-- Create LEDGER Masters -->
+	<MASTER TYPE="LEDGER">
+		<NAME.LIST>
+			<!-- LEDGER Name to be taken from specified column -->
+			<NAME COLUMNREFERENCE="E" />
+		</NAME.LIST>
+		<PARENT FORMULA="=If(IsError(Find(&quot;BANK&quot;,upper(E#),1)),If(Len(I#)=0,&quot;New Ledgers&quot;,&quot;Sundry Debtors&quot;),&quot;Bank Accounts&quot;)"/>
+		<ISBILLWISEON FORMULA="=If(Len(I#)=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+		<!--ISCOSTCENTRESON>No</ISCOSTCENTRESON-->
+		<ISCOSTCENTRESON FORMULA="=If(Len(trim(M#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+	</MASTER>
+
+	<!-- Create COSTCENTRE Masters -->
+	<MASTER TYPE="COSTCENTRE">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="M" />
+		</NAME.LIST>
+	</MASTER>
+
+	<VOUCHER>
+		<GUID FORMULA="=+&quot;udi-fin2-&quot; &amp; A# &amp; &quot;-&quot; &amp; B# &amp; &quot;-&quot; &amp; C#" />
+		<DATE COLUMNREFERENCE="B" />
+		<EFFECTIVEDATE COLUMNREFERENCE="B" />
+		<VOUCHERTYPENAME COLUMNREFERENCE="C" />
+		<VOUCHERNUMBER COLUMNREFERENCE="D" />
+		<REFERENCE COLUMNREFERENCE="J" />
+		<NARRATION COLUMNREFERENCE="H" />
+		<ISINVOICE>No</ISINVOICE>
+		<ALLLEDGERENTRIES.LIST SCROLL="YES">
+			<LEDGERNAME COLUMNREFERENCE="E" />
+			<ISDEEMEDPOSITIVE FORMULA="=IF(UPPER(G#)=&quot;DR&quot;,&quot;Yes&quot;,&quot;No&quot;)" />
+			<AMOUNT FORMULA="=+Round(F#,2)*IF(UPPER(G#)=&quot;DR&quot;,-1,1)" />
+			<BILLALLOCATIONS.LIST SKIP="=LEN(I#)=0">
+				<NAME COLUMNREFERENCE="I" />
+				<BILLTYPE COLUMNREFERENCE="J" />
+				<AMOUNT FORMULA="=+Round(F#,2)*IF(UPPER(G#)=&quot;DR&quot;,-1,1)" />
+			</BILLALLOCATIONS.LIST>
+
+			<BANKALLOCATIONS.LIST SKIP="=Or(len(trim(L#))=0,len(trim(K#))=0)">
+				<!-- Must be in the row which contains the BANK Ledger -->
+				<DATE COLUMNREFERENCE="B" />
+				<!-- Must be in the row which contains the BANK Ledger -->
+				<INSTRUMENTDATE COLUMNREFERENCE="L" />
+				<TRANSACTIONTYPE>Cheque</TRANSACTIONTYPE>
+
+				<PAYMENTFAVOURING COLUMNREFERENCE="E" />
+
+				<STATUS>No</STATUS>
+				<!-- Must be in the row which contains the BANK Ledger -->
+				<INSTRUMENTNUMBER COLUMNREFERENCE="K" />
+				<AMOUNT FORMULA="=+Round(F#,2)*IF(UPPER(G#)=&quot;DR&quot;,-1,1)" />
+				
+				<!-- Revision 1.0 dt 2014-03-08 -->
+				<PAYMENTMODE>Transacted</PAYMENTMODE>
+				<NAME FORMULA="=+&quot;udi-fin2-&quot; &amp; A# &amp; &quot;-&quot; &amp; B# &amp; &quot;-&quot; &amp; C#" />
+				
+			</BANKALLOCATIONS.LIST>			
+
+			<CATEGORYALLOCATIONS.LIST SKIP="=Len(trim(M#))=0">
+				<CATEGORY>Primary Cost Category</CATEGORY>
+				<ISDEEMEDPOSITIVE FORMULA="=IF(UPPER(G#)=&quot;DR&quot;,&quot;Yes&quot;,&quot;No&quot;)" />
+				<COSTCENTREALLOCATIONS.LIST>
+					<NAME COLUMNREFERENCE="M" />
+					<AMOUNT FORMULA="=+Round(F#,2)*IF(UPPER(G#)=&quot;DR&quot;,-1,1)" />
+				</COSTCENTREALLOCATIONS.LIST>
+			</CATEGORYALLOCATIONS.LIST>
+
+		</ALLLEDGERENTRIES.LIST>
+	</VOUCHER>
+</XMLTAGS>

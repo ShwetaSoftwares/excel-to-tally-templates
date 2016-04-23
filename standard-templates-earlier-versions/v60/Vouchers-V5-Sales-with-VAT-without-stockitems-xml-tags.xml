@@ -1,0 +1,158 @@
+<!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
+<!-- 
+New Features in v5.0
+1) FROMROW attribute
+   In the earlier version (prior to v5.0), it was presumed that HEADINGS are in ROW 1 and DATA starts from ROW 2. Now, you can use the FROMROW attribute to 
+   specify the Excel sheet ROW Number from where the DATA begins.
+2) SCROLLHORIZONTALLY attribute
+   The SCROLLHORIZONTALLY attribute uses an internal mechanism which increments the COLUMN in the specified FORMULA. This enables you to have virtually 
+   any number of COLUMNs for your DATA.
+-->
+<XMLTAGS CELLREFERENCE="A1" FROMROW="6" xmlns:UDF="TallyUDF">
+    <!-- Specifies that this (i.e Column as mentioned above) is the key field -->
+    <COLUMNNAME.LIST>
+        <COLUMNNAME>ID</COLUMNNAME>
+        <COLUMNNAME>NAME</COLUMNNAME>
+    </COLUMNNAME.LIST>
+    <!-- Create VOUCHERTYPE Masters -->
+    <MASTER TYPE="VOUCHERTYPE">
+        <NAME.LIST>
+            <NAME COLUMNREFERENCE="D" />
+        </NAME.LIST>
+        
+		<PARENT COLUMNREFERENCE="C" />
+        <ADDITIONALNAME FORMULA="=If(lower(trim($C#))=&quot;sales&quot;,&quot;Sale&quot;,&quot;D.Note&quot;)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=If(lower(trim($C#))=&quot;sales&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+		
+        <NUMBERINGMETHOD>Manual</NUMBERINGMETHOD>
+        <AFFECTSSTOCK>No</AFFECTSSTOCK>
+        <PREVENTDUPLICATES>Yes</PREVENTDUPLICATES>
+        <PREFILLZERO>No</PREFILLZERO>
+        <PRINTAFTERSAVE>No</PRINTAFTERSAVE>
+        <FORMALRECEIPT>No</FORMALRECEIPT>
+        <COMMONNARRATION>Yes</COMMONNARRATION>
+    </MASTER>
+
+ <!-- Create COSTCENTRE Masters -->
+    <!-- Keep this as G4 -->
+    <MASTER TYPE="COSTCENTRE" SINGLERECORD="YES" SCROLLHORIZONTALLY="=Len(L$5)&gt;0">
+        <NAME.LIST>
+            <NAME SKIP="=Len(trim(L$1))=0" FORMULA="=+L$1" />
+        </NAME.LIST>
+    </MASTER>	
+	
+    <!-- Create Ledger Masters -->
+	<!-- 
+		The SCROLLHORIZONTALLY specifies the condition (any valid Excel formula). Herein, the condition is to check the length of cell F5
+		and if it is greater than 0, a Ledger Master is created (based on value in F5). The loop executes and now F5 becomes G5.
+		If length of cell F5 is greater than 0, Ledger Master is created (based on value given in F5). The loop go on (say H5, I5, J5... till the
+		conditions becomes false.
+	-->
+    <MASTER TYPE="LEDGER" SCROLLHORIZONTALLY="=Len(trim(L$5))&gt;0">
+        <NAME.LIST>
+            <NAME FORMULA="=+L$5" />
+        </NAME.LIST>
+        <PARENT FORMULA="=+L$4" />
+        <TAXCLASSIFICATIONNAME SKIP="=Len(trim(L$3))=0" FORMULA="=+L$3" />
+        <AFFECTSSTOCK>No</AFFECTSSTOCK>
+		
+		<!-- Only for VAT ledgers -->
+        <USEFORVAT SKIP="=Len(trim(L$2))=0">Yes</USEFORVAT>
+        <BASICTYPEOFDUTY SKIP="=Len(trim(L$2))=0">On VAT Rate</BASICTYPEOFDUTY>
+        <TAXTYPE SKIP="=Len(trim(L$2))=0">VAT</TAXTYPE>
+        <SUBTAXTYPE SKIP="=Len(trim(L$2))=0">Output VAT</SUBTAXTYPE>
+		
+		<ISCOSTCENTRESON FORMULA="=If(Len(trim(L$1))&gt;0,&quot;Yes&quot;,&quot;No&quot;)" />
+    </MASTER>
+
+    <!-- Create Party Ledger Master-->
+    <MASTER TYPE="LEDGER">
+        <NAME.LIST>
+            <NAME COLUMNREFERENCE="E" />
+        </NAME.LIST>
+        <PARENT>Sundry Debtors</PARENT>
+        <ISBILLWISEON>Yes</ISBILLWISEON>
+        <AFFECTSSTOCK>No</AFFECTSSTOCK>
+        <USEFORVAT>No</USEFORVAT>
+        <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+    </MASTER>
+    <!-- VOUCHER-->
+    <VOUCHER>
+        <GUID FORMULA="=+&quot;udi-B40WRF-&quot; &amp; A# &amp; &quot;-&quot; &amp; B#" />
+        <!--GUID FORMULA="=+&quot;udi-sale-&quot; &amp; A# &amp; &quot;-&quot; &amp; B#" /-->
+        <DATE COLUMNREFERENCE="B" />
+        <EFFECTIVEDATE COLUMNREFERENCE="B" />
+        <VOUCHERTYPENAME COLUMNREFERENCE="D" />
+        <ISINVOICE>No</ISINVOICE>
+        <PERSISTEDVIEW>Accounting Voucher View</PERSISTEDVIEW>
+        <PARTYLEDGERNAME COLUMNREFERENCE="E" />
+        <REFERENCE COLUMNREFERENCE="A" />
+        <VOUCHERNUMBER COLUMNREFERENCE="A" />
+		<NARRATION COLUMNREFERENCE="F" />
+		
+        <!-- Sales 			: Party Ledger to be Debited -->
+        <!-- Sales Return 	: Party Ledger to be Credited -->
+        <ALLLEDGERENTRIES.LIST>
+            <LEDGERNAME COLUMNREFERENCE="E" />
+            
+			<!--ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE-->
+			<ISDEEMEDPOSITIVE FORMULA="=If(lower(trim($C#))=&quot;sales&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+            <AMOUNT FORMULA="=Round(K#,2)*If(lower(trim($C#))=&quot;sales&quot;,-1,1)" />
+			
+            <BILLALLOCATIONS.LIST SKIP="=Len(Trim(A#))=0">
+                <NAME COLUMNREFERENCE="A" />
+                <BILLTYPE>New Ref</BILLTYPE>
+				<AMOUNT FORMULA="=Round(K#,2)*If(lower(trim($C#))=&quot;sales&quot;,-1,1)" />
+            </BILLALLOCATIONS.LIST>
+        </ALLLEDGERENTRIES.LIST>
+        <!-- Sales and VAT Ledgers -->
+		<!-- The SCROLLHORIZONTALLY is supported in v 5.0 only -->
+		<!-- SCROLLHORIZONTALLY attribute value is evaluated at runtime and incremented COLUMNWISE till condition evaluates to be true -->
+        <ALLLEDGERENTRIES.LIST SKIP="=+Round(L#,2)=0" SCROLLHORIZONTALLY="=Len(trim(L$5))&gt;0">
+			
+            <!-- VAT Class to be taken from L$3 shown below onwards -->
+			<TAXCLASSIFICATIONNAME SKIP="=Len(trim(L$3))=0" FORMULA="=+L$3" />
+            <!-- LedgerName to be taken from L$5 onwards. -->
+            <LEDGERNAME FORMULA="=+L$5" />
+            
+			<!-- For Sales -->
+			<ISDEEMEDPOSITIVE SKIP="=Not(lower(trim($C#))=&quot;sales&quot;)" FORMULA="=If(Round(L#,2)&gt;0,&quot;No&quot;,&quot;Yes&quot;)"/>
+			<!-- For Sales Return -->
+			<ISDEEMEDPOSITIVE SKIP="=lower(trim($C#))=&quot;sales&quot;" FORMULA="=If(Round(L#,2)&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+
+			
+            <!-- Amount to be taken from L# onwards. The # symbol is substituted  by row numbers at run time-->
+			<!-- For Sales -->
+            <AMOUNT SKIP="=Not(lower(trim($C#))=&quot;sales&quot;)" FORMULA="=+Round(L#,2)*1" />
+			<!-- For Sales Return -->
+			<AMOUNT SKIP="=lower(trim($C#))=&quot;sales&quot;" FORMULA="=+Round(L#,2)*-1" />
+			
+			<!-- 
+				FORMULA2 attribute is supported in version 5.0 onwards. This is used when result of the Excel Formula is itself a Formula 
+			    which is to be evaluated again. The process continues till the result contains # which is to be replaced by the Row Number 
+				at runtime.
+			-->
+            <VATASSESSABLEVALUE SKIP="=Len(trim(L$2))=0" FORMULA2="=L$2" />
+			
+			
+			<CATEGORYALLOCATIONS.LIST SKIP="=Len(Trim(L$1))=0">
+                <CATEGORY>Primary Cost Category</CATEGORY>
+				<!--ISDEEMEDPOSITIVE FORMULA="=If(Round(L#,2)&gt;0,&quot;No&quot;,&quot;Yes&quot;)"/-->
+				<!-- For Sales -->
+				<ISDEEMEDPOSITIVE SKIP="=Not(lower(trim($C#))=&quot;sales&quot;)" FORMULA="=If(Round(L#,2)&gt;0,&quot;No&quot;,&quot;Yes&quot;)"/>
+				<!-- For Sales Return -->
+				<ISDEEMEDPOSITIVE SKIP="=lower(trim($C#))=&quot;sales&quot;" FORMULA="=If(Round(L#,2)&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+				
+                <COSTCENTREALLOCATIONS.LIST>
+                    <NAME FORMULA="=+L$1" />
+					<!--AMOUNT FORMULA="=+Round(L#,2)*1" /-->
+					<!-- For Sales -->
+					<AMOUNT SKIP="=Not(lower(trim($C#))=&quot;sales&quot;)" FORMULA="=+Round(L#,2)*1" />
+					<!-- For Sales Return -->
+					<AMOUNT SKIP="=lower(trim($C#))=&quot;sales&quot;" FORMULA="=+Round(L#,2)*-1" />
+                </COSTCENTREALLOCATIONS.LIST>
+            </CATEGORYALLOCATIONS.LIST>			
+        </ALLLEDGERENTRIES.LIST>
+		
+    </VOUCHER>
+</XMLTAGS>

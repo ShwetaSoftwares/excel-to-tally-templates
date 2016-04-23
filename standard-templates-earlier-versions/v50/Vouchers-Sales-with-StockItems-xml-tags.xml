@@ -1,0 +1,74 @@
+<!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
+<XMLTAGS CELLREFERENCE="A1" xmlns:UDF="TallyUDF">
+    <!-- Specifies that this (i.e Column as mentioned above) is the key field -->
+    <COLUMNNAME.LIST>
+        <COLUMNNAME>ID</COLUMNNAME>
+        <COLUMNNAME>NAME</COLUMNNAME>
+    </COLUMNNAME.LIST>
+	<!-- Create a single LEDGER Master -->
+    <MASTER TYPE="LEDGER" SINGLERECORD="Yes">
+        <NAME.LIST>
+            <NAME>Sales of FG</NAME>
+        </NAME.LIST>
+        <PARENT>Sales Accounts</PARENT>
+        <ISCOSTCENTRESON>Yes</ISCOSTCENTRESON>
+        <AFFECTSSTOCK>Yes</AFFECTSSTOCK>
+    </MASTER>
+	<!-- Create a single UNIT Master -->
+    <MASTER TYPE="UNIT" SINGLERECORD="Yes">
+        <NAME>Nos</NAME>
+        <ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
+    </MASTER>
+	<!-- Create LEDGER Masters -->
+    <MASTER TYPE="LEDGER">
+        <NAME.LIST>
+            <NAME COLUMNREFERENCE="C" />
+        </NAME.LIST>
+        <PARENT>SUNDRY DEBTORS</PARENT>
+        <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+    </MASTER>
+	<!-- Create STOCKITEM Masters -->
+    <MASTER TYPE="STOCKITEM">
+        <NAME.LIST>
+            <NAME COLUMNREFERENCE="D" />
+        </NAME.LIST>
+        <PARENT />
+        <BASEUNITS>Nos</BASEUNITS>
+    </MASTER>
+    <VOUCHER>
+        <GUID FORMULA="=+&quot;udi-sale-&quot; &amp; A# &amp; &quot;-&quot; &amp; B#" />
+        <DATE COLUMNREFERENCE="B" />
+        <EFFECTIVEDATE COLUMNREFERENCE="B" />
+        <VOUCHERTYPENAME>Sales</VOUCHERTYPENAME>
+        <REFERENCE COLUMNREFERENCE="A" />
+        <NARRATION COLUMNREFERENCE="I" />
+        <ISINVOICE>Yes</ISINVOICE>
+		<!-- Party Ledger to be debited -->
+        <LEDGERENTRIES.LIST>
+            <LEDGERNAME COLUMNREFERENCE="C" />
+            <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+            <AMOUNT FORMULA="=+Round(H#,2)*-1" />
+        </LEDGERENTRIES.LIST>
+        <ALLINVENTORYENTRIES.LIST SCROLL='YES'>
+            <STOCKITEMNAME COLUMNREFERENCE="D" />
+            <ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
+            <RATE COLUMNREFERENCE="F" />
+            <AMOUNT FORMULA="=+Round(G#,2)*1" />
+            <ACTUALQTY COLUMNREFERENCE="E" />
+            <BILLEDQTY COLUMNREFERENCE="E" />
+            <ACCOUNTINGALLOCATIONS.LIST>
+                <LEDGERNAME>Sales of FG</LEDGERNAME>
+                <ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
+                <AMOUNT FORMULA="=+Round(G#,2)*1" />
+            </ACCOUNTINGALLOCATIONS.LIST>
+            <BATCHALLOCATIONS.LIST>
+                <GODOWNNAME>Main Location</GODOWNNAME>
+                <BATCHNAME>Primary Batch</BATCHNAME>
+                <DESTINATIONGODOWNNAME>Main Location</DESTINATIONGODOWNNAME>
+                <AMOUNT FORMULA="=+Round(G#,2)*1" />
+                <ACTUALQTY COLUMNREFERENCE="E" />
+                <BILLEDQTY COLUMNREFERENCE="E" />
+            </BATCHALLOCATIONS.LIST>
+        </ALLINVENTORYENTRIES.LIST>
+    </VOUCHER>
+</XMLTAGS>

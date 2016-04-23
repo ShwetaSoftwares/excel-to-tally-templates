@@ -1,0 +1,78 @@
+<!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
+<XMLTAGS CELLREFERENCE="A1" xmlns:UDF="TallyUDF">
+    <!-- Specifies that this (i.e Column as mentioned above) is the key field -->
+    <COLUMNNAME.LIST>
+        <COLUMNNAME>ID</COLUMNNAME>
+        <COLUMNNAME>NAME</COLUMNNAME>
+    </COLUMNNAME.LIST>
+	<!-- Create LEDGER Masters -->
+    <MASTER TYPE="LEDGER">
+        <NAME.LIST>
+            <!-- LEDGER Name to be taken from specified column -->
+			<NAME COLUMNREFERENCE="D" />
+        </NAME.LIST>
+        <!-- GROUP Name -->
+		<PARENT>SUNDRY CREDITORS</PARENT>
+        <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+    </MASTER>
+	<!-- Create a single LEDGER Master -->
+    <MASTER TYPE="LEDGER" SINGLERECORD="Yes">
+        <NAME.LIST>
+            <NAME>Purchase of RM</NAME>
+        </NAME.LIST>
+        <!-- GROUP Name -->
+        <PARENT>Purchase Accounts</PARENT>
+        <ISCOSTCENTRESON>Yes</ISCOSTCENTRESON>
+        <AFFECTSSTOCK>Yes</AFFECTSSTOCK>
+    </MASTER>
+	<!-- Create a single UNIT Master -->
+    <MASTER TYPE="UNIT" SINGLERECORD="Yes">
+        <NAME>Nos</NAME>
+        <ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
+    </MASTER>
+	<!-- Create STOCKITEM Masters -->
+    <MASTER TYPE="STOCKITEM">
+        <NAME.LIST>
+            <!-- STOCKITEM Name to be taken from specified column -->
+            <NAME COLUMNREFERENCE="E" />
+        </NAME.LIST>
+        <PARENT />
+        <BASEUNITS>Nos</BASEUNITS>
+    </MASTER>
+    <VOUCHER>
+        <GUID FORMULA="=+&quot;udi-purc-&quot; &amp; A# &amp; &quot;-&quot; &amp; B# &amp; &quot;-&quot; &amp; C#" />
+        <DATE COLUMNREFERENCE="C" />
+        <EFFECTIVEDATE COLUMNREFERENCE="C" />
+        <VOUCHERTYPENAME>Purchase</VOUCHERTYPENAME>
+        <REFERENCE COLUMNREFERENCE="B" />
+        <NARRATION COLUMNREFERENCE="J" />
+        <ISINVOICE>Yes</ISINVOICE>
+		<!-- Party Ledger to be credited -->
+        <LEDGERENTRIES.LIST>
+            <LEDGERNAME COLUMNREFERENCE="D" />
+            <ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
+            <AMOUNT FORMULA="=+Round(I#,2)*1" />
+        </LEDGERENTRIES.LIST>
+        <ALLINVENTORYENTRIES.LIST SCROLL='YES'>
+            <STOCKITEMNAME COLUMNREFERENCE="E" />
+            <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+            <RATE COLUMNREFERENCE="G" />
+            <AMOUNT FORMULA="=+Round(H#,2)*-1" />
+            <ACTUALQTY COLUMNREFERENCE="F" />
+            <BILLEDQTY COLUMNREFERENCE="F" />
+            <ACCOUNTINGALLOCATIONS.LIST>
+                <LEDGERNAME>Purchase of RM</LEDGERNAME>
+                <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+                <AMOUNT FORMULA="=+Round(H#,2)*-1" />
+            </ACCOUNTINGALLOCATIONS.LIST>
+            <BATCHALLOCATIONS.LIST>
+                <GODOWNNAME>Main Location</GODOWNNAME>
+                <BATCHNAME>Primary Batch</BATCHNAME>
+                <DESTINATIONGODOWNNAME>Main Location</DESTINATIONGODOWNNAME>
+                <AMOUNT FORMULA="=+Round(H#,2)*-1" />
+                <ACTUALQTY COLUMNREFERENCE="F" />
+                <BILLEDQTY COLUMNREFERENCE="F" />
+            </BATCHALLOCATIONS.LIST>
+        </ALLINVENTORYENTRIES.LIST>
+    </VOUCHER>
+</XMLTAGS>

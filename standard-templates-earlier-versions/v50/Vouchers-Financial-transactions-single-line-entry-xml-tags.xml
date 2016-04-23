@@ -1,0 +1,92 @@
+<!-- These XML tags are added to Excel sheet Cell A1 at run-time by UDIMAGIC  -->
+<XMLTAGS CELLREFERENCE="A1" xmlns:UDF="TallyUDF">
+    <!-- Specifies that the Cell as mentioned above is the key field -->
+    <COLUMNNAME.LIST>
+        <COLUMNNAME>ID</COLUMNNAME>
+        <COLUMNNAME>NAME</COLUMNNAME>
+    </COLUMNNAME.LIST>
+    <!-- Create a single Group Master -->
+    <MASTER TYPE="GROUP" SINGLERECORD="Yes">
+        <NAME.LIST>
+            <NAME>New Ledgers</NAME>
+        </NAME.LIST>
+        <PARENT />
+    </MASTER>
+    <!-- Create VOUCHERTYPE Masters -->
+    <MASTER TYPE="VOUCHERTYPE">
+        <NAME.LIST>
+            <NAME COLUMNREFERENCE="D" />
+        </NAME.LIST>
+        <PARENT COLUMNREFERENCE="C" />
+        <NUMBERINGMETHOD>Manual</NUMBERINGMETHOD>
+        <ISDEEMEDPOSITIVE FORMULA="=If(Or(C#=&quot;Payment&quot;,C#=&quot;Sales&quot;,C#=&quot;Debit Note&quot;,C#=&quot;Journal&quot;,C#=&quot;Sales Order&quot;),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COMMONNARRATION>Yes</COMMONNARRATION>
+    </MASTER>
+    <!-- Create Ledgers -->
+    <MASTER TYPE="LEDGER">
+        <NAME.LIST>
+            <NAME COLUMNREFERENCE="F" />
+        </NAME.LIST>
+        <PARENT>New Ledgers</PARENT>
+		<!-- Revision 1.0 -->
+		<PARENT FORMULA="=if(Not(IsError(Find(&quot;bank&quot;,lower(F#),1))),&quot;Bank Accounts&quot;,&quot;&quot;)"/>
+		
+        <ISBILLWISEON>Yes</ISBILLWISEON>
+        <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+    </MASTER>
+    <!-- Create Ledgers -->
+    <MASTER TYPE="LEDGER">
+        <NAME.LIST>
+            <NAME COLUMNREFERENCE="G" />
+        </NAME.LIST>
+        <PARENT>New Ledgers</PARENT>
+		<!-- Revision 1.0 -->
+		<PARENT FORMULA="=if(Not(IsError(Find(&quot;bank&quot;,lower(G#),1))),&quot;Bank Accounts&quot;,&quot;&quot;)"/>
+
+        <ISBILLWISEON>Yes</ISBILLWISEON>
+        <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+    </MASTER>
+    <!-- XML tags for creating Vouchers -->
+    <VOUCHER>
+        <GUID FORMULA="=+A# &amp; &quot;-&quot; &amp; B# &amp; &quot;-&quot; &amp; D#" />
+        <DATE COLUMNREFERENCE="B" />
+        <EFFECTIVEDATE COLUMNREFERENCE="B" />
+        <VOUCHERTYPENAME COLUMNREFERENCE="D" />
+        <VOUCHERNUMBER COLUMNREFERENCE="E" />
+        <ISINVOICE>No</ISINVOICE>
+        <NARRATION COLUMNREFERENCE="I" />
+        <!-- Debit Ledger -->
+        <ALLLEDGERENTRIES.LIST SKIP="=Round(H# *-1 * If(OR(NOT(ISERROR(FIND(&quot;Receipt&quot;,C#,1))),NOT(ISERROR(FIND(&quot;Contra&quot;,C#,1)))),0,1),2)=0">
+            <LEDGERNAME COLUMNREFERENCE="F" />
+            <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+            <AMOUNT FORMULA="=Round(H# *-1 * If(OR(NOT(ISERROR(FIND(&quot;Receipt&quot;,C#,1))),NOT(ISERROR(FIND(&quot;Contra&quot;,C#,1)))),0,1),2)" />
+            <BILLALLOCATIONS.LIST SKIP="=Len(trim(E#))=0">
+                <NAME FORMULA="=E#" />
+                <BILLTYPE>New Ref</BILLTYPE>
+                <AMOUNT FORMULA="=Round(H# *-1 * If(OR(NOT(ISERROR(FIND(&quot;Receipt&quot;,C#,1))),NOT(ISERROR(FIND(&quot;Contra&quot;,C#,1)))),0,1),2)" />
+            </BILLALLOCATIONS.LIST>
+        </ALLLEDGERENTRIES.LIST>
+        <!-- Credit Ledger -->
+        <ALLLEDGERENTRIES.LIST>
+            <LEDGERNAME COLUMNREFERENCE="G" />
+            <ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
+            <AMOUNT FORMULA="=Round(H#,2)*1" />
+            <BILLALLOCATIONS.LIST SKIP="=Len(trim(E#))=0">
+                <NAME FORMULA="=E#" />
+                <BILLTYPE>New Ref</BILLTYPE>
+                <AMOUNT FORMULA="=Round(H#,2) *1" />
+            </BILLALLOCATIONS.LIST>
+        </ALLLEDGERENTRIES.LIST>
+        <!-- Debit Ledger -->
+        <ALLLEDGERENTRIES.LIST SKIP="=Round(H# *-1 * If(OR(NOT(ISERROR(FIND(&quot;Receipt&quot;,C#,1))),NOT(ISERROR(FIND(&quot;Contra&quot;,C#,1)))),1,0),2)=0">
+            <LEDGERNAME COLUMNREFERENCE="F" />
+            <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+            <AMOUNT FORMULA="=Round(H# *-1 * If(OR(NOT(ISERROR(FIND(&quot;Receipt&quot;,C#,1))),NOT(ISERROR(FIND(&quot;Contra&quot;,C#,1)))),1,0),2)" />
+            <BILLALLOCATIONS.LIST SKIP="=Len(trim(E#))=0">
+                <NAME FORMULA="=E#" />
+                <BILLTYPE>New Ref</BILLTYPE>
+                <AMOUNT FORMULA="=Round(H# *-1 * If(OR(NOT(ISERROR(FIND(&quot;Receipt&quot;,C#,1))),NOT(ISERROR(FIND(&quot;Contra&quot;,C#,1)))),1,0),2)" />
+            </BILLALLOCATIONS.LIST>
+        </ALLLEDGERENTRIES.LIST>
+    </VOUCHER>
+</XMLTAGS>

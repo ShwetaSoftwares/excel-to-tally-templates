@@ -1,0 +1,13 @@
+VAT-TYPE,PURCTYPE,PURCLEDGER,VATLEDGER,ADDLVATLEDGER,VATCLASS,ADDLVATCLASS,VATRATE,ADDLVATRATE,FORM
+C.S.T @ 2%,CST,Purchase (2% CST),CST @ 2%,,Inter-State Purchases @ 2% Against Form C,,2,0,C Form
+CST 2%,CST,Purchase (2% CST),CST @ 2%,,Inter-State Purchases @ 2% Against Form C,,2,0,C Form
+VAT 5%,VAT,Purchase @ 5%,Input VAT @ 5%,,Input VAT @ 5%,,5,
+CST 5%,CST,Purchase (5% CST),CST @ 5%,,Inter-State Purchases @ 5%,,5,0
+VAT 15%,VAT,Purchase @ 15%,Input VAT @ 15%,,Input VAT @ 15%,,15,0
+CST 15%,CST,Purchase (15% CST),CST @ 15%,,Inter-State Purchases @ 15%,,15,0
+VAT 5.5%,VAT,Purchase @ 5.5%,Input VAT @ 5.5%,,Input VAT @ 5.5%,,5.5,
+CST 5.5%,CST,Purchase (5.5% CST),CST @ 5.5%,,Inter-State Purchases @ 5.5%,,5.5,0
+VAT 14.5%,VAT,Purchase @ 14.5%,Input VAT @ 14.5%,,Input VAT @ 14.5%,,14.5,0
+CST 14.5%,CST,Purchase (14.5% CST),CST @ 14.5%,,Inter-State Purchases @ 14.5%,,14.5,0
+VAT 12.5%,VAT,Purchase @ 12.5%,Input VAT @ 12.5%,,Input VAT @ 12.5%,,12.5,0
+CST 12.5%,CST,Purchase (12.5% CST),CST @ 12.5%,,Inter-State Purchases @ 12.5%,,12.5,0
