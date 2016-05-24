@@ -26,11 +26,8 @@
 			<NAME FORMULA="=A#"/>
 			<!--<NAME FORMULA="=(&quot;Amazon Sales&quot;)"/>-->
 		</NAME.LIST>
-		<MAILINGNAME.LIST TYPE="String">
-			<!-- Tally ERP 9 Release 5.1 and higher -->
-			<MAILINGNAME FORMULA="=A#"/>
-			<!--<MAILINGNAME FORMULA="=(&quot;Amazon Sales&quot;)"/>-->
-		</MAILINGNAME.LIST>
+		<!-- Tally ERP 9 Release 5.1 and higher -->
+		<ADDITIONALNAME FORMULA="=A#"/>
 		<PARENT>Sundry Debtors</PARENT>
 		<ISBILLWISEON>Yes</ISBILLWISEON>
 		<!-- Tally ERP 9 Release 5.1 and higher -->

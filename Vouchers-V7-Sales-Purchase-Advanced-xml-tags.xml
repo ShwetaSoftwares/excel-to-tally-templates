@@ -15,7 +15,6 @@
 			<NAME COLUMNREFERENCE="C"/>
 		</NAME.LIST>
 		<PARENT COLUMNREFERENCE="B"/>
-		<!--<MAILINGNAME FORMULA="=if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;debit note&quot;),&quot;Purc&quot;,&quot;Sale&quot;)"/>-->
 		<ISDEEMEDPOSITIVE FORMULA="=if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),&quot;No&quot;,&quot;Yes&quot;)"/>
 		<NUMBERINGMETHOD>Manual</NUMBERINGMETHOD>
 	</MASTER>
@@ -24,9 +23,7 @@
 		<NAME.LIST>
 			<NAME COLUMNREFERENCE="H"/>
 		</NAME.LIST>
-		<MAILINGNAME.LIST TYPE="String">
-			<MAILINGNAME COLUMNREFERENCE="H"/>
-		</MAILINGNAME.LIST>
+		<ADDITIONALNAME COLUMNREFERENCE="H"/>
 		<PARENT FORMULA="=if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;debit note&quot;),&quot;Sundry Creditors&quot;,&quot;Sundry Debtors&quot;)"/>
 		<ISBILLWISEON>Yes</ISBILLWISEON>
 		<!-- Required for Tally ERP 9 Release 5.1 and higher -->

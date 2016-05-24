@@ -11,7 +11,6 @@
 			<NAME COLUMNREFERENCE="C"/>
 		</NAME.LIST>
 		<PARENT COLUMNREFERENCE="B"/>
-		<MAILINGNAME FORMULA="=if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;Purc&quot;,&quot;Sale&quot;)"/>
 		<ISDEEMEDPOSITIVE FORMULA="=if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),&quot;No&quot;,&quot;Yes&quot;)"/>
 		<NUMBERINGMETHOD>Manual</NUMBERINGMETHOD>
 	</MASTER>
@@ -34,9 +33,7 @@
 		</NAME.LIST>
 		<PARENT FORMULA="=if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;Sundry Creditors&quot;,&quot;Sundry Debtors&quot;)"/>
 		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
-		<MAILINGNAME.LIST TYPE="String">
-			<MAILINGNAME COLUMNREFERENCE="H"/>
-		</MAILINGNAME.LIST>
+		<ADDITIONALNAME COLUMNREFERENCE="H"/>
 		<ISBILLWISEON>Yes</ISBILLWISEON>
 	</MASTER>
 	<!-- Create UNIT Master -->
