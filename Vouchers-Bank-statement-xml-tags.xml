@@ -6,8 +6,6 @@
 		<COLUMNNAME>ID</COLUMNNAME>
 		<COLUMNNAME>NAME</COLUMNNAME>
 	</COLUMNNAME.LIST>
-	<!-- For macro -->
-	<!--VBA LOADFILE="" RUNMACROATSTARTUP="NewColumns"/-->
 
 	<MASTER TYPE="GROUP">
 		<NAME.LIST>
@@ -26,14 +24,12 @@
 		</NAME.LIST>
 		<PARENT>Bank Accounts</PARENT>
 	</MASTER>
-
 	<MASTER TYPE="LEDGER" SINGLERECORD="YES">
 		<NAME.LIST>
 			<NAME>Suspense A/c</NAME>
 		</NAME.LIST>
 		<PARENT>Expenses Indirect</PARENT>
 	</MASTER>
-	
 	<MASTER TYPE="LEDGER">
 		<NAME.LIST>
 			<NAME COLUMNREFERENCE="G"/>
@@ -45,7 +41,7 @@
 		<GUID FORMULA="=&quot;udi-H3X8E6-&quot; &amp; A# &amp; &quot;-&quot; &amp; Now() &amp; &quot;-&quot; &amp; #"/>
 		<DATE COLUMNREFERENCE="A"/>
 		<EFFECTIVEDATE COLUMNREFERENCE="A"/>
-		<VOUCHERTYPENAME FORMULA="=if(If(IsError(Round(E#,2)),0,Round(E#,2))&gt;0,&quot;Receipt&quot;,&quot;Payment&quot;)"/>
+		<VOUCHERTYPENAME FORMULA="=if(len(trim(H#))=0,if(If(IsError(Round(E#,2)),0,Round(E#,2))&gt;0,&quot;Receipt&quot;,&quot;Payment&quot;),H#)"/>
 		<ISINVOICE>No</ISINVOICE>
 		<NARRATION FORMULA="=B# &amp; &quot; &quot; &amp; C#"/>
 
@@ -60,7 +56,6 @@
 		<!-- Bank Ledger -->
 		<ALLLEDGERENTRIES.LIST>
 			<LEDGERNAME FORMULA="=if(len(trim(F#))=0,if(len(trim(F$2))=0,&quot;My Bank A/c&quot;,F$2),F#)"/>
-			
 			<ISDEEMEDPOSITIVE FORMULA="=if(If(IsError(Round(E#,2)),0,Round(E#,2))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
 			<AMOUNT FORMULA="=Round(If(IsError(Round(D#,2)),0,Round(D#,2))+If(IsError(Round(E#,2)),0,Round(E#,2)),2)*if(If(IsError(Round(E#,2)),0,Round(E#,2))&gt;0,-1,1)"/>
 			
@@ -73,13 +68,12 @@
 				
 				<INSTRUMENTNUMBER COLUMNREFERENCE="C" />
 				<INSTRUMENTDATE/>
-				<PAYMENTFAVOURING>Suspense A/c</PAYMENTFAVOURING>
+				<PAYMENTFAVOURING FORMULA="=if(len(trim(G#))=0,&quot;Suspense A/c&quot;,G#)"/>
 				<STATUS>No</STATUS>
 				<AMOUNT FORMULA="=Round(If(IsError(Round(D#,2)),0,Round(D#,2))+If(IsError(Round(E#,2)),0,Round(E#,2)),2)*if(If(IsError(Round(E#,2)),0,Round(E#,2))&gt;0,-1,1)"/>
 				<PAYMENTMODE>Transacted</PAYMENTMODE>
 				<NAME FORMULA="=&quot;udi-H3X8E6-&quot; &amp; A# &amp; &quot;-&quot; &amp; Now()"/>
 			</BANKALLOCATIONS.LIST>
-			
 		</ALLLEDGERENTRIES.LIST>
 	</VOUCHER>
 
