@@ -259,7 +259,7 @@
 			<AMOUNT FORMULA="={Round(AJ#,2)}*if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),-1,1)"/>
 		</ALLLEDGERENTRIES.LIST>
 		<!-- VAT / CST Ledger -->
-		<LEDGERENTRIES.LIST GROUPBY="=trim(AO#)" SKIP="=Round(AP#,2)=0" ALTERNATETAGNAME="=if(len(trim(AD#))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
+		<LEDGERENTRIES.LIST GROUPBY="=trim(AO#)" SKIP="={Round(AP#,2)}=0" ALTERNATETAGNAME="=if(len(trim(AD#))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
 			<BASICRATEOFINVOICETAX.LIST TYPE="Number">
 				<BASICRATEOFINVOICETAX FORMULA="=&quot;__LOOKUP__(AO# &amp; &quot;-VATRATE-FOR&quot; &amp; if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
 			</BASICRATEOFINVOICETAX.LIST>
@@ -281,7 +281,7 @@
 				<ISOPTIONAL>No</ISOPTIONAL>
 				<ISPANVALID>No</ISPANVALID>
 				<ZERORATED>No</ZERORATED>
-				<SUBCATEGORYALLOCATION.LIST SKIP="=len(trim(AD#))=0" SCROLL="Yes">
+				<SUBCATEGORYALLOCATION.LIST SKIP="=Or(len(trim(AD#))=0,Round(AP#,2)=0)" SCROLL="Yes">
 					<STOCKITEMNAME COLUMNREFERENCE="AD"/>
 					<SUBCATEGORY FORMULA="=&quot;__LOOKUP__(AO# &amp; &quot;-TAXTYPE&quot;)__&quot;"/>
 					<DUTYLEDGER FORMULA="=&quot;__LOOKUP__(AO# &amp; &quot;-VATLEDGER-FOR&quot; &amp; if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
@@ -299,7 +299,7 @@
 			</UDF:MAHWCASSESSABLEVALUE.LIST>
 		</LEDGERENTRIES.LIST>
 		<!-- Additional Tax-->
-		<LEDGERENTRIES.LIST GROUPBY="=trim(AO#)" SKIP="=Round(AQ#,2)=0" ALTERNATETAGNAME="=if(len(trim(AD#))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
+		<LEDGERENTRIES.LIST GROUPBY="=trim(AO#)" SKIP="={Round(AQ#,2)}=0" ALTERNATETAGNAME="=if(len(trim(AD#))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
 			<BASICRATEOFINVOICETAX.LIST TYPE="Number">
 				<BASICRATEOFINVOICETAX FORMULA="=&quot;__LOOKUP__(AO# &amp; &quot;-ADDLVATRATE-FOR&quot; &amp; if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
 			</BASICRATEOFINVOICETAX.LIST>
@@ -316,7 +316,7 @@
 				<REFTYPE>New Ref</REFTYPE>
 				<ISOPTIONAL>No</ISOPTIONAL>
 				<ISPANVALID>No</ISPANVALID>
-				<SUBCATEGORYALLOCATION.LIST SCROLL="Yes">
+				<SUBCATEGORYALLOCATION.LIST SKIP="=Or(len(trim(AD#))=0,Round(AQ#,2)=0)" SCROLL="Yes">
 					<STOCKITEMNAME COLUMNREFERENCE="AD"/>
 					<SUBCATEGORY FORMULA="=&quot;__LOOKUP__(AO# &amp; &quot;-TAXTYPE&quot;)__&quot;"/>
 					<DUTYLEDGER FORMULA="=&quot;__LOOKUP__(AO# &amp; &quot;-ADDLVATLEDGER-FOR&quot; &amp; if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
