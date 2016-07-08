@@ -213,7 +213,7 @@
 			<BASICORDERDATE COLUMNREFERENCE="O"/>
 			<BASICPURCHASEORDERNO COLUMNREFERENCE="N"/>
 		</INVOICEORDERLIST.LIST>
-		<STATADJUSTMENTTYPE COLUMNREFERENCE="BB"/>
+		<STATADJUSTMENTTYPE COLUMNREFERENCE="BC"/>
 		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
 		<STATENAME COLUMNREFERENCE="Y"/>
 		<VATDEALERTYPE COLUMNREFERENCE="I"/>
@@ -233,6 +233,7 @@
 				<!--BILLALLOCATIONS.LIST SCROLL="YES" SKIP="=Or(Len(trim(AZ#))=0,Round(Round(AJ#,2)+Round(AP#,2)+Round(AQ#,2)+Round(AL#+AN#+AS#+AU#+AW#,2),2)=0)"-->
 				<NAME COLUMNREFERENCE="AZ"/>
 				<BILLTYPE COLUMNREFERENCE="AY"/>
+				<BILLCREDITPERIOD COLUMNREFERENCE="BB"/>
 				<AMOUNT FORMULA="={Round(BA#,2)}*if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),1,-1)"/>
 				<!--<AMOUNT FORMULA="=Round(BA#,2)*if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),1,-1)"/>-->
 				<!--<AMOUNT FORMULA="={Round(Round(AJ#,2)+Round(AP#,2)+Round(AQ#,2)+Round(AL#+AN#+AS#+AU#+AW#,2),2)}*if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),1,-1)"/>-->
@@ -268,9 +269,9 @@
 			<RATEOFADDLVAT FORMULA="=&quot;__LOOKUP__(AO# &amp; &quot;-ADDLVATRATE-FOR&quot; &amp; if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
 			<ISDEEMEDPOSITIVE FORMULA="=if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),&quot;Yes&quot;,&quot;No&quot;)"/>
 			<AMOUNT FORMULA="={Round(AP#,2)}*if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),-1,1)"/>
-			<VATASSESSABLEVALUE FORMULA="={Round(AJ#,2)}*if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),-1,1)"/>
+			<VATASSESSABLEVALUE FORMULA="={Round(Round(AJ#,2)+Round(AL#,2)+Round(AN#,2),2)}*if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),-1,1)"/>
 			<UDF:ADDNLVATCLASSAMT.LIST DESC="`AddnlVATClassAmt`" ISLIST="YES" TYPE="Amount" ISGROUPED="YES">
-				<UDF:ADDNLVATCLASSAMT DESC="`AddnlVATClassAmt`" FORMULA="={Round(AJ#,2)}*if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),-1,1)"/>
+				<UDF:ADDNLVATCLASSAMT DESC="`AddnlVATClassAmt`" FORMULA="={Round(Round(AJ#,2)+Round(AL#,2)+Round(AN#,2),2)}*if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),-1,1)"/>
 			</UDF:ADDNLVATCLASSAMT.LIST>
 			<TAXOBJECTALLOCATIONS.LIST>
 				<CATEGORY FORMULA="=&quot;__LOOKUP__(AO# &amp; &quot;-VATCLASS-FOR&quot; &amp; if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
@@ -289,13 +290,13 @@
 					<SUBCATEXEMPTED>No</SUBCATEXEMPTED>
 					<SUBCATISSPECIALRATE>No</SUBCATISSPECIALRATE>
 					<TAXRATE FORMULA="=&quot;__LOOKUP__(AO# &amp; &quot;-VATRATE&quot;)__&quot;"/>
-					<ASSESSABLEAMOUNT FORMULA="=Round(AJ#,2)*if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),-1,1)"/>
+					<ASSESSABLEAMOUNT FORMULA="=Round(Round(AJ#,2)+Round(AL#,2)+Round(AN#,2),2)*if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),-1,1)"/>
 					<TAX FORMULA="=Round(AP#,2)*if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),-1,1)"/>
 					<BILLEDQTY COLUMNREFERENCE="AG"/>
 				</SUBCATEGORYALLOCATION.LIST>
 			</TAXOBJECTALLOCATIONS.LIST>
 			<UDF:MAHWCASSESSABLEVALUE.LIST DESC="`MAHWCAssessableValue`" ISLIST="YES" TYPE="Amount">
-				<UDF:MAHWCASSESSABLEVALUE DESC="`MAHWCAssessableValue`" FORMULA="={Round(AJ#,2)}*if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),-1,1)"/>
+				<UDF:MAHWCASSESSABLEVALUE DESC="`MAHWCAssessableValue`" FORMULA="={Round(Round(AJ#,2)+Round(AL#,2)+Round(AN#,2),2)}*if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),-1,1)"/>
 			</UDF:MAHWCASSESSABLEVALUE.LIST>
 		</LEDGERENTRIES.LIST>
 		<!-- Additional Tax-->
@@ -307,7 +308,7 @@
 			<LEDGERNAME FORMULA="=&quot;__LOOKUP__(AO# &amp; &quot;-ADDLVATLEDGER-FOR&quot; &amp; if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
 			<ISDEEMEDPOSITIVE FORMULA="=if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),&quot;Yes&quot;,&quot;No&quot;)"/>
 			<AMOUNT FORMULA="={Round(AQ#,2)}*if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),-1,1)"/>
-			<VATASSESSABLEVALUE FORMULA="={Round(AJ#,2)}*if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),-1,1)"/>
+			<VATASSESSABLEVALUE FORMULA="={Round(Round(AJ#,2)+Round(AL#,2)+Round(AN#,2),2)}*if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),-1,1)"/>
 			<TAXOBJECTALLOCATIONS.LIST>
 				<CATEGORY FORMULA="=&quot;__LOOKUP__(AO# &amp; &quot;-ADDLVATCLASS-FOR&quot; &amp; if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;debit note&quot;),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
 				<TAXTYPE FORMULA="=&quot;__LOOKUP__(AO# &amp; &quot;-TAXTYPE&quot;)__&quot;"/>
@@ -324,12 +325,12 @@
 					<SUBCATZERORATED>No</SUBCATZERORATED>
 					<SUBCATEXEMPTED>No</SUBCATEXEMPTED>
 					<SUBCATISSPECIALRATE>No</SUBCATISSPECIALRATE>
-					<ASSESSABLEAMOUNT FORMULA="=Round(AJ#,2)*if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),-1,1)"/>
+					<ASSESSABLEAMOUNT FORMULA="=Round(Round(AJ#,2)+Round(AL#,2)+Round(AN#,2),2)*if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),-1,1)"/>
 					<TAX FORMULA="=Round(AQ#,2)*if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),-1,1)"/>
 				</SUBCATEGORYALLOCATION.LIST>
 			</TAXOBJECTALLOCATIONS.LIST>
 			<UDF:MAHWCASSESSABLEVALUE.LIST DESC="`MAHWCAssessableValue`" ISLIST="YES" TYPE="Amount">
-				<UDF:MAHWCASSESSABLEVALUE DESC="`MAHWCAssessableValue`" FORMULA="={Round(AJ#,2)}*if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),-1,1)"/>
+				<UDF:MAHWCASSESSABLEVALUE DESC="`MAHWCAssessableValue`" FORMULA="={Round(Round(AJ#,2)+Round(AL#,2)+Round(AN#,2),2)}*if(Or(trim(B#[1])=&quot;purchase&quot;,trim(B#[1])=&quot;purchase order&quot;,trim(B#[1])=&quot;receipt note&quot;,trim(B#[1])=&quot;credit note&quot;),-1,1)"/>
 			</UDF:MAHWCASSESSABLEVALUE.LIST>
 		</LEDGERENTRIES.LIST>
 		<!-- Shipping charges -->
