@@ -91,15 +91,16 @@ New Features in v6.0
                 <BILLTYPE COLUMNREFERENCE="M" />
                 <AMOUNT FORMULA="=IF(Round(O#,2)=0,Round(P#,2),Round(O#,2)*-1)" />
             </BILLALLOCATIONS.LIST>
-			<CATEGORYALLOCATIONS.LIST SKIP="=Or(Len(trim(I#))=0,Round(F#+G#,2)=0)">
+			<CATEGORYALLOCATIONS.LIST SCROLL="YES" SCROLLCOLUMN="=Sum(Column(E#))" SKIP="=Or(len(trim(I#))=0,If(A#=Offset(A#,-1,0),I#=Offset(I#,-1,0),1=2))">
                 <CATEGORY COLUMNREFERENCE="I" />
                 <ISDEEMEDPOSITIVE FORMULA="=IF(Round(K#,2)=0,&quot;No&quot;,&quot;Yes&quot;)" />
-                <COSTCENTREALLOCATIONS.LIST SCROLL="=And(Len(trim(J#))&gt;0,If(A#=Offset(A#,1,0),Round(Round(Offset(F#,1,0),2)+Round(Offset(G#,1,0),2),2)=0,1=2))">
+                <COSTCENTREALLOCATIONS.LIST SCROLL="=And(Len(trim(J#))&gt;0,If(A#=Offset(A#,1,0),Round(Round(Offset(F#,1,0),2)+Round(Offset(G#,1,0),2),2)=0,1=2),If(A#=Offset(A#,1,0),I#=Offset(I#,1,0),1=2))">
+					<!--<TEST1 FORMULA="=If(A#=Offset(A#,1,0),Round(Round(Offset(F#,1,0),2)+Round(Offset(G#,1,0),2),2)=0,1=2)"/>
+					<TEST2 FORMULA="=If(A#=Offset(A#,1,0),I#=Offset(I#,1,0),1=2)"/>-->
                     <NAME COLUMNREFERENCE="J" />
                     <AMOUNT FORMULA="=IF(Round(K#,2)=0,Round(L#,2),Round(K#,2)*-1)" />
                 </COSTCENTREALLOCATIONS.LIST>
-            </CATEGORYALLOCATIONS.LIST>
-			
+			</CATEGORYALLOCATIONS.LIST>
 			<!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
 			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; E#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(E#),1)))">
 				<DATE COLUMNREFERENCE="B" />
@@ -110,11 +111,9 @@ New Features in v6.0
 				<PAYMENTFAVOURING COLUMNREFERENCE="E" />
 				<STATUS>No</STATUS>
 				<AMOUNT FORMULA="=IF(Round(F#,2)=0,Round(G#,2),Round(F#,2)*-1)" />
-				
 				<PAYMENTMODE>Transacted</PAYMENTMODE>
 				<NAME FORMULA="=+&quot;udi-BF39WD-&quot; &amp; A# &amp; &quot;-&quot; &amp; B# &amp; &quot;-&quot; &amp; E#" />
 			</BANKALLOCATIONS.LIST>			
-			
         </ALLLEDGERENTRIES.LIST>
     </VOUCHER>
 </XMLTAGS>
