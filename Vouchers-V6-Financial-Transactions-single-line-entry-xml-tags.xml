@@ -87,7 +87,7 @@ New Features in v6.0
 				<INSTRUMENTNUMBER COLUMNREFERENCE="J" />
 				<INSTRUMENTDATE COLUMNREFERENCE="K" />
 				<!--<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>-->
-				<TRANSACTIONTYPE FORMULA="=if(len(trim(L#))=0,&quot;Cheque/DD&quot;,L#)"/>
+				<TRANSACTIONTYPE FORMULA="=if(len(trim(L#))=0,&quot;Cheque&quot;,L#)"/>
 				<PAYMENTFAVOURING FORMULA="if(len(trim(M#))=0,F#,M#)"/>
 				<CHEQUECROSSCOMMENT COLUMNREFERENCE="N" />
 				<BANKERSDATE COLUMNREFERENCE="O" />
@@ -114,7 +114,7 @@ New Features in v6.0
 				<INSTRUMENTNUMBER COLUMNREFERENCE="J" />
 				<INSTRUMENTDATE COLUMNREFERENCE="K" />
 				<!--<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>-->
-				<TRANSACTIONTYPE FORMULA="=if(len(trim(L#))=0,&quot;Cheque/DD&quot;,L#)"/>
+				<TRANSACTIONTYPE FORMULA="=if(len(trim(L#))=0,&quot;Cheque&quot;,L#)"/>
 				<PAYMENTFAVOURING FORMULA="if(len(trim(M#))=0,G#,M#)"/>
 				<CHEQUECROSSCOMMENT COLUMNREFERENCE="N" />
 				<BANKERSDATE COLUMNREFERENCE="O" />
@@ -142,7 +142,7 @@ New Features in v6.0
 				<INSTRUMENTDATE COLUMNREFERENCE="K" />
 				<!--<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>-->
 				
-				<TRANSACTIONTYPE FORMULA="=if(len(trim(L#))=0,&quot;Cheque/DD&quot;,L#)"/>
+				<TRANSACTIONTYPE FORMULA="=if(len(trim(L#))=0,&quot;Cheque&quot;,L#)"/>
 				<PAYMENTFAVOURING FORMULA="if(len(trim(M#))=0,F#,M#)"/>
 				<CHEQUECROSSCOMMENT COLUMNREFERENCE="N" />
 				<BANKERSDATE COLUMNREFERENCE="O" />

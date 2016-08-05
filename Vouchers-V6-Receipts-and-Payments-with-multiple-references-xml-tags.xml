@@ -117,7 +117,7 @@ New Features in v6.0
 				<DATE COLUMNREFERENCE="B"/>
 				<INSTRUMENTNUMBER COLUMNREFERENCE="X"/>
 				<INSTRUMENTDATE COLUMNREFERENCE="Y"/>
-				<TRANSACTIONTYPE FORMULA="=if(len(trim(Z#))=0,&quot;Cheque/DD&quot;,Z#)"/>
+				<TRANSACTIONTYPE FORMULA="=if(len(trim(Z#))=0,&quot;Cheque&quot;,Z#)"/>
 				<PAYMENTFAVOURING FORMULA="=if(len(trim(AA#))=0,F#,AA#)"/>
 				<CHEQUECROSSCOMMENT FORMULA="=if(len(trim(AB#))=0,&quot;A/c Payee&quot;,AB#)"/>
 				<BANKERSDATE COLUMNREFERENCE="AC"/>

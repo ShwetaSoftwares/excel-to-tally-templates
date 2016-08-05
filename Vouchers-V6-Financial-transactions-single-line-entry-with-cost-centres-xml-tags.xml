@@ -106,7 +106,7 @@ New Features in v6.0
 			<!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
 			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; F#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(F#),1)))">
 				<DATE COLUMNREFERENCE="B"/>
-				<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>
+				<TRANSACTIONTYPE>Cheque</TRANSACTIONTYPE>
 				<INSTRUMENTNUMBER COLUMNREFERENCE="N"/>
 				<INSTRUMENTDATE COLUMNREFERENCE="O"/>
 				<PAYMENTFAVOURING COLUMNREFERENCE="F"/>
@@ -139,7 +139,7 @@ New Features in v6.0
 			<!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
 			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; I#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(I#),1)))">
 				<DATE COLUMNREFERENCE="B"/>
-				<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>
+				<TRANSACTIONTYPE>Cheque</TRANSACTIONTYPE>
 				<INSTRUMENTNUMBER COLUMNREFERENCE="N"/>
 				<INSTRUMENTDATE COLUMNREFERENCE="O"/>
 				<PAYMENTFAVOURING COLUMNREFERENCE="I"/>
@@ -172,7 +172,7 @@ New Features in v6.0
 			<!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
 			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; F#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(F#),1)))">
 				<DATE COLUMNREFERENCE="B"/>
-				<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>
+				<TRANSACTIONTYPE>Cheque</TRANSACTIONTYPE>
 				<INSTRUMENTNUMBER COLUMNREFERENCE="N"/>
 				<INSTRUMENTDATE COLUMNREFERENCE="O"/>
 				<PAYMENTFAVOURING COLUMNREFERENCE="F"/>

@@ -4,7 +4,6 @@ New Features in v6.0
 1) FETCHOBJECT tag
    This is used to retrieve data from Tally (as it is not there in the Excel sheet)
 -->
-
 <XMLTAGS CELLREFERENCE="A1" xmlns:UDF="TallyUDF">
     <!-- Specifies that this (i.e Column as mentioned above) is the key field -->
     <COLUMNNAME.LIST>
@@ -86,34 +85,41 @@ New Features in v6.0
             <LEDGERNAME COLUMNREFERENCE="E" />
             <ISDEEMEDPOSITIVE FORMULA="=IF(Round(F#,2)=0,&quot;No&quot;,&quot;Yes&quot;)" />
             <AMOUNT FORMULA="=IF(Round(F#,2)=0,Round(G#,2),Round(F#,2)*-1)" />
-            <BILLALLOCATIONS.LIST SCROLL="=And(Len(trim(N#))&gt;0,If(A#=Offset(A#,1,0),Round(Round(Offset(F#,1,0),2)+Round(Offset(G#,1,0),2),2)=0,1=2))" SKIP="=Or(Len(trim(N#))=0,Round(O#+P#,2)=0)">
-                <NAME COLUMNREFERENCE="N" />
-                <BILLTYPE COLUMNREFERENCE="M" />
-                <AMOUNT FORMULA="=IF(Round(O#,2)=0,Round(P#,2),Round(O#,2)*-1)" />
-            </BILLALLOCATIONS.LIST>
-			<CATEGORYALLOCATIONS.LIST SCROLL="YES" SCROLLCOLUMN="=Sum(Column(E#))" SKIP="=Or(len(trim(I#))=0,If(A#=Offset(A#,-1,0),I#=Offset(I#,-1,0),1=2))">
+			<CATEGORYALLOCATIONS.LIST SCROLL="YES" SCROLLCOLUMN="=Sum(Column(E#))" SKIP="=Or(len(trim(I#))=0,If(A#=Offset(A#,-1,0),And(len(trim(E#))=0,I#=Offset(I#,-1,0)),1=2))">
                 <CATEGORY COLUMNREFERENCE="I" />
                 <ISDEEMEDPOSITIVE FORMULA="=IF(Round(K#,2)=0,&quot;No&quot;,&quot;Yes&quot;)" />
                 <COSTCENTREALLOCATIONS.LIST SCROLL="=And(Len(trim(J#))&gt;0,If(A#=Offset(A#,1,0),Round(Round(Offset(F#,1,0),2)+Round(Offset(G#,1,0),2),2)=0,1=2),If(A#=Offset(A#,1,0),I#=Offset(I#,1,0),1=2))">
-					<!--<TEST1 FORMULA="=If(A#=Offset(A#,1,0),Round(Round(Offset(F#,1,0),2)+Round(Offset(G#,1,0),2),2)=0,1=2)"/>
-					<TEST2 FORMULA="=If(A#=Offset(A#,1,0),I#=Offset(I#,1,0),1=2)"/>-->
                     <NAME COLUMNREFERENCE="J" />
                     <AMOUNT FORMULA="=IF(Round(K#,2)=0,Round(L#,2),Round(K#,2)*-1)" />
                 </COSTCENTREALLOCATIONS.LIST>
 			</CATEGORYALLOCATIONS.LIST>
+			<TESTROWBEFORE_BILLALLOC FORMULA="=Sum(Row(E#))"/>
+			<!--SCROLL3="=And(Len(trim(N#))&gt;0,If(A#=Offset(A#,1,0),Round(Round(Offset(F#,1,0),2)+Round(Offset(G#,1,0),2),2)=0,1=2))"-->
+			<!-- 
+			Scroll with formula should be used sparingly as it may end abruptly resulting in the
+			following tags to be skipped.
+			-->
+            <BILLALLOCATIONS.LIST SCROLL="YES" SCROLLCOLUMN="=Sum(Column(E#))" SKIP="=Or(Len(trim(N#))=0,Round(O#+P#,2)=0)">
+                <NAME COLUMNREFERENCE="N" />
+                <BILLTYPE COLUMNREFERENCE="M" />
+                <AMOUNT FORMULA="=IF(Round(O#,2)=0,Round(P#,2),Round(O#,2)*-1)" />
+            </BILLALLOCATIONS.LIST>
+			<TESTROWBEFORE_BANKALLOC FORMULA="=Sum(Row(E#))"/>
 			<!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
 			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; E#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(E#),1)))">
 				<DATE COLUMNREFERENCE="B" />
-				<!--INSTRUMENTDATE COLUMNREFERENCE="XX" /-->
-				<!--INSTRUMENTNUMBER COLUMNREFERENCE="XX" /-->
-
-				<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>
-				<PAYMENTFAVOURING COLUMNREFERENCE="E" />
+				<INSTRUMENTDATE COLUMNREFERENCE="R" />
+				<INSTRUMENTNUMBER COLUMNREFERENCE="Q" />
+				<TRANSACTIONTYPE FORMULA="=if(len(trim(S#))=0,&quot;Cheque&quot;,S#)"/>
+				<PAYMENTFAVOURING FORMULA="if(len(trim(T#))=0,E#,T#)"/>
+				<CHEQUECROSSCOMMENT COLUMNREFERENCE="U" />
+				<BANKERSDATE COLUMNREFERENCE="V" />
 				<STATUS>No</STATUS>
 				<AMOUNT FORMULA="=IF(Round(F#,2)=0,Round(G#,2),Round(F#,2)*-1)" />
 				<PAYMENTMODE>Transacted</PAYMENTMODE>
 				<NAME FORMULA="=+&quot;udi-BF39WD-&quot; &amp; A# &amp; &quot;-&quot; &amp; B# &amp; &quot;-&quot; &amp; E#" />
 			</BANKALLOCATIONS.LIST>			
+			<TESTROWAFTER_BANKALLOC FORMULA="=Sum(Row(E#))"/>
         </ALLLEDGERENTRIES.LIST>
     </VOUCHER>
 </XMLTAGS>

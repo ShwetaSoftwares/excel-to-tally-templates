@@ -56,7 +56,7 @@ New Features in v6.0
 			<!-- __LOOKUP__()__ function is a UDIMagic Function which is used to Fetch Tally data -->
 			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; E#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(E#),1)))">
 				<DATE COLUMNREFERENCE="B" />
-				<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>
+				<TRANSACTIONTYPE>Cheque</TRANSACTIONTYPE>
 				<PAYMENTFAVOURING COLUMNREFERENCE="E" />
 				<STATUS>No</STATUS>
 				<AMOUNT FORMULA="=+Round(F#,2)*IF(UPPER(G#)=&quot;DR&quot;,-1,1)" />

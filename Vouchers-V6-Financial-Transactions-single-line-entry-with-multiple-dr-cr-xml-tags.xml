@@ -135,7 +135,7 @@ New Features in v5.0
 			<!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
 			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; L$5)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(L$4),1)))">
 				<DATE FORMULA="=$B#"/>
-				<TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>
+				<TRANSACTIONTYPE>Cheque</TRANSACTIONTYPE>
 				<PAYMENTFAVOURING FORMULA="=+L$5"/>
 				<STATUS>No</STATUS>
 				<AMOUNT FORMULA="=+Round(L#,2)* if(L$1=&quot;Cr&quot;,1,-1)"/>
