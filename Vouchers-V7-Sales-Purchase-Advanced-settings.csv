@@ -1,6 +1,6 @@
 VAT-TYPE,TAXTYPE,LEDGER-FORSALE,VATLEDGER-FORSALE,ADDLVATLEDGER-FORSALE,VATCLASS-FORSALE,ADDLVATCLASS-FORSALE,VATRATE-FORSALE,ADDLVATRATE-FORSALE,LEDGER-FORPURC,VATLEDGER-FORPURC,ADDLVATLEDGER-FORPURC,VATCLASS-FORPURC,ADDLVATCLASS-FORPURC,VATRATE-FORPURC,ADDLVATRATE-FORPURC
 VAT 0%,VAT,Sales Exempt,,,Sales - Exempt,,0,0,Purchase Exempt,,,Purchases - Exempt,,0,0
-CST 0%,CST,Sales Inter-state Exempt,,,Inter-State Sales - Exemptep,,0,0,Purchase Exempt,,,Inter-State Purchases - Exempted,,0,0
+CST 0%,CST,Sales Inter-state Exempt,,,Inter-State Sales - Exempted,,0,0,Purchase Exempt,,,Inter-State Purchases - Exempted,,0,0
 VAT 2%,VAT,Sales @ 2%,Output VAT @ 2%,,Output VAT @ 2%,,2,0,Purchase @ 2%,Input VAT @ 2%,,Input VAT @ 2%,,2,0
 CST 2%,CST,Sales (Interstate @ 2%),CST @ 2%,,Inter-State Sales,,2,0,Purchase (Interstate @ 2%),CST @ 2%,,Inter-State Purchases,,2,0
 VAT 4%,VAT,Sales @ 4%,Output VAT @ 4%,Output Additional Tax @ 1%,Output VAT @ 4%,Output Additional Tax @ 1%,4,1,Purchase @ 4%,Input VAT @ 4%,Input Additional Tax @ 1%,Input VAT @ 4%,Input Additional Tax @ 1%,4,1
