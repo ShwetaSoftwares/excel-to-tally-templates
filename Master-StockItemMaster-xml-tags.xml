@@ -132,7 +132,7 @@
 		<!-- Stock-item Value -->
 		<OPENINGVALUE SKIP="={Round(AI#,2)}=0" FORMULA="={Round(AI#,2)} * -1"/>
 		<!-- Batch wise Opening Stock details details-->
-		<BATCHALLOCATIONS.LIST SCROLL="Yes" SKIP="=len(trim(AC#))=0">
+		<BATCHALLOCATIONS.LIST SCROLL="Yes" SKIP="=And(len(trim(AB#))=0,len(trim(AC#))=0)">
 			<NAME COLUMNREFERENCE="AC"/>
 			<BATCHNAME COLUMNREFERENCE="AC"/>
 			<!-- If GodownName is not specified i.e. Column U value is blank, then the Godown Name must be Main Location else value of Column U-->
