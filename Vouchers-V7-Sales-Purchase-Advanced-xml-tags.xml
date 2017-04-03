@@ -53,6 +53,7 @@
 		<VATDETAILS.LIST>
 			<FROMDATE>20100401</FROMDATE>
 			<TAXTYPE>Taxable</TAXTYPE>
+			<STATNATURENAME FORMULA="=&quot;__LOOKUP__(AO# &amp; &quot;-NATUREOFTRANSACTION-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
 			<ISINVDETAILSENABLE>Yes</ISINVDETAILSENABLE>
 			<ISCALCONACTUALQTY>No</ISCALCONACTUALQTY>
 			<RATEOFVAT FORMULA="=&quot;__LOOKUP__(AO# &amp; &quot;-VATRATE-FOR&quot;  &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
@@ -72,7 +73,7 @@
 		<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(AO# &amp; &quot;-VATCLASS-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
 		<TAXTYPE FORMULA="=&quot;__LOOKUP__(AO# &amp; &quot;-TAXTYPE&quot;)__&quot;"/>
 		<BASICTYPEOFDUTY FORMULA="=if(&quot;__LOOKUP__(AO# &amp; &quot;-TAXTYPE&quot;)__&quot;=&quot;CST&quot;,&quot;Sales Tax&quot;,&quot;On VAT Rate&quot;)"/>
-		<SUBTAXTYPE FORMULA="=if(&quot;__LOOKUP__(AO# &amp; &quot;-TAXTYPE&quot;)__&quot;=&quot;CST&quot;,&quot;&quot;,&quot;Output VAT&quot;)"/>
+		<SUBTAXTYPE FORMULA="=if(&quot;__LOOKUP__(AO# &amp; &quot;-TAXTYPE&quot;)__&quot;=&quot;CST&quot;,&quot;&quot;,if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;Input VAT&quot;,&quot;Output VAT&quot;))"/>
 		<RATEOFTAXCALCULATION FORMULA="=&quot;__LOOKUP__(AO# &amp; &quot;-VATRATE-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
 	</MASTER>
 	<!-- Create ADDl. TAX LEDGER Master -->
@@ -86,7 +87,7 @@
 		<TAXTYPE FORMULA="=&quot;__LOOKUP__(AO# &amp; &quot;-TAXTYPE&quot;)__&quot;"/>
 		<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(AO# &amp; &quot;-ADDLVATCLASS-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
 		<BASICTYPEOFDUTY FORMULA="=if(&quot;__LOOKUP__(AO# &amp; &quot;-TAXTYPE&quot;)__&quot;=&quot;CST&quot;,&quot;Sales Tax&quot;,&quot;Additional Tax&quot;)"/>
-		<SUBTAXTYPE FORMULA="=if(&quot;__LOOKUP__(AO# &amp; &quot;-TAXTYPE&quot;)__&quot;=&quot;CST&quot;,&quot;&quot;,&quot;Output VAT&quot;)"/>
+		<SUBTAXTYPE FORMULA="=if(&quot;__LOOKUP__(AO# &amp; &quot;-TAXTYPE&quot;)__&quot;=&quot;CST&quot;,&quot;&quot;,if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;Input VAT&quot;,&quot;Output VAT&quot;))"/>
 		<RATEOFTAXCALCULATION FORMULA="=&quot;__LOOKUP__(AO# &amp; &quot;-ADDLVATRATE-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
 	</MASTER>
 	<!-- Create LEDGER Master -->
@@ -103,6 +104,11 @@
 			<NAME COLUMNREFERENCE="AK"/>
 		</NAME.LIST>
 		<PARENT>Indirect Expenses</PARENT>
+		<!-- For Tally ERP 9 Release 5.1 or higher -->
+		<TAXTYPE>Others</TAXTYPE>
+		<APPROPRIATEFOR>VAT</APPROPRIATEFOR>
+		<EXCISEALLOCTYPE>Based on Value</EXCISEALLOCTYPE>
+		<ISEXCISEAPPLICABLE>Yes</ISEXCISEAPPLICABLE>
 	</MASTER>
 	<!-- Create LEDGER Master -->
 	<MASTER TYPE="LEDGER">
@@ -111,6 +117,11 @@
 			<NAME COLUMNREFERENCE="AM"/>
 		</NAME.LIST>
 		<PARENT>Indirect Expenses</PARENT>
+		<!-- For Tally ERP 9 Release 5.1 or higher -->
+		<TAXTYPE>Others</TAXTYPE>
+		<APPROPRIATEFOR>VAT</APPROPRIATEFOR>
+		<EXCISEALLOCTYPE>Based on Value</EXCISEALLOCTYPE>
+		<ISEXCISEAPPLICABLE>Yes</ISEXCISEAPPLICABLE>
 	</MASTER>
 	<!-- Create LEDGER Master -->
 	<MASTER TYPE="LEDGER">
@@ -205,7 +216,7 @@
 			<BASICORDERTERMS COLUMNREFERENCE="R"/>
 		</BASICORDERTERMS.LIST>
 		<!-- For Sales and Purchase only only -->
-		<INVOICEDELNOTES.LIST SCROLL="YES" SKIP="=not(Or(trim(lower(B#[1]))=&quot;sales&quot;,trim(lower(B#[1]))=&quot;purchase&quot;))">
+		<INVOICEDELNOTES.LIST SCROLL="YES" SKIP="=not(And(Or(len(trim(P#))&gt;0,len(trim(Q#))&gt;0),Or(trim(lower(B#[1]))=&quot;sales&quot;,trim(lower(B#[1]))=&quot;purchase&quot;)))">
 			<BASICSHIPPINGDATE COLUMNREFERENCE="Q"/>
 			<BASICSHIPDELIVERYNOTE COLUMNREFERENCE="P"/>
 		</INVOICEDELNOTES.LIST>
@@ -222,11 +233,16 @@
 		<STATENAME COLUMNREFERENCE="Y"/>
 		<VATDEALERTYPE COLUMNREFERENCE="I"/>
 		<!-- For Purchase -->
-		<UDF:VATDEALERNATURE.LIST DESC="`VATDealerNature`" ISLIST="YES" TYPE="String" INDEX="10031">
+		<UDF:VATDEALERNATURE.LIST DESC="`VATDealerNature`" ISLIST="YES" TYPE="String" SKIP="=len(trim(I#))=0">
 			<UDF:VATDEALERNATURE DESC="`VATDealerNature`" COLUMNREFERENCE="I"/>
 		</UDF:VATDEALERNATURE.LIST>
 		
 		<BASICBUYERSSALESTAXNO COLUMNREFERENCE="J"/>
+		<!-- For Tally ERP 9 Release 5.1 or higher -->
+		<VATTYPEOFDEVICE FORMULA="=&quot;__LOOKUP__(AO# &amp; &quot;-TYPEOFINVOICE-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
+		<CSTFORMRECVTYPE SKIP="=Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0)))" FORMULA="=&quot;__LOOKUP__(AO# &amp; &quot;-CSTFORMRECVTYPE-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
+		<CSTFORMISSUETYPE SKIP="=(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0)))" FORMULA="=&quot;__LOOKUP__(AO# &amp; &quot;-CSTFORMISSUETYPE-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
+        
 		<!-- Sales : Party Ledger to be debited -->
 		<!-- Purchase : Party Ledger to be Credited -->
 		<LEDGERENTRIES.LIST ALTERNATETAGNAME="=if(len(trim(AD#))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">

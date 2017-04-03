@@ -10,7 +10,6 @@
 		<COLUMNNAME>ID</COLUMNNAME>
 		<COLUMNNAME>NAME</COLUMNNAME>
 	</COLUMNNAME.LIST>
-
 	<!-- Create VOUCHERTYPE Master -->
 	<MASTER TYPE="VOUCHERTYPE">
 		<NAME.LIST TYPE="String">
@@ -40,7 +39,7 @@
 			<NAME COLUMNREFERENCE="AY"/>
 		</NAME.LIST>
 		<PARENT FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;Purchase Accounts&quot;,&quot;Sales Accounts&quot;)"/>
-		<TAXCLASSIFICATIONNAME COLUMNREFERENCE="BB"/>
+		<TAXCLASSIFICATIONNAME COLUMNREFERENCE="BE"/>
 		<TAXTYPE>Others</TAXTYPE>
 		<ISBILLWISEON>No</ISBILLWISEON>
 		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
@@ -51,6 +50,7 @@
 		<VATDETAILS.LIST>
 			<FROMDATE>20100401</FROMDATE>
 			<TAXTYPE>Taxable</TAXTYPE>
+			<STATNATURENAME COLUMNREFERENCE="BB"/>
 			<ISINVDETAILSENABLE>Yes</ISINVDETAILSENABLE>
 			<ISCALCONACTUALQTY>No</ISCALCONACTUALQTY>
 			<RATEOFVAT COLUMNREFERENCE="AW"/>
@@ -68,17 +68,11 @@
 		<PARENT>Duties &amp; Taxes</PARENT>
 		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
 		<AFFECTSSTOCK>No</AFFECTSSTOCK>
-		<TAXCLASSIFICATIONNAME COLUMNREFERENCE="BB"/>
+		<TAXCLASSIFICATIONNAME COLUMNREFERENCE="BE"/>
 		<TAXTYPE COLUMNREFERENCE="AV"/>
 		<BASICTYPEOFDUTY FORMULA="=if(trim(AV#)=&quot;CST&quot;,&quot;Sales Tax&quot;,&quot;On VAT Rate&quot;)"/>
-		<SUBTAXTYPE FORMULA="=if(trim(AV#)=&quot;CST&quot;,&quot;&quot;,&quot;Output VAT&quot;)"/>
+		<SUBTAXTYPE FORMULA="=if(trim(AV#)=&quot;CST&quot;,&quot;&quot;,if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;Input VAT&quot;,&quot;Output VAT&quot;))"/>
 		<RATEOFTAXCALCULATION COLUMNREFERENCE="AW"/>
-
-		<!--<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-VATCLASS-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
-		<TAXTYPE FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-TAXTYPE&quot;)__&quot;"/>
-		<BASICTYPEOFDUTY FORMULA="=if(&quot;__LOOKUP__(AV# &amp; &quot;-TAXTYPE&quot;)__&quot;=&quot;CST&quot;,&quot;Sales Tax&quot;,&quot;On VAT Rate&quot;)"/>
-		<SUBTAXTYPE FORMULA="=if(&quot;__LOOKUP__(AV# &amp; &quot;-TAXTYPE&quot;)__&quot;=&quot;CST&quot;,&quot;&quot;,&quot;Output VAT&quot;)"/>
-		<RATEOFTAXCALCULATION FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-VATRATE-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>-->
 	</MASTER>
 	<!-- Create ADDl. TAX LEDGER Master -->
 	<MASTER TYPE="LEDGER">
@@ -89,18 +83,11 @@
 		<PARENT>Duties &amp; Taxes</PARENT>
 		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
 		<AFFECTSSTOCK>No</AFFECTSSTOCK>
-		
 		<TAXTYPE COLUMNREFERENCE="AV"/>
-		<TAXCLASSIFICATIONNAME COLUMNREFERENCE="BC"/>
+		<TAXCLASSIFICATIONNAME COLUMNREFERENCE="BF"/>
 		<BASICTYPEOFDUTY FORMULA="=if(trim(AV#)=&quot;CST&quot;,&quot;Sales Tax&quot;,&quot;Additional Tax&quot;)"/>
-		<SUBTAXTYPE FORMULA="=if(trim(AV#)=&quot;CST&quot;,&quot;&quot;,&quot;Output VAT&quot;)"/>
+		<SUBTAXTYPE FORMULA="=if(trim(AV#)=&quot;CST&quot;,&quot;&quot;,if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;Input VAT&quot;,&quot;Output VAT&quot;))"/>
 		<RATEOFTAXCALCULATION COLUMNREFERENCE="AX"/>
-
-		<!--<TAXTYPE FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-TAXTYPE&quot;)__&quot;"/>
-		<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-ADDLVATCLASS-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
-		<BASICTYPEOFDUTY FORMULA="=if(&quot;__LOOKUP__(AV# &amp; &quot;-TAXTYPE&quot;)__&quot;=&quot;CST&quot;,&quot;Sales Tax&quot;,&quot;Additional Tax&quot;)"/>
-		<SUBTAXTYPE FORMULA="=if(&quot;__LOOKUP__(AV# &amp; &quot;-TAXTYPE&quot;)__&quot;=&quot;CST&quot;,&quot;&quot;,&quot;Output VAT&quot;)"/>
-		<RATEOFTAXCALCULATION FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-ADDLVATRATE-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>-->
 	</MASTER>
 	<!-- Create LEDGER Master -->
 	<MASTER TYPE="LEDGER" SINGLERECORD="YES">
@@ -116,6 +103,11 @@
 			<NAME COLUMNREFERENCE="AR"/>
 		</NAME.LIST>
 		<PARENT>Indirect Expenses</PARENT>
+		<!-- For Tally ERP 9 Release 5.1 or higher -->
+		<TAXTYPE>Others</TAXTYPE>
+		<APPROPRIATEFOR>VAT</APPROPRIATEFOR>
+		<EXCISEALLOCTYPE>Based on Value</EXCISEALLOCTYPE>
+		<ISEXCISEAPPLICABLE>Yes</ISEXCISEAPPLICABLE>
 	</MASTER>
 	<!-- Create LEDGER Master -->
 	<MASTER TYPE="LEDGER">
@@ -124,11 +116,16 @@
 			<NAME COLUMNREFERENCE="AT"/>
 		</NAME.LIST>
 		<PARENT>Indirect Expenses</PARENT>
+		<!-- For Tally ERP 9 Release 5.1 or higher -->
+		<TAXTYPE>Others</TAXTYPE>
+		<APPROPRIATEFOR>VAT</APPROPRIATEFOR>
+		<EXCISEALLOCTYPE>Based on Value</EXCISEALLOCTYPE>
+		<ISEXCISEAPPLICABLE>Yes</ISEXCISEAPPLICABLE>
 	</MASTER>
 	<!-- Create LEDGER Master -->
 	<MASTER TYPE="LEDGER">
 		<NAME.LIST>
-			<NAME COLUMNREFERENCE="BF"/>
+			<NAME COLUMNREFERENCE="BI"/>
 			<!--<NAME>Shipping Charges</NAME>-->
 		</NAME.LIST>
 		<PARENT>Indirect Expenses</PARENT>
@@ -136,7 +133,7 @@
 	<!-- Create LEDGER Master -->
 	<MASTER TYPE="LEDGER">
 		<NAME.LIST>
-			<NAME COLUMNREFERENCE="BH"/>
+			<NAME COLUMNREFERENCE="BK"/>
 			<!--<NAME>Other Charges1</NAME>-->
 		</NAME.LIST>
 		<PARENT>Indirect Expenses</PARENT>
@@ -144,7 +141,7 @@
 	<!-- Create LEDGER Master -->
 	<MASTER TYPE="LEDGER">
 		<NAME.LIST>
-			<NAME COLUMNREFERENCE="BJ"/>
+			<NAME COLUMNREFERENCE="BM"/>
 			<!--<NAME>Other Charges2</NAME>-->
 		</NAME.LIST>
 		<PARENT>Indirect Expenses</PARENT>
@@ -181,7 +178,7 @@
 			<UDF:REFERENCEDATE DESC="`ReferenceDate`" COLUMNREFERENCE="G"/>
 		</UDF:REFERENCEDATE.LIST>
 		<REFERENCEDATE COLUMNREFERENCE="G"/>
-		<NARRATION COLUMNREFERENCE="BL"/>
+		<NARRATION COLUMNREFERENCE="BO"/>
 		<PARTYNAME COLUMNREFERENCE="H"/>
 		<PARTYLEDGERNAME COLUMNREFERENCE="H"/>
 		<BASICBASEPARTYNAME COLUMNREFERENCE="H"/>
@@ -217,7 +214,7 @@
 			<BASICORDERTERMS COLUMNREFERENCE="R"/>
 		</BASICORDERTERMS.LIST>
 		<!-- For Sales and Purchase only only -->
-		<INVOICEDELNOTES.LIST SCROLL="YES" SKIP="=not(Or(trim(lower(B#[1]))=&quot;sales&quot;,trim(lower(B#[1]))=&quot;purchase&quot;))">
+		<INVOICEDELNOTES.LIST SCROLL="YES" SKIP="=not(And(Or(len(trim(P#))&gt;0,len(trim(Q#))&gt;0),Or(trim(lower(B#[1]))=&quot;sales&quot;,trim(lower(B#[1]))=&quot;purchase&quot;)))">
 			<BASICSHIPPINGDATE COLUMNREFERENCE="Q"/>
 			<BASICSHIPDELIVERYNOTE COLUMNREFERENCE="P"/>
 		</INVOICEDELNOTES.LIST>
@@ -229,30 +226,36 @@
 			<BASICORDERDATE COLUMNREFERENCE="O"/>
 			<BASICPURCHASEORDERNO COLUMNREFERENCE="N"/>
 		</INVOICEORDERLIST.LIST>
-		<STATADJUSTMENTTYPE COLUMNREFERENCE="BQ"/>
+		<STATADJUSTMENTTYPE COLUMNREFERENCE="BT"/>
 		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
 		<STATENAME COLUMNREFERENCE="Y"/>
 		<VATDEALERTYPE COLUMNREFERENCE="I"/>
 		<!-- For Purchase -->
-		<UDF:VATDEALERNATURE.LIST DESC="`VATDealerNature`" ISLIST="YES" TYPE="String" INDEX="10031">
+		<UDF:VATDEALERNATURE.LIST DESC="`VATDealerNature`" ISLIST="YES" TYPE="String" SKIP="=len(trim(I#))=0">
 			<UDF:VATDEALERNATURE DESC="`VATDealerNature`" COLUMNREFERENCE="I"/>
 		</UDF:VATDEALERNATURE.LIST>
 		<BASICBUYERSSALESTAXNO COLUMNREFERENCE="J"/>
+		
+		<!-- For Tally ERP 9 Release 5.1 or higher -->
+		<VATTYPEOFDEVICE COLUMNREFERENCE="BC"/>
+		<CSTFORMRECVTYPE SKIP="=Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0)))" COLUMNREFERENCE="BD"/>
+		<CSTFORMISSUETYPE SKIP="=(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0)))" COLUMNREFERENCE="BD"/>
+		
 		<!-- Sales : Party Ledger to be debited -->
 		<!-- Purchase : Party Ledger to be Credited -->
 		<LEDGERENTRIES.LIST ALTERNATETAGNAME="=if(len(trim(AK#))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
 			<LEDGERNAME COLUMNREFERENCE="H"/>
 			<ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;No&quot;,&quot;Yes&quot;)"/>
-			<AMOUNT FORMULA="={Round(Round(AQ#,2)+Round(BD#,2)+Round(BE#,2)+Round(AS#+AU#+BG#+BI#+BK#,2),2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
-			<BILLALLOCATIONS.LIST GROUPBY="=trim(BN#)" SKIP="=Or(Len(trim(BN#))=0,Round(Round(AQ#,2)+Round(BD#,2)+Round(BE#,2)+Round(AS#+AU#+BG#+BI#+BK#,2),2)=0)">
-				<!--BILLALLOCATIONS.LIST SCROLL="YES" SKIP="=Or(Len(trim(BN#))=0,Round(Round(AQ#,2)+Round(BD#,2)+Round(BE#,2)+Round(AS#+AU#+BG#+BI#+BK#,2),2)=0)"-->
-				<NAME COLUMNREFERENCE="BN"/>
-				<BILLTYPE COLUMNREFERENCE="BM"/>
-				<BILLCREDITPERIOD COLUMNREFERENCE="BP"/>
-				<AMOUNT FORMULA="={Round(BO#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
-				<!--<AMOUNT FORMULA="=Round(BO#,2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>-->
-				<!--<AMOUNT FORMULA="={Round(Round(AQ#,2)+Round(BD#,2)+Round(BE#,2)+Round(AS#+AU#+BG#+BI#+BK#,2),2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>-->
-				<!--AMOUNT FORMULA="=Round(Round(AQ#,2)+Round(BD#,2)+Round(BE#,2)+Round(AS#+AU#+BG#+BI#+BK#,2),2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/-->
+			<AMOUNT FORMULA="={Round(Round(AQ#,2)+Round(BG#,2)+Round(BH#,2)+Round(AS#+AU#+BJ#+BL#+BN#,2),2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
+			<BILLALLOCATIONS.LIST GROUPBY="=trim(BQ#)" SKIP="=Or(Len(trim(BQ#))=0,Round(Round(AQ#,2)+Round(BG#,2)+Round(BH#,2)+Round(AS#+AU#+BJ#+BL#+BN#,2),2)=0)">
+				<!--BILLALLOCATIONS.LIST SCROLL="YES" SKIP="=Or(Len(trim(BQ#))=0,Round(Round(AQ#,2)+Round(BG#,2)+Round(BH#,2)+Round(AS#+AU#+BJ#+BL#+BN#,2),2)=0)"-->
+				<NAME COLUMNREFERENCE="BQ"/>
+				<BILLTYPE COLUMNREFERENCE="BP"/>
+				<BILLCREDITPERIOD COLUMNREFERENCE="BS"/>
+				<AMOUNT FORMULA="={Round(BR#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
+				<!--<AMOUNT FORMULA="=Round(BR#,2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>-->
+				<!--<AMOUNT FORMULA="={Round(Round(AQ#,2)+Round(BG#,2)+Round(BH#,2)+Round(AS#+AU#+BJ#+BL#+BN#,2),2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>-->
+				<!--AMOUNT FORMULA="=Round(Round(AQ#,2)+Round(BG#,2)+Round(BH#,2)+Round(AS#+AU#+BJ#+BL#+BN#,2),2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/-->
 			</BILLALLOCATIONS.LIST>
 		</LEDGERENTRIES.LIST>
 		<!-- Ledger1 Before VAT -->
@@ -269,7 +272,7 @@
 		</LEDGERENTRIES.LIST>
 		<!-- Sales/Purchase Ledger -->
 		<ALLLEDGERENTRIES.LIST GROUPBY="=trim(AY#)" SKIP="=Not(len(trim(AK#))=0)">
-			<TAXCLASSIFICATIONNAME COLUMNREFERENCE="BB"/>
+			<TAXCLASSIFICATIONNAME COLUMNREFERENCE="BE"/>
 			<LEDGERNAME COLUMNREFERENCE="AY"/>
 			<!--<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-VATCLASS-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>-->
 			<!--<LEDGERNAME FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-LEDGER-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>-->
@@ -277,28 +280,25 @@
 			<AMOUNT FORMULA="={Round(AQ#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
 		</ALLLEDGERENTRIES.LIST>
 		<!-- VAT / CST Ledger -->
-		<LEDGERENTRIES.LIST GROUPBY="=trim(AY#)" SKIP="={Round(BD#,2)}=0" ALTERNATETAGNAME="=if(len(trim(AK#))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
+		<LEDGERENTRIES.LIST GROUPBY="=trim(AY#)" SKIP="={Round(BG#,2)}=0" ALTERNATETAGNAME="=if(len(trim(AK#))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
 			<BASICRATEOFINVOICETAX.LIST TYPE="Number">
 				<!--<BASICRATEOFINVOICETAX FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-VATRATE-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>-->
 				<BASICRATEOFINVOICETAX COLUMNREFERENCE="AW"/>
 			</BASICRATEOFINVOICETAX.LIST>
-
-			<TAXCLASSIFICATIONNAME COLUMNREFERENCE="BB"/>
+			<TAXCLASSIFICATIONNAME COLUMNREFERENCE="BE"/>
 			<LEDGERNAME COLUMNREFERENCE="AZ"/>
 			<RATEOFADDLVAT COLUMNREFERENCE="AX"/>
 			<!--<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-VATCLASS-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
 			<LEDGERNAME FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-VATLEDGER-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
 			<RATEOFADDLVAT FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-ADDLVATRATE-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>-->
-			
 			<ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
-			<AMOUNT FORMULA="={Round(BD#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+			<AMOUNT FORMULA="={Round(BG#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
 			<VATASSESSABLEVALUE FORMULA="={Round(Round(AQ#,2)+Round(AS#,2)+Round(AU#,2),2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
 			<UDF:ADDNLVATCLASSAMT.LIST DESC="`AddnlVATClassAmt`" ISLIST="YES" TYPE="Amount" ISGROUPED="YES">
 				<UDF:ADDNLVATCLASSAMT DESC="`AddnlVATClassAmt`" FORMULA="={Round(Round(AQ#,2)+Round(AS#,2)+Round(AU#,2),2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
 			</UDF:ADDNLVATCLASSAMT.LIST>
-			
 			<TAXOBJECTALLOCATIONS.LIST>
-				<CATEGORY COLUMNREFERENCE="BB"/>
+				<CATEGORY COLUMNREFERENCE="BE"/>
 				<TAXTYPE COLUMNREFERENCE="AV"/>
 				<!--<CATEGORY FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-VATCLASS-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
 				<TAXTYPE FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-TAXTYPE&quot;)__&quot;"/>-->
@@ -308,21 +308,19 @@
 				<ISOPTIONAL>No</ISOPTIONAL>
 				<ISPANVALID>No</ISPANVALID>
 				<ZERORATED>No</ZERORATED>
-				<SUBCATEGORYALLOCATION.LIST SKIP="=Or(len(trim(AK#))=0,Round(BD#,2)=0)" SCROLL="Yes">
+				<SUBCATEGORYALLOCATION.LIST SKIP="=Or(len(trim(AK#))=0,Round(BG#,2)=0)" SCROLL="Yes">
 					<STOCKITEMNAME COLUMNREFERENCE="AK"/>
 					<SUBCATEGORY COLUMNREFERENCE="AV"/>
 					<DUTYLEDGER COLUMNREFERENCE="AZ"/>
 					<!--<SUBCATEGORY FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-TAXTYPE&quot;)__&quot;"/>
 					<DUTYLEDGER FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-VATLEDGER-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>-->
-					
 					<SUBCATZERORATED>No</SUBCATZERORATED>
 					<SUBCATEXEMPTED>No</SUBCATEXEMPTED>
 					<SUBCATISSPECIALRATE>No</SUBCATISSPECIALRATE>
 					<TAXRATE COLUMNREFERENCE="AW"/>
 					<!--<TAXRATE FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-VATRATE&quot;)__&quot;"/>-->
-					
 					<ASSESSABLEAMOUNT FORMULA="=Round(Round(AQ#,2)+Round(AS#,2)+Round(AU#,2),2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
-					<TAX FORMULA="=Round(BD#,2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+					<TAX FORMULA="=Round(BG#,2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
 					<BILLEDQTY COLUMNREFERENCE="AN"/>
 				</SUBCATEGORYALLOCATION.LIST>
 			</TAXOBJECTALLOCATIONS.LIST>
@@ -331,46 +329,41 @@
 			</UDF:MAHWCASSESSABLEVALUE.LIST>
 		</LEDGERENTRIES.LIST>
 		<!-- Additional Tax-->
-		<LEDGERENTRIES.LIST GROUPBY="=trim(AY#)" SKIP="={Round(BE#,2)}=0" ALTERNATETAGNAME="=if(len(trim(AK#))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
+		<LEDGERENTRIES.LIST GROUPBY="=trim(AY#)" SKIP="={Round(BH#,2)}=0" ALTERNATETAGNAME="=if(len(trim(AK#))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
 			<BASICRATEOFINVOICETAX.LIST TYPE="Number">
 				<BASICRATEOFINVOICETAX COLUMNREFERENCE="AX"/>
 				<!--<BASICRATEOFINVOICETAX FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-ADDLVATRATE-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>-->
 			</BASICRATEOFINVOICETAX.LIST>
-			
-			<TAXCLASSIFICATIONNAME COLUMNREFERENCE="BC"/>
+			<TAXCLASSIFICATIONNAME COLUMNREFERENCE="BF"/>
 			<LEDGERNAME COLUMNREFERENCE="BA"/>
 			<!--<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-ADDLVATCLASS-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
 			<LEDGERNAME FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-ADDLVATLEDGER-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>-->
-			
 			<ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
-			<AMOUNT FORMULA="={Round(BE#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+			<AMOUNT FORMULA="={Round(BH#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
 			<VATASSESSABLEVALUE FORMULA="={Round(Round(AQ#,2)+Round(AS#,2)+Round(AU#,2),2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
 			<TAXOBJECTALLOCATIONS.LIST>
-				<CATEGORY COLUMNREFERENCE="BC"/>
+				<CATEGORY COLUMNREFERENCE="BF"/>
 				<TAXTYPE COLUMNREFERENCE="AV"/>
 				<!--<CATEGORY FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-ADDLVATCLASS-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
 				<TAXTYPE FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-TAXTYPE&quot;)__&quot;"/>-->
-				
 				<TAXNAME FORMULA="=trim(D#[1])"/>
 				<PARTYLEDGER FORMULA="=trim(H#[1])"/>
 				<REFTYPE>New Ref</REFTYPE>
 				<ISOPTIONAL>No</ISOPTIONAL>
 				<ISPANVALID>No</ISPANVALID>
-				<SUBCATEGORYALLOCATION.LIST SKIP="=Or(len(trim(AK#))=0,Round(BE#,2)=0)" SCROLL="Yes">
+				<SUBCATEGORYALLOCATION.LIST SKIP="=Or(len(trim(AK#))=0,Round(BH#,2)=0)" SCROLL="Yes">
 					<STOCKITEMNAME COLUMNREFERENCE="AK"/>
-
 					<SUBCATEGORY COLUMNREFERENCE="AV"/>
 					<DUTYLEDGER COLUMNREFERENCE="BA"/>
 					<TAXRATE COLUMNREFERENCE="AX"/>
 					<!--<SUBCATEGORY FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-TAXTYPE&quot;)__&quot;"/>
 					<DUTYLEDGER FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-ADDLVATLEDGER-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
 					<TAXRATE FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-ADDLVATRATE-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>-->
-					
 					<SUBCATZERORATED>No</SUBCATZERORATED>
 					<SUBCATEXEMPTED>No</SUBCATEXEMPTED>
 					<SUBCATISSPECIALRATE>No</SUBCATISSPECIALRATE>
 					<ASSESSABLEAMOUNT FORMULA="=Round(Round(AQ#,2)+Round(AS#,2)+Round(AU#,2),2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
-					<TAX FORMULA="=Round(BE#,2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+					<TAX FORMULA="=Round(BH#,2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
 				</SUBCATEGORYALLOCATION.LIST>
 			</TAXOBJECTALLOCATIONS.LIST>
 			<UDF:MAHWCASSESSABLEVALUE.LIST DESC="`MAHWCAssessableValue`" ISLIST="YES" TYPE="Amount">
@@ -378,25 +371,25 @@
 			</UDF:MAHWCASSESSABLEVALUE.LIST>
 		</LEDGERENTRIES.LIST>
 		<!-- Shipping charges -->
-		<LEDGERENTRIES.LIST GROUPBY="=trim(BF#)" ALTERNATETAGNAME="=if(len(trim(AK#))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
-			<LEDGERNAME COLUMNREFERENCE="BF"/>
+		<LEDGERENTRIES.LIST GROUPBY="=trim(BI#)" ALTERNATETAGNAME="=if(len(trim(AK#))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
+			<LEDGERNAME COLUMNREFERENCE="BI"/>
 			<!--<LEDGERNAME>Shipping Charges</LEDGERNAME>-->
 			<ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
-			<AMOUNT FORMULA="={Round(BG#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+			<AMOUNT FORMULA="={Round(BJ#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
 		</LEDGERENTRIES.LIST>
 		<!-- Other charges1 -->
-		<LEDGERENTRIES.LIST GROUPBY="=trim(BH#)" ALTERNATETAGNAME="=if(len(trim(AK#))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
-			<LEDGERNAME COLUMNREFERENCE="BH"/>
+		<LEDGERENTRIES.LIST GROUPBY="=trim(BK#)" ALTERNATETAGNAME="=if(len(trim(AK#))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
+			<LEDGERNAME COLUMNREFERENCE="BK"/>
 			<!--<LEDGERNAME>Other Charges1</LEDGERNAME>-->
 			<ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
-			<AMOUNT FORMULA="={Round(BI#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+			<AMOUNT FORMULA="={Round(BL#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
 		</LEDGERENTRIES.LIST>
 		<!-- Other charges2 -->
-		<LEDGERENTRIES.LIST GROUPBY="=trim(BJ#)" ALTERNATETAGNAME="=if(len(trim(AK#))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
-			<LEDGERNAME COLUMNREFERENCE="BJ"/>
+		<LEDGERENTRIES.LIST GROUPBY="=trim(BM#)" ALTERNATETAGNAME="=if(len(trim(AK#))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
+			<LEDGERNAME COLUMNREFERENCE="BM"/>
 			<!--<LEDGERNAME>Other Charges2</LEDGERNAME>-->
 			<ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
-			<AMOUNT FORMULA="={Round(BK#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+			<AMOUNT FORMULA="={Round(BN#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
 		</LEDGERENTRIES.LIST>
 		<!-- For Amazon -->
 		<!--<ALLINVENTORYENTRIES.LIST GROUPBY="=trim(AK#) &amp; (null)" SKIP="=Or(len(trim(AK#))=0,len(trim(AV#))=0)">-->
@@ -449,11 +442,10 @@
 				<TRACKINGNUMBER SKIP="=not(Or(trim(lower(B#[1]))=&quot;delivery note&quot;,trim(lower(B#[1]))=&quot;sales&quot;,trim(lower(B#[1]))=&quot;receipt note&quot;,trim(lower(B#[1]))=&quot;purchase&quot;))" COLUMNREFERENCE="P"/>
 			</BATCHALLOCATIONS.LIST>
 			<ACCOUNTINGALLOCATIONS.LIST>
-				<TAXCLASSIFICATIONNAME COLUMNREFERENCE="BB"/>
+				<TAXCLASSIFICATIONNAME COLUMNREFERENCE="BE"/>
 				<LEDGERNAME COLUMNREFERENCE="AY"/>
 				<!--<TAXCLASSIFICATIONNAME FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-VATCLASS-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>
 				<LEDGERNAME FORMULA="=&quot;__LOOKUP__(AV# &amp; &quot;-LEDGER-FOR&quot; &amp; if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURC&quot;,&quot;SALE&quot;))__&quot;"/>-->
-				
 				<ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
 				<!-- For Amazon -->
 				<!--<AMOUNT FORMULA="={Round(AQ#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>-->

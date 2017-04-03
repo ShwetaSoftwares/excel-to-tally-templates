@@ -1,15 +1,15 @@
-VAT-TYPE,TAXTYPE,LEDGER-FORSALE,VATLEDGER-FORSALE,ADDLVATLEDGER-FORSALE,VATCLASS-FORSALE,ADDLVATCLASS-FORSALE,VATRATE-FORSALE,ADDLVATRATE-FORSALE,LEDGER-FORPURC,VATLEDGER-FORPURC,ADDLVATLEDGER-FORPURC,VATCLASS-FORPURC,ADDLVATCLASS-FORPURC,VATRATE-FORPURC,ADDLVATRATE-FORPURC
-VAT 0%,VAT,Sales Exempt,,,Sales - Exempt,,0,0,Purchase Exempt,,,Purchases - Exempt,,0,0
-CST 0%,CST,Sales Inter-state Exempt,,,Inter-State Sales - Exempted,,0,0,Purchase Exempt,,,Inter-State Purchases - Exempted,,0,0
-VAT 2%,VAT,Sales @ 2%,Output VAT @ 2%,,Output VAT @ 2%,,2,0,Purchase @ 2%,Input VAT @ 2%,,Input VAT @ 2%,,2,0
-CST 2%,CST,Sales (Interstate @ 2%),CST @ 2%,,Inter-State Sales,,2,0,Purchase (Interstate @ 2%),CST @ 2%,,Inter-State Purchases,,2,0
-VAT 4%,VAT,Sales @ 4%,Output VAT @ 4%,Output Additional Tax @ 1%,Output VAT @ 4%,Output Additional Tax @ 1%,4,1,Purchase @ 4%,Input VAT @ 4%,Input Additional Tax @ 1%,Input VAT @ 4%,Input Additional Tax @ 1%,4,1
-VAT 12.5%,VAT,Sales @ 12.5%,Output VAT @ 12.5%,Output Additional Tax @ 2.5%,Output VAT @ 12.5%,Output Additional Tax @ 2.5%,12.5,2.5,Purchase @ 12.5%,Input VAT @ 12.5%,Input Additional Tax @ 2.5%,Input VAT @ 12.5%,Input Additional Tax @ 2.5%,12.5,2.5
-VAT 5%,VAT,Sales @ 5%,Output VAT @ 5%,,Output VAT @ 5%,,5,0,Purchase @ 5%,Input VAT @ 5%,,Input VAT @ 5%,,5,0
-CST 5%,CST,Sales (Interstate @ 5%),CST @ 5%,,Inter-State Sales,,5,0,Purchase (Interstate @ 5%),CST @ 5%,,Inter-State Purchases,,5,0
-VAT 5.5%,VAT,Sales @ 5.5%,Output VAT @ 5.5%,,Output VAT @ 5.5%,,5.5,0,Purchase @ 5.5%,Input VAT @ 5.5%,,Input VAT @ 5.5%,,5.5,0
-CST 5.5%,CST,Sales (Interstate @ 5.5%),CST @ 5.5%,,Inter-State Sales,,5.5,0,Purchase (Interstate @ 5.5%),CST @ 5.5%,,Inter-State Purchases,,5.5,0
-VAT 14.5%,VAT,Sales @ 14.5%,Output VAT @ 14.5%,,Output VAT @ 14.5%,,14.5,0,Purchase @ 14.5%,Input VAT @ 14.5%,,Input VAT @ 14.5%,,14.5,0
-CST 14.5%,CST,Sales (Interstate @ 14.5%),CST @ 14.5%,,Inter-State Sales,,14.5,0,Purchase (Interstate @ 14.5%),CST @ 14.5%,,Inter-State Purchases,,14.5,0
-VAT 15%,VAT,Sales @ 15%,Output VAT @ 15%,,Output VAT @ 15%,,15,0,Purchase @ 15%,Input VAT @ 15%,,Input VAT @ 15%,,15,0
-CST 15%,CST,Sales (Interstate @ 15%),CST @ 15%,,Inter-State Sales,,15,0,Purchase (Interstate @ 15%),CST @ 15%,,Inter-State Purchases,,15,0
+VAT-TYPE,TAXTYPE,LEDGER-FORSALE,VATLEDGER-FORSALE,ADDLVATLEDGER-FORSALE,NATUREOFTRANSACTION-FORSALE,TYPEOFINVOICE-FORSALE,CSTFORMRECVTYPE-FORSALE,VATCLASS-FORSALE,ADDLVATCLASS-FORSALE,VATRATE-FORSALE,ADDLVATRATE-FORSALE,LEDGER-FORPURC,VATLEDGER-FORPURC,ADDLVATLEDGER-FORPURC,NATUREOFTRANSACTION-FORPURC,TYPEOFINVOICE-FORPURC,CSTFORMISSUETYPE-FORPURC,VATCLASS-FORPURC,ADDLVATCLASS-FORPURC,VATRATE-FORPURC,ADDLVATRATE-FORPURC
+VAT 0%,VAT,Sales Exempt,,,Sales Exempt,,,Sales - Exempt,,0,0,Purchase Exempt,,,Purchase Exempt,,,Purchases - Exempt,,0,0
+VAT 2%,VAT,Sales @ 2%,Output VAT @ 2%,,Sales Taxable,,,Output VAT @ 2%,,2,0,Purchase @ 2%,Input VAT @ 2%,,Purchase Taxable,,,Input VAT @ 2%,,2,0
+VAT 4+1%,VAT,Sales @ 4%,Output VAT @ 4%,Output Additional Tax @ 1%,Sales Taxable,,,Output VAT @ 4%,Output Additional Tax @ 1%,4,1,Purchase @ 4%,Input VAT @ 4%,Input Additional Tax @ 1%,Purchase Taxable,,,Input VAT @ 4%,Input Additional Tax @ 1%,4,1
+VAT 12.5+2.5%,VAT,Sales @ 12.5%,Output VAT @ 12.5%,Output Additional Tax @ 2.5%,Sales Taxable,,,Output VAT @ 12.5%,Output Additional Tax @ 2.5%,12.5,2.5,Purchase @ 12.5%,Input VAT @ 12.5%,Input Additional Tax @ 2.5%,Purchase Taxable,,,Input VAT @ 12.5%,Input Additional Tax @ 2.5%,12.5,2.5
+VAT 5%,VAT,Sales @ 5%,Output VAT @ 5%,,Sales Taxable,,,Output VAT @ 5%,,5,0,Purchase @ 5%,Input VAT @ 5%,,Purchase Taxable,,,Input VAT @ 5%,,5,0
+VAT 5.5%,VAT,Sales @ 5.5%,Output VAT @ 5.5%,,Sales Taxable,,,Output VAT @ 5.5%,,5.5,0,Purchase @ 5.5%,Input VAT @ 5.5%,,Purchase Taxable,,,Input VAT @ 5.5%,,5.5,0
+VAT 14.5%,VAT,Sales @ 14.5%,Output VAT @ 14.5%,,Sales Taxable,,,Output VAT @ 14.5%,,14.5,0,Purchase @ 14.5%,Input VAT @ 14.5%,,Purchase Taxable,,,Input VAT @ 14.5%,,14.5,0
+VAT 15%,VAT,Sales @ 15%,Output VAT @ 15%,,Sales Taxable,,,Output VAT @ 15%,,15,0,Purchase @ 15%,Input VAT @ 15%,,Purchase Taxable,,,Input VAT @ 15%,,15,0
+CST 0%,CST,Sales (Inter-state) Exempt,,,Interstate Sales Exempt,,,Inter-State Sales - Exempted,,0,0,Purchase (Interstate) Exempt,,,Interstate Purchase Exempt,,,Inter-State Purchases - Exempted,,0,0
+CST 2%,CST,Sales (Interstate @ 2%),CST @ 2%,,Interstate Sales - Against Form C,,,Inter-State Sales,,2,0,Purchase (Interstate @ 2%),CST @ 2%,,Interstate Purchase - Against Form C,,,Inter-State Purchases,,2,0
+CST 5%,CST,Sales (Interstate @ 5%),CST @ 5%,,Interstate Sales - Taxable,,,Inter-State Sales,,5,0,Purchase (Interstate @ 5%),CST @ 5%,,Interstate Purchase - Taxable,,,Inter-State Purchases,,5,0
+CST 5.5%,CST,Sales (Interstate @ 5.5%),CST @ 5.5%,,Interstate Sales - Taxable,,,Inter-State Sales,,5.5,0,Purchase (Interstate @ 5.5%),CST @ 5.5%,,Interstate Purchase - Taxable,,,Inter-State Purchases,,5.5,0
+CST 14.5%,CST,Sales (Interstate @ 14.5%),CST @ 14.5%,,Interstate Sales - Taxable,,,Inter-State Sales,,14.5,0,Purchase (Interstate @ 14.5%),CST @ 14.5%,,Interstate Purchase - Taxable,,,Inter-State Purchases,,14.5,0
+CST 15%,CST,Sales (Interstate @ 15%),CST @ 15%,,Interstate Sales - Taxable,,,Inter-State Sales,,15,0,Purchase (Interstate @ 15%),CST @ 15%,,Interstate Purchase - Taxable,,,Inter-State Purchases,,15,0
