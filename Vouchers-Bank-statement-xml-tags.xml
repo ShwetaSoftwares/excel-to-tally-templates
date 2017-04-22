@@ -7,11 +7,18 @@
 		<COLUMNNAME>NAME</COLUMNNAME>
 	</COLUMNNAME.LIST>
 
-	<MASTER TYPE="GROUP">
+	<MASTER TYPE="GROUP" SINGLERECORD="YES">
 		<NAME.LIST>
 			<NAME>New Ledgers</NAME>
 		</NAME.LIST>
 	</MASTER>
+	<MASTER TYPE="GROUP">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="H"/>
+		</NAME.LIST>
+		<PARENT>New Ledgers</PARENT>
+	</MASTER>
+
 	<MASTER TYPE="LEDGER" SINGLERECORD="YES">
 		<NAME.LIST>
 			<NAME>My Bank A/c</NAME>
@@ -34,20 +41,19 @@
 		<NAME.LIST>
 			<NAME COLUMNREFERENCE="G"/>
 		</NAME.LIST>
-		<PARENT>New Ledgers</PARENT>
+		<PARENT FORMULA="=If(len(trim(H#))=0,&quot;New Ledgers&quot;,H#)"/>
 	</MASTER>
 	
 	<VOUCHER>
 		<GUID FORMULA="=&quot;udi-H3X8E6-&quot; &amp; A# &amp; &quot;-&quot; &amp; Now() &amp; &quot;-&quot; &amp; #"/>
 		<DATE COLUMNREFERENCE="A"/>
 		<EFFECTIVEDATE COLUMNREFERENCE="A"/>
-		<VOUCHERTYPENAME FORMULA="=if(len(trim(H#))=0,if(If(IsError(Round(E#,2)),0,Round(E#,2))&gt;0,&quot;Receipt&quot;,&quot;Payment&quot;),H#)"/>
+		<VOUCHERTYPENAME FORMULA="=if(len(trim(I#))=0,if(If(IsError(Round(E#,2)),0,Round(E#,2))&gt;0,&quot;Receipt&quot;,&quot;Payment&quot;),I#)"/>
 		<ISINVOICE>No</ISINVOICE>
 		<NARRATION FORMULA="=B# &amp; &quot; &quot; &amp; C#"/>
 
 		<!-- Suspense ledger -->
 		<ALLLEDGERENTRIES.LIST>
-			<!--<LEDGERNAME>Suspense A/c</LEDGERNAME>-->
 			<LEDGERNAME FORMULA="=if(len(trim(G#))=0,&quot;Suspense A/c&quot;,G#)"/>
 			<ISDEEMEDPOSITIVE FORMULA="=if(If(IsError(Round(E#,2)),0,Round(E#,2))&gt;0,&quot;No&quot;,&quot;Yes&quot;)"/>
 			<AMOUNT FORMULA="=Round(If(IsError(Round(D#,2)),0,Round(D#,2))+If(IsError(Round(E#,2)),0,Round(E#,2)),2)*if(If(IsError(Round(E#,2)),0,Round(E#,2))&gt;0,1,-1)"/>
