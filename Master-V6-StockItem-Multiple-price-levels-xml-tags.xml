@@ -75,9 +75,7 @@ Set the PriceLevel and Discount for StockItem
 
 	<!-- Create STOCKITEM Masters -->
 	<MASTER TYPE="STOCKITEM">
-		<NAME.LIST>
-			<NAME COLUMNREFERENCE="A"/>
-		</NAME.LIST>
+		<NAME COLUMNREFERENCE="A"/>
 		<!-- Stock-Group -->
 		<PARENT COLUMNREFERENCE="B"/>
 		<!-- UNITs -->
