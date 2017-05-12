@@ -7,10 +7,19 @@
 	</COLUMNNAME.LIST>
 	<!-- Create GROUP Masters -->
 	<MASTER TYPE="GROUP">
-		<NAME.LIST>
+		<!-- 
+			When ALIAS is specified, NAME.LIST is used 
+			Else NAME.LIST is skipped
+		-->
+		<NAME.LIST SKIP="=len(trim(C#))=0">
 			<NAME COLUMNREFERENCE="A"/>
-            <NAME COLUMNREFERENCE="C"/>
+			<NAME COLUMNREFERENCE="C"/>
 		</NAME.LIST>
+		<!-- 
+			When ALIAS is NOT specified, NAME is used
+			Else NAME is skipped 
+		-->
+		<NAME SKIP="=Not(len(trim(C#))=0)" COLUMNREFERENCE="A"/>
 		<PARENT COLUMNREFERENCE="B"/>
 	</MASTER>
 </XMLTAGS>
