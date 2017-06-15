@@ -112,8 +112,8 @@ New Features in v5.0
 			<LEDGERNAME COLUMNREFERENCE="H"/>
 			<ISDEEMEDPOSITIVE FORMULA="=if(Or(lower(trim(B#))=&quot;purchase&quot;,lower(trim(B#))=&quot;credit note&quot;),&quot;No&quot;,&quot;Yes&quot;)"/>
 			<AMOUNT FORMULA="=Round(O#,2)*if(Or(lower(trim(B#))=&quot;purchase&quot;,lower(trim(B#))=&quot;credit note&quot;),1,-1)"/>
-			<BILLALLOCATIONS.LIST SKIP="=Len(Trim(D#))=0">
-				<NAME COLUMNREFERENCE="D"/>
+			<BILLALLOCATIONS.LIST SKIP="=Len(Trim(F#))=0">
+				<NAME COLUMNREFERENCE="F"/>
 				<BILLTYPE>New Ref</BILLTYPE>
 				<AMOUNT FORMULA="=Round(O#,2)*if(Or(lower(trim(B#))=&quot;purchase&quot;,lower(trim(B#))=&quot;credit note&quot;),1,-1)"/>
 			</BILLALLOCATIONS.LIST>
