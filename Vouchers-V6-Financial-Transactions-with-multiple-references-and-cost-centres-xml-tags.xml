@@ -46,7 +46,7 @@ New Features in v6.0
         <NAME.LIST>
             <NAME COLUMNREFERENCE="J" />
         </NAME.LIST>
-        <CATEGORY SKIP="=Len(trim(I#))" COLUMNREFERENCE="I" />
+        <CATEGORY SKIP="=Len(trim(I#))=0" COLUMNREFERENCE="I" />
         <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
         <AFFECTSSTOCK>No</AFFECTSSTOCK>
     </MASTER>
@@ -106,8 +106,10 @@ New Features in v6.0
             </BILLALLOCATIONS.LIST>
 			<TESTROWBEFORE_BANKALLOC FORMULA="=Sum(Row(E#))"/>
 			<!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
-			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; E#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(E#),1)))">
-				<DATE COLUMNREFERENCE="B" />
+<!-- 			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; E#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(E#),1)))">
+ -->
+             <BANKALLOCATIONS.LIST SKIP="=And(len(trim(Q#))=0,len(trim(R#))=0,len(trim(S#))=0,len(trim(T#))=0,len(trim(U#))=0,len(trim(V#))=0)">
+				<DATE FORMULA="=B#[1]"/>
 				<INSTRUMENTDATE COLUMNREFERENCE="R" />
 				<INSTRUMENTNUMBER COLUMNREFERENCE="Q" />
 				<TRANSACTIONTYPE FORMULA="=if(len(trim(S#))=0,&quot;Cheque&quot;,S#)"/>
