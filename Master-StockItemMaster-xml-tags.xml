@@ -155,7 +155,7 @@
 		<GSTAPPLICABLE SKIP="=len(trim(AJ#))=0" FORMULA="=&quot;~[~ &quot; &amp; AJ#"/>
 		<!-- Type of supply -->
 		<GSTTYPEOFSUPPLY COLUMNREFERENCE="AW"/>
-		<GSTDETAILS.LIST SKIP="=Not(And(len(trim(AL#))=0,len(trim(AM#))=0,len(trim(AW#))=0,len(trim(AR#))=0,len(trim(AU#))=0))"/>
+    <!-- Empty GSTDETAILS tag not required as it will overwrite existing data, if any  -->
 		<GSTDETAILS.LIST SKIP="=And(len(trim(AL#))=0,len(trim(AM#))=0,len(trim(AW#))=0,len(trim(AR#))=0,len(trim(AU#))=0)">
 			<APPLICABLEFROM COLUMNREFERENCE="AK"/>
 			<CALCULATIONTYPE COLUMNREFERENCE="AO"/>

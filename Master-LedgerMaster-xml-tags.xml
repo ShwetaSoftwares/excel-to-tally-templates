@@ -72,12 +72,10 @@
 		<GSTAPPLICABLE SKIP="=len(trim(AJ#))=0" FORMULA="= &quot;~[~ &quot; &amp; AJ#"/>
 		<!-- Type of supply -->
 		<GSTTYPEOFSUPPLY COLUMNREFERENCE="AR"/>
-		<!-- GST tax details -->
-		<GSTDETAILS.LIST ISEMPTY="YES" SKIP="=Not(And(len(trim(AK#))=0,len(trim(AL#))=0,len(trim(AM#))=0,len(trim(AN#))=0,len(trim(AN#))=0,len(trim(AP#))=0))" />
+		<!-- Empty GSTDETAILS tag not required as it will overwrite existing data, if any  -->
 		<GSTDETAILS.LIST SKIP="=And(len(trim(AK#))=0,len(trim(AL#))=0,len(trim(AM#))=0,len(trim(AN#))=0,len(trim(AN#))=0,len(trim(AP#))=0)">
 			<!-- Applicable date -->
 			<APPLICABLEFROM COLUMNREFERENCE="AK"/>
-			<HSNMASTERNAME/>
 			<!-- HSN/SAC code -->
 			<HSNCODE COLUMNREFERENCE="AL"/>
 			<!-- HSN description -->
