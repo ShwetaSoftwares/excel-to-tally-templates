@@ -108,12 +108,12 @@
 		<!-- Standard Cost details -->
 		<STANDARDCOSTLIST.LIST SCROLL="Yes" SKIP="=len(trim(Q#))=0" APPEND="No">
 			<DATE COLUMNREFERENCE="Q"/>
-			<RATE FORMULA="=R# &amp; &quot;/&quot; &amp; +S#"/>
+			<RATE FORMULA="=R# &amp; if(len(trim(S#))=0,&quot;&quot;,&quot;/&quot; &amp; S#)"/>
 		</STANDARDCOSTLIST.LIST>
 		<!-- Standard Price details -->
 		<STANDARDPRICELIST.LIST SCROLL="Yes" SKIP="=len(trim(T#))=0" APPEND="No">
 			<DATE COLUMNREFERENCE="T"/>
-			<RATE FORMULA="=U# &amp; &quot;/&quot; &amp; +V#"/>
+			<RATE FORMULA="=U# &amp; if(len(trim(V#))=0,&quot;&quot;,&quot;/&quot; &amp; V#)"/>
 		</STANDARDPRICELIST.LIST>
 		<!-- Default Sales Ledger Name and VAT Class -->
 		<SALESLIST.LIST SCROLL="YES" SKIP="=not(trim(W#)=&quot;sales&quot;)">
