@@ -143,7 +143,7 @@
 		</GSTDETAILS.LIST>
 	</MASTER>
 
-	<VOUCHER>
+	<VOUCHER8>
 		<GUID FORMULA="=+&quot;udi-HZ3K9T-&quot; &amp; A# &amp; &quot;-&quot; &amp; C# &amp; &quot;-&quot; &amp; E#"/>
 		<DATE COLUMNREFERENCE="E"/>
 		<EFFECTIVEDATE COLUMNREFERENCE="E"/>
@@ -235,5 +235,5 @@
 				<BILLEDQTY COLUMNREFERENCE="N"/>
 			</BATCHALLOCATIONS.LIST>
 		</ALLINVENTORYENTRIES.LIST>
-	</VOUCHER>
+	</VOUCHER8>
 </XMLTAGS>

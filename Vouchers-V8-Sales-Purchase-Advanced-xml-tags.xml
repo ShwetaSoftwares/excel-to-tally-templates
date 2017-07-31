@@ -333,7 +333,7 @@
     </GSTDETAILS.LIST>
 	</MASTER>
 
-	<VOUCHER>
+	<VOUCHER8>
 		<GUID FORMULA="=+&quot;udi-HD7Q5X-&quot; &amp; A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; C#"/>
 		<DATE COLUMNREFERENCE="E"/>
 		<EFFECTIVEDATE COLUMNREFERENCE="E"/>
@@ -610,5 +610,5 @@
 				<AMOUNT FORMULA="=Round(AN#,2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
 			</ACCOUNTINGALLOCATIONS.LIST>
 		</ALLINVENTORYENTRIES.LIST>
-	</VOUCHER>
+	</VOUCHER8>
 </XMLTAGS>
