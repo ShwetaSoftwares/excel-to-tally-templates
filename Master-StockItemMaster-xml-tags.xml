@@ -118,12 +118,12 @@
 		<!--<ISPERISHABLEON FORMULA="=IF(len(trim(AJ#))=0,&quot;No&quot;,P#)"/>-->
 		<ISPERISHABLEON COLUMNREFERENCE="P"/>
 		<!-- Standard Cost details -->
-		<STANDARDCOSTLIST.LIST SCROLL="Yes" SKIP="=len(trim(Q#))=0" APPEND="No">
+		<STANDARDCOSTLIST.LIST SCROLL="Yes" SKIP="=len(trim(Q#))=0" APPEND="=trim(DJ#)">
 			<DATE COLUMNREFERENCE="Q"/>
 			<RATE FORMULA="=R# &amp; if(len(trim(S#))=0,&quot;&quot;,&quot;/&quot; &amp; S#)"/>
 		</STANDARDCOSTLIST.LIST>
 		<!-- Standard Price details -->
-		<STANDARDPRICELIST.LIST SCROLL="Yes" SKIP="=len(trim(T#))=0" APPEND="No">
+		<STANDARDPRICELIST.LIST SCROLL="Yes" SKIP="=len(trim(T#))=0" APPEND="=trim(DK#)">
 			<DATE COLUMNREFERENCE="T"/>
 			<RATE FORMULA="=U# &amp; if(len(trim(V#))=0,&quot;&quot;,&quot;/&quot; &amp; V#)"/>
 		</STANDARDPRICELIST.LIST>
@@ -181,7 +181,7 @@
     <GSTTYPEOFSUPPLY FORMULA="=if(len(trim(BE#))=0,&quot;Goods&quot;,BE#)"/>
 
 		<!-- Empty GSTDETAILS tag not required as it will overwrite existing data, if any  -->
-		<GSTDETAILS.LIST SKIP="=And(len(trim(AQ#))=0,len(trim(AR#))=0,len(trim(BE#))=0,len(trim(AW#))=0,len(trim(AZ#))=0)">
+		<GSTDETAILS.LIST SKIP="=And(len(trim(AQ#))=0,len(trim(AR#))=0,len(trim(BE#))=0,len(trim(AW#))=0,len(trim(AZ#))=0)" APPEND="=trim(DI#)">
       <APPLICABLEFROM FORMULA="=if(len(trim(AP#))=0,&quot;20170701&quot;,AP#)"/>
       <CALCULATIONTYPE FORMULA="=if(len(trim(AT#))=0,&quot;On Value&quot;,AT#)"/>
 
@@ -325,7 +325,7 @@
 		<!-- MRP -->
 		<RATEOFMRP COLUMNREFERENCE="CS"/>
 		<!-- For Tally ERP 9 Release 5.0 or higher -->
-		<MRPDETAILS.LIST SKIP="=len(trim(CS#))=0">
+		<MRPDETAILS.LIST SKIP="=len(trim(CS#))=0" APPEND="=trim(DL#)">
 			<FROMDATE COLUMNREFERENCE="CR"/>
 			<MRPRATEDETAILS.LIST>
 				<MRPRATE COLUMNREFERENCE="CS"/>
