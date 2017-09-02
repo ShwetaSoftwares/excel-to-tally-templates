@@ -17,7 +17,7 @@
 	<!-- Create  Sales/Purchase Ledger Master -->
 	<MASTER TYPE="LEDGER">
 		<NAME.LIST>
-			<NAME FORMULA="=if(len(trim(X#))&gt;0,X#,if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURCHASE&quot;,&quot;SALE&quot;))"/>
+			<NAME FORMULA="=if(len(trim(X#))&gt;0,X#,if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURCHASE&quot;,&quot;SALES&quot;))"/>
 		</NAME.LIST>
 		<PARENT FORMULA="=if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;Purchase Accounts&quot;,&quot;Sales Accounts&quot;)"/>
 		<TAXTYPE>Others</TAXTYPE>
@@ -97,6 +97,8 @@
 	<MASTER TYPE="UNIT">
 		<NAME COLUMNREFERENCE="M"/>
 		<ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
+		<GSTREPUOM SKIP="=Not(trim(M#)=&quot;nos&quot;)">NOS-NUMBERS</GSTREPUOM>
+		<GSTREPUOM SKIP="=Not(trim(M#)=&quot;kgs&quot;)">KGS-KILOGRAMS</GSTREPUOM>
 	</MASTER>
 	<!-- Create STOCKITEM Masters -->
 	<MASTER TYPE="STOCKITEM">
@@ -167,6 +169,9 @@
 		<BASICBASEPARTYNAME COLUMNREFERENCE="H"/>
 		<BASICBUYERNAME COLUMNREFERENCE="H"/>
 
+		<!-- Other GST details -->
+		<GSTNATUREOFRETURN SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))">01-Sales Return</GSTNATUREOFRETURN>
+
 		<!-- Party Ledger -->
 		<LEDGERENTRIES.LIST ALTERNATETAGNAME="=if(len(trim(K#))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
 			<LEDGERNAME COLUMNREFERENCE="H"/>
@@ -179,8 +184,8 @@
 			</BILLALLOCATIONS.LIST>
 		</LEDGERENTRIES.LIST>
 		<!-- Sales/Purchase Ledger -->
-		<LEDGERENTRIES.LIST SCROLL="YES" SKIP="=Not(len(trim(K#))=0)" ALTERNATETAGNAME="=if(len(trim(K#))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
-			<LEDGERNAME FORMULA="=if(len(trim(X#))&gt;0,X#,if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURCHASE&quot;,&quot;SALE&quot;))"/>
+		<LEDGERENTRIES.LIST SCROLL="YES" SKIP="=Not(len(trim(K#))=0)" ALTERNATETAGNAME="=if(len(trim(K#[1]))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
+			<LEDGERNAME FORMULA="=if(len(trim(X#))&gt;0,X#,if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURCHASE&quot;,&quot;SALES&quot;))"/>
 			<ISDEEMEDPOSITIVE FORMULA="=if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),&quot;Yes&quot;,&quot;No&quot;)"/>
 			<AMOUNT FORMULA="=Round(Q#,2)*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
 		</LEDGERENTRIES.LIST>
@@ -222,7 +227,7 @@
 			<ACTUALQTY COLUMNREFERENCE="N"/>
 			<BILLEDQTY COLUMNREFERENCE="N"/>
 			<ACCOUNTINGALLOCATIONS.LIST>
-				<LEDGERNAME FORMULA="=if(len(trim(X#))&gt;0,X#,if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURCHASE&quot;,&quot;SALE&quot;))"/>
+				<LEDGERNAME FORMULA="=if(len(trim(X#))&gt;0,X#,if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURCHASE&quot;,&quot;SALES&quot;))"/>
 				<ISDEEMEDPOSITIVE FORMULA="=if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),&quot;Yes&quot;,&quot;No&quot;)"/>
 				<AMOUNT FORMULA="=Round(Q#,2)*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
 			</ACCOUNTINGALLOCATIONS.LIST>
