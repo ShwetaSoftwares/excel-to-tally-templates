@@ -41,7 +41,8 @@
 		<ADDITIONALNAME COLUMNREFERENCE="H"/>
 		<ISBILLWISEON>Yes</ISBILLWISEON>
 		<!-- GST fields for PARTY LEDGER -->
-		<GSTREGISTRATIONTYPE SKIP="=len(trim(J#))=0">Regular</GSTREGISTRATIONTYPE>
+    <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(J#))=0,&quot;Unregistered&quot;,&quot;Regular&quot;)"/>
+
 		<!-- GSTIN / UIN -->
 		<PARTYGSTIN COLUMNREFERENCE="J"/>
 		<COUNTRYNAME SKIP="=len(trim(K#))=0">India</COUNTRYNAME>
@@ -102,7 +103,7 @@
 	<!-- Create Cess LEDGER Master -->
 	<MASTER TYPE="LEDGER">
 		<NAME.LIST>
-			<NAME FORMULA="=if(len(trim(CF#))&gt;0,CF#,if(Or(IsError(Round(BZ#,2)),len(trim(BZ#))=0,BZ#=0),&quot;&quot;,&quot;UT &quot; &amp; BZ# &amp; &quot;%&quot;))"/>
+			<NAME FORMULA="=if(len(trim(CF#))&gt;0,CF#,if(Or(IsError(Round(BZ#,2)),len(trim(BZ#))=0,BZ#=0),&quot;&quot;,&quot;Cess &quot; &amp; BZ# &amp; &quot;%&quot;))"/>
 		</NAME.LIST>
 		<PARENT>Duties &amp; Taxes</PARENT>
 		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
@@ -224,7 +225,7 @@
 	<!-- Create Round Off LEDGER Master -->
 	<MASTER TYPE="LEDGER">
 		<NAME.LIST>
-			<NAME FORMULA="=if(len(trim(DB#))=0,&quot;Round Off&quot;,DB#)"/>
+			<NAME FORMULA="=if(len(trim(DC#))=0,&quot;Round Off&quot;,DC#)"/>
 		</NAME.LIST>
 		<PARENT>Indirect Expenses</PARENT>
 		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
@@ -262,7 +263,7 @@
 	<MASTER TYPE="STOCKITEM">
 		<OLDNAME FORMULA="=if(len(trim(AP#))=0,AO#,AP#)"/>
 		<!-- Overwrite existing ITEMs -->
-		<IMPORTDUPS FORMULA="=if(And(Not(IsError(DC#)),len(trim(DC#))&gt;0,DC#=&quot;yes&quot;),&quot;Modify with new data&quot;,&quot;Ignore Duplicates&quot;)"/>
+		<IMPORTDUPS FORMULA="=if(And(Not(IsError(DD#)),len(trim(DD#))&gt;0,DD#=&quot;yes&quot;),&quot;Modify with new data&quot;,&quot;Ignore Duplicates&quot;)"/>
 		<!-- Create new item with Name or PartNo -->
 		<NAME FORMULA="=if(len(trim(AO#))=0,AP#,AO#)"/>
 		<!-- SKIP if both Name and Part No are empty -->
@@ -320,7 +321,7 @@
 		<VOUCHERTYPENAME COLUMNREFERENCE="C"/>
 		<VOUCHERNUMBER COLUMNREFERENCE="D"/>
 		<REFERENCE COLUMNREFERENCE="F"/>
-		<NARRATION COLUMNREFERENCE="CZ"/>
+		<NARRATION COLUMNREFERENCE="DA"/>
 		<ISINVOICE>Yes</ISINVOICE>
 		<PERSISTEDVIEW FORMULA="=if(And(len(trim(AO#))=0,len(trim(AP#))=0),&quot;Accounting Voucher View&quot;,&quot;Invoice Voucher View&quot;)"/>
 		<!-- Actual vs Billed qty -->
@@ -386,17 +387,17 @@
 		<BASICFINALDESTINATION COLUMNREFERENCE="AM"/>
 		<!-- Other GST details -->
 		<GSTNATUREOFRETURN SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(CU#))=0,&quot;01-Sales Return&quot;,CU#)"/>
-    <VATPARTYTRANSRETURNNUMBER FORMULA="=if(len(trim(CV#))=0,F#,CV#)"/>
-    <VATPARTYTRANSRETURNDATE FORMULA="=if(len(trim(CW#))=0,G#,CW#)"/>
+		<VATPARTYTRANSRETURNNUMBER FORMULA="=if(len(trim(CV#))=0,F#,CV#)"/>
+		<VATPARTYTRANSRETURNDATE FORMULA="=if(len(trim(CW#))=0,G#,CW#)"/>
+    <URDORIGINALSALEVALUE COLUMNREFERENCE="CX"/>
 		<!-- Other settings -->
-    <ISCANCELLED COLUMNREFERENCE="CX"/>
-    <ISOPTIONAL COLUMNREFERENCE="CY"/>
-
+		<ISCANCELLED COLUMNREFERENCE="CY"/>
+		<ISOPTIONAL COLUMNREFERENCE="CZ"/>
 		<!-- Party Ledger -->
 		<LEDGERENTRIES.LIST ALTERNATETAGNAME="=if(And(len(trim(AO#))=0,len(trim(AP#))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
 			<LEDGERNAME FORMULA="=if(len(trim(I#))=0,H#,I#)"/>
 			<ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;No&quot;,&quot;Yes&quot;)"/>
-			<AMOUNT FORMULA="=Round({Round(AX#,2)+Round(BS#,2)+Round(BU#,2)+Round(BW#,2)+Round(BY#,2)+Round(CA#,2)}+{Round(BI#+BK#+BM#+BO#+BQ#,2)}+{Round(CH#+CJ#+CL#+CN#+CP#,2)},if(trim(DA#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
+			<AMOUNT FORMULA="=Round({Round(AX#,2)+Round(BS#,2)+Round(BU#,2)+Round(BW#,2)+Round(BY#,2)+Round(CA#,2)}+{Round(BI#+BK#+BM#+BO#+BQ#,2)}+{Round(CH#+CJ#+CL#+CN#+CP#,2)},if(trim(DB#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
 			<BILLALLOCATIONS.LIST SKIP="=Len(trim(CR#))=0" SCROLL="YES">
 				<NAME COLUMNREFERENCE="CR"/>
 				<BILLTYPE COLUMNREFERENCE="CQ"/>
@@ -406,7 +407,7 @@
 			<BILLALLOCATIONS.LIST SKIP="=Or(Len(trim(CR#))&gt;0,Len(trim(D#))=0)">
 				<NAME FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),if(len(trim(F#))=0,D#,F#),D#)"/>
 				<BILLTYPE>New Ref</BILLTYPE>
-				<AMOUNT FORMULA="=Round({Round(AX#,2)+Round(BS#,2)+Round(BU#,2)+Round(BW#,2)+Round(BY#,2)+Round(CA#,2)}+{Round(BI#+BK#+BM#+BO#+BQ#,2)}+{Round(CH#+CJ#+CL#+CN#+CP#,2)},if(trim(DA#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
+				<AMOUNT FORMULA="=Round({Round(AX#,2)+Round(BS#,2)+Round(BU#,2)+Round(BW#,2)+Round(BY#,2)+Round(CA#,2)}+{Round(BI#+BK#+BM#+BO#+BQ#,2)}+{Round(CH#+CJ#+CL#+CN#+CP#,2)},if(trim(DB#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
 			</BILLALLOCATIONS.LIST>
 		</LEDGERENTRIES.LIST>
 		<!-- Sales/Purchase Ledger -->
@@ -506,8 +507,8 @@
 			<AMOUNT FORMULA="={Round(CP#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
 		</LEDGERENTRIES.LIST>
 		<!-- Round Off Ledger -->
-		<LEDGERENTRIES.LIST SKIP="=Or(Not(trim(DA#)=&quot;yes&quot;),Round(Round({Round(AX#,2)+Round(BS#,2)+Round(BU#,2)+Round(BW#,2)+Round(BY#,2)+Round(CA#,2)}+{Round(BI#+BK#+BM#+BO#+BQ#,2)}+{Round(CH#+CJ#+CL#+CN#+CP#,2)},0)-Round({Round(AX#,2)+Round(BS#,2)+Round(BU#,2)+Round(BW#,2)+Round(BY#,2)+Round(CA#,2)}+{Round(BI#+BK#+BM#+BO#+BQ#,2)}+{Round(CH#+CJ#+CL#+CN#+CP#,2)},2),2)=0)" ALTERNATETAGNAME="=if(And(len(trim(AO#))=0,len(trim(AP#))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
-			<LEDGERNAME FORMULA="=if(len(trim(DB#))=0,&quot;Round Off&quot;,DB#)"/>
+		<LEDGERENTRIES.LIST SKIP="=Or(Not(trim(DB#)=&quot;yes&quot;),Round(Round({Round(AX#,2)+Round(BS#,2)+Round(BU#,2)+Round(BW#,2)+Round(BY#,2)+Round(CA#,2)}+{Round(BI#+BK#+BM#+BO#+BQ#,2)}+{Round(CH#+CJ#+CL#+CN#+CP#,2)},0)-Round({Round(AX#,2)+Round(BS#,2)+Round(BU#,2)+Round(BW#,2)+Round(BY#,2)+Round(CA#,2)}+{Round(BI#+BK#+BM#+BO#+BQ#,2)}+{Round(CH#+CJ#+CL#+CN#+CP#,2)},2),2)=0)" ALTERNATETAGNAME="=if(And(len(trim(AO#))=0,len(trim(AP#))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
+			<LEDGERNAME FORMULA="=if(len(trim(DC#))=0,&quot;Round Off&quot;,DC#)"/>
 			<ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
 			<AMOUNT FORMULA="=Round(Round({Round(AX#,2)+Round(BS#,2)+Round(BU#,2)+Round(BW#,2)+Round(BY#,2)+Round(CA#,2)}+{Round(BI#+BK#+BM#+BO#+BQ#,2)}+{Round(CH#+CJ#+CL#+CN#+CP#,2)},0)-Round({Round(AX#,2)+Round(BS#,2)+Round(BU#,2)+Round(BW#,2)+Round(BY#,2)+Round(CA#,2)}+{Round(BI#+BK#+BM#+BO#+BQ#,2)}+{Round(CH#+CJ#+CL#+CN#+CP#,2)},2),2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
 		</LEDGERENTRIES.LIST>
