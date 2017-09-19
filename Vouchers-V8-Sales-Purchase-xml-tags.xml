@@ -42,13 +42,15 @@
 		<ISBILLWISEON>Yes</ISBILLWISEON>
 		<!-- GST fields for PARTY LEDGER -->
     <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(J#))=0,&quot;Unregistered&quot;,&quot;Regular&quot;)"/>
-
 		<!-- GSTIN / UIN -->
-		<PARTYGSTIN COLUMNREFERENCE="J"/>
+		<PARTYGSTIN FORMULA="=trim(J#)"/>
 		<COUNTRYNAME SKIP="=len(trim(K#))=0">India</COUNTRYNAME>
 		<COUNTRYOFRESIDENCE SKIP="=len(trim(K#))=0">India</COUNTRYOFRESIDENCE>
-		<STATENAME COLUMNREFERENCE="K"/>
-		<LEDSTATENAME COLUMNREFERENCE="K"/>
+		
+		<!-- 2017-09-14: STATENAME is converted to proper-case  -->
+		<STATENAME FORMULA="=proper(trim(K#))"/>
+		<LEDSTATENAME FORMULA="=proper(trim(K#))"/>
+
 	</MASTER>
 	<!-- Create IGST TAX LEDGER Master -->
 	<MASTER TYPE="LEDGER">
@@ -331,12 +333,14 @@
 			<UDF:REFERENCEDATE DESC="`ReferenceDate`" COLUMNREFERENCE="G"/>
 		</UDF:REFERENCEDATE.LIST>
 		<REFERENCEDATE COLUMNREFERENCE="G"/>
-		<!-- GSTIN / UIN given twice -->
-		<PARTYGSTIN FORMULA="=if(len(trim(L#))=0,J#,&quot;&quot;)"/>
-		<PARTYGSTIN COLUMNREFERENCE="U"/>
-		<!-- StateName given twice -->
-		<STATENAME FORMULA="=if(len(trim(L#))=0,K#,&quot;&quot;)"/>
-		<STATENAME COLUMNREFERENCE="R"/>
+		<!-- 2017-09-14: Update GSTIN -->
+		<PARTYGSTIN FORMULA="=if(len(trim(L#))=0,trim(J#),&quot;&quot;)"/>
+		<PARTYGSTIN FORMULA="=trim(U#)"/>
+
+		<!-- 2017-09-14: STATENAME is converted to proper-case  -->
+		<STATENAME FORMULA="=proper(if(len(trim(L#))=0,trim(K#),&quot;&quot;))"/>
+		<STATENAME FORMULA="=proper(trim(R#))"/>
+
 		<PLACEOFSUPPLY COLUMNREFERENCE="S"/>
 		<GSTREGISTRATIONTYPE COLUMNREFERENCE="T"/>
 		<PARTYLEDGERNAME COLUMNREFERENCE="H"/>

@@ -60,13 +60,18 @@ New Features in v5.0
 		<ISBILLWISEON>Yes</ISBILLWISEON>
 		<AFFECTSSTOCK>No</AFFECTSSTOCK>
 		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
-		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
-		<LEDSTATENAME COLUMNREFERENCE="J"/>
 		<COUNTRYNAME SKIP="len(trim(J#))=0">India</COUNTRYNAME>
+
+		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
+		<!-- 2017-09-14: STATENAME is converted to proper-case  -->
+		<STATENAME FORMULA="=proper(trim(J#))"/>
+		<LEDSTATENAME FORMULA="=proper(trim(J#))"/>
+
     <!-- GST fields for PARTY LEDGER -->
     <GSTREGISTRATIONTYPE COLUMNREFERENCE="K"/>
     <!-- GSTIN / UIN -->
-    <PARTYGSTIN COLUMNREFERENCE="L"/>
+    <PARTYGSTIN FORMULA="=trim(L#)"/>
+
 	</MASTER>
 	<!-- VOUCHER-->
 	<VOUCHER>
@@ -76,9 +81,11 @@ New Features in v5.0
 		<VOUCHERTYPENAME COLUMNREFERENCE="C"/>
 		<ISINVOICE>No</ISINVOICE>
 		<PERSISTEDVIEW>Accounting Voucher View</PERSISTEDVIEW>
-
     <!-- GSTIN / UIN -->
-    <PARTYGSTIN COLUMNREFERENCE="L"/>
+    <PARTYGSTIN FORMULA="=trim(L#)"/>
+		<!-- 2017-09-14: STATENAME is converted to proper-case  -->
+		<STATENAME FORMULA="=proper(trim(J#))"/>
+
 		<PARTYLEDGERNAME COLUMNREFERENCE="H"/>
 		<VOUCHERNUMBER COLUMNREFERENCE="D"/>
 		<REFERENCE COLUMNREFERENCE="F"/>
@@ -88,8 +95,6 @@ New Features in v5.0
 		<REFERENCEDATE COLUMNREFERENCE="G"/>
 		<BASICBUYERSSALESTAXNO COLUMNREFERENCE="L"/>
 		<NARRATION COLUMNREFERENCE="M"/>
-		<!-- Required for Tally ERP 9 Release 5.1 and higher -->
-		<STATENAME COLUMNREFERENCE="J"/>
 		<!-- Sales, Purchase Return		: Party Ledger to be Debited -->
 		<!-- Purchase, Sales Return 	: Party Ledger to be Credited -->
 		<ALLLEDGERENTRIES.LIST>
