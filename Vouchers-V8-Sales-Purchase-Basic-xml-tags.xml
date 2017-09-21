@@ -178,7 +178,7 @@
 		<GSTNATUREOFRETURN SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))">01-Sales Return</GSTNATUREOFRETURN>
 
 		<!-- Party Ledger -->
-		<LEDGERENTRIES.LIST ALTERNATETAGNAME="=if(len(trim(K#))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
+		<LEDGERENTRIES.LIST ALTERNATETAGNAME="=if(len(trim(K#[1]))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
 			<LEDGERNAME COLUMNREFERENCE="H"/>
 			<ISDEEMEDPOSITIVE FORMULA="=if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),&quot;No&quot;,&quot;Yes&quot;)"/>
 			<AMOUNT FORMULA="=Round({Round(Q#,2)+Round(S#,2)+Round(U#,2)+Round(W#,2)},if(trim(AC#)=&quot;yes&quot;,0,2))*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),1,-1)"/>
@@ -196,26 +196,26 @@
 		</LEDGERENTRIES.LIST>
 
 		<!-- IGST Ledger -->
-		<LEDGERENTRIES.LIST GROUPBY="=if(len(trim(Y#))=0,trim(R#),trim(Y#))" SKIP="={Round(S#,2)}=0" ALTERNATETAGNAME="=if(len(trim(K#))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
+		<LEDGERENTRIES.LIST GROUPBY="=if(len(trim(Y#))=0,trim(R#),trim(Y#))" SKIP="={Round(S#,2)}=0" ALTERNATETAGNAME="=if(len(trim(K#[1]))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
 		  <LEDGERNAME FORMULA="=if(len(trim(Y#))&gt;0,Y#,if(Or(IsError(Round(R#,2)),len(trim(R#))=0,R#=0),&quot;&quot;,&quot;IGST &quot; &amp; R# &amp; &quot;%&quot;))"/>
 		  <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
 		  <AMOUNT FORMULA="={Round(S#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
 		</LEDGERENTRIES.LIST>
 		<!-- CGST Ledger -->
-		<LEDGERENTRIES.LIST GROUPBY="=if(len(trim(Z#))=0,trim(T#),trim(Z#))" SKIP="={Round(U#,2)}=0" ALTERNATETAGNAME="=if(len(trim(K#))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
+		<LEDGERENTRIES.LIST GROUPBY="=if(len(trim(Z#))=0,trim(T#),trim(Z#))" SKIP="={Round(U#,2)}=0" ALTERNATETAGNAME="=if(len(trim(K#[1]))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
 		  <LEDGERNAME FORMULA="=if(len(trim(Z#))&gt;0,Z#,if(Or(IsError(Round(T#,2)),len(trim(T#))=0,T#=0),&quot;&quot;,&quot;CGST &quot; &amp; T# &amp; &quot;%&quot;))"/>
 		  <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
 		  <AMOUNT FORMULA="={Round(U#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
 		</LEDGERENTRIES.LIST>
 		<!-- SGST Ledger -->
-		<LEDGERENTRIES.LIST GROUPBY="=if(len(trim(AA#))=0,trim(V#),trim(AA#))" SKIP="={Round(W#,2)}=0" ALTERNATETAGNAME="=if(len(trim(K#))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
+		<LEDGERENTRIES.LIST GROUPBY="=if(len(trim(AA#))=0,trim(V#),trim(AA#))" SKIP="={Round(W#,2)}=0" ALTERNATETAGNAME="=if(len(trim(K#[1]))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
 		  <LEDGERNAME FORMULA="=if(len(trim(AA#))&gt;0,AA#,if(Or(IsError(Round(V#,2)),len(trim(V#))=0,V#=0),&quot;&quot;,&quot;SGST &quot; &amp; V# &amp; &quot;%&quot;))"/>
 		  <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
 		  <AMOUNT FORMULA="={Round(W#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
 		</LEDGERENTRIES.LIST>
 
     <!-- Round Off Ledger -->
-    <LEDGERENTRIES.LIST SKIP="=Not(trim(AC#)=&quot;yes&quot;)" ALTERNATETAGNAME="=if(len(trim(K#))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
+    <LEDGERENTRIES.LIST SKIP="=Or(Not(trim(AC#)=&quot;yes&quot;),Round(Round({Round(Q#,2)+Round(S#,2)+Round(U#,2)+Round(W#,2)},0)-Round({Round(Q#,2)+Round(S#,2)+Round(U#,2)+Round(W#,2)},2),2)=0)" ALTERNATETAGNAME="=if(len(trim(K#[1]))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
       <LEDGERNAME>Round Off</LEDGERNAME>
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="=Round(Round({Round(Q#,2)+Round(S#,2)+Round(U#,2)+Round(W#,2)},0)-Round({Round(Q#,2)+Round(S#,2)+Round(U#,2)+Round(W#,2)},2),2)*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
