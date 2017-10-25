@@ -1,3 +1,9 @@
+<!--
+Fixes : 
+2017-10-13
+BANKALLOCATION tag - Incorrect column for Instrument No and Date - Now corrected
+-->
+
 <!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
 <!-- 
 New Features in v6.0
@@ -113,7 +119,7 @@ New Features in v6.0
 			<ISDEEMEDPOSITIVE FORMULA="=if(C#[1]=&quot;receipt&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
 			<AMOUNT FORMULA="={Round(L#,2)}*if(C#[1]=&quot;receipt&quot;,-1,1)"/>
 			<!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
-			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; K#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(K#),1)),len(trim(N#))=0,len(trim(O#))=0)">
+			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; K#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(K#),1)),len(trim(X#))=0,len(trim(Y#))=0)">
 				<DATE COLUMNREFERENCE="B"/>
 				<INSTRUMENTNUMBER COLUMNREFERENCE="X"/>
 				<INSTRUMENTDATE COLUMNREFERENCE="Y"/>
@@ -164,4 +170,3 @@ New Features in v6.0
 		</ALLLEDGERENTRIES.LIST>
 	</VOUCHER>
 </XMLTAGS>
-

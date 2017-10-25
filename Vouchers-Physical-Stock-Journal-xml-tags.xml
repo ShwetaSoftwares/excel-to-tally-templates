@@ -43,7 +43,7 @@
 		<ISPERISHABLEON SKIP="=Len(trim(J#))=0">Yes</ISPERISHABLEON>
 	</MASTER>
 	<!-- Physical Stock Voucher -->
-	<VOUCHER>
+	<VOUCHER8>
 		<GUID FORMULA="=&quot;udi-phy-stk-&quot; &amp; A# &amp; &quot;-&quot; &amp; B# &amp; &quot;-&quot; &amp; D# &amp; &quot;-&quot; &amp; E#"/>
 		<DATE COLUMNREFERENCE="E"/>
 		<EFFECTIVEDATE COLUMNREFERENCE="E"/>
@@ -64,5 +64,5 @@
 				<EXPIRYPERIOD SKIP="=Len(J#)=0" COLUMNREFERENCE="J"/>
 			</BATCHALLOCATIONS.LIST>
 		</ALLINVENTORYENTRIES.LIST>
-	</VOUCHER>
+	</VOUCHER8>
 </XMLTAGS>

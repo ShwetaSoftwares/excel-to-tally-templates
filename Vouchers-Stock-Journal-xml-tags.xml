@@ -68,7 +68,7 @@
 		<ISPERISHABLEON FORMULA="=if(len(trim(T#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
 	</MASTER>
 	<!-- XML tags for creating Vouchers -->
-	<VOUCHER>
+	<VOUCHER8>
 		<GUID FORMULA="=&quot;udi-G94MRN-&quot; &amp; A# &amp; &quot;-&quot; &amp; E#"/>
 		<!--GUID FORMULA="=&quot;udi-stock-jrnl-&quot; &amp; A# &amp; &quot;-&quot; &amp; E#"/-->
 		<DATE COLUMNREFERENCE="E"/>
@@ -115,6 +115,6 @@
 				<BILLEDQTY COLUMNREFERENCE="L" />
 			</BATCHALLOCATIONS.LIST>
 		</INVENTORYENTRIESOUT.LIST>
-	</VOUCHER>
+	</VOUCHER8>
 </XMLTAGS>
 

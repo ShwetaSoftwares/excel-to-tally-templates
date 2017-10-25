@@ -44,7 +44,7 @@
 		<PARENT FORMULA="=If(len(trim(H#))=0,&quot;New Ledgers&quot;,H#)"/>
 	</MASTER>
 	
-	<VOUCHER>
+	<VOUCHER8>
 		<GUID FORMULA="=&quot;udi-H3X8E6-&quot; &amp; A# &amp; &quot;-&quot; &amp; Now() &amp; &quot;-&quot; &amp; #"/>
 		<DATE COLUMNREFERENCE="A"/>
 		<EFFECTIVEDATE COLUMNREFERENCE="A"/>
@@ -81,6 +81,6 @@
 				<NAME FORMULA="=&quot;udi-H3X8E6-&quot; &amp; A# &amp; &quot;-&quot; &amp; Now()"/>
 			</BANKALLOCATIONS.LIST>
 		</ALLLEDGERENTRIES.LIST>
-	</VOUCHER>
+	</VOUCHER8>
 
 </XMLTAGS>
