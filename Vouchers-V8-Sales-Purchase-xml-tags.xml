@@ -314,7 +314,7 @@
 				<RATEDETAILS.LIST>
 					<GSTRATEDUTYHEAD>Central Tax</GSTRATEDUTYHEAD>
 					<GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-					<GSTRATE FORMULA="=If(BW#&gt;0,BW#,If(BU#&gt;0,Round(BU#/2,2),0))"/>
+					<GSTRATE FORMULA="=If(Round(BW#,2)&gt;0,Round(BW#,2),If(BU#&gt;0,Round(BU#/2,2),0))"/>
 				</RATEDETAILS.LIST>
 				<RATEDETAILS.LIST>
 					<GSTRATEDUTYHEAD FORMULA="=if(And(Round(CA#,2)=0,Round(CB#,2)=0),&quot;State Tax&quot;,&quot;UT Tax&quot;)"/>
@@ -325,12 +325,12 @@
 				<RATEDETAILS.LIST>
 					<GSTRATEDUTYHEAD>Integrated Tax</GSTRATEDUTYHEAD>
 					<GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-					<GSTRATE FORMULA="=If(BU#&gt;0,BU#,BW#+BY#)"/>
+					<GSTRATE FORMULA="=If(Round(BU#,2)&gt;0,Round(BU#,2),Round(BW#+BY#,2))"/>
 				</RATEDETAILS.LIST>
 				<RATEDETAILS.LIST>
 					<GSTRATEDUTYHEAD>Cess</GSTRATEDUTYHEAD>
 					<GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-					<GSTRATE FORMULA="=if(Round(CD#,2)=0,0,CC#)"/>
+					<GSTRATE FORMULA="=if(Round(CD#,2)=0,0,Round(CC#,2))"/>
 				</RATEDETAILS.LIST>
 			</STATEWISEDETAILS.LIST>
 			<TEMPGSTDETAILSLABRATES.LIST>
@@ -648,7 +648,8 @@
 				<!-- For Delivery Note, Sales Invoice, Receipt Note, Purchase Invoice - Column AE# -->
 				<ORDERDUEDATE FORMULA="=if(Or(trim(lower(B#[1]))=&quot;sales order&quot;,trim(lower(B#[1]))=&quot;purchase order&quot;),E#[1],AE#[1])"/>
 				<!-- For Delivery Note, Sales Invoice, Receipt Note, Purchase Invoice -->
-				<TRACKINGNUMBER SKIP="=not(Or(trim(lower(B#[1]))=&quot;delivery note&quot;,trim(lower(B#[1]))=&quot;sales&quot;,trim(lower(B#[1]))=&quot;receipt note&quot;,trim(lower(B#[1]))=&quot;purchase&quot;))" COLUMNREFERENCE="AF"/>
+				<TRACKINGNUMBER SKIP="if(IsError(Match(trim(B#[1]),\123&quot;delivery note&quot;,&quot;sales&quot;,&quot;receipt note&quot;,&quot;purchase&quot;\125,0)),-1,1)" COLUMNREFERENCE="AF"/>
+
 			</BATCHALLOCATIONS.LIST>
 			<UDF:EIDISCOUNTRATE.LIST SKIP="=Round(AY#,2)=0" DESC="`EI DiscountRate`" ISLIST="YES" TYPE="Number" INDEX="10001">
 			 <UDF:EIDISCOUNTRATE DESC="`EI DiscountRate`" COLUMNREFERENCE="AY"/>

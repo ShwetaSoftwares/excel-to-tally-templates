@@ -130,23 +130,23 @@
 			<APPLICABLEFROM>20170701</APPLICABLEFROM>
 			<CALCULATIONTYPE>On Value</CALCULATIONTYPE>
 			<HSNCODE COLUMNREFERENCE="L"/>
-			<TAXABILITY FORMULA="=If(U#+W#+Y#&gt;0,&quot;Taxable&quot;,&quot;Exempt&quot;)"/>
+			<TAXABILITY FORMULA="=If(Round(U#+W#+Y#,2)&gt;0,&quot;Taxable&quot;,&quot;Exempt&quot;)"/>
 			<STATEWISEDETAILS.LIST>
 				<STATENAME>~[~ Any</STATENAME>
 				<RATEDETAILS.LIST>
 					<GSTRATEDUTYHEAD>Central Tax</GSTRATEDUTYHEAD>
 					<GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-					<GSTRATE FORMULA="=If(W#&gt;0,W#,If(U#&gt;0,Round(U#/2,2),0))"/>
+					<GSTRATE FORMULA="=If(Round(W#,2)&gt;0,Round(W#,2),If(U#&gt;0,Round(U#/2,2),0))"/>
 				</RATEDETAILS.LIST>
 				<RATEDETAILS.LIST>
 					<GSTRATEDUTYHEAD>State Tax</GSTRATEDUTYHEAD>
 					<GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-					<GSTRATE FORMULA="=If(Y#&gt;0,Y#,If(U#&gt;0,Round(U#/2,2),0))"/>
+					<GSTRATE FORMULA="=If(Round(Y#,2)&gt;0,Round(Y#,2),If(U#&gt;0,Round(U#/2,2),0))"/>
 				</RATEDETAILS.LIST>
 				<RATEDETAILS.LIST>
 					<GSTRATEDUTYHEAD>Integrated Tax</GSTRATEDUTYHEAD>
 					<GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-					<GSTRATE FORMULA="=If(U#&gt;0,U#,W#+Y#)"/>
+					<GSTRATE FORMULA="=If(Round(U#,2)&gt;0,Round(U#,2),Round(W#+Y#,2))"/>
 				</RATEDETAILS.LIST>
 				<RATEDETAILS.LIST>
 					<GSTRATEDUTYHEAD>Cess</GSTRATEDUTYHEAD>

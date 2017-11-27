@@ -8,19 +8,19 @@
 	<!-- Create TARIFFCLASSIFICATION Masters -->
 	<MASTER TYPE="TARIFFCLASSIFICATION">
 		<NAME.LIST>
-			<NAME COLUMNREFERENCE="BH"/>
+			<NAME COLUMNREFERENCE="BI"/>
 		</NAME.LIST>
 		<!--<SCHEDULENUMBER>SchNo</SCHEDULENUMBER>
 		<SCHEDULESERIALNUMBER>SchSrNo</SCHEDULESERIALNUMBER>-->
 		<USEDFOR>VAT</USEDFOR>
 		<UDF:COMMODITYVATRATE.LIST DESC="`CommodityVATRate`" ISLIST="YES" TYPE="Number" INDEX="10004">
-			<UDF:COMMODITYVATRATE DESC="`CommodityVATRate`" COLUMNREFERENCE="BM"/>
+			<UDF:COMMODITYVATRATE DESC="`CommodityVATRate`" COLUMNREFERENCE="BN"/>
 		</UDF:COMMODITYVATRATE.LIST>
 	</MASTER>
 	<!-- Create TARIFFCLASSIFICATION Masters -->
 	<MASTER TYPE="TARIFFCLASSIFICATION">
 		<NAME.LIST>
-			<NAME COLUMNREFERENCE="BZ"/>
+			<NAME COLUMNREFERENCE="CA"/>
 		</NAME.LIST>
 		<USEDFOR>Both</USEDFOR>
 	</MASTER>
@@ -30,8 +30,8 @@
 		<!-- As a result, we must not use the NAME.LIST tag, but directly use the NAME tag -->
 		<NAME COLUMNREFERENCE="K"/>
 		<ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
-    <GSTREPUOM SKIP="=Not(trim(K#)=&quot;nos&quot;)">NOS-NUMBERS</GSTREPUOM>
-    <GSTREPUOM SKIP="=Not(trim(K#)=&quot;kgs&quot;)">KGS-KILOGRAMS</GSTREPUOM>
+		<GSTREPUOM SKIP="=Not(trim(K#)=&quot;nos&quot;)">NOS-NUMBERS</GSTREPUOM>
+		<GSTREPUOM SKIP="=Not(trim(K#)=&quot;kgs&quot;)">KGS-KILOGRAMS</GSTREPUOM>
 	</MASTER>
 	<!-- Create UNIT Masters -->
 	<MASTER TYPE="UNIT">
@@ -39,8 +39,8 @@
 		<!-- As a result, we must not use the NAME.LIST tag, but directly use the NAME tag -->
 		<NAME COLUMNREFERENCE="L"/>
 		<ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
-    <GSTREPUOM SKIP="=Not(trim(L#)=&quot;nos&quot;)">NOS-NUMBERS</GSTREPUOM>
-    <GSTREPUOM SKIP="=Not(trim(L#)=&quot;kgs&quot;)">KGS-KILOGRAMS</GSTREPUOM>
+		<GSTREPUOM SKIP="=Not(trim(L#)=&quot;nos&quot;)">NOS-NUMBERS</GSTREPUOM>
+		<GSTREPUOM SKIP="=Not(trim(L#)=&quot;kgs&quot;)">KGS-KILOGRAMS</GSTREPUOM>
 	</MASTER>
 	<!-- Create STOCKGROUP Masters -->
 	<MASTER TYPE="STOCKGROUP">
@@ -57,33 +57,33 @@
 	<!-- Create GODOWN Masters -->
 	<MASTER TYPE="GODOWN">
 		<NAME.LIST>
-			<NAME COLUMNREFERENCE="AG"/>
+			<NAME COLUMNREFERENCE="AH"/>
 		</NAME.LIST>
 	</MASTER>
 	<!-- Create LEDGER Masters -->
 	<!-- GST details will NOT be updated / set. It has to be done using the Ledger-Master template -->
 	<MASTER TYPE="LEDGER">
 		<NAME.LIST>
-			<NAME COLUMNREFERENCE="W"/>
+			<NAME COLUMNREFERENCE="X"/>
 		</NAME.LIST>
-		<PARENT COLUMNREFERENCE="X"/>
+		<PARENT COLUMNREFERENCE="Y"/>
 		<ISCOSTCENTREON>No</ISCOSTCENTREON>
 		<!-- No for Duties and Taxes -->
-		<AFFECTSSTOCK FORMULA="=if(trim(X#)=&quot;duties &amp; taxes&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
-		<USEFORVAT FORMULA="=if(trim(X#)=&quot;duties &amp; taxes&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
-		<TAXCLASSIFICATIONNAME COLUMNREFERENCE="Z"/>
+		<AFFECTSSTOCK FORMULA="=if(trim(Y#)=&quot;duties &amp; taxes&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+		<USEFORVAT FORMULA="=if(trim(Y#)=&quot;duties &amp; taxes&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+		<TAXCLASSIFICATIONNAME COLUMNREFERENCE="AA"/>
 	</MASTER>
 	<!-- GST details will NOT be updated / set. It has to be done using the Ledger-Master template -->
 	<MASTER TYPE="LEDGER">
 		<NAME.LIST>
-			<NAME COLUMNREFERENCE="AB"/>
+			<NAME COLUMNREFERENCE="AC"/>
 		</NAME.LIST>
-		<PARENT COLUMNREFERENCE="AC"/>
+		<PARENT COLUMNREFERENCE="AD"/>
 		<ISCOSTCENTREON>No</ISCOSTCENTREON>
 		<!-- No for Duties and Taxes -->
-		<AFFECTSSTOCK FORMULA="=if(trim(X#)=&quot;duties &amp; taxes&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
-		<USEFORVAT FORMULA="=if(trim(X#)=&quot;duties &amp; taxes&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
-		<TAXCLASSIFICATIONNAME COLUMNREFERENCE="AE"/>
+		<AFFECTSSTOCK FORMULA="=if(trim(Y#)=&quot;duties &amp; taxes&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+		<USEFORVAT FORMULA="=if(trim(Y#)=&quot;duties &amp; taxes&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+		<TAXCLASSIFICATIONNAME COLUMNREFERENCE="AF"/>
 	</MASTER>
 	<!-- Create STOCKITEM Masters -->
 	<MASTER TYPE="STOCKITEM">
@@ -109,132 +109,132 @@
 		<!-- BaseUnits  -->
 		<BASEUNITS COLUMNREFERENCE="K"/>
 		<!-- Alternate Unit  -->
-		<ADDITIONALUNITS FORMULA="=IF(len(trim(M#))=0,&quot;&quot;,L#)"/>
+		<ADDITIONALUNITS COLUMNREFERENCE="L"/>
 		<!-- Whether to Maintain in batches or not -->
-		<!--<ISBATCHWISEON FORMULA="=IF(len(trim(N#))=0,&quot;No&quot;,N#)"/>-->
-		<ISBATCHWISEON COLUMNREFERENCE="N"/>
+		<!--<ISBATCHWISEON FORMULA="=IF(len(trim(O#))=0,&quot;No&quot;,O#)"/>-->
+		<ISBATCHWISEON COLUMNREFERENCE="O"/>
 		<!-- Whether to Track date of Mfg or not.  -->
 		<!-- If set to Yes, then the Mfg.Date has to be given. -->
-		<!--<HASMFGDATE FORMULA="=IF(len(trim(AI#))=0,&quot;No&quot;,O#)"/>-->
-		<HASMFGDATE COLUMNREFERENCE="O"/>
+		<!--<HASMFGDATE FORMULA="=IF(len(trim(AJ#))=0,&quot;No&quot;,P#)"/>-->
+		<HASMFGDATE COLUMNREFERENCE="P"/>
 		<!-- Whether to use Expiry dates or not.  -->
 		<!-- If set to Yes, then the Expiry.Date has to be given. -->
-		<!--<ISPERISHABLEON FORMULA="=IF(len(trim(AJ#))=0,&quot;No&quot;,P#)"/>-->
-		<ISPERISHABLEON COLUMNREFERENCE="P"/>
+		<!--<ISPERISHABLEON FORMULA="=IF(len(trim(AK#))=0,&quot;No&quot;,Q#)"/>-->
+		<ISPERISHABLEON COLUMNREFERENCE="Q"/>
 		<!-- Standard Cost details -->
-		<STANDARDCOSTLIST.LIST SCROLL="Yes" SKIP="=len(trim(Q#))=0" APPEND="=trim(EO#)">
-			<DATE COLUMNREFERENCE="Q"/>
-			<RATE FORMULA="=R# &amp; if(len(trim(S#))=0,&quot;&quot;,&quot;/&quot; &amp; S#)"/>
+		<STANDARDCOSTLIST.LIST SCROLL="Yes" SKIP="=len(trim(R#))=0" APPEND="=trim(EP#)">
+			<DATE COLUMNREFERENCE="R"/>
+			<RATE FORMULA="=S# &amp; if(len(trim(T#))=0,&quot;&quot;,&quot;/&quot; &amp; T#)"/>
 		</STANDARDCOSTLIST.LIST>
 		<!-- Standard Price details -->
-		<STANDARDPRICELIST.LIST SCROLL="Yes" SKIP="=len(trim(T#))=0" APPEND="=trim(EP#)">
-			<DATE COLUMNREFERENCE="T"/>
-			<RATE FORMULA="=U# &amp; if(len(trim(V#))=0,&quot;&quot;,&quot;/&quot; &amp; V#)"/>
+		<STANDARDPRICELIST.LIST SCROLL="Yes" SKIP="=len(trim(U#))=0" APPEND="=trim(EQ#)">
+			<DATE COLUMNREFERENCE="U"/>
+			<RATE FORMULA="=V# &amp; if(len(trim(W#))=0,&quot;&quot;,&quot;/&quot; &amp; W#)"/>
 		</STANDARDPRICELIST.LIST>
 		<!-- Default Sales Ledger Name and VAT Class -->
-		<SALESLIST.LIST SCROLL="YES" SKIP="=len(trim(W#))=0">
-			<NAME COLUMNREFERENCE="W"/>
+		<SALESLIST.LIST SCROLL="YES" SKIP="=len(trim(X#))=0">
+			<NAME COLUMNREFERENCE="X"/>
 			<!-- New Class for GST -->
-			<GSTCLASSIFICATIONNATURE COLUMNREFERENCE="Y"/>
-			<VATCLASSIFICATIONNATURE COLUMNREFERENCE="Z"/>
+			<GSTCLASSIFICATIONNATURE COLUMNREFERENCE="Z"/>
+			<VATCLASSIFICATIONNATURE COLUMNREFERENCE="AA"/>
 			<!-- Old VAT Class -->
-			<TAXCLASSIFICATIONNAME COLUMNREFERENCE="Z"/>
-			<CLASSRATE COLUMNREFERENCE="AA"/>
+			<TAXCLASSIFICATIONNAME COLUMNREFERENCE="AA"/>
+			<CLASSRATE COLUMNREFERENCE="AB"/>
 		</SALESLIST.LIST>
 		<!-- Default Purchase Ledger Name and VAT Class -->
-		<PURCHASELIST.LIST SCROLL="YES" SKIP="=len(trim(AB#))=0">
-			<NAME COLUMNREFERENCE="AB"/>
+		<PURCHASELIST.LIST SCROLL="YES" SKIP="=len(trim(AC#))=0">
+			<NAME COLUMNREFERENCE="AC"/>
 			<!-- New Class for GST -->
-			<GSTCLASSIFICATIONNATURE COLUMNREFERENCE="AD"/>
-			<VATCLASSIFICATIONNATURE COLUMNREFERENCE="AE"/>
+			<GSTCLASSIFICATIONNATURE COLUMNREFERENCE="AE"/>
+			<VATCLASSIFICATIONNATURE COLUMNREFERENCE="AF"/>
 			<!-- Old VAT Class -->
-			<TAXCLASSIFICATIONNAME COLUMNREFERENCE="AE"/>
-			<CLASSRATE COLUMNREFERENCE="AF"/>
+			<TAXCLASSIFICATIONNAME COLUMNREFERENCE="AF"/>
+			<CLASSRATE COLUMNREFERENCE="AG"/>
 		</PURCHASELIST.LIST>
 		<!-- Stock-item Opening Qty  -->
-		<OPENINGBALANCE SKIP="=Or({Round(AK#,2)}=0,Not(Round(M#,2)=0))" FORMULA="={Round(AK#,2)}"/>
-		<OPENINGBALANCE SKIP="Or({Round(AK#,2)}=0,Round(M#,2)=0)" FORMULA="={AK#} &amp; &quot; &quot; &amp; K# &amp; &quot; = &quot; &amp; Round({AK#}/M#,0) &amp; &quot; &quot; &amp; L#"/>
+		<OPENINGBALANCE SKIP="=Or({Round(AL#,2)}=0,Not(Round(N#,2)=0))" FORMULA="={Round(AL#,2)}"/>
+		<OPENINGBALANCE SKIP="Or({Round(AL#,2)}=0,Round(N#,2)=0)" FORMULA="={AL#} &amp; &quot; &quot; &amp; K# &amp; &quot; = &quot; &amp; Round({AL#}*M#/N#,0) &amp; &quot; &quot; &amp; L#"/>
 		<!-- Stock-item Rate -->
-		<OPENINGRATE SKIP="={Round(AN#,2)}=0" FORMULA="=IF({Round(AK#,2)}&gt;0,Round({Round(AN#,2)}/{Round(AK#,2)},2) &amp; if(len(trim(AM#))=0,&quot;&quot;,&quot;/&quot; &amp; AM#),0)"/>
+		<OPENINGRATE SKIP="={Round(AO#,2)}=0" FORMULA="=IF({Round(AL#,2)}&gt;0,Round({Round(AO#,2)}/{Round(AL#,2)},2) &amp; if(len(trim(AN#))=0,&quot;&quot;,&quot;/&quot; &amp; AN#),0)"/>
 		<!-- Stock-item Value -->
-		<OPENINGVALUE SKIP="={Round(AN#,2)}=0" FORMULA="={Round(AN#,2)} * -1"/>
+		<OPENINGVALUE SKIP="={Round(AO#,2)}=0" FORMULA="={Round(AO#,2)} * -1"/>
 		<!-- Batch wise Opening Stock details details-->
-		<BATCHALLOCATIONS.LIST SCROLL="Yes" SKIP="=And(len(trim(AG#))=0,len(trim(AH#))=0)">
-			<NAME COLUMNREFERENCE="AH"/>
-			<BATCHNAME COLUMNREFERENCE="AH"/>
+		<BATCHALLOCATIONS.LIST SCROLL="Yes" SKIP="=And(len(trim(AH#))=0,len(trim(AI#))=0)">
+			<NAME COLUMNREFERENCE="AI"/>
+			<BATCHNAME COLUMNREFERENCE="AI"/>
 			<!-- If GodownName is not specified i.e. Column U value is blank, then the Godown Name must be Main Location else value of Column U-->
-			<GODOWNNAME FORMULA="=IF(len(trim(AG#))=0,&quot;Main Location&quot;,+AG#)"/>
-			<MFDON FORMULA="=IF(len(trim(AI#))=0,&quot;&quot;,AI#)"/>
-			<EXPIRYPERIOD FORMULA="=IF(len(trim(AJ#))=0,&quot;&quot;,AJ#)"/>
+			<GODOWNNAME FORMULA="=IF(len(trim(AH#))=0,&quot;Main Location&quot;,+AH#)"/>
+			<MFDON FORMULA="=IF(len(trim(AJ#))=0,&quot;&quot;,AJ#)"/>
+			<EXPIRYPERIOD FORMULA="=IF(len(trim(AK#))=0,&quot;&quot;,AK#)"/>
 			<!-- Stock-item Opening Qty  -->
-			<OPENINGBALANCE SKIP="=Or(AK#=0,Not(Round(M#[1],2)=0))" COLUMNREFERENCE="AK"/>
-			<OPENINGBALANCE SKIP="Or(AK#=0,Round(M#[1],2)=0)" FORMULA="=AK# &amp; &quot; &quot; &amp; K#[1] &amp; &quot; = &quot; &amp; Round(AK#/M#[1],0) &amp; &quot; &quot; &amp; L#[1]"/>
+			<OPENINGBALANCE SKIP="=Or(AL#=0,Not(Round(N#[1],2)=0))" COLUMNREFERENCE="AL"/>
+			<OPENINGBALANCE SKIP="Or(AL#=0,Round(N#[1],2)=0)" FORMULA="=AL# &amp; &quot; &quot; &amp; K#[1] &amp; &quot; = &quot; &amp; if(N#[1]&gt;0,Round(AL#*M#[1]/N#[1],0),0) &amp; &quot; &quot; &amp; L#[1]"/>
 			<!-- Stock-item Rate -->
-			<OPENINGRATE SKIP="=Round(AL#,2)=0" FORMULA="=AL# &amp; if(len(trim(AM#))=0,&quot;&quot;,&quot;/&quot; &amp; AM#)"/>
+			<OPENINGRATE SKIP="=Round(AM#,2)=0" FORMULA="=AM# &amp; if(len(trim(AN#))=0,&quot;&quot;,&quot;/&quot; &amp; AN#)"/>
 			<!-- Stock-item Value -->
-			<OPENINGVALUE SKIP="=Round(AN#,2)=0" FORMULA="=Round(AN#,2) * -1"/>
+			<OPENINGVALUE SKIP="=Round(AO#,2)=0" FORMULA="=Round(AO#,2) * -1"/>
 		</BATCHALLOCATIONS.LIST>
 		<!-- GST details -->
-		<GSTAPPLICABLE SKIP="=And(len(trim(AO#))=0,len(trim(AP#))=0,len(trim(AQ#))=0,len(trim(AR#))=0,len(trim(BE#))=0,len(trim(AW#))=0,len(trim(AZ#))=0,len(trim(BA#))=0)" FORMULA="=if(len(trim(AO#))=0,&quot;~[~ Applicable&quot;,&quot;~[~ &quot; &amp; AO#)"/>
+		<GSTAPPLICABLE SKIP="=And(len(trim(AP#))=0,len(trim(AQ#))=0,len(trim(AR#))=0,len(trim(AS#))=0,len(trim(BF#))=0,len(trim(AX#))=0,len(trim(BA#))=0,len(trim(BB#))=0)" FORMULA="=if(len(trim(AP#))=0,&quot;~[~ Applicable&quot;,&quot;~[~ &quot; &amp; AP#)"/>
 		<!-- Type of supply -->
-		<GSTTYPEOFSUPPLY FORMULA="=if(len(trim(BE#))=0,&quot;Goods&quot;,BE#)"/>
+		<GSTTYPEOFSUPPLY FORMULA="=if(len(trim(BF#))=0,&quot;Goods&quot;,BF#)"/>
 		<!-- Empty GSTDETAILS tag not required as it will overwrite existing data, if any  -->
-		<GSTDETAILS.LIST SKIP="=And(len(trim(AQ#))=0,len(trim(AR#))=0,len(trim(BE#))=0,len(trim(AW#))=0,len(trim(AZ#))=0)" APPEND="=trim(EN#)">
-			<APPLICABLEFROM FORMULA="=if(len(trim(AP#))=0,&quot;20170701&quot;,AP#)"/>
-			<CALCULATIONTYPE FORMULA="=if(len(trim(AT#))=0,&quot;On Value&quot;,AT#)"/>
-			<HSNCODE COLUMNREFERENCE="AQ"/>
-			<HSNMASTERNAME COLUMNREFERENCE="BF"/>
-			<HSN COLUMNREFERENCE="AR"/>
-			<TAXABILITY SKIP="=trim(AT#[1])=&quot;On Item Rate&quot;" FORMULA="=if(len(trim(AW#))=0,&quot;Taxable&quot;,AW#)"/>
-			<ISREVERSECHARGEAPPLICABLE COLUMNREFERENCE="AX"/>
-			<ISNONGSTGOODS COLUMNREFERENCE="AS"/>
-			<GSTINELIGIBLEITC COLUMNREFERENCE="AY"/>
+		<GSTDETAILS.LIST SKIP="=And(len(trim(AR#))=0,len(trim(AS#))=0,len(trim(BF#))=0,len(trim(AX#))=0,len(trim(BA#))=0)" APPEND="=trim(EO#)">
+			<APPLICABLEFROM FORMULA="=if(len(trim(AQ#))=0,&quot;20170701&quot;,AQ#)"/>
+			<CALCULATIONTYPE FORMULA="=if(len(trim(AU#))=0,&quot;On Value&quot;,AU#)"/>
+			<HSNCODE COLUMNREFERENCE="AR"/>
+			<HSNMASTERNAME COLUMNREFERENCE="BG"/>
+			<HSN COLUMNREFERENCE="AS"/>
+			<TAXABILITY SKIP="=trim(AU#[1])=&quot;On Item Rate&quot;" FORMULA="=if(len(trim(AX#))=0,&quot;Taxable&quot;,AX#)"/>
+			<ISREVERSECHARGEAPPLICABLE COLUMNREFERENCE="AY"/>
+			<ISNONGSTGOODS COLUMNREFERENCE="AT"/>
+			<GSTINELIGIBLEITC COLUMNREFERENCE="AZ"/>
 			<STATEWISEDETAILS.LIST>
 				<STATENAME>~[~ Any</STATENAME>
 				<RATEDETAILS.LIST>
 					<GSTRATEDUTYHEAD>Central Tax</GSTRATEDUTYHEAD>
 					<GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-					<GSTRATE FORMULA="=Round(BA#,2)"/>
+					<GSTRATE FORMULA="=Round(BB#,2)"/>
 				</RATEDETAILS.LIST>
 				<RATEDETAILS.LIST>
-					<GSTRATEDUTYHEAD FORMULA="=if(Round(BC#,2)&gt;0,&quot;UT Tax&quot;,&quot;State Tax&quot;)"/>
+					<GSTRATEDUTYHEAD FORMULA="=if(Round(BD#,2)&gt;0,&quot;UT Tax&quot;,&quot;State Tax&quot;)"/>
 					<GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-					<GSTRATE FORMULA="=if(Round(BC#,2)&gt;0,Round(BC#,2),Round(BB#,2))"/>
+					<GSTRATE FORMULA="=if(Round(BD#,2)&gt;0,Round(BD#,2),Round(BC#,2))"/>
 				</RATEDETAILS.LIST>
 				<RATEDETAILS.LIST>
 					<GSTRATEDUTYHEAD>Integrated Tax</GSTRATEDUTYHEAD>
 					<GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-					<GSTRATE FORMULA="=Round(AZ#,2)"/>
+					<GSTRATE FORMULA="=Round(BA#,2)"/>
 				</RATEDETAILS.LIST>
 				<RATEDETAILS.LIST>
 					<GSTRATEDUTYHEAD>Cess</GSTRATEDUTYHEAD>
 					<GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-					<GSTRATE FORMULA="=Round(BD#,2)"/>
+					<GSTRATE FORMULA="=Round(BE#,2)"/>
 				</RATEDETAILS.LIST>
 				<!-- When CALCULATION-TYPE is set as : On Item Rate -->
-				<GSTSLABRATES.LIST SKIP="=Or(len(trim(AT#[1]))=0,Not(trim(AT#[1])=&quot;On Item Rate&quot;))" SCROLL="YES">
-					<TAXABILITY COLUMNREFERENCE="AW"/>
-					<TOITEMRATE FORMULA="=Round(AV#,2)"/>
+				<GSTSLABRATES.LIST SKIP="=Or(len(trim(AU#[1]))=0,Not(trim(AU#[1])=&quot;On Item Rate&quot;))" SCROLL="YES">
+					<TAXABILITY COLUMNREFERENCE="AX"/>
+					<TOITEMRATE FORMULA="=Round(AW#,2)"/>
 					<RATEDETAILS.LIST>
 						<GSTRATEDUTYHEAD>Central Tax</GSTRATEDUTYHEAD>
 						<GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-						<GSTRATE FORMULA="=Round(BA#,2)"/>
+						<GSTRATE FORMULA="=Round(BB#,2)"/>
 					</RATEDETAILS.LIST>
 					<RATEDETAILS.LIST>
 						<!-- <GSTRATEDUTYHEAD>State Tax</GSTRATEDUTYHEAD> -->
-						<GSTRATEDUTYHEAD FORMULA="=if(Round(BC#,2)&gt;0,&quot;UT Tax&quot;,&quot;State Tax&quot;)"/>
+						<GSTRATEDUTYHEAD FORMULA="=if(Round(BD#,2)&gt;0,&quot;UT Tax&quot;,&quot;State Tax&quot;)"/>
 						<GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-						<GSTRATE FORMULA="=if(Round(BC#,2)&gt;0,Round(BC#,2),Round(BB#,2))"/>
+						<GSTRATE FORMULA="=if(Round(BD#,2)&gt;0,Round(BD#,2),Round(BC#,2))"/>
 					</RATEDETAILS.LIST>
 					<RATEDETAILS.LIST>
 						<GSTRATEDUTYHEAD>Integrated Tax</GSTRATEDUTYHEAD>
 						<GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-						<GSTRATE FORMULA="=Round(AZ#,2)"/>
+						<GSTRATE FORMULA="=Round(BA#,2)"/>
 					</RATEDETAILS.LIST>
 					<RATEDETAILS.LIST>
 						<GSTRATEDUTYHEAD>Cess</GSTRATEDUTYHEAD>
 						<GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-						<GSTRATE FORMULA="=Round(BD#,2)"/>
+						<GSTRATE FORMULA="=Round(BE#,2)"/>
 					</RATEDETAILS.LIST>
 				</GSTSLABRATES.LIST>
 			</STATEWISEDETAILS.LIST>
@@ -242,66 +242,66 @@
 			</TEMPGSTDETAILSLABRATES.LIST>
 		</GSTDETAILS.LIST>
 		<!-- VAT details -->
-		<VATAPPLICABLE SKIP="=len(trim(BG#))=0" FORMULA="=&quot;~[~ &quot; &amp; trim(BG#)"/>
+		<VATAPPLICABLE SKIP="=len(trim(BH#))=0" FORMULA="=&quot;~[~ &quot; &amp; trim(BH#)"/>
 		<!-- VAT Commodity -->
-		<VATCOMMODITY COLUMNREFERENCE="BH"/>
+		<VATCOMMODITY COLUMNREFERENCE="BI"/>
 		<!-- Rate of VAT-->
-		<RATEOFVAT COLUMNREFERENCE="BM"/>
-		<VATBASENO COLUMNREFERENCE="BS"/>
-		<VATBASEUNIT COLUMNREFERENCE="BT"/>
-		<VATTRAILNO COLUMNREFERENCE="BU"/>
-		<VATTRAILUNIT COLUMNREFERENCE="BV"/>
+		<RATEOFVAT COLUMNREFERENCE="BN"/>
+		<VATBASENO COLUMNREFERENCE="BT"/>
+		<VATBASEUNIT COLUMNREFERENCE="BU"/>
+		<VATTRAILNO COLUMNREFERENCE="BV"/>
+		<VATTRAILUNIT COLUMNREFERENCE="BW"/>
 		<!-- For Tally ERP 9 Release 5.0 or higher -->
-		<VATDETAILS.LIST SKIP="=Not(Or(trim(BG#)=&quot;applicable&quot;,trim(BG#)=&quot;yes&quot;))">
-			<FROMDATE COLUMNREFERENCE="BO"/>
-			<TAXTYPE FORMULA="=if(Len(trim(BP#))=0,&quot;Taxable&quot;,BP#)"/>
-			<GOODSNATURE COLUMNREFERENCE="BI"/>
-			<VATCOMMODITYNAME COLUMNREFERENCE="BJ"/>
-			<VATCOMMODITYCODE COLUMNREFERENCE="BK"/>
-			<REPORTINGUOM COLUMNREFERENCE="BL"/>
+		<VATDETAILS.LIST SKIP="=Not(Or(trim(BH#)=&quot;applicable&quot;,trim(BH#)=&quot;yes&quot;))">
+			<FROMDATE COLUMNREFERENCE="BP"/>
+			<TAXTYPE FORMULA="=if(Len(trim(BQ#))=0,&quot;Taxable&quot;,BQ#)"/>
+			<GOODSNATURE COLUMNREFERENCE="BJ"/>
+			<VATCOMMODITYNAME COLUMNREFERENCE="BK"/>
+			<VATCOMMODITYCODE COLUMNREFERENCE="BL"/>
+			<REPORTINGUOM COLUMNREFERENCE="BM"/>
 			<ISINVDETAILSENABLE>Yes</ISINVDETAILSENABLE>
-			<RATEOFVAT COLUMNREFERENCE="BM"/>
-			<ADDITIONALTAX COLUMNREFERENCE="BN"/>
+			<RATEOFVAT COLUMNREFERENCE="BN"/>
+			<ADDITIONALTAX COLUMNREFERENCE="BO"/>
 		</VATDETAILS.LIST>
 		<!-- For Tally ERP 9 Release 5.0 or higher -->
-		<INCLUSIVETAX COLUMNREFERENCE="BW"/>
+		<INCLUSIVETAX COLUMNREFERENCE="BX"/>
 		<!-- Calc Tax on MRP / MRP to print -->
-		<CALCONMRP COLUMNREFERENCE="BQ"/>
+		<CALCONMRP COLUMNREFERENCE="BR"/>
 		<!-- MRP Incl of VAT -->
-		<ISMRPINCLOFTAX COLUMNREFERENCE="BR"/>
+		<ISMRPINCLOFTAX COLUMNREFERENCE="BS"/>
 		<!-- Excise details -->
-		<EXCISEAPPLICABILITY SKIP="=len(trim(BX#))=0" FORMULA="=&quot;~[~ &quot; &amp; trim(BX#)"/>
+		<EXCISEAPPLICABILITY SKIP="=len(trim(BY#))=0" FORMULA="=&quot;~[~ &quot; &amp; trim(BY#)"/>
 		<!-- Tariff Classification -->
-		<BASICTARIFFTYPE COLUMNREFERENCE="BZ"/>
+		<BASICTARIFFTYPE COLUMNREFERENCE="CA"/>
 		<!-- Rate of Excise Duty -->
-		<BASICRATEOFEXCISE COLUMNREFERENCE="CN"/>
+		<BASICRATEOFEXCISE COLUMNREFERENCE="CO"/>
 		<!-- For Tally ERP 9 Release 5.0 or higher -->
-		<EXCISETARIFFDETAILS.LIST SKIP="=len(trim(CN#))=0">
-			<APPLICABLEFROM COLUMNREFERENCE="CQ"/>
-			<TYPEOFTARIFF FORMULA="=if(len(trim(CC#))=0,&quot;Dutiable&quot;,CC#)"/>
-			<EXCISECLASSIFICATIONNAME COLUMNREFERENCE="BY"/>
-			<STOCKITEMTYPE COLUMNREFERENCE="CE"/>
-			<ISEXCISECALCULATEONMRP COLUMNREFERENCE="CJ"/>
+		<EXCISETARIFFDETAILS.LIST SKIP="=len(trim(CO#))=0">
+			<APPLICABLEFROM COLUMNREFERENCE="CR"/>
+			<TYPEOFTARIFF FORMULA="=if(len(trim(CD#))=0,&quot;Dutiable&quot;,CD#)"/>
+			<EXCISECLASSIFICATIONNAME COLUMNREFERENCE="BZ"/>
+			<STOCKITEMTYPE COLUMNREFERENCE="CF"/>
+			<ISEXCISECALCULATEONMRP COLUMNREFERENCE="CK"/>
 			<ISNONDUTIABLE>No</ISNONDUTIABLE>
-			<ABATEMENTPERCENTAGE COLUMNREFERENCE="CK"/>
-			<REPORTINGUOM COLUMNREFERENCE="CB"/>
-			<TARIFFNAME COLUMNREFERENCE="BZ"/>
-			<VALUATIONTYPE FORMULA="=if(len(trim(CM#))=0,&quot;Ad Valorem&quot;,CM#)"/>
-			<HSNCODE COLUMNREFERENCE="CA"/>
+			<ABATEMENTPERCENTAGE COLUMNREFERENCE="CL"/>
+			<REPORTINGUOM COLUMNREFERENCE="CC"/>
+			<TARIFFNAME COLUMNREFERENCE="CA"/>
+			<VALUATIONTYPE FORMULA="=if(len(trim(CN#))=0,&quot;Ad Valorem&quot;,CN#)"/>
+			<HSNCODE COLUMNREFERENCE="CB"/>
 			<EXCISEDUTYHEADDETAILS.LIST SCROLL="YES">
-				<VALUATIONTYPE FORMULA="=if(len(trim(CM#))=0,&quot;Ad Valorem&quot;,CM#)"/>
-				<STOCKITEMTYPE COLUMNREFERENCE="CE"/>
-				<DUTYHEAD FORMULA="=if(len(trim(CL#))=0,&quot;Basic Excise Duty&quot;,CL#)"/>
-				<EXCISERATE COLUMNREFERENCE="CN"/>
-				<NOTIFICATIONNUMBER COLUMNREFERENCE="CO"/>
-				<NOTIFICATIONSERIAL COLUMNREFERENCE="CP"/>
+				<VALUATIONTYPE FORMULA="=if(len(trim(CN#))=0,&quot;Ad Valorem&quot;,CN#)"/>
+				<STOCKITEMTYPE COLUMNREFERENCE="CF"/>
+				<DUTYHEAD FORMULA="=if(len(trim(CM#))=0,&quot;Basic Excise Duty&quot;,CM#)"/>
+				<EXCISERATE COLUMNREFERENCE="CO"/>
+				<NOTIFICATIONNUMBER COLUMNREFERENCE="CP"/>
+				<NOTIFICATIONSERIAL COLUMNREFERENCE="CQ"/>
 			</EXCISEDUTYHEADDETAILS.LIST>
 		</EXCISETARIFFDETAILS.LIST>
-		<EXCISEITEMGODOWN.LIST SKIP="=len(trim(CE#))=0">
+		<EXCISEITEMGODOWN.LIST SKIP="=len(trim(CF#))=0">
 			<!-- The TaxUnitName master must exist in Tally  -->
-			<TAXUNITNAME COLUMNREFERENCE="CD"/>
+			<TAXUNITNAME COLUMNREFERENCE="CE"/>
 			<!-- If StockItemType is specified, then the TaxUnitName must also be specified -->
-			<STOCKITEMTYPE COLUMNREFERENCE="CE"/>
+			<STOCKITEMTYPE COLUMNREFERENCE="CF"/>
 			<!-- 
 			Ex: 1 Pcs = 32 sq feet / sq meter
 			where 
@@ -309,141 +309,135 @@
 			ALTERNATEUNIT = Pcs
 			-->
 			<!-- 1 PCs -->
-			<EXCISEREPDENOMINATOR COLUMNREFERENCE="CF"/>
-			<EXCISECONVUNIT COLUMNREFERENCE="CG"/>
+			<EXCISEREPDENOMINATOR COLUMNREFERENCE="CG"/>
+			<EXCISECONVUNIT COLUMNREFERENCE="CH"/>
 			<!-- 32 sq feet -->
-			<EXCISEALTREPUNITS COLUMNREFERENCE="CH"/>
-			<EXCISEREPUNITSSTR COLUMNREFERENCE="CI"/>
+			<EXCISEALTREPUNITS COLUMNREFERENCE="CI"/>
+			<EXCISEREPUNITSSTR COLUMNREFERENCE="CJ"/>
 		</EXCISEITEMGODOWN.LIST>
 		<!-- MRP -->
-		<RATEOFMRP COLUMNREFERENCE="CS"/>
+		<RATEOFMRP COLUMNREFERENCE="CT"/>
 		<!-- For Tally ERP 9 Release 5.0 or higher -->
-		<MRPDETAILS.LIST SKIP="=len(trim(CS#))=0" APPEND="=trim(EQ#)">
-			<FROMDATE COLUMNREFERENCE="CR"/>
+		<MRPDETAILS.LIST SKIP="=len(trim(CT#))=0" APPEND="=trim(ER#)">
+			<FROMDATE COLUMNREFERENCE="CS"/>
 			<MRPRATEDETAILS.LIST>
-				<MRPRATE COLUMNREFERENCE="CS"/>
+				<STATENAME>~[~ Any</STATENAME>
+				<MRPRATE COLUMNREFERENCE="CT"/>
 			</MRPRATEDETAILS.LIST>
 		</MRPDETAILS.LIST>
 		<!-- Valuation Behaviour -->
-		<COSTINGMETHOD COLUMNREFERENCE="CT"/>
-		<VALUATIONMETHOD COLUMNREFERENCE="CU"/>
+		<COSTINGMETHOD COLUMNREFERENCE="CU"/>
+		<VALUATIONMETHOD COLUMNREFERENCE="CV"/>
 		<!-- Behaviour -->
-		<IGNOREPHYSICALDIFFERENCE COLUMNREFERENCE="CV"/>
-		<IGNORENEGATIVESTOCK COLUMNREFERENCE="CW"/>
-		<TREATSALESASMANUFACTURED COLUMNREFERENCE="CX"/>
-		<TREATPURCHASESASCONSUMED COLUMNREFERENCE="CY"/>
-		<TREATREJECTSASSCRAP COLUMNREFERENCE="CZ"/>
+		<IGNOREPHYSICALDIFFERENCE COLUMNREFERENCE="CW"/>
+		<IGNORENEGATIVESTOCK COLUMNREFERENCE="CX"/>
+		<TREATSALESASMANUFACTURED COLUMNREFERENCE="CY"/>
+		<TREATPURCHASESASCONSUMED COLUMNREFERENCE="CZ"/>
+		<TREATREJECTSASSCRAP COLUMNREFERENCE="DA"/>
 		<!-- REORDER DETAILS -->
-		<REORDERBASE COLUMNREFERENCE="DA"/>
-		<REORDERPERIODLENGTH COLUMNREFERENCE="DB"/>
-		<REORDERPERIOD COLUMNREFERENCE="DC"/>
+		<REORDERBASE COLUMNREFERENCE="DB"/>
+		<REORDERPERIODLENGTH COLUMNREFERENCE="DC"/>
+		<REORDERPERIOD COLUMNREFERENCE="DD"/>
 		<!-- Reorder Level -->
-		<REORDERASHIGHER SKIP="=len(trim(DD#))=0" FORMULA="=If(DD#=&quot;Higher&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+		<REORDERASHIGHER SKIP="=len(trim(DE#))=0" FORMULA="=If(DE#=&quot;Higher&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
 		<!-- MINIMUM REORDER DETAILS -->
-		<MINIMUMORDERBASE COLUMNREFERENCE="DE"/>
-		<MINORDERPERIODLENGTH COLUMNREFERENCE="DF"/>
-		<MINORDERPERIOD COLUMNREFERENCE="DG"/>
-		<MINORDERASHIGHER SKIP="=len(trim(DH#))=0" FORMULA="=If(DH#=&quot;Higher&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+		<MINIMUMORDERBASE COLUMNREFERENCE="DF"/>
+		<MINORDERPERIODLENGTH COLUMNREFERENCE="DG"/>
+		<MINORDERPERIOD COLUMNREFERENCE="DH"/>
+		<MINORDERASHIGHER SKIP="=len(trim(DI#))=0" FORMULA="=If(DI#=&quot;Higher&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
 		<!-- Conversion factor details-->
-		<DENOMINATOR FORMULA="=IF(len(trim(L#))=0,&quot;&quot;,M#)"/>
-		<CONVERSION FORMULA="=IF(len(trim(L#))=0,&quot;&quot;,1)"/>
-
+		<DENOMINATOR FORMULA="=IF(len(trim(L#))=0,&quot;&quot;,N#)"/>
+		<CONVERSION FORMULA="=IF(len(trim(L#))=0,&quot;&quot;,M#)"/>
 		<!-- Price level 1 -->
-    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DI#))=0,len(trim(DJ#))=0)" APPEND="=trim(ER#)">
-      <DATE FORMULA="=DI#"/>
-      <PRICELEVEL FORMULA="=DJ#"/>
-      <PRICELEVELLIST.LIST>
-        <RATE FORMULA="=Round(DK#,2)"/>
-        <DISCOUNT FORMULA="=Round(DL#,2)"/>
-      </PRICELEVELLIST.LIST>
-    </FULLPRICELIST.LIST>
+		<FULLPRICELIST.LIST SKIP="=Or(len(trim(DJ#))=0,len(trim(DK#))=0)" APPEND="=trim(ES#)">
+			<DATE COLUMNREFERENCE="DJ"/>
+			<PRICELEVEL COLUMNREFERENCE="DK"/>
+			<PRICELEVELLIST.LIST>
+				<RATE FORMULA="=Round(DL#,2)"/>
+				<DISCOUNT FORMULA="=Round(DM#,2)"/>
+			</PRICELEVELLIST.LIST>
+		</FULLPRICELIST.LIST>
 		<!-- Price level 2 -->
-    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DI#))=0,len(trim(DM#))=0)" APPEND="=trim(ER#)">
-      <DATE FORMULA="=DI#"/>
-      <PRICELEVEL FORMULA="=DM#"/>
-      <PRICELEVELLIST.LIST>
-        <RATE FORMULA="=Round(DN#,2)"/>
-        <DISCOUNT FORMULA="=Round(DO#,2)"/>
-      </PRICELEVELLIST.LIST>
-    </FULLPRICELIST.LIST>
+		<FULLPRICELIST.LIST SKIP="=Or(len(trim(DJ#))=0,len(trim(DN#))=0)" APPEND="=trim(ES#)">
+			<DATE COLUMNREFERENCE="DJ"/>
+			<PRICELEVEL COLUMNREFERENCE="DN"/>
+			<PRICELEVELLIST.LIST>
+				<RATE FORMULA="=Round(DO#,2)"/>
+				<DISCOUNT FORMULA="=Round(DP#,2)"/>
+			</PRICELEVELLIST.LIST>
+		</FULLPRICELIST.LIST>
 		<!-- Price level 3 -->
-    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DI#))=0,len(trim(DP#))=0)" APPEND="=trim(ER#)">
-      <DATE FORMULA="=DI#"/>
-      <PRICELEVEL FORMULA="=DP#"/>
-      <PRICELEVELLIST.LIST>
-        <RATE FORMULA="=Round(DQ#,2)"/>
-        <DISCOUNT FORMULA="=Round(DR#,2)"/>
-      </PRICELEVELLIST.LIST>
-    </FULLPRICELIST.LIST>
+		<FULLPRICELIST.LIST SKIP="=Or(len(trim(DJ#))=0,len(trim(DQ#))=0)" APPEND="=trim(ES#)">
+			<DATE COLUMNREFERENCE="DJ"/>
+			<PRICELEVEL COLUMNREFERENCE="DQ"/>
+			<PRICELEVELLIST.LIST>
+				<RATE FORMULA="=Round(DR#,2)"/>
+				<DISCOUNT FORMULA="=Round(DS#,2)"/>
+			</PRICELEVELLIST.LIST>
+		</FULLPRICELIST.LIST>
 		<!-- Price level 4 -->
-    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DI#))=0,len(trim(DS#))=0)" APPEND="=trim(ER#)">
-      <DATE FORMULA="=DI#"/>
-      <PRICELEVEL FORMULA="=DS#"/>
-      <PRICELEVELLIST.LIST>
-        <RATE FORMULA="=Round(DT#,2)"/>
-        <DISCOUNT FORMULA="=Round(DU#,2)"/>
-      </PRICELEVELLIST.LIST>
-    </FULLPRICELIST.LIST>
+		<FULLPRICELIST.LIST SKIP="=Or(len(trim(DJ#))=0,len(trim(DT#))=0)" APPEND="=trim(ES#)">
+			<DATE COLUMNREFERENCE="DJ"/>
+			<PRICELEVEL COLUMNREFERENCE="DT"/>
+			<PRICELEVELLIST.LIST>
+				<RATE FORMULA="=Round(DU#,2)"/>
+				<DISCOUNT FORMULA="=Round(DV#,2)"/>
+			</PRICELEVELLIST.LIST>
+		</FULLPRICELIST.LIST>
 		<!-- Price level 5 -->
-    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DI#))=0,len(trim(DV#))=0)" APPEND="=trim(ER#)">
-      <DATE FORMULA="=DI#"/>
-      <PRICELEVEL FORMULA="=DV#"/>
-      <PRICELEVELLIST.LIST>
-        <RATE FORMULA="=Round(DW#,2)"/>
-        <DISCOUNT FORMULA="=Round(DX#,2)"/>
-      </PRICELEVELLIST.LIST>
-    </FULLPRICELIST.LIST>
-
+		<FULLPRICELIST.LIST SKIP="=Or(len(trim(DJ#))=0,len(trim(DW#))=0)" APPEND="=trim(ES#)">
+			<DATE COLUMNREFERENCE="DJ"/>
+			<PRICELEVEL COLUMNREFERENCE="DW"/>
+			<PRICELEVELLIST.LIST>
+				<RATE FORMULA="=Round(DX#,2)"/>
+				<DISCOUNT FORMULA="=Round(DY#,2)"/>
+			</PRICELEVELLIST.LIST>
+		</FULLPRICELIST.LIST>
 		<!-- Price level 6 -->
-    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DI#))=0,len(trim(DY#))=0)" APPEND="=trim(ER#)">
-      <DATE FORMULA="=DI#"/>
-      <PRICELEVEL FORMULA="=DY#"/>
-      <PRICELEVELLIST.LIST>
-        <RATE FORMULA="=Round(DZ#,2)"/>
-        <DISCOUNT FORMULA="=Round(EA#,2)"/>
-      </PRICELEVELLIST.LIST>
-    </FULLPRICELIST.LIST>
-
+		<FULLPRICELIST.LIST SKIP="=Or(len(trim(DJ#))=0,len(trim(DZ#))=0)" APPEND="=trim(ES#)">
+			<DATE COLUMNREFERENCE="DJ"/>
+			<PRICELEVEL COLUMNREFERENCE="DZ"/>
+			<PRICELEVELLIST.LIST>
+				<RATE FORMULA="=Round(EA#,2)"/>
+				<DISCOUNT FORMULA="=Round(EB#,2)"/>
+			</PRICELEVELLIST.LIST>
+		</FULLPRICELIST.LIST>
 		<!-- Price level 7 -->
-    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DI#))=0,len(trim(EB#))=0)" APPEND="=trim(ER#)">
-      <DATE FORMULA="=DI#"/>
-      <PRICELEVEL FORMULA="=EB#"/>
-      <PRICELEVELLIST.LIST>
-        <RATE FORMULA="=Round(EC#,2)"/>
-        <DISCOUNT FORMULA="=Round(ED#,2)"/>
-      </PRICELEVELLIST.LIST>
-    </FULLPRICELIST.LIST>
-
+		<FULLPRICELIST.LIST SKIP="=Or(len(trim(DJ#))=0,len(trim(EC#))=0)" APPEND="=trim(ES#)">
+			<DATE COLUMNREFERENCE="DJ"/>
+			<PRICELEVEL COLUMNREFERENCE="EC"/>
+			<PRICELEVELLIST.LIST>
+				<RATE FORMULA="=Round(ED#,2)"/>
+				<DISCOUNT FORMULA="=Round(EE#,2)"/>
+			</PRICELEVELLIST.LIST>
+		</FULLPRICELIST.LIST>
 		<!-- Price level 8 -->
-    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DI#))=0,len(trim(EE#))=0)" APPEND="=trim(ER#)">
-      <DATE FORMULA="=DI#"/>
-      <PRICELEVEL FORMULA="=EE#"/>
-      <PRICELEVELLIST.LIST>
-        <RATE FORMULA="=Round(EF#,2)"/>
-        <DISCOUNT FORMULA="=Round(EG#,2)"/>
-      </PRICELEVELLIST.LIST>
-    </FULLPRICELIST.LIST>
-
+		<FULLPRICELIST.LIST SKIP="=Or(len(trim(DJ#))=0,len(trim(EF#))=0)" APPEND="=trim(ES#)">
+			<DATE COLUMNREFERENCE="DJ"/>
+			<PRICELEVEL COLUMNREFERENCE="EF"/>
+			<PRICELEVELLIST.LIST>
+				<RATE FORMULA="=Round(EG#,2)"/>
+				<DISCOUNT FORMULA="=Round(EH#,2)"/>
+			</PRICELEVELLIST.LIST>
+		</FULLPRICELIST.LIST>
 		<!-- Price level 9 -->
-    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DI#))=0,len(trim(EH#))=0)" APPEND="=trim(ER#)">
-      <DATE FORMULA="=DI#"/>
-      <PRICELEVEL FORMULA="=EH#"/>
-      <PRICELEVELLIST.LIST>
-        <RATE FORMULA="=Round(EI#,2)"/>
-        <DISCOUNT FORMULA="=Round(EJ#,2)"/>
-      </PRICELEVELLIST.LIST>
-    </FULLPRICELIST.LIST>
-
+		<FULLPRICELIST.LIST SKIP="=Or(len(trim(DJ#))=0,len(trim(EI#))=0)" APPEND="=trim(ES#)">
+			<DATE COLUMNREFERENCE="DJ"/>
+			<PRICELEVEL COLUMNREFERENCE="EI"/>
+			<PRICELEVELLIST.LIST>
+				<RATE FORMULA="=Round(EJ#,2)"/>
+				<DISCOUNT FORMULA="=Round(EK#,2)"/>
+			</PRICELEVELLIST.LIST>
+		</FULLPRICELIST.LIST>
 		<!-- Price level 10 -->
-    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DI#))=0,len(trim(EK#))=0)" APPEND="=trim(ER#)">
-      <DATE FORMULA="=DI#"/>
-      <PRICELEVEL FORMULA="=EK#"/>
-      <PRICELEVELLIST.LIST>
-        <RATE FORMULA="=Round(EL#,2)"/>
-        <DISCOUNT FORMULA="=Round(EM#,2)"/>
-      </PRICELEVELLIST.LIST>
-    </FULLPRICELIST.LIST>
-
+		<FULLPRICELIST.LIST SKIP="=Or(len(trim(DJ#))=0,len(trim(EL#))=0)" APPEND="=trim(ES#)">
+			<DATE COLUMNREFERENCE="DJ"/>
+			<PRICELEVEL COLUMNREFERENCE="EL"/>
+			<PRICELEVELLIST.LIST>
+				<RATE FORMULA="=Round(EM#,2)"/>
+				<DISCOUNT FORMULA="=Round(EN#,2)"/>
+			</PRICELEVELLIST.LIST>
+		</FULLPRICELIST.LIST>
 	</MASTER>
 </XMLTAGS>
 
