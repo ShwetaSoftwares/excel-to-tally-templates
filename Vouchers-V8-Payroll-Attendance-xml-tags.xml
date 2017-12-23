@@ -26,15 +26,20 @@
 	</MASTER>
 	<!-- Create Employee Masters -->
 	<MASTER TYPE="COSTCENTRE">
-		<NAME.LIST>
+		<!-- Condition to modify Employee Master -->
+		<IMPORTDUPS FORMULA="=if(And(Not(IsError(S#)),len(trim(S#))&gt;0,S#=&quot;yes&quot;),&quot;Modify with new data&quot;,&quot;Ignore Duplicates&quot;)"/>
+
+		<NAME.LIST SKIP="=Or(len(trim(E#))=0,len(trim(F#))=0)">
 			<NAME COLUMNREFERENCE="E"/>
 			<NAME COLUMNREFERENCE="F"/>
 		</NAME.LIST>
+		<NAME SKIP="=Not(len(trim(F#))=0)" COLUMNREFERENCE="E"/>
 		<OLDNAME FORMULA="=if(len(trim(F#))=0,E#,F#)"/>
-		<ADDITIONALNAME.LIST>
+
+		<ADDITIONALNAME.LIST SKIP="=len(trim(I#))=0">
 			<ADDITIONALNAME COLUMNREFERENCE="I"/>
 		</ADDITIONALNAME.LIST>
-		<ADDRESS.LIST>
+		<ADDRESS.LIST SKIP="=len(trim(L#))=0">
 			<ADDRESS COLUMNREFERENCE="L"/>
 		</ADDRESS.LIST>
 		<DATEOFBIRTH COLUMNREFERENCE="Q"/>
@@ -54,7 +59,7 @@
 	<!-- Create Attendance-type Master-->
 	<MASTER TYPE="ATTENDANCETYPE">
 		<NAME.LIST>
-			<NAME FORMULA="=$S$2"/>
+			<NAME FORMULA="=$T$2"/>
 		</NAME.LIST>
 		<PARENT/>
 		<BASEUNITS/>
@@ -63,7 +68,7 @@
 	</MASTER>
 	<MASTER TYPE="ATTENDANCETYPE">
 		<NAME.LIST>
-			<NAME FORMULA="=$T$2"/>
+			<NAME FORMULA="=$U$2"/>
 		</NAME.LIST>
 		<PARENT/>
 		<BASEUNITS/>
@@ -100,12 +105,6 @@
 		<NARRATION FORMULA="=+&quot;Attendance for the month of &quot; &amp; D#"/>
 		<!-- Invoice format. YES or NO -->
 		<ISINVOICE>No</ISINVOICE>
-		<!-- Pick up the value for $S$2-->
-		<ATTENDANCEENTRIES.LIST SCROLL="Yes" SKIP="=Round(S#,2)=0">
-			<NAME FORMULA="=If(len(F#)=0,E#,F#)"/>
-			<ATTENDANCETYPE FORMULA="=$S$2"/>
-			<ATTDTYPETIMEVALUE COLUMNREFERENCE="S"/>
-		</ATTENDANCEENTRIES.LIST>
 		<!-- Pick up the value for $T$2-->
 		<ATTENDANCEENTRIES.LIST SCROLL="Yes" SKIP="=Round(T#,2)=0">
 			<NAME FORMULA="=If(len(F#)=0,E#,F#)"/>
@@ -118,11 +117,18 @@
 			<ATTENDANCETYPE FORMULA="=$U$2"/>
 			<ATTDTYPETIMEVALUE COLUMNREFERENCE="U"/>
 		</ATTENDANCEENTRIES.LIST>
+		<!-- Pick up the value for $U$2-->
+		<ATTENDANCEENTRIES.LIST SCROLL="Yes" SKIP="=Round((null),2)=0">
+			<NAME FORMULA="=If(len(F#)=0,E#,F#)"/>
+			<ATTENDANCETYPE FORMULA="=$U$2"/>
+			<ATTDTYPETIMEVALUE FORMULA="=(null)"/>
+		</ATTENDANCEENTRIES.LIST>
 		<!-- Pick up the value for $V$2-->
-		<ATTENDANCEENTRIES.LIST SCROLL="Yes" SKIP="=Round(V#,2)=0">
+		<ATTENDANCEENTRIES.LIST SCROLL="Yes" SKIP="=Round((null),2)=0">
 			<NAME FORMULA="=If(len(F#)=0,E#,F#)"/>
 			<ATTENDANCETYPE FORMULA="=$V$2"/>
-			<ATTDTYPETIMEVALUE COLUMNREFERENCE="V"/>
+			<ATTDTYPETIMEVALUE FORMULA="=(null)"/>
 		</ATTENDANCEENTRIES.LIST>
 	</VOUCHER8>
 </XMLTAGS>
+
