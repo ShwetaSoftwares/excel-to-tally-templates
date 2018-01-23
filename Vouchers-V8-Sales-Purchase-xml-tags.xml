@@ -434,6 +434,7 @@
 			<BILLALLOCATIONS.LIST SKIP="=Or(Len(trim(CU#))&gt;0,Len(trim(D#))=0)">
 				<NAME FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),if(len(trim(F#))=0,D#,F#),D#)"/>
 				<BILLTYPE>New Ref</BILLTYPE>
+				<BILLCREDITPERIOD COLUMNREFERENCE="CW"/>
 				<AMOUNT FORMULA="=Round({Round(AX#,2)-Round(AZ#,2)+Round(BV#,2)+Round(BX#,2)+Round(BZ#,2)+Round(CB#,2)+Round(CD#,2)}+{Round(BL#+BN#+BP#+BR#+BT#,2)}+{Round(CK#+CM#+CO#+CQ#+CS#,2)},if(trim(DR#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
 			</BILLALLOCATIONS.LIST>
 		</LEDGERENTRIES.LIST>
