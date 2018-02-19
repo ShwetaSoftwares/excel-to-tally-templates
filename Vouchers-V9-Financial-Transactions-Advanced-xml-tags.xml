@@ -7,7 +7,7 @@
 	</COLUMNNAME.LIST>
 	<!-- Create VOUCHERTYPE Masters -->
 	<MASTER TYPE="VOUCHERTYPE">
-		<COMPANYNAME FORMULA="=AA#[1]"/>
+		<COMPANYNAME FORMULA="=AB#[1]"/>
 		<NAME.LIST>
 			<NAME COLUMNREFERENCE="C"/>
 		</NAME.LIST>
@@ -18,7 +18,7 @@
 	</MASTER>
 	<!-- Create Group Master -->
 	<MASTER TYPE="GROUP">
-		<COMPANYNAME FORMULA="=AA#[1]"/>
+		<COMPANYNAME FORMULA="=AB#[1]"/>
 		<NAME.LIST>
 			<NAME FORMULA="=if(len(trim(K#))=0,&quot;New Ledgers&quot;,K#)"/>
 		</NAME.LIST>
@@ -26,7 +26,7 @@
 	</MASTER>
 	<!-- Cost Category -->
 	<MASTER TYPE="COSTCATEGORY">
-		<COMPANYNAME FORMULA="=AA#[1]"/>
+		<COMPANYNAME FORMULA="=AB#[1]"/>
 		<NAME.LIST>
 			<NAME COLUMNREFERENCE="L"/>
 		</NAME.LIST>
@@ -35,7 +35,7 @@
 	</MASTER>
 	<!-- Cost Centre -->
 	<MASTER TYPE="COSTCENTRE">
-		<COMPANYNAME FORMULA="=AA#[1]"/>
+		<COMPANYNAME FORMULA="=AB#[1]"/>
 		<NAME.LIST>
 			<NAME COLUMNREFERENCE="M"/>
 		</NAME.LIST>
@@ -45,7 +45,7 @@
 	</MASTER>
 	<!-- Create Ledger Masters -->
 	<MASTER TYPE="LEDGER">
-		<COMPANYNAME FORMULA="=AA#[1]"/>
+		<COMPANYNAME FORMULA="=AB#[1]"/>
 		<NAME.LIST>
 			<NAME COLUMNREFERENCE="H"/>
 		</NAME.LIST>
@@ -54,7 +54,7 @@
 		<ISBILLWISEON FORMULA="=If(Len(trim(Q#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
 	</MASTER>
 	<VOUCHER9>
-		<COMPANYNAME FORMULA="=AA#[1]"/>
+		<COMPANYNAME FORMULA="=AB#[1]"/>
 		<GUID FORMULA="=&quot;udi-BF39WD-&quot; &amp; A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; C#"/>
 		<DATE COLUMNREFERENCE="E"/>
 		<EFFECTIVEDATE COLUMNREFERENCE="E"/>
@@ -66,10 +66,12 @@
 		<PERSISTEDVIEW>Accounting Voucher View</PERSISTEDVIEW>
 		<ISINVOICE>No</ISINVOICE>
 		<ALLLEDGERENTRIES.LIST SCROLL="YES" SKIP="=Or(Len(trim(H#))=0,Round(I#+J#,2)=0)">
+			<NARRATION COLUMNREFERENCE="AA"/>
 			<LEDGERNAME COLUMNREFERENCE="H"/>
 			<ISDEEMEDPOSITIVE FORMULA="=IF(Round(I#,2)=0,&quot;No&quot;,&quot;Yes&quot;)"/>
 			<AMOUNT FORMULA="=IF(Round(I#,2)=0,Round(J#,2),Round(I#,2)*-1)"/>
-			<CATEGORYALLOCATIONS.LIST SCROLL="YES" SCROLLCOLUMN="=Sum(Column(H#))" SKIP="=Or(len(trim(L#))=0,If(A#=Offset(A#,-1,0),And(len(trim(H#))=0,L#=Offset(L#,-1,0)),1=2))">
+
+			<CATEGORYALLOCATIONS.LIST SCROLL="=if(And(A#=Offset(A#,1,0),Round(Offset(I#,1,0)+Offset(J#,1,0),2)=0),1=1,1=2)" SCROLLCOLUMN="=Sum(Column(H#))" SKIP="=Or(len(trim(L#))=0,If(A#=Offset(A#,-1,0),And(len(trim(H#))=0,L#=Offset(L#,-1,0)),1=2))">
 				<CATEGORY COLUMNREFERENCE="L"/>
 				<ISDEEMEDPOSITIVE FORMULA="=IF(Round(N#,2)=0,&quot;No&quot;,&quot;Yes&quot;)"/>
 				<COSTCENTREALLOCATIONS.LIST SCROLL="=And(Len(trim(M#))&gt;0,If(A#=Offset(A#,1,0),Round(Round(Offset(I#,1,0),2)+Round(Offset(J#,1,0),2),2)=0,1=2),If(A#=Offset(A#,1,0),L#=Offset(L#,1,0),1=2))">
@@ -77,6 +79,12 @@
 					<AMOUNT FORMULA="=IF(Round(N#,2)=0,Round(O#,2),Round(N#,2)*-1)"/>
 				</COSTCENTREALLOCATIONS.LIST>
 			</CATEGORYALLOCATIONS.LIST>
+
+			<!-- Added as the previous SCROLL is conditional -->
+			<DUMMY SCROLL="YES">
+				<DUMMY FORMULA="=&quot;&quot; &amp; #"/>
+			</DUMMY>
+
 			<!-- 
 			Scroll with formula should be used sparingly as it may end abruptly resulting in the
 			following tags to be skipped.
@@ -99,6 +107,7 @@
 				<PAYMENTMODE>Transacted</PAYMENTMODE>
 				<NAME FORMULA="=+&quot;udi-BF39WD-&quot; &amp; A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; H#"/>
 			</BANKALLOCATIONS.LIST>
+
 		</ALLLEDGERENTRIES.LIST>
 	</VOUCHER9>
 </XMLTAGS>

@@ -7,7 +7,7 @@
 	</COLUMNNAME.LIST>
 	<!-- Create VOUCHERTYPE Masters -->
 	<MASTER TYPE="VOUCHERTYPE">
-		<COMPANYNAME FORMULA="=S#[1]"/>
+		<COMPANYNAME FORMULA="=T#[1]"/>
 		<NAME.LIST>
 			<NAME COLUMNREFERENCE="C"/>
 		</NAME.LIST>
@@ -18,7 +18,7 @@
 	</MASTER>
 	<!-- Create Group Master -->
 	<MASTER TYPE="GROUP">
-		<COMPANYNAME FORMULA="=S#[1]"/>
+		<COMPANYNAME FORMULA="=T#[1]"/>
 		<NAME.LIST>
 			<NAME FORMULA="=if(len(trim(K#))=0,&quot;New Ledgers&quot;,K#)"/>
 		</NAME.LIST>
@@ -26,14 +26,14 @@
 	</MASTER>
 	<!-- Create Ledger Masters -->
 	<MASTER TYPE="LEDGER">
-		<COMPANYNAME FORMULA="=S#[1]"/>
+		<COMPANYNAME FORMULA="=T#[1]"/>
 		<NAME.LIST>
 			<NAME COLUMNREFERENCE="H"/>
 		</NAME.LIST>
 		<PARENT FORMULA="=if(len(trim(K#))=0,&quot;New Ledgers&quot;,K#)"/>
 	</MASTER>
 	<VOUCHER9>
-		<COMPANYNAME FORMULA="=S#[1]"/>
+		<COMPANYNAME FORMULA="=T#[1]"/>
 		<GUID FORMULA="=+&quot;udi-EF5Q2H-&quot; &amp; A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; C#"/>
 		<DATE COLUMNREFERENCE="E"/>
 		<EFFECTIVEDATE COLUMNREFERENCE="E"/>
@@ -44,17 +44,18 @@
 		<NARRATION COLUMNREFERENCE="R"/>
 		<ISINVOICE>No</ISINVOICE>
 		<ALLLEDGERENTRIES.LIST SCROLL="YES">
+			<NARRATION COLUMNREFERENCE="S"/>
 			<LEDGERNAME COLUMNREFERENCE="H"/>
 			<ISDEEMEDPOSITIVE FORMULA="=IF(UPPER(J#)=&quot;DR&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
 			<AMOUNT FORMULA="=+Round(I#,2)*IF(UPPER(J#)=&quot;DR&quot;,-1,1)"/>
 			<BANKALLOCATIONS.LIST SKIP="=And(len(trim(L#))=0,len(trim(M#))=0,len(trim(N#))=0,len(trim(O#))=0,len(trim(P#))=0,len(trim(Q#))=0)">
 				<DATE FORMULA="=E#[1]"/>
-				<INSTRUMENTDATE COLUMNREFERENCE="L" />
-				<INSTRUMENTNUMBER COLUMNREFERENCE="M" />
+				<INSTRUMENTDATE COLUMNREFERENCE="L"/>
+				<INSTRUMENTNUMBER COLUMNREFERENCE="M"/>
 				<TRANSACTIONTYPE FORMULA="=if(len(trim(N#))=0,&quot;Cheque&quot;,N#)"/>
 				<PAYMENTFAVOURING FORMULA="if(len(trim(O#))=0,H#[1],O#)"/>
-				<CHEQUECROSSCOMMENT COLUMNREFERENCE="P" />
-				<BANKERSDATE COLUMNREFERENCE="Q" />
+				<CHEQUECROSSCOMMENT COLUMNREFERENCE="P"/>
+				<BANKERSDATE COLUMNREFERENCE="Q"/>
 				<STATUS>No</STATUS>
 				<AMOUNT FORMULA="=+Round(I#,2)*IF(UPPER(J#)=&quot;DR&quot;,-1,1)"/>
 				<PAYMENTMODE>Transacted</PAYMENTMODE>
