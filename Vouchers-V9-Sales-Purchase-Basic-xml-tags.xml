@@ -204,10 +204,10 @@
       </BILLALLOCATIONS.LIST>
     </LEDGERENTRIES.LIST>
     <!-- Sales/Purchase Ledger -->
-    <LEDGERENTRIES.LIST SCROLL="YES" SKIP="=Not(And(len(trim(K#))=0,len(trim(L#))=0))" ALTERNATETAGNAME="=if(len(trim(K#[1]))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
+    <LEDGERENTRIES.LIST GROUPBY="=if(len(trim(AB#))=0,if(Round(V#,2)=0,Round(X#,2),Round(V#,2)),trim(AB#))" SCROLL="YES" SKIP="=Not(And(len(trim(K#))=0,len(trim(L#))=0))" ALTERNATETAGNAME="=if(len(trim(K#[1]))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
       <LEDGERNAME FORMULA="=if(len(trim(AB#))&gt;0,AB#,if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURCHASE &quot;,&quot;SALES &quot;) &amp; (V#+X#+Z#) &amp; &quot;%&quot;)"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT FORMULA="=Round(R#,2)*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
+      <AMOUNT FORMULA="={Round(R#,2)}*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
     </LEDGERENTRIES.LIST>
     <!-- Trade discount Ledger -->
     <LEDGERENTRIES.LIST SKIP="={Round(T#,2)}=0" ALTERNATETAGNAME="=if(len(trim(K#[1]))=0,&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">

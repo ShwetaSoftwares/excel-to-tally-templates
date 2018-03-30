@@ -437,10 +437,10 @@
       </BILLALLOCATIONS.LIST>
     </LEDGERENTRIES.LIST>
     <!-- Sales/Purchase Ledger -->
-    <LEDGERENTRIES.LIST SCROLL="YES" SKIP="=Not(And(len(trim(AO#))=0,len(trim(AP#))=0,Round(AX#,2)&lt;&gt;0))" ALTERNATETAGNAME="=if(And(len(trim(AO#[1]))=0,len(trim(AP#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
+    <LEDGERENTRIES.LIST GROUPBY="=if(len(trim(BH#))=0,if(Round(BX#,2)=0,Round(BZ#,2),Round(BX#,2)),trim(BH#))" SCROLL="YES" SKIP="=Not(And(len(trim(AO#))=0,len(trim(AP#))=0,Round(AX#,2)&lt;&gt;0))" ALTERNATETAGNAME="=if(And(len(trim(AO#[1]))=0,len(trim(AP#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
       <LEDGERNAME FORMULA="=if(len(trim(BH#))&gt;0,BH#,if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURCHASE &quot;,&quot;SALES &quot;) &amp; (BX#+BZ#+CB#+CD#) &amp; &quot;%&quot;)"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT FORMULA="=Round(AX#,2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT FORMULA="={Round(AX#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
 
       <!-- Ledger-wise description  -->
       <UDF:USERDESCRIPTION.LIST DESC="`User Description`" ISLIST="YES" TYPE="String" SKIP="=And(len(trim(BI#))=0,len(trim(BJ#))=0,len(trim(BK#))=0)">

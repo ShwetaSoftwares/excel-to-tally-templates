@@ -39,16 +39,17 @@
 		<!-- Type of supply -->
 		<GSTTYPEOFSUPPLY FORMULA="=if(len(trim(U#))=0,&quot;Goods&quot;,U#)"/>
 		<!-- Empty GSTDETAILS tag not required as it will overwrite existing data, if any  -->
-		<GSTDETAILS.LIST SKIP="=And(len(trim(G#))=0,len(trim(H#))=0,len(trim(U#))=0,len(trim(M#))=0,len(trim(P#))=0)" APPEND="=trim(V#)">
+		<GSTDETAILS.LIST SKIP="=And(len(trim(G#))=0,len(trim(H#))=0,len(trim(M#))=0,len(trim(P#))=0,len(trim(U#))=0,len(trim(V#))=0)" APPEND="=trim(W#)">
 			<APPLICABLEFROM FORMULA="=if(len(trim(F#))=0,&quot;20170701&quot;,F#)"/>
-			<CALCULATIONTYPE FORMULA="=if(len(trim(J#))=0,&quot;On Value&quot;,J#)"/>
+			<CALCULATIONTYPE SKIP="=Not(len(trim(V#))=0)" FORMULA="=if(len(trim(J#))=0,&quot;On Value&quot;,J#)"/>
 			<HSNCODE COLUMNREFERENCE="G"/>
 			<HSN COLUMNREFERENCE="H"/>
+			<HSNMASTERNAME COLUMNREFERENCE="V"/>
 			<TAXABILITY SKIP="=trim(J#[1])=&quot;On Item Rate&quot;" FORMULA="=if(len(trim(M#))=0,&quot;Taxable&quot;,M#)"/>
 			<ISREVERSECHARGEAPPLICABLE COLUMNREFERENCE="N"/>
 			<ISNONGSTGOODS COLUMNREFERENCE="I"/>
 			<GSTINELIGIBLEITC COLUMNREFERENCE="O"/>
-			<STATEWISEDETAILS.LIST>
+			<STATEWISEDETAILS.LIST SKIP="=Not(len(trim(V#))=0)">
 				<STATENAME>~[~ Any</STATENAME>
 				<RATEDETAILS.LIST>
 					<GSTRATEDUTYHEAD>Central Tax</GSTRATEDUTYHEAD>

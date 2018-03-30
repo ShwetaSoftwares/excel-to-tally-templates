@@ -50,8 +50,8 @@
 			<AMOUNT FORMULA="=+Round(I#,2)*IF(UPPER(J#)=&quot;DR&quot;,-1,1)"/>
 			<BANKALLOCATIONS.LIST SKIP="=And(len(trim(L#))=0,len(trim(M#))=0,len(trim(N#))=0,len(trim(O#))=0,len(trim(P#))=0,len(trim(Q#))=0)">
 				<DATE FORMULA="=E#[1]"/>
-				<INSTRUMENTDATE COLUMNREFERENCE="L"/>
-				<INSTRUMENTNUMBER COLUMNREFERENCE="M"/>
+				<INSTRUMENTDATE COLUMNREFERENCE="M"/>
+				<INSTRUMENTNUMBER COLUMNREFERENCE="L"/>
 				<TRANSACTIONTYPE FORMULA="=if(len(trim(N#))=0,&quot;Cheque&quot;,N#)"/>
 				<PAYMENTFAVOURING FORMULA="if(len(trim(O#))=0,H#[1],O#)"/>
 				<CHEQUECROSSCOMMENT COLUMNREFERENCE="P"/>
