@@ -344,8 +344,12 @@
     <VOUCHERNUMBER COLUMNREFERENCE="D"/>
     <REFERENCE COLUMNREFERENCE="F"/>
     <NARRATION COLUMNREFERENCE="DT"/>
-    <ISINVOICE>Yes</ISINVOICE>
+    <ISINVOICE FORMULA="=if(And(len(trim(AO#))=0,len(trim(AP#))=0),&quot;No&quot;,&quot;Yes&quot;)"/>
     <PERSISTEDVIEW FORMULA="=if(And(len(trim(AO#))=0,len(trim(AP#))=0),&quot;Accounting Voucher View&quot;,&quot;Invoice Voucher View&quot;)"/>
+
+    <ISINVOICE COLUMNREFERENCE="DY"/>
+    <PERSISTEDVIEW SKIP="=len(trim(DY#))=0" FORMULA="=if(trim(DY#)=&quot;Yes&quot;,&quot;Invoice Voucher View&quot;,&quot;Accounting Voucher View&quot;)"/>
+
     <!-- Actual vs Billed qty -->
     <DIFFACTUALQTY FORMULA="=if(len(trim(AT#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
     <!-- For Purchase -->
@@ -475,6 +479,17 @@
         <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
         <GSTRATE COLUMNREFERENCE="DF"/>
       </RATEDETAILS.LIST>
+
+      <!-- Cost centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(BM#))=0">
+        <CATEGORY FORMULA="=if(len(trim(BL#))=0,&quot;Primary Cost Category&quot;,BL#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="BM"/>
+          <AMOUNT FORMULA="=Round(AX#,2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+
     </LEDGERENTRIES.LIST>
     <!-- Trade discount before taxes -->
     <LEDGERENTRIES.LIST SKIP="={Round(AZ#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(AO#[1]))=0,len(trim(AP#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">

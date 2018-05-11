@@ -179,7 +179,7 @@
 		<!-- Type of supply -->
 		<GSTTYPEOFSUPPLY FORMULA="=if(len(trim(BF#))=0,&quot;Goods&quot;,BF#)"/>
 		<!-- Empty GSTDETAILS tag not required as it will overwrite existing data, if any  -->
-		<GSTDETAILS.LIST SKIP="=And(len(trim(AR#))=0,len(trim(AS#))=0,len(trim(BF#))=0,len(trim(AX#))=0,len(trim(BA#))=0),len(trim(BG#))=0)" APPEND="=trim(EO#)">
+		<GSTDETAILS.LIST SKIP="=And(len(trim(AR#))=0,len(trim(AS#))=0,len(trim(BF#))=0,len(trim(AX#))=0,len(trim(BA#))=0,len(trim(BG#))=0)" APPEND="=trim(EO#)">
 			<APPLICABLEFROM FORMULA="=if(len(trim(AQ#))=0,&quot;20170701&quot;,AQ#)"/>
 			<CALCULATIONTYPE FORMULA="=if(len(trim(AU#))=0,&quot;On Value&quot;,AU#)"/>
 			<HSNCODE COLUMNREFERENCE="AR"/>

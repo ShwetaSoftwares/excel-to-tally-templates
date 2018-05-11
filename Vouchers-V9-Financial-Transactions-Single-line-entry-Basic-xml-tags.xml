@@ -67,14 +67,14 @@
     <ISINVOICE>No</ISINVOICE>
     <NARRATION COLUMNREFERENCE="Q"/>
     <!-- Debit Ledger -->
-    <ALLLEDGERENTRIES.LIST SKIP="=Round(J# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(B#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(B#),1)))),0,1),2)=0">
+    <ALLLEDGERENTRIES.LIST SKIP="=Or(B#=&quot;receipt&quot;,B#=&quot;contra&quot;,B#=&quot;purchase&quot;,B#=&quot;credit note&quot;)">
       <LEDGERNAME COLUMNREFERENCE="H"/>
       <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
-      <AMOUNT FORMULA="=Round(J# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(B#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(B#),1)))),0,1),2)"/>
+      <AMOUNT FORMULA="=Round(J#,2)*-1"/>
       <BILLALLOCATIONS.LIST SKIP="=Len(trim(D#))=0">
         <NAME COLUMNREFERENCE="D"/>
         <BILLTYPE>New Ref</BILLTYPE>
-        <AMOUNT FORMULA="=Round(J# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(B#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(B#),1)))),0,1),2)"/>
+        <AMOUNT FORMULA="=Round(J#,2)*-1"/>
       </BILLALLOCATIONS.LIST>
       <!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
       <BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; H#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(H#),1)))">
@@ -86,7 +86,7 @@
         <CHEQUECROSSCOMMENT COLUMNREFERENCE="O"/>
         <BANKERSDATE COLUMNREFERENCE="P"/>
         <STATUS>No</STATUS>
-        <AMOUNT FORMULA="=Round(J# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(B#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(B#),1)))),0,1),2)"/>
+        <AMOUNT FORMULA="=Round(J#,2)*-1"/>
         <PAYMENTMODE>Transacted</PAYMENTMODE>
         <NAME FORMULA="=+A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; H#"/>
       </BANKALLOCATIONS.LIST>
@@ -117,14 +117,14 @@
       </BANKALLOCATIONS.LIST>
     </ALLLEDGERENTRIES.LIST>
     <!-- Debit Ledger -->
-    <ALLLEDGERENTRIES.LIST SKIP="=Round(J# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(B#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(B#),1)))),1,0),2)=0">
+    <ALLLEDGERENTRIES.LIST SKIP="=Not(Or(B#=&quot;receipt&quot;,B#=&quot;contra&quot;,B#=&quot;purchase&quot;,B#=&quot;credit note&quot;))">
       <LEDGERNAME COLUMNREFERENCE="H"/>
       <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
-      <AMOUNT FORMULA="=Round(J# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(B#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(B#),1)))),1,0),2)"/>
+      <AMOUNT FORMULA="=Round(J#,2)*-1"/>
       <BILLALLOCATIONS.LIST SKIP="=Len(trim(D#))=0">
         <NAME COLUMNREFERENCE="D"/>
         <BILLTYPE>New Ref</BILLTYPE>
-        <AMOUNT FORMULA="=Round(J# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(B#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(B#),1)))),1,0),2)"/>
+        <AMOUNT FORMULA="=Round(J#,2)*-1"/>
       </BILLALLOCATIONS.LIST>
       <!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
       <BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; H#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(H#),1)))">
@@ -136,7 +136,7 @@
         <CHEQUECROSSCOMMENT COLUMNREFERENCE="O"/>
         <BANKERSDATE COLUMNREFERENCE="P"/>
         <STATUS>No</STATUS>
-        <AMOUNT FORMULA="=Round(J# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(B#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(B#),1)))),1,0),2)"/>
+        <AMOUNT FORMULA="=Round(J#,2)*-1"/>
         <PAYMENTMODE>Transacted</PAYMENTMODE>
         <NAME FORMULA="=+A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; C#"/>
       </BANKALLOCATIONS.LIST>

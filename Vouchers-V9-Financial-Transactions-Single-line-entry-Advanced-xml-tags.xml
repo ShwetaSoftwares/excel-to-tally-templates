@@ -89,14 +89,14 @@
     <ISINVOICE>No</ISINVOICE>
     <NARRATION COLUMNREFERENCE="O"/>
     <!-- Debit Ledger -->
-    <ALLLEDGERENTRIES.LIST SKIP="=Round(N# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(B#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(B#),1)))),0,1),2)=0">
+    <ALLLEDGERENTRIES.LIST SKIP="=Or(B#=&quot;receipt&quot;,B#=&quot;contra&quot;,B#=&quot;purchase&quot;,B#=&quot;credit note&quot;)">
       <LEDGERNAME COLUMNREFERENCE="H"/>
       <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
-      <AMOUNT FORMULA="=Round(N# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(B#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(B#),1)))),0,1),2)"/>
+      <AMOUNT FORMULA="=Round(N#,2)*-1"/>
       <BILLALLOCATIONS.LIST SKIP="=Len(trim(D#))=0">
         <NAME COLUMNREFERENCE="D"/>
         <BILLTYPE>New Ref</BILLTYPE>
-        <AMOUNT FORMULA="=Round(N# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(B#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(B#),1)))),0,1),2)"/>
+        <AMOUNT FORMULA="=Round(N#,2)*-1"/>
       </BILLALLOCATIONS.LIST>
       <!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
       <BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; H#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(H#),1)))">
@@ -105,22 +105,23 @@
         <INSTRUMENTNUMBER COLUMNREFERENCE="P"/>
         <INSTRUMENTDATE COLUMNREFERENCE="Q"/>
         <PAYMENTFAVOURING FORMULA="=if(len(trim(S#))=0,H#,S#)"/>
-		<CHEQUECROSSCOMMENT COLUMNREFERENCE="T"/>
+		    <CHEQUECROSSCOMMENT COLUMNREFERENCE="T"/>
         <STATUS>No</STATUS>
-        <AMOUNT FORMULA="=Round(N# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(B#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(B#),1)))),0,1),2)"/>
+        <AMOUNT FORMULA="=Round(N#,2)*-1"/>
         <PAYMENTMODE>Transacted</PAYMENTMODE>
         <NAME FORMULA="=+A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; H#"/>
       </BANKALLOCATIONS.LIST>
       <CATEGORYALLOCATIONS.LIST SKIP="=Len(trim(J#))=0">
         <CATEGORY FORMULA="=if(len(trim(I#))=0,&quot;Primary Cost Category&quot;,I#)"/>
         <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
-        <AMOUNT FORMULA="=Round(N# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(B#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(B#),1)))),0,1),2)"/>
+        <AMOUNT FORMULA="=Round(N#,2)*-1"/>
         <COSTCENTREALLOCATIONS.LIST>
           <NAME COLUMNREFERENCE="J"/>
-          <AMOUNT FORMULA="=Round(N# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(B#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(B#),1)))),0,1),2)"/>
+          <AMOUNT FORMULA="=Round(N#,2)*-1"/>
         </COSTCENTREALLOCATIONS.LIST>
       </CATEGORYALLOCATIONS.LIST>
     </ALLLEDGERENTRIES.LIST>
+
     <!-- Credit Ledger -->
     <ALLLEDGERENTRIES.LIST>
       <LEDGERNAME COLUMNREFERENCE="K"/>
@@ -138,7 +139,7 @@
         <INSTRUMENTNUMBER COLUMNREFERENCE="P"/>
         <INSTRUMENTDATE COLUMNREFERENCE="Q"/>
         <PAYMENTFAVOURING FORMULA="=if(len(trim(S#))=0,K#,S#)"/>
-		<CHEQUECROSSCOMMENT COLUMNREFERENCE="T"/>
+		    <CHEQUECROSSCOMMENT COLUMNREFERENCE="T"/>
         <STATUS>No</STATUS>
         <BANKERSDATE COLUMNREFERENCE="U"/>
         <AMOUNT FORMULA="=Round(N#,2)*1"/>
@@ -155,15 +156,16 @@
         </COSTCENTREALLOCATIONS.LIST>
       </CATEGORYALLOCATIONS.LIST>
     </ALLLEDGERENTRIES.LIST>
+
     <!-- Debit Ledger -->
-    <ALLLEDGERENTRIES.LIST SKIP="=Round(N# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(B#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(B#),1)))),1,0),2)=0">
+    <ALLLEDGERENTRIES.LIST SKIP="=Not(Or(B#=&quot;receipt&quot;,B#=&quot;contra&quot;,B#=&quot;purchase&quot;,B#=&quot;credit note&quot;))">
       <LEDGERNAME COLUMNREFERENCE="H"/>
       <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
-      <AMOUNT FORMULA="=Round(N# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(B#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(B#),1)))),1,0),2)"/>
+      <AMOUNT FORMULA="=Round(N#,2)*-1"/>
       <BILLALLOCATIONS.LIST SKIP="=Len(trim(D#))=0">
         <NAME COLUMNREFERENCE="D"/>
         <BILLTYPE>New Ref</BILLTYPE>
-        <AMOUNT FORMULA="=Round(N# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(B#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(B#),1)))),1,0),2)"/>
+        <AMOUNT FORMULA="=Round(N#,2)*-1"/>
       </BILLALLOCATIONS.LIST>
       <!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
       <BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; H#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(H#),1)))">
@@ -172,20 +174,20 @@
         <INSTRUMENTNUMBER COLUMNREFERENCE="P"/>
         <INSTRUMENTDATE COLUMNREFERENCE="Q"/>
         <PAYMENTFAVOURING FORMULA="=if(len(trim(S#))=0,H#,S#)"/>
-		<CHEQUECROSSCOMMENT COLUMNREFERENCE="T"/>
+		    <CHEQUECROSSCOMMENT COLUMNREFERENCE="T"/>
         <STATUS>No</STATUS>
         <BANKERSDATE COLUMNREFERENCE="U"/>
-        <AMOUNT FORMULA="=Round(N# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(B#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(B#),1)))),1,0),2)"/>
+        <AMOUNT FORMULA="=Round(N#,2)*-1"/>
         <PAYMENTMODE>Transacted</PAYMENTMODE>
         <NAME FORMULA="=+A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; C#"/>
       </BANKALLOCATIONS.LIST>
       <CATEGORYALLOCATIONS.LIST SKIP="=Len(trim(J#))=0">
         <CATEGORY FORMULA="=if(len(trim(I#))=0,&quot;Primary Cost Category&quot;,J#)"/>
         <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
-        <AMOUNT FORMULA="=Round(N# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(B#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(B#),1)))),1,0),2)"/>
+        <AMOUNT FORMULA="=Round(N#,2)*-1"/>
         <COSTCENTREALLOCATIONS.LIST>
           <NAME COLUMNREFERENCE="J"/>
-          <AMOUNT FORMULA="=Round(N# *-1 * If(OR(NOT(ISERROR(FIND(&quot;receipt&quot;,lower(B#),1))),NOT(ISERROR(FIND(&quot;contra&quot;,lower(B#),1)))),1,0),2)"/>
+          <AMOUNT FORMULA="=Round(N#,2)*-1"/>
         </COSTCENTREALLOCATIONS.LIST>
       </CATEGORYALLOCATIONS.LIST>
     </ALLLEDGERENTRIES.LIST>
