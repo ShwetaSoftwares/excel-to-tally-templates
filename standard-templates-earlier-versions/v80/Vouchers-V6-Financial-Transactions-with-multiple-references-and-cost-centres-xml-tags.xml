@@ -1,0 +1,127 @@
+<!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
+<!-- 
+New Features in v6.0
+1) FETCHOBJECT tag
+   This is used to retrieve data from Tally (as it is not there in the Excel sheet)
+-->
+<XMLTAGS CELLREFERENCE="A1" xmlns:UDF="TallyUDF">
+    <!-- Specifies that this (i.e Column as mentioned above) is the key field -->
+    <COLUMNNAME.LIST>
+        <COLUMNNAME>ID</COLUMNNAME>
+        <COLUMNNAME>NAME</COLUMNNAME>
+    </COLUMNNAME.LIST>
+
+	<!-- Fields to fetch from Tally -->
+	<FETCHOBJECT TYPE="LEDGER">
+		<OBJECT COLUMNREFERENCE="E" NAME="" ISMODIFY="No" ISFIXED="No" ISINITIALIZE="No" ISOPTION="No" ISINTERNAL="No"/>
+		<!-- Fetch the GROUP Name of Ledger -->
+		<FIELD NAME="PARENT" ISMODIFY="NO" ISFIXED="NO" ISINITIALIZE="NO" ISOPTION="NO" ISINTERNAL="NO">
+			<USE>NAME FIELD</USE> 
+			<SET>$PARENT:LEDGER:$KEY</SET> 
+		</FIELD>
+		<!-- Fetch whether the PARENT/GROUP is Bank or not -->
+		<FIELD NAME="ISBANKLEDGER" ISMODIFY="NO" ISFIXED="NO" ISINITIALIZE="NO" ISOPTION="NO" ISINTERNAL="NO">
+			<USE>NAME FIELD</USE> 
+			<SET>$$IsLedOfGrp:$KEY:$$GroupBank OR $$IsLedOfGrp:$KEY:$$GroupBankOD</SET> 
+		</FIELD>
+	</FETCHOBJECT>
+
+    <!-- Create a Single Group Master -->
+    <MASTER TYPE="GROUP" SINGLERECORD="Yes">
+        <NAME.LIST>
+            <NAME>New Ledgers</NAME>
+        </NAME.LIST>
+        <PARENT />
+    </MASTER>
+    <!-- Cost Category -->
+    <MASTER TYPE="COSTCATEGORY">
+        <NAME.LIST>
+            <NAME COLUMNREFERENCE="I" />
+        </NAME.LIST>
+        <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+        <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+    </MASTER>
+    <!-- Cost Centre -->
+    <MASTER TYPE="COSTCENTRE">
+        <NAME.LIST>
+            <NAME COLUMNREFERENCE="J" />
+        </NAME.LIST>
+        <CATEGORY SKIP="=Len(trim(I#))=0" COLUMNREFERENCE="I" />
+        <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+        <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    </MASTER>
+    <!-- Create Ledger Masters -->
+    <MASTER TYPE="LEDGER">
+        <NAME.LIST>
+            <NAME COLUMNREFERENCE="E" />
+        </NAME.LIST>
+		<PARENT FORMULA="=If(IsError(Find(&quot;BANK&quot;,upper(E#),1)),If(Len(I#)=0,&quot;New Ledgers&quot;,&quot;Sundry Debtors&quot;),&quot;Bank Accounts&quot;)"/>
+        <ISCOSTCENTRESON FORMULA="=If(Len(trim(J#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)" />
+		<ISBILLWISEON FORMULA="=If(Len(trim(N#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)" />
+    </MASTER>
+    <!-- Create VOUCHERTYPE Masters -->
+    <MASTER TYPE="VOUCHERTYPE">
+        <NAME.LIST>
+            <NAME COLUMNREFERENCE="D" />
+        </NAME.LIST>
+        <PARENT COLUMNREFERENCE="C" />
+        <MAILINGNAME>Jrnl</MAILINGNAME>
+        <NUMBERINGMETHOD>Manual</NUMBERINGMETHOD>
+        <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+        <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    </MASTER>
+    <VOUCHER>
+        <GUID FORMULA="=&quot;udi-BF39WD-&quot; &amp; A# &amp; &quot;-&quot; &amp; B# &amp; &quot;-&quot; &amp; D#" />
+        <DATE COLUMNREFERENCE="B" />
+        <EFFECTIVEDATE COLUMNREFERENCE="B" />
+        <VOUCHERTYPENAME COLUMNREFERENCE="D" />
+        <VOUCHERNUMBER COLUMNREFERENCE="A" />
+        <NARRATION COLUMNREFERENCE="H" />
+
+        <PERSISTEDVIEW>Accounting Voucher View</PERSISTEDVIEW>
+        <ISINVOICE>No</ISINVOICE>
+
+        <ALLLEDGERENTRIES.LIST SCROLL="YES" SKIP="=Or(Len(trim(E#))=0,Round(F#+G#,2)=0)">
+            <LEDGERNAME COLUMNREFERENCE="E" />
+            <ISDEEMEDPOSITIVE FORMULA="=IF(Round(F#,2)=0,&quot;No&quot;,&quot;Yes&quot;)" />
+            <AMOUNT FORMULA="=IF(Round(F#,2)=0,Round(G#,2),Round(F#,2)*-1)" />
+			<CATEGORYALLOCATIONS.LIST SCROLL="YES" SCROLLCOLUMN="=Sum(Column(E#))" SKIP="=Or(len(trim(I#))=0,If(A#=Offset(A#,-1,0),And(len(trim(E#))=0,I#=Offset(I#,-1,0)),1=2))">
+                <CATEGORY COLUMNREFERENCE="I" />
+                <ISDEEMEDPOSITIVE FORMULA="=IF(Round(K#,2)=0,&quot;No&quot;,&quot;Yes&quot;)" />
+                <COSTCENTREALLOCATIONS.LIST SCROLL="=And(Len(trim(J#))&gt;0,If(A#=Offset(A#,1,0),Round(Round(Offset(F#,1,0),2)+Round(Offset(G#,1,0),2),2)=0,1=2),If(A#=Offset(A#,1,0),I#=Offset(I#,1,0),1=2))">
+                    <NAME COLUMNREFERENCE="J" />
+                    <AMOUNT FORMULA="=IF(Round(K#,2)=0,Round(L#,2),Round(K#,2)*-1)" />
+                </COSTCENTREALLOCATIONS.LIST>
+			</CATEGORYALLOCATIONS.LIST>
+			<TESTROWBEFORE_BILLALLOC FORMULA="=Sum(Row(E#))"/>
+			<!--SCROLL3="=And(Len(trim(N#))&gt;0,If(A#=Offset(A#,1,0),Round(Round(Offset(F#,1,0),2)+Round(Offset(G#,1,0),2),2)=0,1=2))"-->
+			<!-- 
+			Scroll with formula should be used sparingly as it may end abruptly resulting in the
+			following tags to be skipped.
+			-->
+            <BILLALLOCATIONS.LIST SCROLL="YES" SCROLLCOLUMN="=Sum(Column(E#))" SKIP="=Or(Len(trim(N#))=0,Round(O#+P#,2)=0)">
+                <NAME COLUMNREFERENCE="N" />
+                <BILLTYPE COLUMNREFERENCE="M" />
+                <AMOUNT FORMULA="=IF(Round(O#,2)=0,Round(P#,2),Round(O#,2)*-1)" />
+            </BILLALLOCATIONS.LIST>
+			<TESTROWBEFORE_BANKALLOC FORMULA="=Sum(Row(E#))"/>
+			<!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
+<!-- 			<BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; E#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(E#),1)))">
+ -->
+             <BANKALLOCATIONS.LIST SKIP="=And(len(trim(Q#))=0,len(trim(R#))=0,len(trim(S#))=0,len(trim(T#))=0,len(trim(U#))=0,len(trim(V#))=0)">
+				<DATE FORMULA="=B#[1]"/>
+				<INSTRUMENTDATE COLUMNREFERENCE="R" />
+				<INSTRUMENTNUMBER COLUMNREFERENCE="Q" />
+				<TRANSACTIONTYPE FORMULA="=if(len(trim(S#))=0,&quot;Cheque&quot;,S#)"/>
+				<PAYMENTFAVOURING FORMULA="if(len(trim(T#))=0,E#,T#)"/>
+				<CHEQUECROSSCOMMENT COLUMNREFERENCE="U" />
+				<BANKERSDATE COLUMNREFERENCE="V" />
+				<STATUS>No</STATUS>
+				<AMOUNT FORMULA="=IF(Round(F#,2)=0,Round(G#,2),Round(F#,2)*-1)" />
+				<PAYMENTMODE>Transacted</PAYMENTMODE>
+				<NAME FORMULA="=+&quot;udi-BF39WD-&quot; &amp; A# &amp; &quot;-&quot; &amp; B# &amp; &quot;-&quot; &amp; E#" />
+			</BANKALLOCATIONS.LIST>			
+			<TESTROWAFTER_BANKALLOC FORMULA="=Sum(Row(E#))"/>
+        </ALLLEDGERENTRIES.LIST>
+    </VOUCHER>
+</XMLTAGS>

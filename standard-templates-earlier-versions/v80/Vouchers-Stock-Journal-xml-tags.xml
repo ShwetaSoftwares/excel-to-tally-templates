@@ -1,0 +1,120 @@
+<!-- These XML tags are added to Excel sheet specified Cell at run-time by UDIMAGIC  -->
+<XMLTAGS CELLREFERENCE="A1" xmlns:UDF="TallyUDF">
+	<!-- Specifies that the Cell as mentioned above is the key field -->
+	<COLUMNNAME.LIST>
+		<COLUMNNAME>ID</COLUMNNAME>
+		<COLUMNNAME>NAME</COLUMNNAME>
+	</COLUMNNAME.LIST>
+	<!-- Create VOUCHERTYPE Masters -->
+	<MASTER TYPE="VOUCHERTYPE">
+		<NAME.LIST TYPE="String">
+			<NAME COLUMNREFERENCE="C"/>
+		</NAME.LIST>
+		<PARENT COLUMNREFERENCE="B"/>
+		<MAILINGNAME>Stk Jrnl</MAILINGNAME>
+		<NUMBERINGMETHOD>Automatic</NUMBERINGMETHOD>
+		<ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+		<AFFECTSSTOCK>Yes</AFFECTSSTOCK>
+		<PREVENTDUPLICATES>No</PREVENTDUPLICATES>
+		<PREFILLZERO>No</PREFILLZERO>
+	</MASTER>
+	<!-- Create UNIT Master -->
+	<MASTER TYPE="UNIT">
+		<NAME COLUMNREFERENCE="G"/>
+		<ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
+	</MASTER>
+	<MASTER TYPE="UNIT">
+		<NAME COLUMNREFERENCE="P"/>
+		<ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
+	</MASTER>
+	<!-- Create Godown Masters -->
+	<MASTER TYPE="GODOWN">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="H"/>
+		</NAME.LIST>
+		<PARENT/>
+	</MASTER>
+	<!-- Create Godown Masters -->
+	<MASTER TYPE="GODOWN">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="Q"/>
+		</NAME.LIST>
+		<PARENT/>
+	</MASTER>
+	<!-- Create StockItem Masters -->
+	<MASTER TYPE="STOCKITEM">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="F"/>
+		</NAME.LIST>
+		<PARENT/>
+		<COSTINGMETHOD>Avg. Cost</COSTINGMETHOD>
+		<VALUATIONMETHOD>Avg. Price</VALUATIONMETHOD>
+		<BASEUNITS COLUMNREFERENCE="G"/>
+		<ISBATCHWISEON FORMULA="=if((len(trim(I#))+len(trim(J#))+len(trim(K#)))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+		<HASMFGDATE FORMULA="=if(len(trim(J#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+		<ISPERISHABLEON FORMULA="=if(len(trim(J#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+	</MASTER>
+	<!-- Create StockItem Masters -->
+	<MASTER TYPE="STOCKITEM">
+		<NAME.LIST>
+			<NAME COLUMNREFERENCE="O"/>
+		</NAME.LIST>
+		<PARENT/>
+		<COSTINGMETHOD>Avg. Cost</COSTINGMETHOD>
+		<VALUATIONMETHOD>Avg. Price</VALUATIONMETHOD>
+		<BASEUNITS COLUMNREFERENCE="P"/>
+		<ISBATCHWISEON FORMULA="=if((len(trim(R#))+len(trim(S#))+len(trim(T#)))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+		<HASMFGDATE FORMULA="=if(len(trim(S#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+		<ISPERISHABLEON FORMULA="=if(len(trim(T#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+	</MASTER>
+	<!-- XML tags for creating Vouchers -->
+	<VOUCHER8>
+		<GUID FORMULA="=&quot;udi-G94MRN-&quot; &amp; A# &amp; &quot;-&quot; &amp; E#"/>
+		<!--GUID FORMULA="=&quot;udi-stock-jrnl-&quot; &amp; A# &amp; &quot;-&quot; &amp; E#"/-->
+		<DATE COLUMNREFERENCE="E"/>
+		<EFFECTIVEDATE COLUMNREFERENCE="E"/>
+		<VOUCHERTYPENAME COLUMNREFERENCE="C"/>
+		<ISINVOICE>Yes</ISINVOICE>
+		<VOUCHERNUMBER COLUMNREFERENCE="A"/>
+		<NARRATION COLUMNREFERENCE="X"/>
+		<!-- StockIn-->
+		<INVENTORYENTRIESIN.LIST SCROLL="Yes">
+			<STOCKITEMNAME COLUMNREFERENCE="O"/>
+			<ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+			<RATE FORMULA="=Round(V#,2)"/>
+			<AMOUNT FORMULA="=Round(W#,2)*-1"/>
+			<ACTUALQTY COLUMNREFERENCE="U"/>
+			<BILLEDQTY COLUMNREFERENCE="U"/>
+			<BATCHALLOCATIONS.LIST>
+				<GODOWNNAME FORMULA="=if(len(trim(Q#))=0,&quot;Main Location&quot;,Q#)"/>
+				<!--<BATCHNAME>Primary Batch</BATCHNAME>-->
+				<BATCHNAME COLUMNREFERENCE="R" />
+				<MFDON SKIP="=Len(trim(S#))=0" COLUMNREFERENCE="S" />
+				<EXPIRYPERIOD SKIP="=Len(trim(T#))=0" COLUMNREFERENCE="T" />
+				<DESTINATIONGODOWNNAME COLUMNREFERENCE="Q"/>
+				<AMOUNT FORMULA="=Round(W#,2)*-1"/>
+				<ACTUALQTY COLUMNREFERENCE="U"/>
+				<BILLEDQTY COLUMNREFERENCE="U"/>
+			</BATCHALLOCATIONS.LIST>
+		</INVENTORYENTRIESIN.LIST>
+		<INVENTORYENTRIESOUT.LIST SCROLL="YES">
+			<STOCKITEMNAME COLUMNREFERENCE="F"/>
+			<ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
+			<RATE FORMULA="=Round(M#,2)"/>
+			<AMOUNT FORMULA="=Round(N#,2)"/>
+			<ACTUALQTY COLUMNREFERENCE="L" />
+			<BILLEDQTY COLUMNREFERENCE="L" />
+			<BATCHALLOCATIONS.LIST>
+				<GODOWNNAME FORMULA="=if(len(trim(H#))=0,&quot;Main Location&quot;,H#)"/>
+				<!--<BATCHNAME>Primary Batch</BATCHNAME>-->
+				<BATCHNAME COLUMNREFERENCE="I" />
+				<MFDON SKIP="=Len(trim(J#))=0" COLUMNREFERENCE="J" />
+				<EXPIRYPERIOD SKIP="=Len(trim(K#))=0" COLUMNREFERENCE="K" />
+				<AMOUNT FORMULA="=Round(N#,2)"/>
+				<ACTUALQTY COLUMNREFERENCE="L" />
+				<BILLEDQTY COLUMNREFERENCE="L" />
+			</BATCHALLOCATIONS.LIST>
+		</INVENTORYENTRIESOUT.LIST>
+	</VOUCHER8>
+</XMLTAGS>
+
