@@ -384,194 +384,301 @@
     <!-- LEDGER 1 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(AE#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="AD"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+
       <!--                
+      For Voucher mode  
       ISDEEMEDPOSITIVE
       purchase,credit note and AE# greater than 0   Yes
       sales,debit note and AE# less than 0          Yes
       Otherwise                     No
       -->
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AE#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AE#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AE#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AE#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(AE#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 2 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(AG#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="AF"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AG#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AG#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AG#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AG#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(AG#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 3 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(AI#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="AH"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AI#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AI#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AI#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AI#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(AI#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 4 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(AK#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="AJ"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AK#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AK#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AK#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AK#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(AK#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 5 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(AM#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="AL"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AM#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AM#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AM#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AM#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(AM#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 6 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(AO#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="AN"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AO#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AO#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AO#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AO#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(AO#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 7 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(AQ#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="AP"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AQ#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AQ#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AQ#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AQ#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(AQ#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 8 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(AS#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="AR"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AS#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AS#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AS#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AS#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(AS#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 9 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(AU#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="AT"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AU#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AU#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AU#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AU#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(AU#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 10 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(AW#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="AV"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AW#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AW#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AW#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AW#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(AW#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 11 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(AY#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="AX"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AY#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AY#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AY#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AY#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(AY#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 12 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(BA#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="AZ"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BA#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BA#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BA#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BA#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(BA#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 13 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(BC#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="BB"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BC#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BC#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BC#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BC#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(BC#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 14 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(BE#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="BD"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BE#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BE#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BE#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BE#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(BE#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 15 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(BG#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="BF"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BG#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BG#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BG#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BG#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(BG#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 16 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(BI#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="BH"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BI#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BI#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BI#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BI#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(BI#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 17 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(BK#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="BJ"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BK#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BK#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BK#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BK#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(BK#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 18 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(BM#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="BL"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BM#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BM#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BM#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BM#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(BM#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 19 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(BO#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="BN"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BO#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BO#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BO#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BO#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(BO#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 20 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(BQ#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="BP"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BQ#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BQ#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BQ#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BQ#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(BQ#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 21 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(BS#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="BR"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BS#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BS#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BS#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BS#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(BS#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 22 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(BU#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="BT"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BU#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BU#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BU#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BU#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(BU#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 23 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(BW#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="BV"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BW#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BW#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BW#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BW#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(BW#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 24 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(BY#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="BX"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BY#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BY#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(BY#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(BY#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(BY#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 25 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(CA#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="BZ"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(CA#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(CA#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(CA#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(CA#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(CA#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 26 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(CC#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="CB"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(CC#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(CC#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>      
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(CC#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(CC#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(CC#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 27 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(CE#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="CD"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(CE#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(CE#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(CE#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(CE#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(CE#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 28 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(CG#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="CF"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(CG#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(CG#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(CG#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(CG#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(CG#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 29 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(CI#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="CH"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(CI#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(CI#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(CI#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(CI#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(CI#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 30 -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(CK#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="CJ"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(CK#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(CK#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>      
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(CK#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(CK#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(CK#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
 
     <!-- Round Off -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AC#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="=Not(trim(AA#)=&quot;yes&quot;)">
       <LEDGERNAME FORMULA="=if(len(trim(AB#))=0,&quot;Round Off&quot;,AB#)"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),Round(Round({Round(AE#,2)+Round(AG#,2)+Round(AI#,2)+Round(AK#,2)+Round(AM#,2)}+{Round(AO#,2)+Round(AQ#,2)+Round(AS#,2)+Round(AU#,2)+Round(AW#,2)}+{Round(AY#,2)+Round(BA#,2)+Round(BC#,2)+Round(BE#,2)+Round(BG#,2)}+{Round(BI#,2)+Round(BK#,2)+Round(BM#,2)+Round(BO#,2)+Round(BQ#,2)}+{Round(BS#,2)+Round(BU#,2)+Round(BW#,2)+Round(BY#,2)+Round(CA#,2)}+{Round(CC#,2)+Round(CE#,2)+Round(CG#,2)+Round(CI#,2)+Round(CK#,2)},0)-Round({Round(AE#,2)+Round(AG#,2)+Round(AI#,2)+Round(AK#,2)+Round(AM#,2)}+{Round(AO#,2)+Round(AQ#,2)+Round(AS#,2)+Round(AU#,2)+Round(AW#,2)}+{Round(AY#,2)+Round(BA#,2)+Round(BC#,2)+Round(BE#,2)+Round(BG#,2)}+{Round(BI#,2)+Round(BK#,2)+Round(BM#,2)+Round(BO#,2)+Round(BQ#,2)}+{Round(BS#,2)+Round(BU#,2)+Round(BW#,2)+Round(BY#,2)+Round(CA#,2)}+{Round(CC#,2)+Round(CE#,2)+Round(CG#,2)+Round(CI#,2)+Round(CK#,2)},2),2)&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),Round(Round({Round(AE#,2)+Round(AG#,2)+Round(AI#,2)+Round(AK#,2)+Round(AM#,2)}+{Round(AO#,2)+Round(AQ#,2)+Round(AS#,2)+Round(AU#,2)+Round(AW#,2)}+{Round(AY#,2)+Round(BA#,2)+Round(BC#,2)+Round(BE#,2)+Round(BG#,2)}+{Round(BI#,2)+Round(BK#,2)+Round(BM#,2)+Round(BO#,2)+Round(BQ#,2)}+{Round(BS#,2)+Round(BU#,2)+Round(BW#,2)+Round(BY#,2)+Round(CA#,2)}+{Round(CC#,2)+Round(CE#,2)+Round(CG#,2)+Round(CI#,2)+Round(CK#,2)},0)-Round({Round(AE#,2)+Round(AG#,2)+Round(AI#,2)+Round(AK#,2)+Round(AM#,2)}+{Round(AO#,2)+Round(AQ#,2)+Round(AS#,2)+Round(AU#,2)+Round(AW#,2)}+{Round(AY#,2)+Round(BA#,2)+Round(BC#,2)+Round(BE#,2)+Round(BG#,2)}+{Round(BI#,2)+Round(BK#,2)+Round(BM#,2)+Round(BO#,2)+Round(BQ#,2)}+{Round(BS#,2)+Round(BU#,2)+Round(BW#,2)+Round(BY#,2)+Round(CA#,2)}+{Round(CC#,2)+Round(CE#,2)+Round(CG#,2)+Round(CI#,2)+Round(CK#,2)},2),2)&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+
+      <!-- 
+      When the value for IsInvoiceMode is explicitly set to Yes 
+      And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)
+      -->
+
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),Round(Round({Round(AE#,2)+Round(AG#,2)+Round(AI#,2)+Round(AK#,2)+Round(AM#,2)}+{Round(AO#,2)+Round(AQ#,2)+Round(AS#,2)+Round(AU#,2)+Round(AW#,2)}+{Round(AY#,2)+Round(BA#,2)+Round(BC#,2)+Round(BE#,2)+Round(BG#,2)}+{Round(BI#,2)+Round(BK#,2)+Round(BM#,2)+Round(BO#,2)+Round(BQ#,2)}+{Round(BS#,2)+Round(BU#,2)+Round(BW#,2)+Round(BY#,2)+Round(CA#,2)}+{Round(CC#,2)+Round(CE#,2)+Round(CG#,2)+Round(CI#,2)+Round(CK#,2)},0)-Round({Round(AE#,2)+Round(AG#,2)+Round(AI#,2)+Round(AK#,2)+Round(AM#,2)}+{Round(AO#,2)+Round(AQ#,2)+Round(AS#,2)+Round(AU#,2)+Round(AW#,2)}+{Round(AY#,2)+Round(BA#,2)+Round(BC#,2)+Round(BE#,2)+Round(BG#,2)}+{Round(BI#,2)+Round(BK#,2)+Round(BM#,2)+Round(BO#,2)+Round(BQ#,2)}+{Round(BS#,2)+Round(BU#,2)+Round(BW#,2)+Round(BY#,2)+Round(CA#,2)}+{Round(CC#,2)+Round(CE#,2)+Round(CG#,2)+Round(CI#,2)+Round(CK#,2)},2),2)&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),Round(Round({Round(AE#,2)+Round(AG#,2)+Round(AI#,2)+Round(AK#,2)+Round(AM#,2)}+{Round(AO#,2)+Round(AQ#,2)+Round(AS#,2)+Round(AU#,2)+Round(AW#,2)}+{Round(AY#,2)+Round(BA#,2)+Round(BC#,2)+Round(BE#,2)+Round(BG#,2)}+{Round(BI#,2)+Round(BK#,2)+Round(BM#,2)+Round(BO#,2)+Round(BQ#,2)}+{Round(BS#,2)+Round(BU#,2)+Round(BW#,2)+Round(BY#,2)+Round(CA#,2)}+{Round(CC#,2)+Round(CE#,2)+Round(CG#,2)+Round(CI#,2)+Round(CK#,2)},0)-Round({Round(AE#,2)+Round(AG#,2)+Round(AI#,2)+Round(AK#,2)+Round(AM#,2)}+{Round(AO#,2)+Round(AQ#,2)+Round(AS#,2)+Round(AU#,2)+Round(AW#,2)}+{Round(AY#,2)+Round(BA#,2)+Round(BC#,2)+Round(BE#,2)+Round(BG#,2)}+{Round(BI#,2)+Round(BK#,2)+Round(BM#,2)+Round(BO#,2)+Round(BQ#,2)}+{Round(BS#,2)+Round(BU#,2)+Round(BW#,2)+Round(BY#,2)+Round(CA#,2)}+{Round(CC#,2)+Round(CE#,2)+Round(CG#,2)+Round(CI#,2)+Round(CK#,2)},2),2)&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+
+      <!-- For Invoice Mode -->
+      <TEST SKIP="=Not(And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;))">ISINVOICEMODE=YES</TEST>
+
+      <!-- For Voucher Mode -->
+      <TEST SKIP="=And(Len(trim(AC#))&gt;0,trim(AC#)=&quot;Yes&quot;)">ISINVOICEMODE=NO</TEST>
+
       <AMOUNT FORMULA="=Round(Round({Round(AE#,2)+Round(AG#,2)+Round(AI#,2)+Round(AK#,2)+Round(AM#,2)}+{Round(AO#,2)+Round(AQ#,2)+Round(AS#,2)+Round(AU#,2)+Round(AW#,2)}+{Round(AY#,2)+Round(BA#,2)+Round(BC#,2)+Round(BE#,2)+Round(BG#,2)}+{Round(BI#,2)+Round(BK#,2)+Round(BM#,2)+Round(BO#,2)+Round(BQ#,2)}+{Round(BS#,2)+Round(BU#,2)+Round(BW#,2)+Round(BY#,2)+Round(CA#,2)}+{Round(CC#,2)+Round(CE#,2)+Round(CG#,2)+Round(CI#,2)+Round(CK#,2)},0)-Round({Round(AE#,2)+Round(AG#,2)+Round(AI#,2)+Round(AK#,2)+Round(AM#,2)}+{Round(AO#,2)+Round(AQ#,2)+Round(AS#,2)+Round(AU#,2)+Round(AW#,2)}+{Round(AY#,2)+Round(BA#,2)+Round(BC#,2)+Round(BE#,2)+Round(BG#,2)}+{Round(BI#,2)+Round(BK#,2)+Round(BM#,2)+Round(BO#,2)+Round(BQ#,2)}+{Round(BS#,2)+Round(BU#,2)+Round(BW#,2)+Round(BY#,2)+Round(CA#,2)}+{Round(CC#,2)+Round(CE#,2)+Round(CG#,2)+Round(CI#,2)+Round(CK#,2)},2),2)*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <DUMMY SCROLL="YES"/>
