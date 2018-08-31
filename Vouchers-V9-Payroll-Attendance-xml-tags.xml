@@ -87,7 +87,7 @@
   </MASTER>
   <MASTER TYPE="ATTENDANCETYPE">
     <NAME.LIST>
-      <NAME FORMULA="=$AD$2"/>
+      <NAME FORMULA="=$AE$2"/>
     </NAME.LIST>
     <PARENT/>
     <BASEUNITS/>
@@ -96,7 +96,7 @@
   </MASTER>
   <MASTER TYPE="ATTENDANCETYPE">
     <NAME.LIST>
-      <NAME FORMULA="=$V$2"/>
+      <NAME FORMULA="=$AF$2"/>
     </NAME.LIST>
     <PARENT/>
     <BASEUNITS/>
@@ -127,17 +127,17 @@
       <ATTENDANCETYPE FORMULA="=$AD$2"/>
       <ATTDTYPETIMEVALUE COLUMNREFERENCE="AD"/>
     </ATTENDANCEENTRIES.LIST>
-    <!-- Pick up the value for $AD$2-->
-    <ATTENDANCEENTRIES.LIST SCROLL="Yes" SKIP="=Round((null),2)=0">
+    <!-- Pick up the value for $AE$2-->
+    <ATTENDANCEENTRIES.LIST SCROLL="Yes" SKIP="=Round(AE#,2)=0">
       <NAME FORMULA="=If(len(F#)=0,E#,F#)"/>
-      <ATTENDANCETYPE FORMULA="=$AD$2"/>
-      <ATTDTYPETIMEVALUE FORMULA="=(null)"/>
+      <ATTENDANCETYPE FORMULA="=$AE$2"/>
+      <ATTDTYPETIMEVALUE COLUMNREFERENCE="AE"/>
     </ATTENDANCEENTRIES.LIST>
-    <!-- Pick up the value for $V$2-->
-    <ATTENDANCEENTRIES.LIST SCROLL="Yes" SKIP="=Round((null),2)=0">
+    <!-- Pick up the value for $AF$2-->
+    <ATTENDANCEENTRIES.LIST SCROLL="Yes" SKIP="=Round(AF#,2)=0">
       <NAME FORMULA="=If(len(F#)=0,E#,F#)"/>
-      <ATTENDANCETYPE FORMULA="=$V$2"/>
-      <ATTDTYPETIMEVALUE FORMULA="=(null)"/>
+      <ATTENDANCETYPE FORMULA="=$AF$2"/>
+      <ATTDTYPETIMEVALUE COLUMNREFERENCE="AF"/>
     </ATTENDANCEENTRIES.LIST>
   </VOUCHER9>
 </XMLTAGS>
