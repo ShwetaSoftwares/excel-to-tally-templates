@@ -39,25 +39,29 @@
   </MASTER>
   
   <VOUCHER8>
-    <GUID FORMULA="=&quot;udi-H3X8E6-&quot; &amp; A# &amp; &quot;-&quot; &amp; Now() &amp; &quot;-&quot; &amp; #"/>
+    <GUID FORMULA="=&quot;udi-D3WGF2-&quot; &amp; A# &amp; &quot;-&quot; &amp; Now() &amp; &quot;-&quot; &amp; #"/>
     <DATE COLUMNREFERENCE="A"/>
     <EFFECTIVEDATE COLUMNREFERENCE="A"/>
-    <VOUCHERTYPENAME FORMULA="=if(len(trim(I#))=0,if(If(IsError(Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2))&gt;0,&quot;Receipt&quot;,&quot;Payment&quot;),I#)"/>
+    <VOUCHERTYPENAME FORMULA="=if(len(trim(I#))=0,if(E#=&quot;cr&quot;,&quot;Receipt&quot;,&quot;Payment&quot;),I#)"/>
+
     <ISINVOICE>No</ISINVOICE>
     <NARRATION FORMULA="=B# &amp; &quot; &quot; &amp; C#"/>
 
     <!-- Suspense ledger -->
     <ALLLEDGERENTRIES.LIST>
       <LEDGERNAME FORMULA="=if(len(trim(G#))=0,&quot;Suspense A/c&quot;,G#)"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(If(IsError(Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2))&gt;0,&quot;No&quot;,&quot;Yes&quot;)"/>
-      <AMOUNT FORMULA="=Round(If(IsError(Round(substitute(D#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(D#,&quot;,&quot;,&quot;&quot;)*1,2))+If(IsError(Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),2)*if(If(IsError(Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2))&gt;0,1,-1)"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if(E#=&quot;Cr&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+      <AMOUNT FORMULA="=Round(substitute(D#,&quot;,&quot;,&quot;&quot;)*1,2)*if(E#=&quot;Cr&quot;,1,-1)"/>
     </ALLLEDGERENTRIES.LIST>
 
-    <!-- Bank Ledger -->
+    <!-- Bank Ledger 
+      BANK DEPOSIT or CR means increase in Bank Balance
+      BANK WITHDRAWAL or DR means drecrease in Bank Balance
+    -->
     <ALLLEDGERENTRIES.LIST>
       <LEDGERNAME FORMULA="=if(len(trim(F#))=0,F$2,F#)"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(If(IsError(Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT FORMULA="=Round(If(IsError(Round(substitute(D#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(D#,&quot;,&quot;,&quot;&quot;)*1,2))+If(IsError(Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),2)*if(If(IsError(Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2))&gt;0,-1,1)"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if(E#=&quot;Cr&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="=Round(substitute(D#,&quot;,&quot;,&quot;&quot;)*1,2)*if(E#=&quot;Cr&quot;,-1,1)"/>
       
       <BANKALLOCATIONS.LIST>
         <DATE COLUMNREFERENCE="A" />
@@ -72,9 +76,9 @@
         <NARRATION COLUMNREFERENCE="O"/>
 
         <STATUS>No</STATUS>
-        <AMOUNT FORMULA="=Round(If(IsError(Round(substitute(D#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(D#,&quot;,&quot;,&quot;&quot;)*1,2))+If(IsError(Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),2)*if(If(IsError(Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2))&gt;0,-1,1)"/>
+        <AMOUNT FORMULA="=Round(substitute(D#,&quot;,&quot;,&quot;&quot;)*1,2)*if(E#=&quot;Cr&quot;,-1,1)"/>
         <PAYMENTMODE>Transacted</PAYMENTMODE>
-        <NAME FORMULA="=&quot;udi-H3X8E6-&quot; &amp; A# &amp; &quot;-&quot; &amp; Now()"/>
+        <NAME FORMULA="=&quot;udi-D3WGF2-&quot; &amp; A# &amp; &quot;-&quot; &amp; Now()"/>
       </BANKALLOCATIONS.LIST>
     </ALLLEDGERENTRIES.LIST>
   </VOUCHER8>

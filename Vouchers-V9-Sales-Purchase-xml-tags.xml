@@ -86,7 +86,7 @@
   <!-- Create Trade discount Master -->
   <MASTER TYPE="LEDGER">
     <NAME.LIST>
-      <NAME FORMULA="=if(len(trim(BD#))=0,&quot;Discount&quot;,BD#)"/>
+      <NAME FORMULA="=if(len(trim(BD#))=0,if(Round(BC#,2)=0,&quot;&quot;,&quot;Discount&quot;),BD#)"/>
     </NAME.LIST>
     <PARENT>Indirect Expenses</PARENT>
     <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
