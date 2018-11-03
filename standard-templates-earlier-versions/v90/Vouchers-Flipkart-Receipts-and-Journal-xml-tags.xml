@@ -1,0 +1,177 @@
+<XMLTAGS CELLREFERENCE="A1" xmlns:UDF="TallyUDF">
+	<!-- Specifies that this (i.e Column as mentioned above) is the key field -->
+	<COLUMNNAME.LIST>
+		<COLUMNNAME>ID</COLUMNNAME>
+		<COLUMNNAME>NAME</COLUMNNAME>
+	</COLUMNNAME.LIST>
+	<DATA LOADFILE="Vouchers-Flipkart-Receipts-and-Journal-settings.csv"/>
+
+	<MASTER TYPE="VOUCHERTYPE" SINGLERECORD="YES">
+		<NAME.LIST TYPE="String">
+			<NAME FORMULA="=&quot;__LOOKUP__(&quot;VCH-RECEIPT-LOOKUP-VALUE&quot;)__&quot;"/>
+		</NAME.LIST>
+		<PARENT>Receipt</PARENT>
+		<NUMBERINGMETHOD>Manual</NUMBERINGMETHOD>
+		<ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
+	</MASTER>
+
+	<MASTER TYPE="VOUCHERTYPE" SINGLERECORD="YES">
+		<NAME.LIST TYPE="String">
+			<NAME FORMULA="=&quot;__LOOKUP__(&quot;VCH-JOURNAL-LOOKUP-VALUE&quot;)__&quot;"/>
+		</NAME.LIST>
+		<PARENT>Journal</PARENT>
+		<NUMBERINGMETHOD>Manual</NUMBERINGMETHOD>
+		<ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+	</MASTER>
+
+	<!-- Create BANK Ledgers -->
+	<MASTER TYPE="LEDGER" SINGLERECORD="YES">
+		<NAME.LIST TYPE="String">
+			<NAME FORMULA="=&quot;__LOOKUP__(&quot;BANK-LOOKUP-VALUE&quot;)__&quot;"/>
+		</NAME.LIST>
+		<PARENT>Bank Accounts</PARENT>
+		<TAXTYPE>Others</TAXTYPE>
+		<ISBILLWISEON>No</ISBILLWISEON>
+		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+	</MASTER>
+	<!-- Create Party Ledgers -->
+	<MASTER TYPE="LEDGER" SINGLERECORD="YES">
+		<NAME.LIST TYPE="String">
+			<NAME FORMULA="=&quot;__LOOKUP__(&quot;PARTY-LOOKUP-VALUE&quot;)__&quot;"/>
+		</NAME.LIST>
+		<PARENT>Sundry Debtors</PARENT>
+		<TAXTYPE>Others</TAXTYPE>
+		<ISBILLWISEON>Yes</ISBILLWISEON>
+		<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+	</MASTER>
+	<!-- Create Ledger1 -->
+	<MASTER TYPE="LEDGER" SINGLERECORD="YES">
+		<NAME.LIST TYPE="String">
+			<!-- Marketplace Fess -->
+			<NAME FORMULA="=&quot;__LOOKUP__(&quot;MP-FEES-LOOKUP-VALUE&quot;)__&quot;"/>
+		</NAME.LIST>
+		<PARENT>Indirect Expenses</PARENT>
+	</MASTER>
+	<!-- Create Ledger2 -->
+	<MASTER TYPE="LEDGER" SINGLERECORD="YES">
+		<NAME.LIST TYPE="String">
+			<!-- Service Tax -->
+			<NAME FORMULA="=&quot;__LOOKUP__(&quot;SERVICE-TAX-LOOKUP-VALUE&quot;)__&quot;"/>
+		</NAME.LIST>
+		<PARENT>Indirect Expenses</PARENT>
+	</MASTER>
+	<!-- Create Ledger3 -->
+	<MASTER TYPE="LEDGER" SINGLERECORD="YES">
+		<NAME.LIST TYPE="String">
+			<!-- SB Cess Tax -->
+			<NAME FORMULA="=&quot;__LOOKUP__(&quot;SB-CESS-TAX-LOOKUP-VALUE&quot;)__&quot;"/>
+		</NAME.LIST>
+		<PARENT>Indirect Expenses</PARENT>
+	</MASTER>
+	<!-- Create Ledger4 -->
+	<MASTER TYPE="LEDGER" SINGLERECORD="YES">
+		<NAME.LIST TYPE="String">
+			<!-- KK Cess Tax -->
+			<NAME FORMULA="=&quot;__LOOKUP__(&quot;KK-CESS-TAX-LOOKUP-VALUE&quot;)__&quot;"/>
+		</NAME.LIST>
+		<PARENT>Indirect Expenses</PARENT>
+	</MASTER>
+	<VOUCHER>
+		<GUID FORMULA="=&quot;udi-HV6W4F-&quot; &amp; A# &amp; &quot;-&quot; &amp; L# &amp; &quot;-&quot; &amp; (&quot;Journal&quot;)"/>
+		<DATE COLUMNREFERENCE="L"/>
+		<EFFECTIVEDATE COLUMNREFERENCE="L"/>
+		<VOUCHERTYPENAME FORMULA="=&quot;__LOOKUP__(&quot;VCH-JOURNAL-LOOKUP-VALUE&quot;)__&quot;"/>
+		<VOUCHERNUMBER COLUMNREFERENCE="A"/>
+		<ISINVOICE>No</ISINVOICE>
+		<PERSISTEDVIEW>Accounting Voucher View</PERSISTEDVIEW>
+		<NARRATION COLUMNREFERENCE="A"/>
+		<PARTYLEDGERNAME FORMULA="=&quot;__LOOKUP__(&quot;PARTY-LOOKUP-VALUE&quot;)__&quot;"/>
+		<!-- DR Ledger -->
+		<ALLLEDGERENTRIES.LIST SKIP="={Round(R#,2)}=0">
+			<LEDGERNAME FORMULA="=&quot;__LOOKUP__(&quot;PARTY-LOOKUP-VALUE&quot;)__&quot;"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if({Round(R#,2)}&gt;0,&quot;No&quot;,&quot;Yes&quot;)"/>
+			<AMOUNT FORMULA="={Round(R#,2)}"/>
+			<BILLALLOCATIONS.LIST SCROLL="Yes" SKIP="=Or(len(trim(F#))=0,Round(R#,2)=0)">
+				<NAME COLUMNREFERENCE="F"/>
+				<BILLTYPE>Agst Ref</BILLTYPE>
+				<AMOUNT FORMULA="=Round(R#,2)"/>
+			</BILLALLOCATIONS.LIST>
+		</ALLLEDGERENTRIES.LIST>
+		<!-- Ledger1 -->
+		<ALLLEDGERENTRIES.LIST SKIP="={Round(T#,2)}=0">
+			<LEDGERNAME FORMULA="=&quot;__LOOKUP__(&quot;MP-FEES-LOOKUP-VALUE&quot;)__&quot;"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if({Round(T#,2)}&gt;0,&quot;No&quot;,&quot;Yes&quot;)"/>
+			<AMOUNT FORMULA="={Round(T#,2)}"/>
+		</ALLLEDGERENTRIES.LIST>
+		<!-- Ledger2 -->
+		<ALLLEDGERENTRIES.LIST SKIP="={Round(U#,2)}=0">
+			<LEDGERNAME FORMULA="=&quot;__LOOKUP__(&quot;SERVICE-TAX-LOOKUP-VALUE&quot;)__&quot;"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if({Round(U#,2)}&gt;0,&quot;No&quot;,&quot;Yes&quot;)"/>
+			<AMOUNT FORMULA="={Round(U#,2)}"/>
+		</ALLLEDGERENTRIES.LIST>
+		<!-- Ledger3  -->
+		<ALLLEDGERENTRIES.LIST SKIP="={Round(V#,2)}=0">
+			<LEDGERNAME FORMULA="=&quot;__LOOKUP__(&quot;SB-CESS-TAX-LOOKUP-VALUE&quot;)__&quot;"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if({Round(V#,2)}&gt;0,&quot;No&quot;,&quot;Yes&quot;)"/>
+			<AMOUNT FORMULA="={Round(V#,2)}"/>
+		</ALLLEDGERENTRIES.LIST>
+		<!-- Ledger4 -->
+		<ALLLEDGERENTRIES.LIST SKIP="={Round(W#,2)}=0">
+			<LEDGERNAME FORMULA="=&quot;__LOOKUP__(&quot;KK-CESS-TAX-LOOKUP-VALUE&quot;)__&quot;"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if({Round(W#,2)}&gt;0,&quot;No&quot;,&quot;Yes&quot;)"/>
+			<AMOUNT FORMULA="={Round(W#,2)}"/>
+		</ALLLEDGERENTRIES.LIST>
+		<!-- CR Ledger -->
+		<ALLLEDGERENTRIES.LIST SKIP="={Round((Round(P#-X#,2)),2)}=0">
+			<LEDGERNAME FORMULA="=&quot;__LOOKUP__(&quot;PARTY-LOOKUP-VALUE&quot;)__&quot;"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if({Round((Round(P#-X#,2)),2)}&lt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+			<AMOUNT FORMULA="={Round((Round(P#-X#,2)),2)}"/>
+			<BILLALLOCATIONS.LIST SCROLL="Yes" SKIP="=Or(len(trim(F#))=0,Round((Round(P#-X#,2)),2)=0)">
+				<NAME COLUMNREFERENCE="F"/>
+				<BILLTYPE FORMULA="=(&quot;Agst Ref&quot;)"/>
+				<AMOUNT FORMULA="=Round((Round(P#-X#,2)),2)"/>
+			</BILLALLOCATIONS.LIST>
+		</ALLLEDGERENTRIES.LIST>
+	</VOUCHER>
+	
+	<!-- Receipt -->
+	<VOUCHER>
+		<GUID FORMULA="=&quot;udi-HD6E2F-&quot; &amp; A# &amp; &quot;-&quot; &amp; L# &amp; &quot;-&quot; &amp; (&quot;Receipt&quot;)"/>
+		<DATE COLUMNREFERENCE="L"/>
+		<EFFECTIVEDATE COLUMNREFERENCE="L"/>
+		<VOUCHERTYPENAME FORMULA="=&quot;__LOOKUP__(&quot;VCH-RECEIPT-LOOKUP-VALUE&quot;)__&quot;"/>
+		<VOUCHERNUMBER COLUMNREFERENCE="A"/>
+		<ISINVOICE>No</ISINVOICE>
+		<PERSISTEDVIEW>Accounting Voucher View</PERSISTEDVIEW>
+		<NARRATION COLUMNREFERENCE="A"/>
+		<PARTYLEDGERNAME FORMULA="=&quot;__LOOKUP__(&quot;PARTY-LOOKUP-VALUE&quot;)__&quot;"/>
+		
+		<!-- Party Ledger -->
+		<ALLLEDGERENTRIES.LIST SKIP="={Round(X#,2)}=0">
+			<LEDGERNAME FORMULA="=&quot;__LOOKUP__(&quot;PARTY-LOOKUP-VALUE&quot;)__&quot;"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if({Round(X#,2)}&gt;0,&quot;No&quot;,&quot;Yes&quot;)"/>
+			<AMOUNT FORMULA="={Round(X#,2)}"/>
+			<BILLALLOCATIONS.LIST SCROLL="Yes" SKIP="=Or(len(trim(F#))=0,Round(X#,2)=0)">
+				<NAME COLUMNREFERENCE="F"/>
+				<BILLTYPE>Agst Ref</BILLTYPE>
+				<AMOUNT FORMULA="=Round(X#,2)"/>
+			</BILLALLOCATIONS.LIST>
+		</ALLLEDGERENTRIES.LIST>
+		
+		<!-- Cash or Bank Ledger -->
+		<ALLLEDGERENTRIES.LIST SKIP="={Round(X#,2)}=0">
+			<LEDGERNAME FORMULA="=&quot;__LOOKUP__(&quot;BANK-LOOKUP-VALUE&quot;)__&quot;"/>
+			<ISDEEMEDPOSITIVE FORMULA="=if({Round(X#,2)}&lt;0,&quot;No&quot;,&quot;Yes&quot;)"/>
+			<AMOUNT FORMULA="={Round(X#,2)}*-1"/>
+			<BANKALLOCATIONS.LIST >
+				<DATE COLUMNREFERENCE="L"/>
+				<AMOUNT FORMULA="={Round(X#,2)}*-1"/>
+				<TRANSACTIONTYPE>Cheque</TRANSACTIONTYPE>
+				<PAYMENTMODE>Transacted</PAYMENTMODE>
+				<NAME FORMULA="=&quot;udi-HD6E2F-&quot; &amp; A# &amp; &quot;-&quot; &amp; L# &amp; &quot;-&quot; &amp; (&quot;Receipt&quot;)"/>
+			</BANKALLOCATIONS.LIST>
+		</ALLLEDGERENTRIES.LIST>
+	</VOUCHER>
+	
+</XMLTAGS>
+
