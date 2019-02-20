@@ -16,6 +16,12 @@
 		<ISDEEMEDPOSITIVE FORMULA="=If(Or(B#=&quot;Payment&quot;,B#=&quot;Sales&quot;,B#=&quot;Debit Note&quot;,B#=&quot;Journal&quot;,B#=&quot;Sales Order&quot;),&quot;Yes&quot;,&quot;No&quot;)"/>
 		<COMMONNARRATION>Yes</COMMONNARRATION>
 	</MASTER>
+  <!-- Create CURRENCY Master -->
+  <MASTER TYPE="CURRENCY">
+    <ORIGINALNAME COLUMNREFERENCE="U"/>
+    <MAILINGNAME FORMULA="=U# &amp; &quot; Curr&quot;"/>
+    <DECIMALPLACES> 2</DECIMALPLACES>
+  </MASTER>
 	<!-- Create Group Master -->
 	<MASTER TYPE="GROUP">
 		<COMPANYNAME FORMULA="=T#[1]"/>
@@ -47,7 +53,7 @@
 			<NARRATION COLUMNREFERENCE="S"/>
 			<LEDGERNAME COLUMNREFERENCE="H"/>
 			<ISDEEMEDPOSITIVE FORMULA="=IF(UPPER(J#)=&quot;DR&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
-			<AMOUNT FORMULA="=+Round(I#,2)*IF(UPPER(J#)=&quot;DR&quot;,-1,1)"/>
+			<AMOUNT CURRENCY="=U#" ROE="=V#" FORMULA="=+Round(I#,2)*IF(UPPER(J#)=&quot;DR&quot;,-1,1)"/>
 			<BANKALLOCATIONS.LIST SKIP="=And(len(trim(L#))=0,len(trim(M#))=0,len(trim(N#))=0,len(trim(O#))=0,len(trim(P#))=0,len(trim(Q#))=0)">
 				<DATE FORMULA="=E#[1]"/>
 				<INSTRUMENTDATE COLUMNREFERENCE="M"/>
@@ -57,7 +63,7 @@
 				<CHEQUECROSSCOMMENT COLUMNREFERENCE="P"/>
 				<BANKERSDATE COLUMNREFERENCE="Q"/>
 				<STATUS>No</STATUS>
-				<AMOUNT FORMULA="=+Round(I#,2)*IF(UPPER(J#)=&quot;DR&quot;,-1,1)"/>
+				<AMOUNT CURRENCY="=U#" ROE="=V#" FORMULA="=+Round(I#,2)*IF(UPPER(J#)=&quot;DR&quot;,-1,1)"/>
 				<PAYMENTMODE>Transacted</PAYMENTMODE>
 				<NAME FORMULA="=+&quot;udi-EF5Q2H-&quot; &amp; A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; #"/>
 			</BANKALLOCATIONS.LIST>

@@ -16,6 +16,12 @@
     <ISDEEMEDPOSITIVE FORMULA="=If(Or(B#=&quot;Payment&quot;,B#=&quot;Sales&quot;,B#=&quot;Debit Note&quot;,B#=&quot;Journal&quot;,B#=&quot;Sales Order&quot;),&quot;Yes&quot;,&quot;No&quot;)"/>
     <COMMONNARRATION>Yes</COMMONNARRATION>
   </MASTER>
+  <!-- Create CURRENCY Master -->
+  <MASTER TYPE="CURRENCY">
+    <ORIGINALNAME COLUMNREFERENCE="AG"/>
+    <MAILINGNAME FORMULA="=AG# &amp; &quot; Curr&quot;"/>
+    <DECIMALPLACES> 2</DECIMALPLACES>
+  </MASTER>
   <!-- Create Group Master -->
   <MASTER TYPE="GROUP">
     <COMPANYNAME FORMULA="=AF#[1]"/>
@@ -69,7 +75,7 @@
       <NARRATION COLUMNREFERENCE="AE"/>
       <LEDGERNAME COLUMNREFERENCE="H"/>
       <ISDEEMEDPOSITIVE FORMULA="=IF(Round(I#,2)=0,&quot;No&quot;,&quot;Yes&quot;)"/>
-      <AMOUNT FORMULA="=IF(Round(I#,2)=0,Round(J#,2),Round(I#,2)*-1)"/>
+      <AMOUNT CURRENCY="=AG#" ROE="=AH#" FORMULA="=IF(Round(I#,2)=0,Round(J#,2),Round(I#,2)*-1)"/>
       <CATEGORYALLOCATIONS.LIST SCROLL="=if(And(A#=Offset(A#,1,0),Round(Offset(I#,1,0)+Offset(J#,1,0),2)=0),1=1,1=2)" SCROLLCOLUMN="=Sum(Column(H#))" SKIP="=Or(len(trim(L#))=0,If(A#=Offset(A#,-1,0),And(len(trim(H#))=0,L#=Offset(L#,-1,0)),1=2))">
         <CATEGORY COLUMNREFERENCE="L"/>
         <ISDEEMEDPOSITIVE FORMULA="=IF(Round(N#,2)=0,&quot;No&quot;,&quot;Yes&quot;)"/>
@@ -89,7 +95,7 @@
       <BILLALLOCATIONS.LIST SCROLL="YES" SCROLLCOLUMN="=Sum(Column(H#))" SKIP="=Or(Len(trim(Q#))=0,Round(R#+S#,2)=0)">
         <NAME COLUMNREFERENCE="Q"/>
         <BILLTYPE COLUMNREFERENCE="P"/>
-        <AMOUNT FORMULA="=IF(Round(R#,2)=0,Round(S#,2),Round(R#,2)*-1)"/>
+        <AMOUNT CURRENCY="=AG#" ROE="=AH#" FORMULA="=IF(Round(R#,2)=0,Round(S#,2),Round(R#,2)*-1)"/>
       </BILLALLOCATIONS.LIST>
       <BANKALLOCATIONS.LIST SCROLL="YES" SCROLLCOLUMN="=Sum(Column(H#))" SKIP="=And(len(trim(T#))=0,len(trim(U#))=0,len(trim(X#))=0,len(trim(Y#))=0,len(trim(AB#))=0,len(trim(AC#))=0)">
         <DATE FORMULA="=E#[1]"/>
@@ -105,8 +111,8 @@
         <CHEQUECROSSCOMMENT COLUMNREFERENCE="AB"/>
         <BANKERSDATE COLUMNREFERENCE="AC"/>
         <STATUS>No</STATUS>
-        <AMOUNT SKIP="=Not(And(Round(V#,2)=0,Round(W#,2)=0))" FORMULA="=IF(Round(I#,2)=0,Round(J#,2),Round(I#,2)*-1)"/>
-        <AMOUNT SKIP="=And(Round(V#,2)=0,Round(W#,2)=0)" FORMULA="=IF(Round(V#,2)=0,Round(W#,2),Round(V#,2)*-1)"/>
+        <AMOUNT CURRENCY="=AG#" ROE="=AH#" SKIP="=Not(And(Round(V#,2)=0,Round(W#,2)=0))" FORMULA="=IF(Round(I#,2)=0,Round(J#,2),Round(I#,2)*-1)"/>
+        <AMOUNT CURRENCY="=AG#" ROE="=AH#" SKIP="=And(Round(V#,2)=0,Round(W#,2)=0)" FORMULA="=IF(Round(V#,2)=0,Round(W#,2),Round(V#,2)*-1)"/>
         <PAYMENTMODE>Transacted</PAYMENTMODE>
         <NAME FORMULA="=+&quot;udi-BF39WD-&quot; &amp; A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; H# &amp; &quot;-&quot; &amp; #"/>
       </BANKALLOCATIONS.LIST>

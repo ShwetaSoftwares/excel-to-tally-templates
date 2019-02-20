@@ -101,6 +101,16 @@
     <NARRATION COLUMNREFERENCE="Z"/>
     <COSTCENTRENAME COLUMNREFERENCE="Y"/>
     <ISCOSTCENTRE FORMULA="=if(len(Y#)=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+
+    <!-- Supplier details for Purchase  -->
+    <PARTYNAME FORMULA="=if(len(trim(M#))=0,H#,M#)"/>
+    <ADDRESS.LIST SKIP="=And(len(trim(N#))=0,len(trim(O#))=0,len(trim(P#))=0,len(trim(Q#))=0)">
+      <ADDRESS COLUMNREFERENCE="N"/>
+      <ADDRESS COLUMNREFERENCE="O"/>
+      <ADDRESS COLUMNREFERENCE="P"/>
+      <ADDRESS COLUMNREFERENCE="Q"/>
+    </ADDRESS.LIST>
+
     <!-- Buyer details -->
     <BASICBUYERNAME FORMULA="=if(len(trim(M#))=0,H#,M#)"/>
     <BASICBUYERADDRESS.LIST SKIP="=And(len(trim(N#))=0,len(trim(O#))=0,len(trim(P#))=0,len(trim(Q#))=0)">
@@ -109,7 +119,7 @@
       <BASICBUYERADDRESS COLUMNREFERENCE="P"/>
       <BASICBUYERADDRESS COLUMNREFERENCE="Q"/>
     </BASICBUYERADDRESS.LIST>
-    <PLACEOFSUPPLY COLUMNREFERENCE="R"/>
+    <PLACEOFSUPPLY FORMULA="=proper(trim(R#))"/>
     <GSTREGISTRATIONTYPE COLUMNREFERENCE="S"/>
     <!-- Other GST details -->
     <GSTNATUREOFRETURN SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(U#))=0,&quot;01-Sales Return&quot;,U#)"/>
