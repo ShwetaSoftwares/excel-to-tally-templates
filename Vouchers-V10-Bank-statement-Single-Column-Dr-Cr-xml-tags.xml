@@ -1,5 +1,5 @@
 <!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
-<XMLTAGS CELLREFERENCE="A1" SINGLEROWRECORD="YES" xmlns:UDF="TallyUDF">
+<XMLTAGS CELLREFERENCE="A1" FROMROW="4" SINGLEROWRECORD="YES" xmlns:UDF="TallyUDF">
   <!-- Specifies that this (i.e Column as mentioned above) is the key field -->
   <COLUMNNAME.LIST>
     <COLUMNNAME>ID</COLUMNNAME>
@@ -53,7 +53,7 @@
       BANK WITHDRAWAL or DR means drecrease in Bank Balance
     -->
     <ALLLEDGERENTRIES.LIST>
-      <LEDGERNAME FORMULA="=if(len(trim(F#))=0,F$2,F#)"/>
+      <LEDGERNAME FORMULA="=if(len(trim(F#))=0,F$4,F#)"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(E#=&quot;Cr&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="=Round(substitute(D#,&quot;,&quot;,&quot;&quot;)*1,2)*if(E#=&quot;Cr&quot;,-1,1)"/>
       <BANKALLOCATIONS.LIST>
