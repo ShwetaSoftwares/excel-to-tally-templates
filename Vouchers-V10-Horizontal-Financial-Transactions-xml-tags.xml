@@ -1,19 +1,5 @@
 <!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
-<!-- 
-New Features in v6.0
-1) FETCHOBJECT tag
-   This is used to retrieve data from Tally (as it is not there in the Excel sheet)
--->
-<!-- 
-New Features in v5.0
-1) FROMROW attribute
-   In the earlier version (prior to v5.0), it was presumed that HEADINGS are in ROW 1 and DATA starts from ROW 2. Now, you can use the FROMROW attribute to 
-   specify the Excel sheet ROW Number from where the DATA begins.
-2) SCROLLHORIZONTALLY attribute
-   The SCROLLHORIZONTALLY attribute uses an internal mechanism which increments the COLUMN in the specified FORMULA. This enables you to have virtually 
-   any number of COLUMNs for your DATA.
--->
-<XMLTAGS CELLREFERENCE="A1" FROMROW="6" xmlns:UDF="TallyUDF">
+<XMLTAGS CELLREFERENCE="A1" FROMROW="8" xmlns:UDF="TallyUDF">
   <!-- Specifies that this (i.e Column as mentioned above) is the key field -->
   <COLUMNNAME.LIST>
     <COLUMNNAME>ID</COLUMNNAME>

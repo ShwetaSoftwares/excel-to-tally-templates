@@ -1,5 +1,5 @@
 <!-- These XML tags are added to Excel sheet Cell A1 at run-time by UDIMAGIC  -->
-<XMLTAGS CELLREFERENCE="A1" xmlns:UDF="TallyUDF">
+<XMLTAGS CELLREFERENCE="A1" FROMROW="4" xmlns:UDF="TallyUDF">
   <!-- Specifies that the Cell as mentioned above is the key field -->
   <COLUMNNAME.LIST>
     <COLUMNNAME>ID</COLUMNNAME>
@@ -65,7 +65,7 @@
     <REFERENCE COLUMNREFERENCE="F"/>
     <REFERENCEDATE COLUMNREFERENCE="G"/>
     <ISINVOICE>No</ISINVOICE>
-    <NARRATION COLUMNREFERENCE="Q"/>
+    <NARRATION COLUMNREFERENCE="K"/>
     <!-- Debit Ledger -->
     <ALLLEDGERENTRIES.LIST SKIP="=Or(B#=&quot;receipt&quot;,B#=&quot;contra&quot;,B#=&quot;purchase&quot;,B#=&quot;credit note&quot;)">
       <LEDGERNAME COLUMNREFERENCE="H"/>
@@ -79,12 +79,15 @@
       <!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
       <BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; H#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(H#),1)))">
         <DATE COLUMNREFERENCE="E"/>
-        <INSTRUMENTNUMBER COLUMNREFERENCE="K"/>
-        <INSTRUMENTDATE COLUMNREFERENCE="L"/>
-        <TRANSACTIONTYPE FORMULA="=if(len(trim(M#))=0,&quot;Cheque&quot;,M#)"/>
-        <PAYMENTFAVOURING FORMULA="=if(len(trim(N#))=0,H#,N#)"/>
-        <CHEQUECROSSCOMMENT COLUMNREFERENCE="O"/>
-        <BANKERSDATE COLUMNREFERENCE="P"/>
+        <INSTRUMENTNUMBER COLUMNREFERENCE="L"/>
+        <INSTRUMENTDATE COLUMNREFERENCE="M"/>
+        <TRANSACTIONTYPE FORMULA="=if(len(trim(N#))=0,&quot;Cheque&quot;,N#)"/>
+        <PAYMENTFAVOURING FORMULA="=if(len(trim(O#))=0,H#,O#)"/>
+        <CHEQUECROSSCOMMENT COLUMNREFERENCE="P"/>
+        <BANKERSDATE COLUMNREFERENCE="Q"/>
+        <IFSCODE COLUMNREFERENCE="R"/>
+        <BANKNAME COLUMNREFERENCE="S"/>
+        <BANKBRANCHNAME COLUMNREFERENCE="T"/>
         <STATUS>No</STATUS>
         <AMOUNT FORMULA="=Round(J#,2)*-1"/>
         <PAYMENTMODE>Transacted</PAYMENTMODE>
@@ -104,12 +107,15 @@
       <!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
       <BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; I#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(I#),1)))">
         <DATE COLUMNREFERENCE="E"/>
-        <INSTRUMENTNUMBER COLUMNREFERENCE="K"/>
-        <INSTRUMENTDATE COLUMNREFERENCE="L"/>
-        <TRANSACTIONTYPE FORMULA="=if(len(trim(M#))=0,&quot;Cheque&quot;,M#)"/>
-        <PAYMENTFAVOURING FORMULA="=if(len(trim(N#))=0,I#,N#)"/>
-        <CHEQUECROSSCOMMENT COLUMNREFERENCE="O"/>
-        <BANKERSDATE COLUMNREFERENCE="P"/>
+        <INSTRUMENTNUMBER COLUMNREFERENCE="L"/>
+        <INSTRUMENTDATE COLUMNREFERENCE="M"/>
+        <TRANSACTIONTYPE FORMULA="=if(len(trim(N#))=0,&quot;Cheque&quot;,N#)"/>
+        <PAYMENTFAVOURING FORMULA="=if(len(trim(O#))=0,I#,O#)"/>
+        <CHEQUECROSSCOMMENT COLUMNREFERENCE="P"/>
+        <BANKERSDATE COLUMNREFERENCE="Q"/>
+        <IFSCODE COLUMNREFERENCE="R"/>
+        <BANKNAME COLUMNREFERENCE="S"/>
+        <BANKBRANCHNAME COLUMNREFERENCE="T"/>
         <STATUS>No</STATUS>
         <AMOUNT FORMULA="=Round(J#,2)*1"/>
         <PAYMENTMODE>Transacted</PAYMENTMODE>
@@ -129,12 +135,15 @@
       <!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
       <BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; H#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(H#),1)))">
         <DATE COLUMNREFERENCE="E"/>
-        <INSTRUMENTNUMBER COLUMNREFERENCE="K"/>
-        <INSTRUMENTDATE COLUMNREFERENCE="L"/>
-        <TRANSACTIONTYPE FORMULA="=if(len(trim(M#))=0,&quot;Cheque&quot;,M#)"/>
-        <PAYMENTFAVOURING FORMULA="=if(len(trim(N#))=0,H#,N#)"/>
-        <CHEQUECROSSCOMMENT COLUMNREFERENCE="O"/>
-        <BANKERSDATE COLUMNREFERENCE="P"/>
+        <INSTRUMENTNUMBER COLUMNREFERENCE="L"/>
+        <INSTRUMENTDATE COLUMNREFERENCE="M"/>
+        <TRANSACTIONTYPE FORMULA="=if(len(trim(N#))=0,&quot;Cheque&quot;,N#)"/>
+        <PAYMENTFAVOURING FORMULA="=if(len(trim(O#))=0,H#,O#)"/>
+        <CHEQUECROSSCOMMENT COLUMNREFERENCE="P"/>
+        <BANKERSDATE COLUMNREFERENCE="Q"/>
+        <IFSCODE COLUMNREFERENCE="R"/>
+        <BANKNAME COLUMNREFERENCE="S"/>
+        <BANKBRANCHNAME COLUMNREFERENCE="T"/>
         <STATUS>No</STATUS>
         <AMOUNT FORMULA="=Round(J#,2)*-1"/>
         <PAYMENTMODE>Transacted</PAYMENTMODE>
@@ -143,4 +152,3 @@
     </ALLLEDGERENTRIES.LIST>
   </VOUCHER10>
 </XMLTAGS>
-
