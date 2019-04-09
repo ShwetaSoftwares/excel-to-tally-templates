@@ -4,7 +4,7 @@ New Features in v6.0
 1) FETCHOBJECT tag
    This is used to retrieve data from Tally (as it is not there in the Excel sheet)
 -->
-<XMLTAGS CELLREFERENCE="A1" xmlns:UDF="TallyUDF">
+<XMLTAGS CELLREFERENCE="A1" FROMROW="4" xmlns:UDF="TallyUDF">
   <!-- Specifies that this (i.e Column as mentioned above) is the key field -->
   <COLUMNNAME.LIST>
     <COLUMNNAME>ID</COLUMNNAME>
