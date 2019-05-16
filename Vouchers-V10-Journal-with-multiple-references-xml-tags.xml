@@ -189,7 +189,7 @@ BANKALLOCATION tag - Incorrect column for Instrument No and Date - Now corrected
     <PARENT>Sundry Debtors</PARENT>
     <TAXTYPE>Others</TAXTYPE>
     <ISBILLWISEON>Yes</ISBILLWISEON>
-    <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+    <ISCOSTCENTRESON FORMULA="=if(len(trim(K#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
   </MASTER>
   <!-- Create Ledger1 -->
   <MASTER TYPE="LEDGER">
@@ -199,6 +199,7 @@ BANKALLOCATION tag - Incorrect column for Instrument No and Date - Now corrected
     </NAME.LIST>
     <PARENT>Indirect Expenses</PARENT>
     <ISBILLWISEON FORMULA="=if(len(trim(V#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+    <ISCOSTCENTRESON FORMULA="=if(len(trim(U#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
   </MASTER>
   <!-- Create Ledger2 -->
   <MASTER TYPE="LEDGER">
@@ -208,6 +209,7 @@ BANKALLOCATION tag - Incorrect column for Instrument No and Date - Now corrected
     </NAME.LIST>
     <PARENT>Indirect Expenses</PARENT>
     <ISBILLWISEON FORMULA="=if(len(trim(AD#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+    <ISCOSTCENTRESON FORMULA="=if(len(trim(AC#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
   </MASTER>
   <!-- Create Ledger3 -->
   <MASTER TYPE="LEDGER">
@@ -217,6 +219,7 @@ BANKALLOCATION tag - Incorrect column for Instrument No and Date - Now corrected
     </NAME.LIST>
     <PARENT>Indirect Expenses</PARENT>
     <ISBILLWISEON FORMULA="=if(len(trim(AL#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+    <ISCOSTCENTRESON FORMULA="=if(len(trim(AK#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
   </MASTER>
   <!-- Create Ledger4 -->
   <MASTER TYPE="LEDGER">
@@ -226,6 +229,7 @@ BANKALLOCATION tag - Incorrect column for Instrument No and Date - Now corrected
     </NAME.LIST>
     <PARENT>Indirect Expenses</PARENT>
     <ISBILLWISEON FORMULA="=if(len(trim(AT#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+    <ISCOSTCENTRESON FORMULA="=if(len(trim(AS#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
   </MASTER>
   <!-- Create Ledger5 -->
   <MASTER TYPE="LEDGER">
@@ -235,6 +239,7 @@ BANKALLOCATION tag - Incorrect column for Instrument No and Date - Now corrected
     </NAME.LIST>
     <PARENT>Indirect Expenses</PARENT>
     <ISBILLWISEON FORMULA="=if(len(trim(BB#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+    <ISCOSTCENTRESON FORMULA="=if(len(trim(BA#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
   </MASTER>
   <!-- Create Ledger6 -->
   <MASTER TYPE="LEDGER">
@@ -244,6 +249,7 @@ BANKALLOCATION tag - Incorrect column for Instrument No and Date - Now corrected
     </NAME.LIST>
     <PARENT>Indirect Expenses</PARENT>
     <ISBILLWISEON FORMULA="=if(len(trim(BJ#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+    <ISCOSTCENTRESON FORMULA="=if(len(trim(BI#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
   </MASTER>
   <!-- Create Ledger7 -->
   <MASTER TYPE="LEDGER">
@@ -253,6 +259,7 @@ BANKALLOCATION tag - Incorrect column for Instrument No and Date - Now corrected
     </NAME.LIST>
     <PARENT>Indirect Expenses</PARENT>
     <ISBILLWISEON FORMULA="=if(len(trim(BR#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+    <ISCOSTCENTRESON FORMULA="=if(len(trim(BQ#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
   </MASTER>
   <!-- Create Ledger8 -->
   <MASTER TYPE="LEDGER">
@@ -262,6 +269,7 @@ BANKALLOCATION tag - Incorrect column for Instrument No and Date - Now corrected
     </NAME.LIST>
     <PARENT>Indirect Expenses</PARENT>
     <ISBILLWISEON FORMULA="=if(len(trim(BZ#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+    <ISCOSTCENTRESON FORMULA="=if(len(trim(BY#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
   </MASTER>
   <!-- Create Ledger9 -->
   <MASTER TYPE="LEDGER">
@@ -271,6 +279,7 @@ BANKALLOCATION tag - Incorrect column for Instrument No and Date - Now corrected
     </NAME.LIST>
     <PARENT>Indirect Expenses</PARENT>
     <ISBILLWISEON FORMULA="=if(len(trim(CH#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+    <ISCOSTCENTRESON FORMULA="=if(len(trim(CG#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
   </MASTER>
   <!-- Create Ledger10 -->
   <MASTER TYPE="LEDGER">
@@ -280,6 +289,7 @@ BANKALLOCATION tag - Incorrect column for Instrument No and Date - Now corrected
     </NAME.LIST>
     <PARENT>Indirect Expenses</PARENT>
     <ISBILLWISEON FORMULA="=if(len(trim(CP#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+    <ISCOSTCENTRESON FORMULA="=if(len(trim(CO#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
   </MASTER>
   <VOUCHER10>
     <COMPANYNAME FORMULA="=DA#[1]"/>
