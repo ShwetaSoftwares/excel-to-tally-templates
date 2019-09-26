@@ -5,21 +5,6 @@
     <COLUMNNAME>ID</COLUMNNAME>
     <COLUMNNAME>NAME</COLUMNNAME>
   </COLUMNNAME.LIST>
-  <!-- Fields to fetch from Tally -->
-  <FETCHOBJECT TYPE="LEDGER">
-    <OBJECT COLUMNREFERENCE="H" NAME="" ISMODIFY="No" ISFIXED="No" ISINITIALIZE="No" ISOPTION="No" ISINTERNAL="No"/>
-    <OBJECT COLUMNREFERENCE="I" NAME="" ISMODIFY="No" ISFIXED="No" ISINITIALIZE="No" ISOPTION="No" ISINTERNAL="No"/>
-    <!-- Fetch the GROUP Name of Ledger -->
-    <FIELD NAME="PARENT" ISMODIFY="NO" ISFIXED="NO" ISINITIALIZE="NO" ISOPTION="NO" ISINTERNAL="NO">
-      <USE>NAME FIELD</USE>
-      <SET>$PARENT:LEDGER:$KEY</SET>
-    </FIELD>
-    <!-- Fetch whether the PARENT/GROUP is Bank or not -->
-    <FIELD NAME="ISBANKLEDGER" ISMODIFY="NO" ISFIXED="NO" ISINITIALIZE="NO" ISOPTION="NO" ISINTERNAL="NO">
-      <USE>NAME FIELD</USE>
-      <SET>$$IsLedOfGrp:$KEY:$$GroupBank OR $$IsLedOfGrp:$KEY:$$GroupBankOD</SET>
-    </FIELD>
-  </FETCHOBJECT>
   <!-- Create Group Master -->
   <MASTER TYPE="GROUP">
     <NAME.LIST>
@@ -42,16 +27,16 @@
     <NAME.LIST>
       <NAME COLUMNREFERENCE="H"/>
     </NAME.LIST>
-    <PARENT FORMULA="=if(Not(IsError(Find(&quot;bank&quot;,lower(H#),1))),&quot;Bank Accounts&quot;,&quot;New Ledgers&quot;)"/>
+    <PARENT FORMULA="=if(len(trim(I#))&gt;0,I#,if(Not(IsError(Find(&quot;bank&quot;,lower(H#),1))),&quot;Bank Accounts&quot;,&quot;New Ledgers&quot;))"/>
     <ISBILLWISEON>Yes</ISBILLWISEON>
     <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
   </MASTER>
   <!-- Create Ledgers -->
   <MASTER TYPE="LEDGER">
     <NAME.LIST>
-      <NAME COLUMNREFERENCE="I"/>
+      <NAME COLUMNREFERENCE="J"/>
     </NAME.LIST>
-    <PARENT FORMULA="=if(Not(IsError(Find(&quot;bank&quot;,lower(I#),1))),&quot;Bank Accounts&quot;,&quot;New Ledgers&quot;)"/>
+    <PARENT FORMULA="=if(len(trim(K#))&gt;0,K#,if(Not(IsError(Find(&quot;bank&quot;,lower(J#),1))),&quot;Bank Accounts&quot;,&quot;New Ledgers&quot;))"/>
     <ISBILLWISEON>Yes</ISBILLWISEON>
     <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
   </MASTER>
@@ -65,90 +50,100 @@
     <REFERENCE COLUMNREFERENCE="F"/>
     <REFERENCEDATE COLUMNREFERENCE="G"/>
     <ISINVOICE>No</ISINVOICE>
-    <NARRATION COLUMNREFERENCE="K"/>
+    <NARRATION COLUMNREFERENCE="M"/>
     <!-- Debit Ledger -->
     <ALLLEDGERENTRIES.LIST SKIP="=Or(B#=&quot;receipt&quot;,B#=&quot;contra&quot;,B#=&quot;purchase&quot;,B#=&quot;credit note&quot;)">
       <LEDGERNAME COLUMNREFERENCE="H"/>
       <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
-      <AMOUNT FORMULA="=Round(J#,2)*-1"/>
+      <AMOUNT FORMULA="=Round(L#,2)*-1"/>
       <BILLALLOCATIONS.LIST SKIP="=Len(trim(D#))=0">
         <NAME COLUMNREFERENCE="D"/>
         <BILLTYPE>New Ref</BILLTYPE>
-        <AMOUNT FORMULA="=Round(J#,2)*-1"/>
+        <AMOUNT FORMULA="=Round(L#,2)*-1"/>
       </BILLALLOCATIONS.LIST>
-      <!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
-      <BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; H#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(H#),1)))">
+      <BANKALLOCATIONS.LIST SKIP="=Not(Or(Not(IsError(Find(&quot;bank&quot;,lower(H#),1))),trim(I#)=&quot;Bank Accounts&quot;))">
         <DATE COLUMNREFERENCE="E"/>
-        <INSTRUMENTNUMBER COLUMNREFERENCE="L"/>
-        <INSTRUMENTDATE COLUMNREFERENCE="M"/>
-        <TRANSACTIONTYPE FORMULA="=if(len(trim(N#))=0,&quot;Cheque&quot;,N#)"/>
-        <PAYMENTFAVOURING FORMULA="=if(len(trim(O#))=0,H#,O#)"/>
-        <CHEQUECROSSCOMMENT COLUMNREFERENCE="P"/>
-        <CHEQUERANGE COLUMNREFERENCE="Q"/>
-        <BANKERSDATE COLUMNREFERENCE="S"/>
-        <IFSCODE COLUMNREFERENCE="T"/>
-        <BANKNAME COLUMNREFERENCE="U"/>
-        <BANKBRANCHNAME COLUMNREFERENCE="U"/>
+        <INSTRUMENTNUMBER COLUMNREFERENCE="N"/>
+        <INSTRUMENTDATE COLUMNREFERENCE="O"/>
+        <TRANSACTIONTYPE FORMULA="=if(len(trim(P#))=0,&quot;Cheque&quot;,P#)"/>
+        <PAYMENTFAVOURING FORMULA="=if(len(trim(Q#))=0,H#,Q#)"/>
+        <CHEQUECROSSCOMMENT COLUMNREFERENCE="R"/>
+        <CHEQUERANGE COLUMNREFERENCE="S"/>
+        <BANKERSDATE COLUMNREFERENCE="U"/>
+        <IFSCODE COLUMNREFERENCE="V"/>
+        <BANKNAME COLUMNREFERENCE="W"/>
+        <BANKBRANCHNAME COLUMNREFERENCE="W"/>
         <STATUS>No</STATUS>
-        <AMOUNT FORMULA="=Round(J#,2)*-1"/>
+        <AMOUNT FORMULA="=Round(L#,2)*-1"/>
         <PAYMENTMODE>Transacted</PAYMENTMODE>
         <NAME FORMULA="=+A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; H#"/>
       </BANKALLOCATIONS.LIST>
     </ALLLEDGERENTRIES.LIST>
     <!-- Credit Ledger -->
     <ALLLEDGERENTRIES.LIST>
-      <LEDGERNAME COLUMNREFERENCE="I"/>
+      <LEDGERNAME COLUMNREFERENCE="J"/>
       <ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
-      <AMOUNT FORMULA="=Round(J#,2)*1"/>
+      <AMOUNT FORMULA="=Round(L#,2)*1"/>
       <BILLALLOCATIONS.LIST SKIP="=Len(trim(D#))=0">
         <NAME COLUMNREFERENCE="D"/>
         <BILLTYPE>New Ref</BILLTYPE>
-        <AMOUNT FORMULA="=Round(J#,2)*1"/>
+        <AMOUNT FORMULA="=Round(L#,2)*1"/>
       </BILLALLOCATIONS.LIST>
-      <!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
-      <BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; I#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(I#),1)))">
+      <!-- Display BANKALLOCATIONS if any of the two conditions match.
+      1. Column J# contains Bank anywhere; or
+      2. Column K# is equal-to "Bank Accounts"
+
+      1. condition1 = Not(IsError(Find(&quot;bank&quot;,lower(J#),1)))
+      2. condition2 = trim(K#)=&quot;Bank Accounts&quot;
+
+      Here, display means NOT SKIP. Hence, the condition is written as:
+      Not(Or(condition1,condition2))
+      i.e.
+      Not(Or(Not(IsError(Find(&quot;bank&quot;,lower(J#),1))),trim(K#)=&quot;Bank Accounts&quot;))
+      -->
+
+      <BANKALLOCATIONS.LIST SKIP="=Not(Or(Not(IsError(Find(&quot;bank&quot;,lower(J#),1))),trim(K#)=&quot;Bank Accounts&quot;))">
         <DATE COLUMNREFERENCE="E"/>
-        <INSTRUMENTNUMBER COLUMNREFERENCE="L"/>
-        <INSTRUMENTDATE COLUMNREFERENCE="M"/>
-        <TRANSACTIONTYPE FORMULA="=if(len(trim(N#))=0,&quot;Cheque&quot;,N#)"/>
-        <PAYMENTFAVOURING FORMULA="=if(len(trim(O#))=0,I#,O#)"/>
-        <CHEQUECROSSCOMMENT COLUMNREFERENCE="P"/>
-        <CHEQUERANGE COLUMNREFERENCE="Q"/>
-        <BANKERSDATE COLUMNREFERENCE="S"/>
-        <IFSCODE COLUMNREFERENCE="T"/>
-        <BANKNAME COLUMNREFERENCE="U"/>
-        <BANKBRANCHNAME COLUMNREFERENCE="U"/>
+        <INSTRUMENTNUMBER COLUMNREFERENCE="N"/>
+        <INSTRUMENTDATE COLUMNREFERENCE="O"/>
+        <TRANSACTIONTYPE FORMULA="=if(len(trim(P#))=0,&quot;Cheque&quot;,P#)"/>
+        <PAYMENTFAVOURING FORMULA="=if(len(trim(Q#))=0,J#,Q#)"/>
+        <CHEQUECROSSCOMMENT COLUMNREFERENCE="R"/>
+        <CHEQUERANGE COLUMNREFERENCE="S"/>
+        <BANKERSDATE COLUMNREFERENCE="U"/>
+        <IFSCODE COLUMNREFERENCE="V"/>
+        <BANKNAME COLUMNREFERENCE="W"/>
+        <BANKBRANCHNAME COLUMNREFERENCE="W"/>
         <STATUS>No</STATUS>
-        <AMOUNT FORMULA="=Round(J#,2)*1"/>
+        <AMOUNT FORMULA="=Round(L#,2)*1"/>
         <PAYMENTMODE>Transacted</PAYMENTMODE>
-        <NAME FORMULA="=+A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; I#"/>
+        <NAME FORMULA="=+A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; J#"/>
       </BANKALLOCATIONS.LIST>
     </ALLLEDGERENTRIES.LIST>
     <!-- Debit Ledger -->
     <ALLLEDGERENTRIES.LIST SKIP="=Not(Or(B#=&quot;receipt&quot;,B#=&quot;contra&quot;,B#=&quot;purchase&quot;,B#=&quot;credit note&quot;))">
       <LEDGERNAME COLUMNREFERENCE="H"/>
       <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
-      <AMOUNT FORMULA="=Round(J#,2)*-1"/>
+      <AMOUNT FORMULA="=Round(L#,2)*-1"/>
       <BILLALLOCATIONS.LIST SKIP="=Len(trim(D#))=0">
         <NAME COLUMNREFERENCE="D"/>
         <BILLTYPE>New Ref</BILLTYPE>
-        <AMOUNT FORMULA="=Round(J#,2)*-1"/>
+        <AMOUNT FORMULA="=Round(L#,2)*-1"/>
       </BILLALLOCATIONS.LIST>
-      <!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
-      <BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; H#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(H#),1)))">
+      <BANKALLOCATIONS.LIST SKIP="=Not(Or(Not(IsError(Find(&quot;bank&quot;,lower(H#),1))),trim(I#)=&quot;Bank Accounts&quot;))">
         <DATE COLUMNREFERENCE="E"/>
-        <INSTRUMENTNUMBER COLUMNREFERENCE="L"/>
-        <INSTRUMENTDATE COLUMNREFERENCE="M"/>
-        <TRANSACTIONTYPE FORMULA="=if(len(trim(N#))=0,&quot;Cheque&quot;,N#)"/>
-        <PAYMENTFAVOURING FORMULA="=if(len(trim(O#))=0,H#,O#)"/>
-        <CHEQUECROSSCOMMENT COLUMNREFERENCE="P"/>
-        <CHEQUERANGE COLUMNREFERENCE="Q"/>
-        <BANKERSDATE COLUMNREFERENCE="S"/>
-        <IFSCODE COLUMNREFERENCE="T"/>
-        <BANKNAME COLUMNREFERENCE="U"/>
-        <BANKBRANCHNAME COLUMNREFERENCE="U"/>
+        <INSTRUMENTNUMBER COLUMNREFERENCE="N"/>
+        <INSTRUMENTDATE COLUMNREFERENCE="O"/>
+        <TRANSACTIONTYPE FORMULA="=if(len(trim(P#))=0,&quot;Cheque&quot;,P#)"/>
+        <PAYMENTFAVOURING FORMULA="=if(len(trim(Q#))=0,H#,Q#)"/>
+        <CHEQUECROSSCOMMENT COLUMNREFERENCE="R"/>
+        <CHEQUERANGE COLUMNREFERENCE="S"/>
+        <BANKERSDATE COLUMNREFERENCE="U"/>
+        <IFSCODE COLUMNREFERENCE="V"/>
+        <BANKNAME COLUMNREFERENCE="W"/>
+        <BANKBRANCHNAME COLUMNREFERENCE="W"/>
         <STATUS>No</STATUS>
-        <AMOUNT FORMULA="=Round(J#,2)*-1"/>
+        <AMOUNT FORMULA="=Round(L#,2)*-1"/>
         <PAYMENTMODE>Transacted</PAYMENTMODE>
         <NAME FORMULA="=+A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; C#"/>
       </BANKALLOCATIONS.LIST>

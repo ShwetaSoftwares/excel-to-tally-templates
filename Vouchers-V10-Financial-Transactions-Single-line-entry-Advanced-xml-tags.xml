@@ -5,21 +5,6 @@
     <COLUMNNAME>ID</COLUMNNAME>
     <COLUMNNAME>NAME</COLUMNNAME>
   </COLUMNNAME.LIST>
-  <!-- Fields to fetch from Tally -->
-  <FETCHOBJECT TYPE="LEDGER">
-    <OBJECT COLUMNREFERENCE="H" NAME="" ISMODIFY="No" ISFIXED="No" ISINITIALIZE="No" ISOPTION="No" ISINTERNAL="No"/>
-    <OBJECT COLUMNREFERENCE="L" NAME="" ISMODIFY="No" ISFIXED="No" ISINITIALIZE="No" ISOPTION="No" ISINTERNAL="No"/>
-    <!-- Fetch the GROUP Name of Ledger -->
-    <FIELD NAME="PARENT" ISMODIFY="NO" ISFIXED="NO" ISINITIALIZE="NO" ISOPTION="NO" ISINTERNAL="NO">
-      <USE>NAME FIELD</USE>
-      <SET>$PARENT:LEDGER:$KEY</SET>
-    </FIELD>
-    <!-- Fetch whether the PARENT/GROUP is Bank or not -->
-    <FIELD NAME="ISBANKLEDGER" ISMODIFY="NO" ISFIXED="NO" ISINITIALIZE="NO" ISOPTION="NO" ISINTERNAL="NO">
-      <USE>NAME FIELD</USE>
-      <SET>$$IsLedOfGrp:$KEY:$$GroupBank OR $$IsLedOfGrp:$KEY:$$GroupBankOD</SET>
-    </FIELD>
-  </FETCHOBJECT>
   <!-- Create Group Master -->
   <MASTER TYPE="GROUP">
     <NAME.LIST>
@@ -42,7 +27,7 @@
     <NAME.LIST>
       <NAME COLUMNREFERENCE="H"/>
     </NAME.LIST>
-    <PARENT FORMULA="=if(Not(IsError(Find(&quot;bank&quot;,lower(H#),1))),&quot;Bank Accounts&quot;,IF(LEN(TRIM(I#))=0,&quot;NEW LEDGERS&quot;,I#))"/>
+    <PARENT FORMULA="=if(len(trim(I#))&gt;0,I#,if(Not(IsError(Find(&quot;bank&quot;,lower(H#),1))),&quot;Bank Accounts&quot;,&quot;New Ledgers&quot;))"/>
     <ISBILLWISEON>Yes</ISBILLWISEON>
     <ISCOSTCENTRESON FORMULA="=if(len(K#)=0,&quot;No&quot;,&quot;Yes&quot;)"/>
   </MASTER>
@@ -51,7 +36,7 @@
     <NAME.LIST>
       <NAME COLUMNREFERENCE="L"/>
     </NAME.LIST>
-    <PARENT FORMULA="=if(Not(IsError(Find(&quot;bank&quot;,lower(L#),1))),&quot;Bank Accounts&quot;,IF(LEN(TRIM(M#))=0,&quot;NEW LEDGERS&quot;,M#))"/>
+    <PARENT FORMULA="=if(len(trim(M#))&gt;0,M#,if(Not(IsError(Find(&quot;bank&quot;,lower(L#),1))),&quot;Bank Accounts&quot;,&quot;New Ledgers&quot;))"/>
     <ISBILLWISEON>Yes</ISBILLWISEON>
     <ISCOSTCENTRESON FORMULA="=if(len(O#)=0,&quot;No&quot;,&quot;Yes&quot;)"/>
   </MASTER>
@@ -98,8 +83,7 @@
         <BILLTYPE>New Ref</BILLTYPE>
         <AMOUNT FORMULA="=Round(P#,2)*-1"/>
       </BILLALLOCATIONS.LIST>
-      <!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
-      <BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; H#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(H#),1)))">
+      <BANKALLOCATIONS.LIST SKIP="=Not(Or(Not(IsError(Find(&quot;bank&quot;,lower(H#),1))),trim(I#)=&quot;Bank Accounts&quot;))">
         <DATE COLUMNREFERENCE="E"/>
         <TRANSACTIONTYPE FORMULA="=if(len(trim(T#))=0,&quot;Cheque&quot;,T#)"/>
         <INSTRUMENTNUMBER COLUMNREFERENCE="R"/>
@@ -136,8 +120,7 @@
         <BILLTYPE>New Ref</BILLTYPE>
         <AMOUNT FORMULA="=Round(P#,2)*1"/>
       </BILLALLOCATIONS.LIST>
-      <!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
-      <BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; L#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(L#),1)))">
+      <BANKALLOCATIONS.LIST SKIP="=Not(Or(Not(IsError(Find(&quot;bank&quot;,lower(L#),1))),trim(M#)=&quot;Bank Accounts&quot;))">
         <DATE COLUMNREFERENCE="E"/>
         <TRANSACTIONTYPE FORMULA="=if(len(trim(T#))=0,&quot;Cheque&quot;,T#)"/>
         <INSTRUMENTNUMBER COLUMNREFERENCE="R"/>
@@ -174,8 +157,7 @@
         <BILLTYPE>New Ref</BILLTYPE>
         <AMOUNT FORMULA="=Round(P#,2)*-1"/>
       </BILLALLOCATIONS.LIST>
-      <!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
-      <BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; H#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(H#),1)))">
+      <BANKALLOCATIONS.LIST SKIP="=Not(Or(Not(IsError(Find(&quot;bank&quot;,lower(H#),1))),trim(I#)=&quot;Bank Accounts&quot;))">
         <DATE COLUMNREFERENCE="E"/>
         <TRANSACTIONTYPE FORMULA="=if(len(trim(T#))=0,&quot;Cheque&quot;,T#)"/>
         <INSTRUMENTNUMBER COLUMNREFERENCE="R"/>
