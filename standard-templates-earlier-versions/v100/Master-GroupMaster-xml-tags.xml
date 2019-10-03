@@ -1,0 +1,25 @@
+<!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
+<XMLTAGS CELLREFERENCE="A1" xmlns:UDF="TallyUDF">
+	<!-- Specifies that this (i.e Column as mentioned above) is the key field -->
+	<COLUMNNAME.LIST>
+		<COLUMNNAME>ID</COLUMNNAME>
+		<COLUMNNAME>NAME</COLUMNNAME>
+	</COLUMNNAME.LIST>
+	<!-- Create GROUP Masters -->
+	<MASTER TYPE="GROUP">
+		<!-- 
+			When ALIAS is specified, NAME.LIST is used 
+			Else NAME.LIST is skipped
+		-->
+		<NAME.LIST SKIP="=len(trim(C#))=0">
+			<NAME COLUMNREFERENCE="A"/>
+			<NAME COLUMNREFERENCE="C"/>
+		</NAME.LIST>
+		<!-- 
+			When ALIAS is NOT specified, NAME is used
+			Else NAME is skipped 
+		-->
+		<NAME SKIP="=Not(len(trim(C#))=0)" COLUMNREFERENCE="A"/>
+		<PARENT COLUMNREFERENCE="B"/>
+	</MASTER>
+</XMLTAGS>

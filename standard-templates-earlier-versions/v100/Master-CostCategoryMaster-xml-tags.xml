@@ -1,0 +1,18 @@
+<!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
+<XMLTAGS CELLREFERENCE="A1" xmlns:UDF="TallyUDF">
+  <!-- Specifies that this (i.e Column as mentioned above) is the key field -->
+  <COLUMNNAME.LIST>
+    <COLUMNNAME>NAME</COLUMNNAME>
+    <COLUMNNAME>ID</COLUMNNAME>
+  </COLUMNNAME.LIST>
+  <!-- Create CostCategory Masters -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST SKIP="=len(trim(B#))=0">
+      <NAME COLUMNREFERENCE="A" />
+      <NAME COLUMNREFERENCE="B" />
+    </NAME.LIST>
+    <NAME SKIP="=Not(len(trim(B#))=0)" COLUMNREFERENCE="A"/>
+    <ALLOCATEREVENUE COLUMNREFERENCE="C"/>
+    <ALLOCATENONREVENUE COLUMNREFERENCE="D"/>
+  </MASTER>
+</XMLTAGS>

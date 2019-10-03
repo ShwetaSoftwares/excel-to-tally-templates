@@ -1,0 +1,137 @@
+<!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
+<XMLTAGS CELLREFERENCE="A1" FROMROW="8" xmlns:UDF="TallyUDF">
+  <!-- Specifies that this (i.e Column as mentioned above) is the key field -->
+  <COLUMNNAME.LIST>
+    <COLUMNNAME>ID</COLUMNNAME>
+    <COLUMNNAME>NAME</COLUMNNAME>
+  </COLUMNNAME.LIST>
+  <!-- Fields to fetch from Tally -->
+  <FETCHOBJECT TYPE="LEDGER">
+    <OBJECT FORMULA="=N$5" SCROLLHORIZONTALLY="=Len(trim(N$5))&gt;0" NAME="" ISMODIFY="No" ISFIXED="No" ISINITIALIZE="No" ISOPTION="No" ISINTERNAL="No"/>
+    <!-- Fetch the GROUP Name of Ledger -->
+    <FIELD NAME="PARENT" ISMODIFY="NO" ISFIXED="NO" ISINITIALIZE="NO" ISOPTION="NO" ISINTERNAL="NO">
+      <USE>NAME FIELD</USE>
+      <SET>$PARENT:LEDGER:$KEY</SET>
+    </FIELD>
+    <!-- Fetch whether the PARENT/GROUP is Bank or not -->
+    <FIELD NAME="ISBANKLEDGER" ISMODIFY="NO" ISFIXED="NO" ISINITIALIZE="NO" ISOPTION="NO" ISINTERNAL="NO">
+      <USE>NAME FIELD</USE>
+      <SET>$$IsLedOfGrp:$KEY:$$GroupBank OR $$IsLedOfGrp:$KEY:$$GroupBankOD</SET>
+    </FIELD>
+  </FETCHOBJECT>
+  <!-- Create VOUCHERTYPE Masters -->
+  <MASTER TYPE="VOUCHERTYPE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="C"/>
+    </NAME.LIST>
+    <PARENT COLUMNREFERENCE="B"/>
+    <NUMBERINGMETHOD>Manual</NUMBERINGMETHOD>
+    <ISDEEMEDPOSITIVE FORMULA="=If(Or(B#=&quot;Payment&quot;,B#=&quot;Sales&quot;,B#=&quot;Debit Note&quot;,B#=&quot;Journal&quot;,B#=&quot;Sales Order&quot;),&quot;Yes&quot;,&quot;No&quot;)"/>
+    <COMMONNARRATION>Yes</COMMONNARRATION>
+  </MASTER>
+  <!-- Create Party Ledgers -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="I"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(I$4))=0,&quot;Sundry Debtors&quot;,I$4)"/>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(I$3))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Create Ledger Masters -->
+  <!-- 
+                The SCROLLHORIZONTALLY specifies the condition (any valid Excel formula). Herein, the condition is to check the length of cell H2
+                and if it is greater than 0, a Ledger Master is created. The loop executes and now H2 becomes I2. If length of cell I2 is greater 
+                than 0, Ledger Master is created. The loop go on till the conditions becomes false.
+        -->
+  <MASTER TYPE="LEDGER" SINGLERECORD="YES" SCROLLHORIZONTALLY="=Len(trim(N$5))&gt;0">
+    <NAME.LIST>
+      <NAME SKIP="=Len(trim(N$5))=0" FORMULA="=+N$5"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=+N$4"/>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(N$3))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Create COSTCATEGORY Masters -->
+  <MASTER TYPE="COSTCATEGORY" SINGLERECORD="YES" SCROLLHORIZONTALLY="=Len(N$5)&gt;0">
+    <NAME.LIST>
+      <NAME SKIP="=Len(trim(N$2))=0" FORMULA="=+N$2"/>
+    </NAME.LIST>
+  </MASTER>
+  <!-- Create COSTCENTRE Masters -->
+  <MASTER TYPE="COSTCENTRE" SINGLERECORD="YES" SCROLLHORIZONTALLY="=Len(N$5)&gt;0">
+    <NAME.LIST>
+      <NAME SKIP="=Len(trim(N$3))=0" FORMULA="=+N$3"/>
+    </NAME.LIST>
+    <CATEGORY FORMULA="=if(len(trim(N$2))=0,&quot;Primary Cost Category&quot;,N$2)"/>
+  </MASTER>
+  <!-- Create a single COSTCENTRE Master -->
+  <MASTER TYPE="COSTCENTRE" SINGLERECORD="YES">
+    <NAME.LIST>
+      <NAME SKIP="=Len(trim(I$3))=0" FORMULA="=+I$3"/>
+    </NAME.LIST>
+  </MASTER>
+  <!-- Voucher -->
+  <VOUCHER11>
+    <GUID FORMULA="=+&quot;udi-MH5WDG-&quot; &amp; A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; B#"/>
+    <DATE COLUMNREFERENCE="E"/>
+    <EFFECTIVEDATE COLUMNREFERENCE="E"/>
+    <VOUCHERTYPENAME COLUMNREFERENCE="C"/>
+    <ISINVOICE>No</ISINVOICE>
+    <PERSISTEDVIEW>Accounting Voucher View</PERSISTEDVIEW>
+    <REFERENCE COLUMNREFERENCE="D"/>
+    <VOUCHERNUMBER COLUMNREFERENCE="D"/>
+    <NARRATION COLUMNREFERENCE="H"/>
+    <!-- Party Ledger -->
+    <ALLLEDGERENTRIES.LIST SKIP="=Or(len(trim(I#))=0,Round(J#,2)=0)">
+      <LEDGERNAME COLUMNREFERENCE="I"/>
+      <ISDEEMEDPOSITIVE FORMULA="=If(trim(K#)=&quot;Cr&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+      <AMOUNT FORMULA="=+Round(J#,2)* if(trim(K#)=&quot;Cr&quot;,1,-1)"/>
+      <CATEGORYALLOCATIONS.LIST SKIP="=Len(Trim(I$3))=0">
+        <CATEGORY FORMULA="=if(len(trim(N$2))=0,&quot;Primary Cost Category&quot;,N$2)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=If(trim(K#)=&quot;Cr&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME FORMULA="=+I$3"/>
+          <AMOUNT FORMULA="=+Round(J#,2)* if(trim(K#)=&quot;Cr&quot;,1,-1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+      <BILLALLOCATIONS.LIST SKIP="=Or(len(trim(M#))=0,len(trim(L#))=0)">
+        <NAME COLUMNREFERENCE="M"/>
+        <BILLTYPE COLUMNREFERENCE="L"/>
+        <AMOUNT FORMULA="=+Round(J#,2)* if(trim(K#)=&quot;Cr&quot;,1,-1)"/>
+      </BILLALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- Ledgers -->
+    <ALLLEDGERENTRIES.LIST SKIP="=+Round(N#,2)=0" SCROLLHORIZONTALLY="=Len(trim(N$5))&gt;0">
+      <!-- LedgerName to be taken from N#,O#.... and so on -->
+      <LEDGERNAME FORMULA="=+N$5"/>
+      <ISDEEMEDPOSITIVE FORMULA="=If(trim(N$1)=&quot;Cr&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+      <!-- Amount to be taken from N#,O#.... and so on. The # symbol is substituted  by row numbers at run time-->
+      <AMOUNT FORMULA="=+Round(N#,2)* if(N$1=&quot;Cr&quot;,1,-1)"/>
+      <CATEGORYALLOCATIONS.LIST SKIP="=Len(Trim(N$3))=0">
+        <CATEGORY FORMULA="=if(len(trim(N$2))=0,&quot;Primary Cost Category&quot;,N$2)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=If(trim(N$1)=&quot;Cr&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME FORMULA="=+N$3"/>
+          <AMOUNT FORMULA="=+Round(N#,2)* if(N$1=&quot;Cr&quot;,1,-1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+      <!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
+      <BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; N$5)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(N$4),1)))">
+        <DATE FORMULA="=$E#"/>
+        <TRANSACTIONTYPE>Cheque</TRANSACTIONTYPE>
+        <PAYMENTFAVOURING FORMULA="=+N$5"/>
+        <STATUS>No</STATUS>
+        <AMOUNT FORMULA="=+Round(N#,2)* if(N$1=&quot;Cr&quot;,1,-1)"/>
+        <PAYMENTMODE>Transacted</PAYMENTMODE>
+        <NAME FORMULA="=+&quot;udi-&quot; &amp; $A# &amp; &quot;-&quot; &amp; $E# &amp; &quot;-&quot; &amp; $B#"/>
+      </BANKALLOCATIONS.LIST>
+      <BILLALLOCATIONS.LIST SKIP="=Or(len(trim($M#))=0,len(trim($L#))=0)">
+        <NAME FORMULA="=$M#"/>
+        <BILLTYPE FORMULA="=$L#"/>
+        <AMOUNT FORMULA="=+Round(N#,2)* if(N$1=&quot;Cr&quot;,1,-1)"/>
+      </BILLALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+  </VOUCHER11>
+</XMLTAGS>
+
