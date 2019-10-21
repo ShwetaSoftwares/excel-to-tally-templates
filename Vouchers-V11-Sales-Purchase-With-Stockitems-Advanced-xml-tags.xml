@@ -18,8 +18,8 @@
   </MASTER>
   <!-- Create CURRENCY Master -->
   <MASTER TYPE="CURRENCY">
-    <ORIGINALNAME COLUMNREFERENCE="FW"/>
-    <MAILINGNAME FORMULA="=FW# &amp; &quot; Curr&quot;"/>
+    <ORIGINALNAME COLUMNREFERENCE="FX"/>
+    <MAILINGNAME FORMULA="=FX# &amp; &quot; Curr&quot;"/>
     <DECIMALPLACES> 2</DECIMALPLACES>
   </MASTER>
   <!-- Create Sales/Purchase Ledgers -->
@@ -764,18 +764,18 @@
     <LEDGERENTRIES.LIST SKIP="=And(len(trim(H#))=0,len(trim(I#))=0)" ALTERNATETAGNAME="=if(And(len(trim(AT#[1]))=0,len(trim(AU#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
       <LEDGERNAME FORMULA="=if(len(trim(I#))=0,H#,I#)"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;No&quot;,&quot;Yes&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" SKIP="=Not(Round(FA#+FC#+FF#+FJ#,2)=0)" FORMULA="=Round({Round(BC#,2)-Round(BE#,2)+Round(CN#,2)+Round(CP#,2)+Round(CR#,2)+Round(CT#,2)+Round(CV#,2)+Round(CX#,2)+Round(CZ#,2)+Round(DB#,2)}+{Round(BT#+BX#+CB#+CF#+CJ#,2)}+{Round(DL#+DP#+DT#+DX#+EB#,2)},if(trim(FR#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" SKIP="=Not(Round(FA#+FC#+FF#+FJ#,2)=0)" FORMULA="=Round({Round(BC#,2)-Round(BE#,2)+Round(CN#,2)+Round(CP#,2)+Round(CR#,2)+Round(CT#,2)+Round(CV#,2)+Round(CX#,2)+Round(CZ#,2)+Round(DB#,2)}+{Round(BT#+BX#+CB#+CF#+CJ#,2)}+{Round(DL#+DP#+DT#+DX#+EB#,2)},if(trim(FR#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
       <BILLALLOCATIONS.LIST SKIP="=Len(trim(EF#))=0" SCROLL="YES">
         <NAME COLUMNREFERENCE="EF"/>
         <BILLTYPE COLUMNREFERENCE="EE"/>
         <BILLCREDITPERIOD COLUMNREFERENCE="EH"/>
-        <AMOUNT CURRENCY="=FW#" ROE="=FX#" SKIP="=Not(Round(FA#+FC#+FF#+FJ#,2)=0)" FORMULA="=Round(EG#,2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
+        <AMOUNT CURRENCY="=FX#" ROE="=FY#" SKIP="=Not(Round(FA#+FC#+FF#+FJ#,2)=0)" FORMULA="=Round(EG#,2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
       </BILLALLOCATIONS.LIST>
       <BILLALLOCATIONS.LIST SKIP="=Or(Len(trim(EF#))&gt;0,Len(trim(D#))=0)">
         <NAME FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),if(len(trim(F#))=0,D#,F#),D#)"/>
         <BILLTYPE>New Ref</BILLTYPE>
         <BILLCREDITPERIOD COLUMNREFERENCE="EH"/>
-        <AMOUNT CURRENCY="=FW#" ROE="=FX#" SKIP="=Not(Round(FA#+FC#+FF#+FJ#,2)=0)" FORMULA="=Round({Round(BC#,2)-Round(BE#,2)+Round(CN#,2)+Round(CP#,2)+Round(CR#,2)+Round(CT#,2)+Round(CV#,2)+Round(CX#,2)+Round(CZ#,2)+Round(DB#,2)}+{Round(BT#+BX#+CB#+CF#+CJ#,2)}+{Round(DL#+DP#+DT#+DX#+EB#,2)},if(trim(FR#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
+        <AMOUNT CURRENCY="=FX#" ROE="=FY#" SKIP="=Not(Round(FA#+FC#+FF#+FJ#,2)=0)" FORMULA="=Round({Round(BC#,2)-Round(BE#,2)+Round(CN#,2)+Round(CP#,2)+Round(CR#,2)+Round(CT#,2)+Round(CV#,2)+Round(CX#,2)+Round(CZ#,2)+Round(DB#,2)}+{Round(BT#+BX#+CB#+CF#+CJ#,2)}+{Round(DL#+DP#+DT#+DX#+EB#,2)},if(trim(FR#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
       </BILLALLOCATIONS.LIST>
       <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(M#))=0">
         <CATEGORY COLUMNREFERENCE="L"/>
@@ -783,22 +783,22 @@
         <COSTCENTREALLOCATIONS.LIST>
           <NAME COLUMNREFERENCE="M"/>
           <AMOUNT SKIP="=Not(Round(FA#+FC#+FF#+FJ#,2)=0)" FORMULA="=Round({Round(BC#,2)-Round(BE#,2)+Round(CN#,2)+Round(CP#,2)+Round(CR#,2)+Round(CT#,2)+Round(CV#,2)+Round(CX#,2)+Round(CZ#,2)+Round(DB#,2)}+{Round(BT#+BX#+CB#+CF#+CJ#,2)}+{Round(DL#+DP#+DT#+DX#+EB#,2)},if(trim(FR#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
-         </COSTCENTREALLOCATIONS.LIST>
-       </CATEGORYALLOCATIONS.LIST>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
     </LEDGERENTRIES.LIST>
     <!-- GIFT Vouchers in POS -->
     <LEDGERENTRIES.LIST SKIP="=Round(FA#,2)=0">
       <LEDGERNAME COLUMNREFERENCE="EZ"/>
       <POSPAYMENTTYPE>Gift</POSPAYMENTTYPE>
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;No&quot;,&quot;Yes&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="=Round({Round(FA#,2)},if(trim(FR#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="=Round({Round(FA#,2)},if(trim(FR#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
     </LEDGERENTRIES.LIST>
     <!-- Credit / Debit Card in POS -->
     <LEDGERENTRIES.LIST SKIP="=Round(FC#,2)=0">
       <LEDGERNAME COLUMNREFERENCE="FB"/>
       <POSPAYMENTTYPE>Card</POSPAYMENTTYPE>
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;No&quot;,&quot;Yes&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="=Round({Round(FC#,2)},if(trim(FR#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="=Round({Round(FC#,2)},if(trim(FR#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
       <BANKALLOCATIONS.LIST>
         <DATE COLUMNREFERENCE="E"/>
         <TRANSACTIONTYPE>Others</TRANSACTIONTYPE>
@@ -806,7 +806,7 @@
         <INSTRUMENTNUMBER COLUMNREFERENCE="FD"/>
         <STATUS>No</STATUS>
         <PAYMENTMODE>Transacted</PAYMENTMODE>
-        <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="=Round({Round(FC#,2)},if(trim(FR#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
+        <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="=Round({Round(FC#,2)},if(trim(FR#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
         <NAME FORMULA="=+&quot;udi-CARD-&quot; &amp; A# &amp; &quot;-&quot; &amp; C# &amp; &quot;-&quot; &amp; E#"/>
       </BANKALLOCATIONS.LIST>
     </LEDGERENTRIES.LIST>
@@ -815,7 +815,7 @@
       <LEDGERNAME COLUMNREFERENCE="FE"/>
       <POSPAYMENTTYPE>Bank</POSPAYMENTTYPE>
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;No&quot;,&quot;Yes&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="=Round({Round(FF#,2)},if(trim(FR#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="=Round({Round(FF#,2)},if(trim(FR#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
       <BANKALLOCATIONS.LIST>
         <DATE COLUMNREFERENCE="E"/>
         <TRANSACTIONTYPE>Cheque/DD</TRANSACTIONTYPE>
@@ -824,7 +824,7 @@
         <INSTRUMENTNUMBER COLUMNREFERENCE="FH"/>
         <STATUS>No</STATUS>
         <PAYMENTMODE>Transacted</PAYMENTMODE>
-        <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="=Round({Round(FF#,2)},if(trim(FR#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
+        <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="=Round({Round(FF#,2)},if(trim(FR#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
         <NAME FORMULA="=+&quot;udi-BANK-&quot; &amp; A# &amp; &quot;-&quot; &amp; C# &amp; &quot;-&quot; &amp; E#"/>
       </BANKALLOCATIONS.LIST>
     </LEDGERENTRIES.LIST>
@@ -833,7 +833,7 @@
       <LEDGERNAME COLUMNREFERENCE="FI"/>
       <POSPAYMENTTYPE>Cash</POSPAYMENTTYPE>
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;No&quot;,&quot;Yes&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="=Round({Round(FJ#,2)},if(trim(FR#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="=Round({Round(FJ#,2)},if(trim(FR#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
     </LEDGERENTRIES.LIST>
     <!-- Sales/Purchase Ledger -->
     <LEDGERENTRIES.LIST GROUPBY="=if(Not(And(len(trim(AT#))=0,len(trim(AU#))=0,Round(BC#,2)&lt;&gt;0)),&quot;&quot;,if(len(trim(BM#))=0,if(Round(CM#,2)=0,Round(CO#,2),Round(CM#,2)),trim(BM#)))" SCROLL="YES" SKIP="=Not(And(len(trim(AT#))=0,len(trim(AU#))=0,Round(BC#,2)&lt;&gt;0))" ALTERNATETAGNAME="=if(And(len(trim(AT#[1]))=0,len(trim(AU#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
@@ -842,7 +842,7 @@
       <ISDEEMEDPOSITIVE SKIP="=Not(Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0))))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
       <!-- For Voucher Mode -->
       <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0)))" FORMULA="=if({Round(BC#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)&lt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="={Round(BC#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="={Round(BC#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
       <!-- Ledger-wise description  -->
       <UDF:USERDESCRIPTION.LIST DESC="`User Description`" ISLIST="YES" TYPE="String" SKIP="=And(len(trim(BN#))=0,len(trim(BO#))=0,len(trim(BP#))=0)">
         <UDF:USERDESCRIPTION DESC="`User Description`" COLUMNREFERENCE="BN"/>
@@ -886,7 +886,7 @@
         <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
         <COSTCENTREALLOCATIONS.LIST>
           <NAME COLUMNREFERENCE="BR"/>
-          <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="=Round(BC#,2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+          <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="=Round(BC#,2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
         </COSTCENTREALLOCATIONS.LIST>
       </CATEGORYALLOCATIONS.LIST>
     </LEDGERENTRIES.LIST>
@@ -898,7 +898,7 @@
       <!-- Trade Discount Amount will be always positive. Hence, we need to use the VchType -->
       <!-- For Voucher Mode -->
       <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0)))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;No&quot;,&quot;Yes&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="={Round(BE#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="={Round(BE#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
     </LEDGERENTRIES.LIST>
     <!-- Ledger1 before taxes -->
     <LEDGERENTRIES.LIST GROUPBY="=trim(BS#)" SKIP="={Round(BT#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(AT#[1]))=0,len(trim(AU#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
@@ -907,7 +907,7 @@
       <ISDEEMEDPOSITIVE SKIP="=Not(Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0))))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
       <!-- For Voucher Mode -->
       <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0)))" FORMULA="=if({Round(BT#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)&lt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="={Round(BT#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="={Round(BT#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
       <!-- Cost centre details -->
       <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(BV#))=0">
         <CATEGORY FORMULA="=if(len(trim(BU#))=0,&quot;Primary Cost Category&quot;,BU#)"/>
@@ -925,7 +925,7 @@
       <ISDEEMEDPOSITIVE SKIP="=Not(Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0))))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
       <!-- For Voucher Mode -->
       <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0)))" FORMULA="=if({Round(BX#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)&lt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="={Round(BX#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="={Round(BX#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
       <!-- Cost centre details -->
       <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(BZ#))=0">
         <CATEGORY FORMULA="=if(len(trim(BY#))=0,&quot;Primary Cost Category&quot;,BY#)"/>
@@ -943,7 +943,7 @@
       <ISDEEMEDPOSITIVE SKIP="=Not(Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0))))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
       <!-- For Voucher Mode -->
       <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0)))" FORMULA="=if({Round(CB#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)&lt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="={Round(CB#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="={Round(CB#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
       <!-- Cost centre details -->
       <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(CD#))=0">
         <CATEGORY FORMULA="=if(len(trim(CC#))=0,&quot;Primary Cost Category&quot;,CC#)"/>
@@ -961,7 +961,7 @@
       <ISDEEMEDPOSITIVE SKIP="=Not(Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0))))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
       <!-- For Voucher Mode -->
       <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0)))" FORMULA="=if({Round(CF#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)&lt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="={Round(CF#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="={Round(CF#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
       <!-- Cost centre details -->
       <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(CH#))=0">
         <CATEGORY FORMULA="=if(len(trim(CG#))=0,&quot;Primary Cost Category&quot;,CG#)"/>
@@ -979,7 +979,7 @@
       <ISDEEMEDPOSITIVE SKIP="=Not(Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0))))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
       <!-- For Voucher Mode -->
       <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0)))" FORMULA="=if({Round(CJ#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)&lt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="={Round(CJ#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="={Round(CJ#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
       <!-- Cost centre details -->
       <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(CL#))=0">
         <CATEGORY FORMULA="=if(len(trim(CK#))=0,&quot;Primary Cost Category&quot;,CK#)"/>
@@ -994,49 +994,49 @@
     <LEDGERENTRIES.LIST GROUPBY="=if(len(trim(DC#))=0,trim(CM#),trim(DC#))" SKIP="={Round(CN#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(AT#[1]))=0,len(trim(AU#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
       <LEDGERNAME FORMULA="=if(len(trim(DC#))&gt;0,DC#,if(Or(IsError(Round(CM#,2)),len(trim(CM#))=0,CM#=0),&quot;&quot;,&quot;IGST &quot; &amp; CM# &amp; &quot;%&quot;))"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="={Round(CN#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="={Round(CN#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
     </LEDGERENTRIES.LIST>
     <!-- CGST Ledger -->
     <LEDGERENTRIES.LIST GROUPBY="=if(len(trim(DD#))=0,trim(CO#),trim(DD#))" SKIP="={Round(CP#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(AT#[1]))=0,len(trim(AU#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
       <LEDGERNAME FORMULA="=if(len(trim(DD#))&gt;0,DD#,if(Or(IsError(Round(CO#,2)),len(trim(CO#))=0,CO#=0),&quot;&quot;,&quot;CGST &quot; &amp; CO# &amp; &quot;%&quot;))"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="={Round(CP#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="={Round(CP#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
     </LEDGERENTRIES.LIST>
     <!-- SGST Ledger -->
     <LEDGERENTRIES.LIST GROUPBY="=if(len(trim(DE#))=0,trim(CQ#),trim(DE#))" SKIP="={Round(CR#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(AT#[1]))=0,len(trim(AU#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
       <LEDGERNAME FORMULA="=if(len(trim(DE#))&gt;0,DE#,if(Or(IsError(Round(CQ#,2)),len(trim(CQ#))=0,CQ#=0),&quot;&quot;,&quot;SGST &quot; &amp; CQ# &amp; &quot;%&quot;))"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="={Round(CR#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="={Round(CR#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
     </LEDGERENTRIES.LIST>
     <!-- UT Ledger -->
     <LEDGERENTRIES.LIST GROUPBY="=if(len(trim(DF#))=0,trim(CS#),trim(DF#))" SKIP="={Round(CT#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(AT#[1]))=0,len(trim(AU#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
       <LEDGERNAME FORMULA="=if(len(trim(DF#))&gt;0,DF#,if(Or(IsError(Round(CS#,2)),len(trim(CS#))=0,CS#=0),&quot;&quot;,&quot;UT &quot; &amp; CS# &amp; &quot;%&quot;))"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="={Round(CT#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="={Round(CT#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
     </LEDGERENTRIES.LIST>
     <!-- Cess Ledger -->
     <LEDGERENTRIES.LIST GROUPBY="=if(len(trim(DG#))=0,trim(CU#),trim(DG#))" SKIP="={Round(CV#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(AT#[1]))=0,len(trim(AU#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
       <LEDGERNAME FORMULA="=if(len(trim(DG#))&gt;0,DG#,if(Or(IsError(Round(CU#,2)),len(trim(CU#))=0,CU#=0),&quot;&quot;,&quot;Cess &quot; &amp; CU# &amp; &quot;%&quot;))"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="={Round(CV#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="={Round(CV#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
     </LEDGERENTRIES.LIST>
     <!-- Addl Cess Ledger -->
     <LEDGERENTRIES.LIST GROUPBY="=if(len(trim(DH#))=0,trim(CW#),trim(DH#))" SKIP="={Round(CX#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(AT#[1]))=0,len(trim(AU#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
       <LEDGERNAME FORMULA="=if(len(trim(DH#))&gt;0,DH#,if(Or(IsError(Round(CW#,2)),len(trim(CW#))=0,CW#=0),&quot;&quot;,&quot;Addl Cess - &quot; &amp; CW#))"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="={Round(CX#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="={Round(CX#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
     </LEDGERENTRIES.LIST>
     <!-- State Cess Ledger -->
     <LEDGERENTRIES.LIST GROUPBY="=if(len(trim(DI#))=0,trim(CY#),trim(DI#))" SKIP="={Round(CZ#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(AT#[1]))=0,len(trim(AU#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
       <LEDGERNAME FORMULA="=if(len(trim(DI#))&gt;0,DI#,if(Or(IsError(Round(CY#,2)),len(trim(CY#))=0,CY#=0),&quot;&quot;,&quot;State Cess &quot; &amp; CY# &amp; &quot;%&quot;))"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="={Round(CZ#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="={Round(CZ#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
     </LEDGERENTRIES.LIST>
     <!-- State Addl Cess Ledger -->
     <LEDGERENTRIES.LIST GROUPBY="=if(len(trim(DJ#))=0,trim(DA#),trim(DJ#))" SKIP="={Round(DB#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(AT#[1]))=0,len(trim(AU#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
       <LEDGERNAME FORMULA="=if(len(trim(DJ#))&gt;0,DJ#,if(Or(IsError(Round(DA#,2)),len(trim(DA#))=0,DA#=0),&quot;&quot;,&quot;State Addl Cess - &quot; &amp; DA#))"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="={Round(DB#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="={Round(DB#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
     </LEDGERENTRIES.LIST>
     <!-- Ledger1 -->
     <LEDGERENTRIES.LIST GROUPBY="=trim(DK#)" SKIP="={Round(DL#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(AT#[1]))=0,len(trim(AU#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
@@ -1045,7 +1045,7 @@
       <ISDEEMEDPOSITIVE SKIP="=Not(Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0))))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
       <!-- For Voucher Mode -->
       <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0)))" FORMULA="=if({Round(DL#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)&lt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="={Round(DL#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="={Round(DL#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
       <!-- Cost centre details -->
       <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(DN#))=0">
         <CATEGORY FORMULA="=if(len(trim(DM#))=0,&quot;Primary Cost Category&quot;,DM#)"/>
@@ -1063,7 +1063,7 @@
       <ISDEEMEDPOSITIVE SKIP="=Not(Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0))))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
       <!-- For Voucher Mode -->
       <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0)))" FORMULA="=if({Round(DP#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)&lt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="={Round(DP#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="={Round(DP#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
       <!-- Cost centre details -->
       <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(DR#))=0">
         <CATEGORY FORMULA="=if(len(trim(DQ#))=0,&quot;Primary Cost Category&quot;,DQ#)"/>
@@ -1081,7 +1081,7 @@
       <ISDEEMEDPOSITIVE SKIP="=Not(Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0))))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
       <!-- For Voucher Mode -->
       <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0)))" FORMULA="=if({Round(DT#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)&lt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="={Round(DT#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="={Round(DT#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
       <!-- Cost centre details -->
       <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(DV#))=0">
         <CATEGORY FORMULA="=if(len(trim(DU#))=0,&quot;Primary Cost Category&quot;,DU#)"/>
@@ -1099,7 +1099,7 @@
       <ISDEEMEDPOSITIVE SKIP="=Not(Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0))))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
       <!-- For Voucher Mode -->
       <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0)))" FORMULA="=if({Round(DX#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)&lt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="={Round(DX#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="={Round(DX#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
       <!-- Cost centre details -->
       <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(DZ#))=0">
         <CATEGORY FORMULA="=if(len(trim(DY#))=0,&quot;Primary Cost Category&quot;,DY#)"/>
@@ -1117,7 +1117,7 @@
       <ISDEEMEDPOSITIVE SKIP="=Not(Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0))))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
       <!-- For Voucher Mode -->
       <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0)))" FORMULA="=if({Round(EB#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)&lt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="={Round(EB#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="={Round(EB#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
       <!-- Cost centre details -->
       <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(ED#))=0">
         <CATEGORY FORMULA="=if(len(trim(EC#))=0,&quot;Primary Cost Category&quot;,EC#)"/>
@@ -1146,10 +1146,10 @@
       <TEST SKIP="=Not(Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0))))">ISINVOICEMODE=YES</TEST>
       <!-- For Voucher Mode -->
       <TEST SKIP="=Or(And(Len(trim(FV#[1]))&gt;0,trim(FV#[1])=&quot;Yes&quot;),And(Len(trim(FV#[1]))=0,Or(len(trim(AT#[1]))&gt;0,len(trim(AU#[1]))&gt;0)))">ISINVOICEMODE=NO</TEST>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="=Round(Round({Round(BC#,2)-Round(BE#,2)+Round(CN#,2)+Round(CP#,2)+Round(CR#,2)+Round(CT#,2)+Round(CV#,2)+Round(CX#,2)+Round(CZ#,2)+Round(DB#,2)}+{Round(BT#+BX#+CB#+CF#+CJ#,2)}+{Round(DL#+DP#+DT#+DX#+EB#,2)},0)-Round({Round(BC#,2)-Round(BE#,2)+Round(CN#,2)+Round(CP#,2)+Round(CR#,2)+Round(CT#,2)+Round(CV#,2)+Round(CX#,2)+Round(CZ#,2)+Round(DB#,2)}+{Round(BT#+BX#+CB#+CF#+CJ#,2)}+{Round(DL#+DP#+DT#+DX#+EB#,2)},2),2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="=Round(Round({Round(BC#,2)-Round(BE#,2)+Round(CN#,2)+Round(CP#,2)+Round(CR#,2)+Round(CT#,2)+Round(CV#,2)+Round(CX#,2)+Round(CZ#,2)+Round(DB#,2)}+{Round(BT#+BX#+CB#+CF#+CJ#,2)}+{Round(DL#+DP#+DT#+DX#+EB#,2)},0)-Round({Round(BC#,2)-Round(BE#,2)+Round(CN#,2)+Round(CP#,2)+Round(CR#,2)+Round(CT#,2)+Round(CV#,2)+Round(CX#,2)+Round(CZ#,2)+Round(DB#,2)}+{Round(BT#+BX#+CB#+CF#+CJ#,2)}+{Round(DL#+DP#+DT#+DX#+EB#,2)},2),2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
     </LEDGERENTRIES.LIST>
     <!-- StockItems -->
-    <ALLINVENTORYENTRIES.LIST SCROLL="YES" SKIP="=And(len(trim(AT#))=0,len(trim(AU#))=0)">
+    <ALLINVENTORYENTRIES.LIST SKIPGROUPBY="=Not(FW#[1]=&quot;yes&quot;)" GROUPBY="=if(len(trim(AU#))=0,AT#,AU#)" SCROLL="YES" SKIP="=And(len(trim(AT#))=0,len(trim(AU#))=0)">
       <BASICUSERDESCRIPTION.LIST SKIP="=And(len(trim(BG#))=0,len(trim(BH#))=0,len(trim(BI#))=0)">
         <BASICUSERDESCRIPTION COLUMNREFERENCE="BG"/>
         <BASICUSERDESCRIPTION COLUMNREFERENCE="BH"/>
@@ -1157,18 +1157,17 @@
       </BASICUSERDESCRIPTION.LIST>
       <STOCKITEMNAME FORMULA="=if(len(trim(AU#))=0,AT#,AU#)"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
-      <RATE SKIP="=Or(FO#=&quot;yes&quot;,And(len(trim(FW#))&gt;0,len(trim(FX#))&gt;0))" COLUMNREFERENCE="BA"/>
-      <RATE SKIP="=Or(Not(FO#=&quot;yes&quot;),And(len(trim(FW#))&gt;0,len(trim(FX#))&gt;0))" FORMULA="=BA# &amp; &quot;/&quot; &amp; AX#"/>
+      <RATE SKIP="=Or(FO#=&quot;yes&quot;,And(len(trim(FX#))&gt;0,len(trim(FY#))&gt;0))" COLUMNREFERENCE="BA"/>
+      <RATE SKIP="=Or(Not(FO#=&quot;yes&quot;),And(len(trim(FX#))&gt;0,len(trim(FY#))&gt;0))" FORMULA="=BA# &amp; &quot;/&quot; &amp; AX#"/>
       <DISCOUNT COLUMNREFERENCE="BB"/>
-      <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="=Round(BC#,2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
-      <ACTUALQTY SKIP="=FO#=&quot;yes&quot;" FORMULA="=if(len(trim(AY#))=0,AZ#,AY#)"/>
-      <BILLEDQTY SKIP="=FO#=&quot;yes&quot;" COLUMNREFERENCE="AZ"/>
-      <ACTUALQTY SKIP="=Not(FO#=&quot;yes&quot;)" FORMULA="=if(len(trim(AY#))=0,AZ#,AY#) &amp; &quot; &quot; &amp; AX#"/>
-      <BILLEDQTY SKIP="=Not(FO#=&quot;yes&quot;)" FORMULA="=AZ# &amp; &quot; &quot; &amp; AX#"/>
+      <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="=if(FW#[1]=&quot;yes&quot;,{Round(BC#,2)},Round(BC#,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <ACTUALQTY FORMULA="=if(FW#[1]=&quot;yes&quot;,{if(len(trim(AY#))=0,AZ#,AY#)},if(len(trim(AY#))=0,AZ#,AY#)) &amp; if(FO#=&quot;yes&quot;,&quot; &quot; &amp; AX#,&quot;&quot;)"/>
+      <BILLEDQTY FORMULA="=if(FW#[1]=&quot;yes&quot;,{AZ#},AZ#) &amp; if(FO#=&quot;yes&quot;,&quot; &quot; &amp; AX#,&quot;&quot;)"/>
+
       <ACCOUNTINGALLOCATIONS.LIST>
         <LEDGERNAME FORMULA="=if(len(trim(BM#))&gt;0,BM#,if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURCHASE &quot;,&quot;SALES &quot;) &amp; (CM#+CO#+CQ#+CS#) &amp; &quot;%&quot;)"/>
         <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
-        <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="=Round(BC#,2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+        <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="=if(FW#[1]=&quot;yes&quot;,{Round(BC#,2)},Round(BC#,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
         <!-- 
         Tax Classification - Override at Voucher level 
         Applicable to Sales/Purchase with Stockitems only as tested in Tally ERP 9 Release 6.1
@@ -1208,7 +1207,7 @@
           <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
           <COSTCENTREALLOCATIONS.LIST>
             <NAME COLUMNREFERENCE="BR"/>
-            <AMOUNT FORMULA="=Round(BC#,2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+            <AMOUNT FORMULA="=if(FW#[1]=&quot;yes&quot;,{Round(BC#,2)},Round(BC#,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
           </COSTCENTREALLOCATIONS.LIST>
         </CATEGORYALLOCATIONS.LIST>
       </ACCOUNTINGALLOCATIONS.LIST>
@@ -1220,9 +1219,10 @@
         <BATCHNAME FORMULA="=if(len(trim(BJ#))=0,&quot;Primary Batch&quot;,BJ#)"/>
         <MFDON SKIP="=Len(trim(BK#))=0" COLUMNREFERENCE="BK"/>
         <EXPIRYPERIOD SKIP="=Len(trim(BL#))=0" COLUMNREFERENCE="BL"/>
-        <AMOUNT CURRENCY="=FW#" ROE="=FX#" FORMULA="=Round(BC#,2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
-        <ACTUALQTY FORMULA="=if(len(trim(AY#))=0,AZ#,AY#)"/>
-        <BILLEDQTY COLUMNREFERENCE="AZ"/>
+        <AMOUNT CURRENCY="=FX#" ROE="=FY#" FORMULA="=if(FW#[1]=&quot;yes&quot;,{Round(BC#,2)},Round(BC#,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+        <ACTUALQTY FORMULA="=if(FW#[1]=&quot;yes&quot;,{if(len(trim(AY#))=0,AZ#,AY#)},if(len(trim(AY#))=0,AZ#,AY#)) &amp; if(FO#=&quot;yes&quot;,&quot; &quot; &amp; AX#,&quot;&quot;)"/>
+        <BILLEDQTY FORMULA="=if(FW#[1]=&quot;yes&quot;,{AZ#},AZ#) &amp; if(FO#=&quot;yes&quot;,&quot; &quot; &amp; AX#,&quot;&quot;)"/>
+
         <!-- For Sales Order and Purchase Order - Column F# -->
         <!-- For Delivery Note, Sales Invoice, Receipt Note, Purchase Invoice - Column AF# -->
         <ORDERNO FORMULA="=if(Or(trim(lower(B#[1]))=&quot;sales order&quot;,trim(lower(B#[1]))=&quot;purchase order&quot;),F#[1],AF#[1])"/>
