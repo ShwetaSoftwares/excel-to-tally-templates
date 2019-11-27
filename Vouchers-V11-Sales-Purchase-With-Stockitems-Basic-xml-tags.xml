@@ -129,6 +129,12 @@
     <PARENT>Indirect Expenses</PARENT>
     <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
   </MASTER>
+  <!-- Create a SINGLE UNIT Master -->
+  <MASTER TYPE="UNIT" SINGLERECORD="Yes">
+    <NAME>Nos</NAME>
+    <ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
+    <GSTREPUOM>NOS-NUMBERS</GSTREPUOM>
+  </MASTER>
   <!-- Create UNIT Master -->
   <MASTER TYPE="UNIT">
     <NAME COLUMNREFERENCE="O"/>
@@ -144,7 +150,7 @@
     <!-- SKIP if both Name and Part No are empty -->
     <ADDITIONALNAME SKIP="=Or(len(trim(M#))=0,len(trim(L#))=0)" COLUMNREFERENCE="M"/>
     <PARENT/>
-    <BASEUNITS COLUMNREFERENCE="O"/>
+    <BASEUNITS FORMULA="=if(len(trim(O#))=0,&quot;Nos&quot;,O#)"/>
     <!-- GST details -->
     <GSTAPPLICABLE SKIP="=trim(AI#)=&quot;yes&quot;" FORMULA="=&quot;~[~ Applicable&quot;"/>
     <!-- Type of supply -->

@@ -572,6 +572,12 @@
     <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
     <AFFECTSSTOCK>No</AFFECTSSTOCK>
   </MASTER>
+  <!-- Create a SINGLE UNIT Master -->
+  <MASTER TYPE="UNIT" SINGLERECORD="Yes">
+    <NAME>Nos</NAME>
+    <ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
+    <GSTREPUOM>NOS-NUMBERS</GSTREPUOM>
+  </MASTER>
   <!-- Create UNIT Master -->
   <MASTER TYPE="UNIT">
     <NAME COLUMNREFERENCE="AX"/>
@@ -593,7 +599,7 @@
     <NAME FORMULA="=if(len(trim(AT#))=0,AU#,AT#)"/>
     <!-- SKIP if both Name and Part No are empty -->
     <ADDITIONALNAME SKIP="=Or(len(trim(AU#))=0,len(trim(AT#))=0)" COLUMNREFERENCE="AU"/>
-    <BASEUNITS COLUMNREFERENCE="AX"/>
+    <BASEUNITS FORMULA="=if(len(trim(AX#))=0,&quot;Nos&quot;,AX#)"/>
     <PARENT COLUMNREFERENCE="EY"/>
     <ISBATCHWISEON FORMULA="=if((len(trim(BJ#))+len(trim(BK#))+len(trim(BL#)))=0,&quot;&quot;,&quot;Yes&quot;)"/>
     <HASMFGDATE FORMULA="=if(len(trim(BK#))=0,&quot;&quot;,&quot;Yes&quot;)"/>
