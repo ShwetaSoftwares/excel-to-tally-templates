@@ -10,7 +10,7 @@
     <NAME.LIST TYPE="String">
       <NAME COLUMNREFERENCE="C"/>
     </NAME.LIST>
-    <PARENT COLUMNREFERENCE="B"/>
+    <PARENT ALERT="=if(len(trim(B#))=0,&quot;&quot;,if(__MATCH(B#,VOUCHERTYPELIST),&quot;&quot;,&quot;Invalid VoucherType:  &quot; &amp; B#))" ALERTREFERENCE="B#" COLUMNREFERENCE="B"/>
     <!-- Is deemed positive not required -->
     <NUMBERINGMETHOD>Manual</NUMBERINGMETHOD>
     <!-- POS -->
@@ -57,7 +57,7 @@
     <COUNTRYNAME SKIP="=len(trim(K#))=0">India</COUNTRYNAME>
     <COUNTRYOFRESIDENCE SKIP="=len(trim(K#))=0">India</COUNTRYOFRESIDENCE>
     <!-- 2017-09-14: STATENAME is converted to proper-case  -->
-    <STATENAME FORMULA="=proper(trim(K#))"/>
+    <STATENAME ALERT="=if(len(trim(K#))=0,&quot;&quot;,if(__MATCH(K#,STATENAMELIST),&quot;&quot;,&quot;Invalid StateName:  &quot; &amp; K#))" ALERTREFERENCE="K#"  FORMULA="=proper(trim(K#))"/>
     <LEDSTATENAME FORMULA="=proper(trim(K#))"/>
   </MASTER>
   <!-- POS Ledgers -->
@@ -599,7 +599,7 @@
     <NAME FORMULA="=if(len(trim(AT#))=0,AU#,AT#)"/>
     <!-- SKIP if both Name and Part No are empty -->
     <ADDITIONALNAME SKIP="=Or(len(trim(AU#))=0,len(trim(AT#))=0)" COLUMNREFERENCE="AU"/>
-    <BASEUNITS FORMULA="=if(len(trim(AX#))=0,&quot;Nos&quot;,AX#)"/>
+    <BASEUNITS ALERT="=if(len(trim(AX#))=0,&quot;UOM (Unit of Measurement) is empty. The default value 'Nos' is now used.&quot;,&quot;&quot;)" ALERTREFERENCE="AX#" FORMULA="=if(len(trim(AX#))=0,&quot;Nos&quot;,AX#)"/>
     <PARENT COLUMNREFERENCE="EY"/>
     <ISBATCHWISEON FORMULA="=if((len(trim(BJ#))+len(trim(BK#))+len(trim(BL#)))=0,&quot;&quot;,&quot;Yes&quot;)"/>
     <HASMFGDATE FORMULA="=if(len(trim(BK#))=0,&quot;&quot;,&quot;Yes&quot;)"/>

@@ -10,7 +10,7 @@
     <NAME.LIST TYPE="String">
       <NAME COLUMNREFERENCE="C"/>
     </NAME.LIST>
-    <PARENT COLUMNREFERENCE="B"/>
+    <PARENT ALERT="=if(len(trim(B#))=0,&quot;&quot;,if(__MATCH(B#,VOUCHERTYPELIST),&quot;&quot;,&quot;Invalid VoucherType :  &quot; &amp; B#))" ALERTREFERENCE="B#" COLUMNREFERENCE="B"/>
     <ISDEEMEDPOSITIVE FORMULA="=if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),&quot;No&quot;,&quot;Yes&quot;)"/>
     <NUMBERINGMETHOD>Manual</NUMBERINGMETHOD>
   </MASTER>
@@ -42,8 +42,8 @@
     <NAME.LIST>
       <NAME COLUMNREFERENCE="H"/>
       <NAME COLUMNREFERENCE="I"/>
+      <OLDNAME FORMULA="=if(len(trim(I#))=0,H#,I#)"/>
     </NAME.LIST>
-    <OLDNAME FORMULA="=if(len(trim(I#))=0,H#,I#)"/>
     <PARENT FORMULA="=if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;Sundry Creditors&quot;,&quot;Sundry Debtors&quot;)"/>
     <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
     <ADDITIONALNAME COLUMNREFERENCE="H"/>
@@ -54,7 +54,7 @@
     <PARTYGSTIN SKIP="=trim(AI#)=&quot;yes&quot;" FORMULA="=trim(J#)"/>
     <COUNTRYNAME SKIP="=len(trim(K#))=0">India</COUNTRYNAME>
     <!-- 2017-09-14: STATENAME is converted to proper-case  -->
-    <STATENAME FORMULA="=proper(trim(K#))"/>
+    <STATENAME ALERT="=if(len(trim(K#))=0,&quot;&quot;,if(__MATCH(K#,STATENAMELIST),&quot;&quot;,&quot;Invalid StateName:  &quot; &amp; K#))" ALERTREFERENCE="K#"  FORMULA="=proper(trim(K#))"/>
     <LEDSTATENAME FORMULA="=proper(trim(K#))"/>
   </MASTER>
   <!-- Create Trade discount Master -->
@@ -149,8 +149,9 @@
     <NAME FORMULA="=if(len(trim(L#))=0,M#,L#)"/>
     <!-- SKIP if both Name and Part No are empty -->
     <ADDITIONALNAME SKIP="=Or(len(trim(M#))=0,len(trim(L#))=0)" COLUMNREFERENCE="M"/>
+
     <PARENT/>
-    <BASEUNITS FORMULA="=if(len(trim(O#))=0,&quot;Nos&quot;,O#)"/>
+    <BASEUNITS ALERT="=if(len(trim(O#))=0,&quot;UOM is empty. The default value 'Nos' is now used.&quot;,&quot;&quot;)" ALERTREFERENCE="O#" FORMULA="=if(len(trim(O#))=0,&quot;Nos&quot;,O#)"/>
     <!-- GST details -->
     <GSTAPPLICABLE SKIP="=trim(AI#)=&quot;yes&quot;" FORMULA="=&quot;~[~ Applicable&quot;"/>
     <!-- Type of supply -->
@@ -228,7 +229,7 @@
     <URDORIGINALSALEVALUE SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))">Lesser than or equal to 2.5 lakhs</URDORIGINALSALEVALUE>
     <!-- Party Ledger -->
     <LEDGERENTRIES.LIST ALTERNATETAGNAME="=if(And(len(trim(L#[1]))=0,len(trim(M#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
-      <LEDGERNAME FORMULA="=if(len(trim(I#))=0,H#,I#)"/>
+      <LEDGERNAME ALERT="=if(And(len(trim(I#))=0,len(trim(H#))=0),&quot;Party Ledger Name is empty&quot;,&quot;&quot;)" ALERTREFERENCE="H# and I#" FORMULA="=if(len(trim(I#))=0,H#,I#)"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),&quot;No&quot;,&quot;Yes&quot;)"/>
       <AMOUNT CURRENCY="=AK#" ROE="=AL#" FORMULA="=Round({Round(S#,2)-Round(U#,2)+Round(X#,2)+Round(Z#,2)+Round(AB#,2)},if(trim(AH#)=&quot;yes&quot;,0,2))*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),1,-1)"/>
       <BILLALLOCATIONS.LIST SKIP="=Len(trim(D#))=0">
