@@ -1,0 +1,68 @@
+<!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
+<XMLTAGS CELLREFERENCE="A1" xmlns:UDF="TallyUDF">
+  <!-- Specifies that this (i.e Column as mentioned above) is the key field -->
+  <COLUMNNAME.LIST>
+    <COLUMNNAME>ID</COLUMNNAME>
+    <COLUMNNAME>NAME</COLUMNNAME>
+  </COLUMNNAME.LIST>
+    <!-- Create VOUCHERTYPE Masters -->
+    <MASTER TYPE="VOUCHERTYPE">
+      <NAME.LIST TYPE="String">
+        <NAME COLUMNREFERENCE="C"/>
+      </NAME.LIST>
+      <PARENT COLUMNREFERENCE="B"/>
+      <MAILINGNAME>Phy Stk</MAILINGNAME>
+      <NUMBERINGMETHOD>Automatic</NUMBERINGMETHOD>
+      <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+      <AFFECTSSTOCK>Yes</AFFECTSSTOCK>
+      <PREVENTDUPLICATES>No</PREVENTDUPLICATES>
+      <PREFILLZERO>No</PREFILLZERO>
+    </MASTER>
+  <!-- Create UNIT Masters -->
+  <MASTER TYPE="UNIT">
+    <NAME COLUMNREFERENCE="M"/>
+    <ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
+  </MASTER>
+  <!-- Create GODOWN Masters -->
+  <MASTER TYPE="GODOWN">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="K"/>
+    </NAME.LIST>
+  </MASTER>
+  <!-- Create STOCKITEM Masters -->
+  <MASTER TYPE="STOCKITEM">
+    <NAME.LIST>
+      <NAME FORMULA="=If(Len(Trim(G#))=0,F#,G#)"/>
+    </NAME.LIST>
+    <MAILINGNAME.LIST SKIP="=Len(trim(G#))=0" TYPE="String">
+      <MAILINGNAME COLUMNREFERENCE="F"/>
+    </MAILINGNAME.LIST>
+    <BASEUNITS COLUMNREFERENCE="M"/>
+    <ISBATCHWISEON SKIP="=Len(trim(H#))=0">Yes</ISBATCHWISEON>
+    <HASMFGDATE SKIP="=Len(trim(I#))=0">Yes</HASMFGDATE>
+    <ISPERISHABLEON SKIP="=Len(trim(J#))=0">Yes</ISPERISHABLEON>
+  </MASTER>
+  <!-- Physical Stock Voucher -->
+  <VOUCHER10>
+    <GUID FORMULA="=&quot;udi-phy-stk-&quot; &amp; A# &amp; &quot;-&quot; &amp; B# &amp; &quot;-&quot; &amp; D# &amp; &quot;-&quot; &amp; E#"/>
+    <DATE COLUMNREFERENCE="E"/>
+    <EFFECTIVEDATE COLUMNREFERENCE="E"/>
+    <VOUCHERNUMBER COLUMNREFERENCE="D"/>
+    <VOUCHERTYPENAME COLUMNREFERENCE="C"/>
+    <PERSISTEDVIEW>Invoice Voucher View</PERSISTEDVIEW>
+    <DIFFACTUALQTY>Yes</DIFFACTUALQTY>
+    <NARRATION COLUMNREFERENCE="N"/>
+    <ALLINVENTORYENTRIES.LIST SCROLL="YES" SKIP="=And(Len(trim(G#))=0,Len(trim(F#))=0)">
+      <STOCKITEMNAME FORMULA="=if(len(trim(F#))=0,G#,F#)"/>
+      <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+      <ACTUALQTY COLUMNREFERENCE="L"/>
+      <BATCHALLOCATIONS.LIST>
+        <GODOWNNAME FORMULA="=If(Len(trim(K#))=0,&quot;Main Location&quot;,trim(K#))"/>
+        <ACTUALQTY COLUMNREFERENCE="L"/>
+        <BATCHNAME SKIP="=Len(H#)=0" COLUMNREFERENCE="H"/>
+        <MFDON SKIP="=Len(I#)=0" COLUMNREFERENCE="I"/>
+        <EXPIRYPERIOD SKIP="=Len(J#)=0" COLUMNREFERENCE="J"/>
+      </BATCHALLOCATIONS.LIST>
+    </ALLINVENTORYENTRIES.LIST>
+  </VOUCHER10>
+</XMLTAGS>

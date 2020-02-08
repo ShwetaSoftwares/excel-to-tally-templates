@@ -1,0 +1,538 @@
+<!--
+Fixes : 
+2017-10-13
+BANKALLOCATION tag - Incorrect column for Instrument No and Date - Now corrected
+-->
+<!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
+<XMLTAGS CELLREFERENCE="A1" xmlns:UDF="TallyUDF">
+  <!-- Specifies that this (i.e Column as mentioned above) is the key field -->
+  <COLUMNNAME.LIST>
+    <COLUMNNAME>ID</COLUMNNAME>
+    <COLUMNNAME>NAME</COLUMNNAME>
+  </COLUMNNAME.LIST>
+  <!-- Create VOUCHERTYPE Master -->
+  <MASTER TYPE="VOUCHERTYPE">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="C"/>
+    </NAME.LIST>
+    <PARENT COLUMNREFERENCE="B"/>
+    <MAILINGNAME FORMULA="=if(B#=&quot;receipt&quot;,&quot;Receipt&quot;,&quot;Payment&quot;)"/>
+    <NUMBERINGMETHOD>Manual</NUMBERINGMETHOD>
+    <ISDEEMEDPOSITIVE FORMULA="=if(B#=&quot;receipt&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+  </MASTER>
+  <!-- Create COSTCATEGORY Master -->
+  <MASTER TYPE="COSTCATEGORY">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="J"/>
+    </NAME.LIST>
+  </MASTER>
+  <MASTER TYPE="COSTCATEGORY">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="T"/>
+    </NAME.LIST>
+  </MASTER>
+  <MASTER TYPE="COSTCATEGORY">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="AB"/>
+    </NAME.LIST>
+  </MASTER>
+  <MASTER TYPE="COSTCATEGORY">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="AJ"/>
+    </NAME.LIST>
+  </MASTER>
+  <MASTER TYPE="COSTCATEGORY">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="AR"/>
+    </NAME.LIST>
+  </MASTER>
+  <MASTER TYPE="COSTCATEGORY">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="AZ"/>
+    </NAME.LIST>
+  </MASTER>
+  <MASTER TYPE="COSTCATEGORY">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="BH"/>
+    </NAME.LIST>
+  </MASTER>
+  <MASTER TYPE="COSTCATEGORY">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="BP"/>
+    </NAME.LIST>
+  </MASTER>
+  <MASTER TYPE="COSTCATEGORY">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="BX"/>
+    </NAME.LIST>
+  </MASTER>
+  <MASTER TYPE="COSTCATEGORY">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="CF"/>
+    </NAME.LIST>
+  </MASTER>
+  <MASTER TYPE="COSTCATEGORY">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="CN"/>
+    </NAME.LIST>
+  </MASTER>
+
+  <!-- Create COSTCENTRE Master -->
+  <MASTER TYPE="COSTCENTRE">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="K"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="J"/>
+  </MASTER>
+  <MASTER TYPE="COSTCENTRE">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="U"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="T"/>
+  </MASTER>
+  <MASTER TYPE="COSTCENTRE">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="AC"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="AB"/>
+  </MASTER>
+  <MASTER TYPE="COSTCENTRE">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="AK"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="AJ"/>
+  </MASTER>
+  <MASTER TYPE="COSTCENTRE">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="AS"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="AR"/>
+  </MASTER>
+  <MASTER TYPE="COSTCENTRE">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="BA"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="AZ"/>
+  </MASTER>
+  <MASTER TYPE="COSTCENTRE">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="BI"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="BH"/>
+  </MASTER>
+  <MASTER TYPE="COSTCENTRE">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="BQ"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="BP"/>
+  </MASTER>
+  <MASTER TYPE="COSTCENTRE">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="BY"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="BX"/>
+  </MASTER>
+  <MASTER TYPE="COSTCENTRE">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="CG"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="CF"/>
+  </MASTER>
+  <MASTER TYPE="COSTCENTRE">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="CO"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="CN"/>
+  </MASTER>
+
+  <!-- Create BANK Ledgers -->
+  <MASTER TYPE="LEDGER">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="P"/>
+    </NAME.LIST>
+    <PARENT>Bank Accounts</PARENT>
+    <TAXTYPE>Others</TAXTYPE>
+    <ISBILLWISEON>No</ISBILLWISEON>
+    <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+  </MASTER>
+  <!-- Create Party Ledgers -->
+  <MASTER TYPE="LEDGER">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="H"/>
+    </NAME.LIST>
+    <ADDITIONALNAME COLUMNREFERENCE="H"/>
+    <PARENT>Sundry Debtors</PARENT>
+    <TAXTYPE>Others</TAXTYPE>
+    <ISBILLWISEON>Yes</ISBILLWISEON>
+    <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+  </MASTER>
+  <!-- Create Ledger1 -->
+  <MASTER TYPE="LEDGER">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="R"/>
+    </NAME.LIST>
+    <PARENT>Indirect Expenses</PARENT>
+    <ISBILLWISEON FORMULA="=if(len(trim(V#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger2 -->
+  <MASTER TYPE="LEDGER">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="Z"/>
+    </NAME.LIST>
+    <PARENT>Indirect Expenses</PARENT>
+    <ISBILLWISEON FORMULA="=if(len(trim(AD#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger3 -->
+  <MASTER TYPE="LEDGER">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="AH"/>
+    </NAME.LIST>
+    <PARENT>Indirect Expenses</PARENT>
+    <ISBILLWISEON FORMULA="=if(len(trim(AL#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger4 -->
+  <MASTER TYPE="LEDGER">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="AP"/>
+    </NAME.LIST>
+    <PARENT>Indirect Expenses</PARENT>
+    <ISBILLWISEON FORMULA="=if(len(trim(AT#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger5 -->
+  <MASTER TYPE="LEDGER">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="AX"/>
+    </NAME.LIST>
+    <PARENT>Indirect Expenses</PARENT>
+    <ISBILLWISEON FORMULA="=if(len(trim(BB#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger6 -->
+  <MASTER TYPE="LEDGER">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="BF"/>
+    </NAME.LIST>
+    <PARENT>Indirect Expenses</PARENT>
+    <ISBILLWISEON FORMULA="=if(len(trim(BJ#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger7 -->
+  <MASTER TYPE="LEDGER">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="BN"/>
+    </NAME.LIST>
+    <PARENT>Indirect Expenses</PARENT>
+    <ISBILLWISEON FORMULA="=if(len(trim(BR#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger8 -->
+  <MASTER TYPE="LEDGER">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="BV"/>
+    </NAME.LIST>
+    <PARENT>Indirect Expenses</PARENT>
+    <ISBILLWISEON FORMULA="=if(len(trim(BZ#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger9 -->
+  <MASTER TYPE="LEDGER">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="CD"/>
+    </NAME.LIST>
+    <PARENT>Indirect Expenses</PARENT>
+    <ISBILLWISEON FORMULA="=if(len(trim(CH#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger10 -->
+  <MASTER TYPE="LEDGER">
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="CL"/>
+    </NAME.LIST>
+    <PARENT>Indirect Expenses</PARENT>
+    <ISBILLWISEON FORMULA="=if(len(trim(CP#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+  </MASTER>
+  <VOUCHER10>
+    <COMPANYNAME FORMULA="=DA#[1]"/>
+    <GUID FORMULA="=&quot;udi-HD29F5-&quot; &amp; A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; C#"/>
+    <DATE COLUMNREFERENCE="E"/>
+    <EFFECTIVEDATE COLUMNREFERENCE="E"/>
+    <VOUCHERTYPENAME COLUMNREFERENCE="C"/>
+    <VOUCHERNUMBER COLUMNREFERENCE="D"/>
+    <REFERENCE COLUMNREFERENCE="F"/>
+    <REFERENCEDATE COLUMNREFERENCE="G"/>
+    
+    <ISINVOICE>No</ISINVOICE>
+    <PERSISTEDVIEW>Accounting Voucher View</PERSISTEDVIEW>
+    <NARRATION COLUMNREFERENCE="CT"/>
+    <PARTYLEDGERNAME COLUMNREFERENCE="H"/>
+    <!-- Party Ledger -->
+    <ALLLEDGERENTRIES.LIST SKIP="=len(trim(H#))=0">
+      <LEDGERNAME COLUMNREFERENCE="H"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if(Round(I#,2)&gt;=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+      <AMOUNT FORMULA="=Round(I#,2)"/>
+      <BILLALLOCATIONS.LIST SCROLL="Yes" SKIP="=Or(len(trim(L#))=0,Round(M#,2)=0)">
+        <NAME COLUMNREFERENCE="L"/>
+        <BILLTYPE COLUMNREFERENCE="N"/>
+        <AMOUNT FORMULA="=Round(M#,2)"/>
+        <BILLCREDITPERIOD COLUMNREFERENCE="O"/>
+      </BILLALLOCATIONS.LIST>
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(K#))=0">
+        <CATEGORY FORMULA="=if(len(trim(J#))=0,&quot;Primary Cost Category&quot;,J#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if({Round(I#,2)}&gt;=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="K"/>
+          <AMOUNT FORMULA="=Round(I#,2)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+
+    </ALLLEDGERENTRIES.LIST>
+    <!-- Cash or Bank Ledger -->
+    <ALLLEDGERENTRIES.LIST SKIP="={Round(Q#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="P"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if({Round(Q#,2)}&gt;=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+      <AMOUNT FORMULA="={Round(Q#,2)}"/>
+      <BANKALLOCATIONS.LIST>
+        <DATE COLUMNREFERENCE="E"/>
+        <INSTRUMENTNUMBER COLUMNREFERENCE="CU"/>
+        <INSTRUMENTDATE COLUMNREFERENCE="CV"/>
+        <TRANSACTIONTYPE FORMULA="=if(len(trim(CW#))=0,&quot;Cheque&quot;,CW#)"/>
+        <PAYMENTFAVOURING FORMULA="=if(len(trim(CX#))=0,H#,CX#)"/>
+        <CHEQUECROSSCOMMENT FORMULA="=if(len(trim(CY#))=0,&quot;A/c Payee&quot;,CY#)"/>
+        <BANKERSDATE COLUMNREFERENCE="CZ"/>
+        <AMOUNT FORMULA="={Round(Q#,2)}"/>
+        <PAYMENTMODE>Transacted</PAYMENTMODE>
+        <NAME FORMULA="=&quot;udi-HD29F5-&quot; &amp; A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; P#"/>
+      </BANKALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- Ledger1 -->
+    <ALLLEDGERENTRIES.LIST SKIP="=Or(len(trim(R#))=0,{Round(S#,2)}=0)">
+      <LEDGERNAME COLUMNREFERENCE="R"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if({Round(S#,2)}&gt;=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+      <AMOUNT FORMULA="={Round(S#,2)}"/>
+      <BILLALLOCATIONS.LIST SCROLL="YES" SKIP="=Or(Round(W#,2)=0,len(trim(V#))=0)">
+        <NAME COLUMNREFERENCE="V"/>
+        <BILLTYPE COLUMNREFERENCE="X"/>
+        <AMOUNT FORMULA="=Round(W#,2)"/>
+        <BILLCREDITPERIOD COLUMNREFERENCE="Y"/>
+      </BILLALLOCATIONS.LIST>
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(U#))=0">
+        <CATEGORY FORMULA="=if(len(trim(T#))=0,&quot;Primary Cost Category&quot;,T#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if({Round(S#,2)}&gt;=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="U"/>
+          <AMOUNT FORMULA="=Round(S#,2)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- Ledger2 -->
+    <ALLLEDGERENTRIES.LIST SKIP="=Or(len(trim(Z#))=0,{Round(AA#,2)}=0)">
+      <LEDGERNAME COLUMNREFERENCE="Z"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if({Round(AA#,2)}&gt;=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+      <AMOUNT FORMULA="={Round(AA#,2)}"/>
+      <BILLALLOCATIONS.LIST SCROLL="YES" SKIP="=Or(Round(AE#,2)=0,len(trim(AD#))=0)">
+        <NAME COLUMNREFERENCE="AD"/>
+        <BILLTYPE COLUMNREFERENCE="AF"/>
+        <AMOUNT FORMULA="=Round(AE#,2)"/>
+        <BILLCREDITPERIOD COLUMNREFERENCE="AG"/>
+      </BILLALLOCATIONS.LIST>
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(AC#))=0">
+        <CATEGORY FORMULA="=if(len(trim(AB#))=0,&quot;Primary Cost Category&quot;,AB#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if({Round(AA#,2)}&gt;=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="AC"/>
+          <AMOUNT FORMULA="=Round(AA#,2)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- Ledger3  -->
+    <ALLLEDGERENTRIES.LIST SKIP="=Or(len(trim(AH#))=0,{Round(AI#,2)}=0)">
+      <LEDGERNAME COLUMNREFERENCE="AH"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if({Round(AI#,2)}&gt;=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+      <AMOUNT FORMULA="={Round(AI#,2)}"/>
+      <BILLALLOCATIONS.LIST SCROLL="YES" SKIP="=Or(Round(AM#,2)=0,len(trim(AL#))=0)">
+        <NAME COLUMNREFERENCE="AL"/>
+        <BILLTYPE COLUMNREFERENCE="AN"/>
+        <AMOUNT FORMULA="=Round(AM#,2)"/>
+        <BILLCREDITPERIOD COLUMNREFERENCE="AO"/>
+      </BILLALLOCATIONS.LIST>
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(AK#))=0">
+        <CATEGORY FORMULA="=if(len(trim(AJ#))=0,&quot;Primary Cost Category&quot;,AJ#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if({Round(AI#,2)}&gt;=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="AK"/>
+          <AMOUNT FORMULA="=Round(AI#,2)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- Ledger4 -->
+    <ALLLEDGERENTRIES.LIST SKIP="=Or(len(trim(AP#))=0,{Round(AQ#,2)}=0)">
+      <LEDGERNAME COLUMNREFERENCE="AP"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if({Round(AQ#,2)}&gt;=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+      <AMOUNT FORMULA="={Round(AQ#,2)}"/>
+      <BILLALLOCATIONS.LIST SCROLL="YES" SKIP="=Or(Round(AU#,2)=0,len(trim(AT#))=0)">
+        <NAME COLUMNREFERENCE="AT"/>
+        <BILLTYPE COLUMNREFERENCE="AV"/>
+        <AMOUNT FORMULA="=Round(AU#,2)"/>
+        <BILLCREDITPERIOD COLUMNREFERENCE="AW"/>
+      </BILLALLOCATIONS.LIST>
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(AS#))=0">
+        <CATEGORY FORMULA="=if(len(trim(AR#))=0,&quot;Primary Cost Category&quot;,AR#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if({Round(AQ#,2)}&gt;=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="AS"/>
+          <AMOUNT FORMULA="=Round(AQ#,2)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- Ledger5 -->
+    <ALLLEDGERENTRIES.LIST SKIP="=Or(len(trim(AX#))=0,{Round(AY#,2)}=0)">
+      <LEDGERNAME COLUMNREFERENCE="AX"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if({Round(AY#,2)}&gt;=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+      <AMOUNT FORMULA="={Round(AY#,2)}"/>
+      <BILLALLOCATIONS.LIST SCROLL="YES" SKIP="=Or(Round(BC#,2)=0,len(trim(BB#))=0)">
+        <NAME COLUMNREFERENCE="BB"/>
+        <BILLTYPE COLUMNREFERENCE="BD"/>
+        <AMOUNT FORMULA="=Round(BC#,2)"/>
+        <BILLCREDITPERIOD COLUMNREFERENCE="BE"/>
+      </BILLALLOCATIONS.LIST>
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(BA#))=0">
+        <CATEGORY FORMULA="=if(len(trim(AZ#))=0,&quot;Primary Cost Category&quot;,AZ#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if({Round(AY#,2)}&gt;=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="BA"/>
+          <AMOUNT FORMULA="=Round(AY#,2)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- Ledger6 -->
+    <ALLLEDGERENTRIES.LIST SKIP="=Or(len(trim(BF#))=0,{Round(BG#,2)}=0)">
+      <LEDGERNAME COLUMNREFERENCE="BF"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if({Round(BG#,2)}&gt;=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+      <AMOUNT FORMULA="={Round(BG#,2)}"/>
+      <BILLALLOCATIONS.LIST SCROLL="YES" SKIP="=Or(Round(BK#,2)=0,len(trim(BJ#))=0)">
+        <NAME COLUMNREFERENCE="BJ"/>
+        <BILLTYPE COLUMNREFERENCE="BL"/>
+        <AMOUNT FORMULA="=Round(BK#,2)"/>
+        <BILLCREDITPERIOD COLUMNREFERENCE="BM"/>
+      </BILLALLOCATIONS.LIST>
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(BI#))=0">
+        <CATEGORY FORMULA="=if(len(trim(BH#))=0,&quot;Primary Cost Category&quot;,BH#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if({Round(BG#,2)}&gt;=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="BI"/>
+          <AMOUNT FORMULA="=Round(BG#,2)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- Ledger7 -->
+    <ALLLEDGERENTRIES.LIST SKIP="=Or(len(trim(BN#))=0,{Round(BO#,2)}=0)">
+      <LEDGERNAME COLUMNREFERENCE="BN"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if({Round(BO#,2)}&gt;=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+      <AMOUNT FORMULA="={Round(BO#,2)}"/>
+      <BILLALLOCATIONS.LIST SCROLL="YES" SKIP="=Or(Round(BS#,2)=0,len(trim(BR#))=0)">
+        <NAME COLUMNREFERENCE="BR"/>
+        <BILLTYPE COLUMNREFERENCE="BT"/>
+        <AMOUNT FORMULA="=Round(BS#,2)"/>
+        <BILLCREDITPERIOD COLUMNREFERENCE="BU"/>
+      </BILLALLOCATIONS.LIST>
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(BQ#))=0">
+        <CATEGORY FORMULA="=if(len(trim(BP#))=0,&quot;Primary Cost Category&quot;,BP#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if({Round(BO#,2)}&gt;=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="BQ"/>
+          <AMOUNT FORMULA="=Round(BO#,2)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- Ledger8 -->
+    <ALLLEDGERENTRIES.LIST SKIP="=Or(len(trim(BV#))=0,{Round(BW#,2)}=0)">
+      <LEDGERNAME COLUMNREFERENCE="BV"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if({Round(BW#,2)}&gt;=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+      <AMOUNT FORMULA="={Round(BW#,2)}"/>
+      <BILLALLOCATIONS.LIST SCROLL="YES" SKIP="=Or(Round(CA#,2)=0,len(trim(BZ#))=0)">
+        <NAME COLUMNREFERENCE="BZ"/>
+        <BILLTYPE COLUMNREFERENCE="CB"/>
+        <AMOUNT FORMULA="=Round(CA#,2)"/>
+        <BILLCREDITPERIOD COLUMNREFERENCE="CC"/>
+      </BILLALLOCATIONS.LIST>
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(BY#))=0">
+        <CATEGORY FORMULA="=if(len(trim(BX#))=0,&quot;Primary Cost Category&quot;,BX#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if({Round(BW#,2)}&gt;=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="BY"/>
+          <AMOUNT FORMULA="=Round(BW#,2)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- Ledger9 -->
+    <ALLLEDGERENTRIES.LIST SKIP="=Or(len(trim(CD#))=0,{Round(CE#,2)}=0)">
+      <LEDGERNAME COLUMNREFERENCE="CD"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if({Round(CE#,2)}&gt;=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+      <AMOUNT FORMULA="={Round(CE#,2)}"/>
+      <BILLALLOCATIONS.LIST SCROLL="YES" SKIP="=Or(Round(CI#,2)=0,len(trim(CH#))=0)">
+        <NAME COLUMNREFERENCE="CH"/>
+        <BILLTYPE COLUMNREFERENCE="CJ"/>
+        <AMOUNT FORMULA="=Round(CI#,2)"/>
+        <BILLCREDITPERIOD COLUMNREFERENCE="CK"/>
+      </BILLALLOCATIONS.LIST>
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(CG#))=0">
+        <CATEGORY FORMULA="=if(len(trim(CF#))=0,&quot;Primary Cost Category&quot;,CF#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if({Round(CE#,2)}&gt;=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="CG"/>
+          <AMOUNT FORMULA="=Round(CE#,2)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- Ledger10 -->
+    <ALLLEDGERENTRIES.LIST SKIP="=Or(len(trim(CL#))=0,{Round(CM#,2)}=0)">
+      <LEDGERNAME COLUMNREFERENCE="CL"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if({Round(CM#,2)}&gt;=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+      <AMOUNT FORMULA="={Round(CM#,2)}"/>
+      <BILLALLOCATIONS.LIST SCROLL="YES" SKIP="=Or(Round(CQ#,2)=0,len(trim(CP#))=0)">
+        <NAME COLUMNREFERENCE="CP"/>
+        <BILLTYPE COLUMNREFERENCE="CR"/>
+        <AMOUNT FORMULA="=Round(CQ#,2)"/>
+        <BILLCREDITPERIOD COLUMNREFERENCE="CS"/>
+      </BILLALLOCATIONS.LIST>
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(CO#))=0">
+        <CATEGORY FORMULA="=if(len(trim(CN#))=0,&quot;Primary Cost Category&quot;,CN#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if({Round(CM#,2)}&gt;=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="CO"/>
+          <AMOUNT FORMULA="=Round(CM#,2)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+  </VOUCHER10>
+</XMLTAGS>

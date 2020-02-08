@@ -1,0 +1,150 @@
+<!-- These XML tags are added to Excel sheet specified Cell at run-time by UDIMAGIC  -->
+<XMLTAGS CELLREFERENCE="A1" xmlns:UDF="TallyUDF">
+  <!-- Specifies that the Cell as mentioned above is the key field -->
+  <COLUMNNAME.LIST>
+    <COLUMNNAME>ID</COLUMNNAME>
+    <COLUMNNAME>NAME</COLUMNNAME>
+  </COLUMNNAME.LIST>
+  <!-- Create VOUCHERTYPE Masters -->
+  <MASTER TYPE="VOUCHERTYPE">
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="C"/>
+    </NAME.LIST>
+    <PARENT COLUMNREFERENCE="B"/>
+    <MAILINGNAME>Stk Jrnl</MAILINGNAME>
+    <NUMBERINGMETHOD>Automatic</NUMBERINGMETHOD>
+    <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+    <AFFECTSSTOCK>Yes</AFFECTSSTOCK>
+    <PREVENTDUPLICATES>No</PREVENTDUPLICATES>
+    <PREFILLZERO>No</PREFILLZERO>
+  </MASTER>
+  <!-- Create UNIT Master -->
+  <MASTER TYPE="UNIT">
+    <NAME COLUMNREFERENCE="H"/>
+    <ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
+  </MASTER>
+  <MASTER TYPE="UNIT">
+    <NAME COLUMNREFERENCE="Q"/>
+    <ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
+  </MASTER>
+  <!-- Create Godown Masters -->
+  <MASTER TYPE="GODOWN">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="I"/>
+    </NAME.LIST>
+    <PARENT/>
+  </MASTER>
+  <!-- Create Godown Masters -->
+  <MASTER TYPE="GODOWN">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="R"/>
+    </NAME.LIST>
+    <PARENT/>
+  </MASTER>
+  <!-- Create StockItem Masters -->
+  <MASTER TYPE="STOCKITEM">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="G"/>
+    </NAME.LIST>
+    <PARENT/>
+    <COSTINGMETHOD>Avg. Cost</COSTINGMETHOD>
+    <VALUATIONMETHOD>Avg. Price</VALUATIONMETHOD>
+    <BASEUNITS COLUMNREFERENCE="H"/>
+    <ISBATCHWISEON FORMULA="=if((len(trim(J#))+len(trim(K#))+len(trim(L#)))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+    <HASMFGDATE FORMULA="=if(len(trim(K#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+    <ISPERISHABLEON FORMULA="=if(len(trim(K#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+  </MASTER>
+  <!-- Create StockItem Masters -->
+  <MASTER TYPE="STOCKITEM">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="P"/>
+    </NAME.LIST>
+    <PARENT/>
+    <COSTINGMETHOD>Avg. Cost</COSTINGMETHOD>
+    <VALUATIONMETHOD>Avg. Price</VALUATIONMETHOD>
+    <BASEUNITS COLUMNREFERENCE="Q"/>
+    <ISBATCHWISEON FORMULA="=if((len(trim(S#))+len(trim(T#))+len(trim(U#)))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+    <HASMFGDATE FORMULA="=if(len(trim(T#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+    <ISPERISHABLEON FORMULA="=if(len(trim(U#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+  </MASTER>
+
+  <!-- Party Ledgers for Material IN / OUT -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="F"/>
+    </NAME.LIST>
+    <PARENT>Sundry Debtors</PARENT>
+    <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+  </MASTER>
+
+
+  <!-- XML tags for creating Vouchers -->
+  <VOUCHER10>
+    <GUID FORMULA="=&quot;udi-G94MRN-&quot; &amp; A# &amp; &quot;-&quot; &amp; E#"/>
+    <!--GUID FORMULA="=&quot;udi-stock-jrnl-&quot; &amp; A# &amp; &quot;-&quot; &amp; E#"/-->
+    <DATE COLUMNREFERENCE="E"/>
+    <EFFECTIVEDATE COLUMNREFERENCE="E"/>
+    <VOUCHERTYPENAME COLUMNREFERENCE="C"/>
+    <ISINVOICE>Yes</ISINVOICE>
+    <PERSISTEDVIEW SKIP="=Not(Or(B#=&quot;Material In&quot;,B#=&quot;Material Out&quot;))">Multi Consumption Voucher View</PERSISTEDVIEW>
+    <VOUCHERNUMBER COLUMNREFERENCE="D"/>
+
+    <PARTYNAME COLUMNREFERENCE="F"/>
+    <PARTYLEDGERNAME COLUMNREFERENCE="F"/>
+    <BASICBASEPARTYNAME COLUMNREFERENCE="F"/>
+    <BASICBUYERNAME COLUMNREFERENCE="F"/>
+
+    <NARRATION COLUMNREFERENCE="Y"/>
+
+    <!-- Party Name for Material IN / OUT vouchers -->
+    <LEDGERENTRIES.LIST SKIP="=len(trim(F#))=0">
+      <LEDGERNAME COLUMNREFERENCE="F"/>
+      <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+      <!-- 2018-07-06: Amount is Negative in both cases as per Tally XML -->
+      <AMOUNT SKIP="=Not(B#=&quot;Material In&quot;)" FORMULA="={Round(X#,2)}*-1"/>
+      <AMOUNT SKIP="=Not(B#=&quot;Material Out&quot;)" FORMULA="={Round(O#,2)}*-1"/>
+      <ISPARTYLEDGER>Yes</ISPARTYLEDGER>
+    </LEDGERENTRIES.LIST>
+
+    <!-- StockIn-->
+    <INVENTORYENTRIESIN.LIST SCROLL="Yes" SKIP="=len(trim(P#))=0">
+      <STOCKITEMNAME COLUMNREFERENCE="P"/>
+      <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+      <RATE FORMULA="=Round(W#,2)"/>
+      <AMOUNT FORMULA="=Round(X#,2)*-1"/>
+      <ACTUALQTY COLUMNREFERENCE="V"/>
+      <BILLEDQTY COLUMNREFERENCE="V"/>
+      <BATCHALLOCATIONS.LIST>
+        <GODOWNNAME FORMULA="=if(len(trim(R#))=0,&quot;Main Location&quot;,R#)"/>
+        <!--<BATCHNAME>Primary Batch</BATCHNAME>-->
+        <BATCHNAME COLUMNREFERENCE="S"/>
+        <MFDON SKIP="=Len(trim(T#))=0" COLUMNREFERENCE="T"/>
+        <EXPIRYPERIOD SKIP="=Len(trim(U#))=0" COLUMNREFERENCE="U"/>
+        <DESTINATIONGODOWNNAME COLUMNREFERENCE="R"/>
+        <AMOUNT FORMULA="=Round(X#,2)*-1"/>
+        <ACTUALQTY COLUMNREFERENCE="V"/>
+        <BILLEDQTY COLUMNREFERENCE="V"/>
+      </BATCHALLOCATIONS.LIST>
+    </INVENTORYENTRIESIN.LIST>
+    <!-- StockOut -->
+    <INVENTORYENTRIESOUT.LIST SCROLL="YES" SKIP="=len(trim(G#))=0">
+      <STOCKITEMNAME COLUMNREFERENCE="G"/>
+      <ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
+      <RATE FORMULA="=Round(N#,2)"/>
+      <AMOUNT FORMULA="=Round(O#,2)"/>
+      <ACTUALQTY COLUMNREFERENCE="M"/>
+      <BILLEDQTY COLUMNREFERENCE="M"/>
+      <BATCHALLOCATIONS.LIST>
+        <GODOWNNAME FORMULA="=if(len(trim(I#))=0,&quot;Main Location&quot;,I#)"/>
+        <!--<BATCHNAME>Primary Batch</BATCHNAME>-->
+        <BATCHNAME COLUMNREFERENCE="J"/>
+        <MFDON SKIP="=Len(trim(K#))=0" COLUMNREFERENCE="K"/>
+        <EXPIRYPERIOD SKIP="=Len(trim(L#))=0" COLUMNREFERENCE="L"/>
+        <AMOUNT FORMULA="=Round(O#,2)"/>
+        <ACTUALQTY COLUMNREFERENCE="M"/>
+        <BILLEDQTY COLUMNREFERENCE="M"/>
+      </BATCHALLOCATIONS.LIST>
+    </INVENTORYENTRIESOUT.LIST>
+  </VOUCHER10>
+</XMLTAGS>
+

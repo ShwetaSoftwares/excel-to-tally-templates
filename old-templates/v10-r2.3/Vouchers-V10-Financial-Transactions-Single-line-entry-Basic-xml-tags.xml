@@ -1,0 +1,152 @@
+<!-- These XML tags are added to Excel sheet Cell A1 at run-time by UDIMAGIC  -->
+<XMLTAGS CELLREFERENCE="A1" FROMROW="4" xmlns:UDF="TallyUDF">
+  <!-- Specifies that the Cell as mentioned above is the key field -->
+  <COLUMNNAME.LIST>
+    <COLUMNNAME>ID</COLUMNNAME>
+    <COLUMNNAME>NAME</COLUMNNAME>
+  </COLUMNNAME.LIST>
+  <!-- Create Group Master -->
+  <MASTER TYPE="GROUP">
+    <NAME.LIST>
+      <NAME>New Ledgers</NAME>
+    </NAME.LIST>
+    <PARENT/>
+  </MASTER>
+  <!-- Create VOUCHERTYPE Masters -->
+  <MASTER TYPE="VOUCHERTYPE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="C"/>
+    </NAME.LIST>
+    <PARENT COLUMNREFERENCE="B"/>
+    <NUMBERINGMETHOD>Manual</NUMBERINGMETHOD>
+    <ISDEEMEDPOSITIVE FORMULA="=If(Or(lower(B#)=&quot;payment&quot;,lower(B#)=&quot;sales&quot;,lower(B#)=&quot;debit note&quot;,lower(B#)=&quot;journal&quot;,lower(B#)=&quot;sales Order&quot;),&quot;Yes&quot;,&quot;No&quot;)"/>
+    <COMMONNARRATION>Yes</COMMONNARRATION>
+  </MASTER>
+  <!-- Create Ledgers -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="H"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(I#))&gt;0,I#,if(Not(IsError(Find(&quot;bank&quot;,lower(H#),1))),&quot;Bank Accounts&quot;,&quot;New Ledgers&quot;))"/>
+    <ISBILLWISEON>Yes</ISBILLWISEON>
+    <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+  </MASTER>
+  <!-- Create Ledgers -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="J"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(K#))&gt;0,K#,if(Not(IsError(Find(&quot;bank&quot;,lower(J#),1))),&quot;Bank Accounts&quot;,&quot;New Ledgers&quot;))"/>
+    <ISBILLWISEON>Yes</ISBILLWISEON>
+    <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+  </MASTER>
+  <!-- XML tags for creating Vouchers -->
+  <VOUCHER10>
+    <GUID FORMULA="=+&quot;udi-BH3S9K-&quot; &amp; A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; C#"/>
+    <DATE COLUMNREFERENCE="E"/>
+    <EFFECTIVEDATE COLUMNREFERENCE="E"/>
+    <VOUCHERTYPENAME COLUMNREFERENCE="C"/>
+    <VOUCHERNUMBER COLUMNREFERENCE="D"/>
+    <REFERENCE COLUMNREFERENCE="F"/>
+    <REFERENCEDATE COLUMNREFERENCE="G"/>
+    <ISINVOICE>No</ISINVOICE>
+    <NARRATION COLUMNREFERENCE="M"/>
+    <!-- Debit Ledger -->
+    <ALLLEDGERENTRIES.LIST SKIP="=Or(B#=&quot;receipt&quot;,B#=&quot;contra&quot;,B#=&quot;purchase&quot;,B#=&quot;credit note&quot;)">
+      <LEDGERNAME COLUMNREFERENCE="H"/>
+      <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+      <AMOUNT FORMULA="=Round(L#,2)*-1"/>
+      <BILLALLOCATIONS.LIST SKIP="=Len(trim(D#))=0">
+        <NAME COLUMNREFERENCE="D"/>
+        <BILLTYPE>New Ref</BILLTYPE>
+        <AMOUNT FORMULA="=Round(L#,2)*-1"/>
+      </BILLALLOCATIONS.LIST>
+      <BANKALLOCATIONS.LIST SKIP="=Not(Or(Not(IsError(Find(&quot;bank&quot;,lower(H#),1))),trim(I#)=&quot;Bank Accounts&quot;))">
+        <DATE COLUMNREFERENCE="E"/>
+        <INSTRUMENTNUMBER COLUMNREFERENCE="N"/>
+        <INSTRUMENTDATE COLUMNREFERENCE="O"/>
+        <TRANSACTIONTYPE FORMULA="=if(len(trim(P#))=0,&quot;Cheque&quot;,P#)"/>
+        <PAYMENTFAVOURING FORMULA="=if(len(trim(Q#))=0,H#,Q#)"/>
+        <CHEQUECROSSCOMMENT COLUMNREFERENCE="R"/>
+        <CHEQUERANGE COLUMNREFERENCE="S"/>
+        <BANKERSDATE COLUMNREFERENCE="U"/>
+        <IFSCODE COLUMNREFERENCE="V"/>
+        <BANKNAME COLUMNREFERENCE="W"/>
+        <BANKBRANCHNAME COLUMNREFERENCE="W"/>
+        <STATUS>No</STATUS>
+        <AMOUNT FORMULA="=Round(L#,2)*-1"/>
+        <PAYMENTMODE>Transacted</PAYMENTMODE>
+        <NAME FORMULA="=+A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; H#"/>
+      </BANKALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- Credit Ledger -->
+    <ALLLEDGERENTRIES.LIST>
+      <LEDGERNAME COLUMNREFERENCE="J"/>
+      <ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
+      <AMOUNT FORMULA="=Round(L#,2)*1"/>
+      <BILLALLOCATIONS.LIST SKIP="=Len(trim(D#))=0">
+        <NAME COLUMNREFERENCE="D"/>
+        <BILLTYPE>New Ref</BILLTYPE>
+        <AMOUNT FORMULA="=Round(L#,2)*1"/>
+      </BILLALLOCATIONS.LIST>
+      <!-- Display BANKALLOCATIONS if any of the two conditions match.
+      1. Column J# contains Bank anywhere; or
+      2. Column K# is equal-to "Bank Accounts"
+
+      1. condition1 = Not(IsError(Find(&quot;bank&quot;,lower(J#),1)))
+      2. condition2 = trim(K#)=&quot;Bank Accounts&quot;
+
+      Here, display means NOT SKIP. Hence, the condition is written as:
+      Not(Or(condition1,condition2))
+      i.e.
+      Not(Or(Not(IsError(Find(&quot;bank&quot;,lower(J#),1))),trim(K#)=&quot;Bank Accounts&quot;))
+      -->
+
+      <BANKALLOCATIONS.LIST SKIP="=Not(Or(Not(IsError(Find(&quot;bank&quot;,lower(J#),1))),trim(K#)=&quot;Bank Accounts&quot;))">
+        <DATE COLUMNREFERENCE="E"/>
+        <INSTRUMENTNUMBER COLUMNREFERENCE="N"/>
+        <INSTRUMENTDATE COLUMNREFERENCE="O"/>
+        <TRANSACTIONTYPE FORMULA="=if(len(trim(P#))=0,&quot;Cheque&quot;,P#)"/>
+        <PAYMENTFAVOURING FORMULA="=if(len(trim(Q#))=0,J#,Q#)"/>
+        <CHEQUECROSSCOMMENT COLUMNREFERENCE="R"/>
+        <CHEQUERANGE COLUMNREFERENCE="S"/>
+        <BANKERSDATE COLUMNREFERENCE="U"/>
+        <IFSCODE COLUMNREFERENCE="V"/>
+        <BANKNAME COLUMNREFERENCE="W"/>
+        <BANKBRANCHNAME COLUMNREFERENCE="W"/>
+        <STATUS>No</STATUS>
+        <AMOUNT FORMULA="=Round(L#,2)*1"/>
+        <PAYMENTMODE>Transacted</PAYMENTMODE>
+        <NAME FORMULA="=+A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; J#"/>
+      </BANKALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- Debit Ledger -->
+    <ALLLEDGERENTRIES.LIST SKIP="=Not(Or(B#=&quot;receipt&quot;,B#=&quot;contra&quot;,B#=&quot;purchase&quot;,B#=&quot;credit note&quot;))">
+      <LEDGERNAME COLUMNREFERENCE="H"/>
+      <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+      <AMOUNT FORMULA="=Round(L#,2)*-1"/>
+      <BILLALLOCATIONS.LIST SKIP="=Len(trim(D#))=0">
+        <NAME COLUMNREFERENCE="D"/>
+        <BILLTYPE>New Ref</BILLTYPE>
+        <AMOUNT FORMULA="=Round(L#,2)*-1"/>
+      </BILLALLOCATIONS.LIST>
+      <BANKALLOCATIONS.LIST SKIP="=Not(Or(Not(IsError(Find(&quot;bank&quot;,lower(H#),1))),trim(I#)=&quot;Bank Accounts&quot;))">
+        <DATE COLUMNREFERENCE="E"/>
+        <INSTRUMENTNUMBER COLUMNREFERENCE="N"/>
+        <INSTRUMENTDATE COLUMNREFERENCE="O"/>
+        <TRANSACTIONTYPE FORMULA="=if(len(trim(P#))=0,&quot;Cheque&quot;,P#)"/>
+        <PAYMENTFAVOURING FORMULA="=if(len(trim(Q#))=0,H#,Q#)"/>
+        <CHEQUECROSSCOMMENT COLUMNREFERENCE="R"/>
+        <CHEQUERANGE COLUMNREFERENCE="S"/>
+        <BANKERSDATE COLUMNREFERENCE="U"/>
+        <IFSCODE COLUMNREFERENCE="V"/>
+        <BANKNAME COLUMNREFERENCE="W"/>
+        <BANKBRANCHNAME COLUMNREFERENCE="W"/>
+        <STATUS>No</STATUS>
+        <AMOUNT FORMULA="=Round(L#,2)*-1"/>
+        <PAYMENTMODE>Transacted</PAYMENTMODE>
+        <NAME FORMULA="=+A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; C#"/>
+      </BANKALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+  </VOUCHER10>
+</XMLTAGS>

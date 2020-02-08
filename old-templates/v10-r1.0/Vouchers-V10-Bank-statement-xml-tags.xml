@@ -1,0 +1,81 @@
+<!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
+<XMLTAGS CELLREFERENCE="A1" SINGLEROWRECORD="YES" xmlns:UDF="TallyUDF">
+
+  <!-- Specifies that this (i.e Column as mentioned above) is the key field -->
+  <COLUMNNAME.LIST>
+    <COLUMNNAME>ID</COLUMNNAME>
+    <COLUMNNAME>NAME</COLUMNNAME>
+  </COLUMNNAME.LIST>
+
+  <MASTER TYPE="GROUP" SINGLERECORD="YES">
+    <NAME.LIST>
+      <NAME>New Ledgers</NAME>
+    </NAME.LIST>
+  </MASTER>
+  <MASTER TYPE="GROUP">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="H"/>
+    </NAME.LIST>
+    <PARENT>New Ledgers</PARENT>
+  </MASTER>
+
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="F"/>
+    </NAME.LIST>
+    <PARENT>Bank Accounts</PARENT>
+  </MASTER>
+  <MASTER TYPE="LEDGER" SINGLERECORD="YES">
+    <NAME.LIST>
+      <NAME>Suspense A/c</NAME>
+    </NAME.LIST>
+    <PARENT>Expenses Indirect</PARENT>
+  </MASTER>
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="G"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=If(len(trim(H#))=0,&quot;New Ledgers&quot;,H#)"/>
+  </MASTER>
+  
+  <VOUCHER10>
+    <GUID FORMULA="=&quot;udi-H3X8E6-&quot; &amp; A# &amp; &quot;-&quot; &amp; Now() &amp; &quot;-&quot; &amp; #"/>
+    <DATE COLUMNREFERENCE="A"/>
+    <EFFECTIVEDATE COLUMNREFERENCE="A"/>
+    <VOUCHERTYPENAME FORMULA="=if(len(trim(I#))=0,if(If(IsError(Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2))&gt;0,&quot;Receipt&quot;,&quot;Payment&quot;),I#)"/>
+    <ISINVOICE>No</ISINVOICE>
+    <NARRATION FORMULA="=B# &amp; &quot; &quot; &amp; C#"/>
+
+    <!-- Suspense ledger -->
+    <ALLLEDGERENTRIES.LIST>
+      <LEDGERNAME FORMULA="=if(len(trim(G#))=0,&quot;Suspense A/c&quot;,G#)"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if(If(IsError(Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2))&gt;0,&quot;No&quot;,&quot;Yes&quot;)"/>
+      <AMOUNT FORMULA="=Round(If(IsError(Round(substitute(D#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(D#,&quot;,&quot;,&quot;&quot;)*1,2))+If(IsError(Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),2)*if(If(IsError(Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2))&gt;0,1,-1)"/>
+    </ALLLEDGERENTRIES.LIST>
+
+    <!-- Bank Ledger -->
+    <ALLLEDGERENTRIES.LIST>
+      <LEDGERNAME FORMULA="=if(len(trim(F#))=0,F$2,F#)"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if(If(IsError(Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="=Round(If(IsError(Round(substitute(D#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(D#,&quot;,&quot;,&quot;&quot;)*1,2))+If(IsError(Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),2)*if(If(IsError(Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2))&gt;0,-1,1)"/>
+      
+      <BANKALLOCATIONS.LIST>
+        <DATE COLUMNREFERENCE="A" />
+        <INSTRUMENTNUMBER COLUMNREFERENCE="C" />
+
+        <INSTRUMENTDATE COLUMNREFERENCE="J"/>
+        <!-- Using Cheque instead of Cheque/DD as the other details do NOT appear in Tally screen for Cheque/DD -->
+        <TRANSACTIONTYPE FORMULA="=if(len(trim(K#))=0,&quot;Cheque&quot;,K#)"/>
+        <PAYMENTFAVOURING FORMULA="=if(len(trim(L#))=0,if(len(trim(G#))=0,&quot;Suspense A/c&quot;,G#),L#)"/>
+        <CHEQUECROSSCOMMENT COLUMNREFERENCE="M"/>
+        <BANKERSDATE COLUMNREFERENCE="N"/>
+        <NARRATION COLUMNREFERENCE="O"/>
+
+        <STATUS>No</STATUS>
+        <AMOUNT FORMULA="=Round(If(IsError(Round(substitute(D#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(D#,&quot;,&quot;,&quot;&quot;)*1,2))+If(IsError(Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),2)*if(If(IsError(Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2))&gt;0,-1,1)"/>
+        <PAYMENTMODE>Transacted</PAYMENTMODE>
+        <NAME FORMULA="=&quot;udi-H3X8E6-&quot; &amp; A# &amp; &quot;-&quot; &amp; Now()"/>
+      </BANKALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+  </VOUCHER10>
+</XMLTAGS>
