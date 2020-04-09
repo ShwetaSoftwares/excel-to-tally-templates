@@ -89,8 +89,6 @@
     <REFERENCEDATE COLUMNREFERENCE="G"/>
     <ISINVOICE>No</ISINVOICE>
     <NARRATION COLUMNREFERENCE="Q"/>
-    <ISCANCELLED COLUMNREFERENCE="AE"/>
-    <ISOPTIONAL COLUMNREFERENCE="AF"/>
     <!-- Debit Ledger -->
     <ALLLEDGERENTRIES.LIST SKIP="=Or(B#=&quot;receipt&quot;,B#=&quot;contra&quot;,B#=&quot;purchase&quot;,B#=&quot;credit note&quot;)">
       <LEDGERNAME COLUMNREFERENCE="H"/>
