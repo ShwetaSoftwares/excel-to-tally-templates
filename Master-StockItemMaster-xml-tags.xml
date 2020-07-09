@@ -111,7 +111,7 @@
     <NAME.LIST>
       <NAME COLUMNREFERENCE="AA"/>
     </NAME.LIST>
-    <PARENT COLUMNREFERENCE="AB"/>
+    <PARENT FORMULA="=if(len(trim(AB#))=0,&quot;Sales Accounts&quot;,AB#)"/>
     <ISCOSTCENTREON>No</ISCOSTCENTREON>
     <!-- No for Duties and Taxes -->
     <AFFECTSSTOCK FORMULA="=if(trim(AB#)=&quot;duties &amp; taxes&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
@@ -123,11 +123,11 @@
     <NAME.LIST>
       <NAME COLUMNREFERENCE="AF"/>
     </NAME.LIST>
-    <PARENT COLUMNREFERENCE="AG"/>
+    <PARENT FORMULA="=if(len(trim(AG#))=0,&quot;Purchase Accounts&quot;,AG#)"/>
     <ISCOSTCENTREON>No</ISCOSTCENTREON>
     <!-- No for Duties and Taxes -->
-    <AFFECTSSTOCK FORMULA="=if(trim(AB#)=&quot;duties &amp; taxes&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
-    <USEFORVAT FORMULA="=if(trim(AB#)=&quot;duties &amp; taxes&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+    <AFFECTSSTOCK FORMULA="=if(trim(AG#)=&quot;duties &amp; taxes&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+    <USEFORVAT FORMULA="=if(trim(AG#)=&quot;duties &amp; taxes&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
     <TAXCLASSIFICATIONNAME COLUMNREFERENCE="AI"/>
   </MASTER>
   <!-- Create child STOCKITEM Masters (FOR BOM Raw Materials) -->
