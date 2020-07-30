@@ -231,11 +231,11 @@
     <LEDGERENTRIES.LIST ALTERNATETAGNAME="=if(And(len(trim(L#[1]))=0,len(trim(M#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
       <LEDGERNAME ALERT="=if(And(len(trim(I#))=0,len(trim(H#))=0),&quot;Party Ledger Name is empty&quot;,&quot;&quot;)" ALERTREFERENCE="H# and I#" FORMULA="=if(len(trim(I#))=0,H#,I#)"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),&quot;No&quot;,&quot;Yes&quot;)"/>
-      <AMOUNT CURRENCY="=AK#" ROE="=AL#" CONVERSIONFACTOR="=AN#" FORMULA="=Round({Round(S#,2)-Round(U#,2)+Round(X#,2)+Round(Z#,2)+Round(AB#,2)},if(trim(AH#)=&quot;yes&quot;,0,2))*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),1,-1)"/>
+      <AMOUNT CURRENCY="=AK#" ROE="=AL#" FORMULA="=Round({Round(S#,2)-Round(U#,2)+Round(X#,2)+Round(Z#,2)+Round(AB#,2)},if(trim(AH#)=&quot;yes&quot;,0,2))*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),1,-1)"/>
       <BILLALLOCATIONS.LIST SKIP="=Len(trim(D#))=0">
         <NAME COLUMNREFERENCE="D"/>
         <BILLTYPE>New Ref</BILLTYPE>
-        <AMOUNT CURRENCY="=AK#" ROE="=AL#" CONVERSIONFACTOR="=AN#" FORMULA="=Round({Round(S#,2)-Round(U#,2)+Round(X#,2)+Round(Z#,2)+Round(AB#,2)},if(trim(AH#)=&quot;yes&quot;,0,2))*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),1,-1)"/>
+        <AMOUNT CURRENCY="=AK#" ROE="=AL#" FORMULA="=Round({Round(S#,2)-Round(U#,2)+Round(X#,2)+Round(Z#,2)+Round(AB#,2)},if(trim(AH#)=&quot;yes&quot;,0,2))*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),1,-1)"/>
       </BILLALLOCATIONS.LIST>
     </LEDGERENTRIES.LIST>
     <!-- Sales/Purchase Ledger -->
@@ -251,7 +251,7 @@
       <!-- For Voucher Mode -->
       <TEST SKIP="=Or(And(Len(trim(AJ#[1]))&gt;0,trim(AJ#[1])=&quot;Yes&quot;),And(Len(trim(AJ#[1]))=0,Or(len(trim(L#[1]))&gt;0,len(trim(M#[1]))&gt;0)))">ISINVOICEMODE=NO</TEST>
 
-      <AMOUNT CURRENCY="=AK#" ROE="=AL#" CONVERSIONFACTOR="=AN#" FORMULA="={Round(S#,2)}*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
+      <AMOUNT CURRENCY="=AK#" ROE="=AL#" FORMULA="={Round(S#,2)}*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
     </LEDGERENTRIES.LIST>
     <!-- Trade discount Ledger -->
     <LEDGERENTRIES.LIST SKIP="={Round(U#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(L#[1]))=0,len(trim(M#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
@@ -262,25 +262,25 @@
       <!-- For Voucher Mode -->
       <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(AJ#[1]))&gt;0,trim(AJ#[1])=&quot;Yes&quot;),And(Len(trim(AJ#[1]))=0,Or(len(trim(L#[1]))&gt;0,len(trim(M#[1]))&gt;0)))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;No&quot;,&quot;Yes&quot;)"/>
 
-      <AMOUNT CURRENCY="=AK#" ROE="=AL#" CONVERSIONFACTOR="=AN#" FORMULA="={Round(U#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
+      <AMOUNT CURRENCY="=AK#" ROE="=AL#" FORMULA="={Round(U#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
     </LEDGERENTRIES.LIST>
     <!-- IGST Ledger -->
     <LEDGERENTRIES.LIST GROUPBY="=if(len(trim(AD#))=0,trim(W#),trim(AD#))" SKIP="={Round(X#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(L#[1]))=0,len(trim(M#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
       <LEDGERNAME FORMULA="=if(len(trim(AD#))&gt;0,AD#,if(Or(IsError(Round(W#,2)),len(trim(W#))=0,W#=0),&quot;&quot;,&quot;IGST &quot; &amp; W# &amp; &quot;%&quot;))"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=AK#" ROE="=AL#" CONVERSIONFACTOR="=AN#" FORMULA="={Round(X#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=AK#" ROE="=AL#" FORMULA="={Round(X#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
     </LEDGERENTRIES.LIST>
     <!-- CGST Ledger -->
     <LEDGERENTRIES.LIST GROUPBY="=if(len(trim(AE#))=0,trim(Y#),trim(AE#))" SKIP="={Round(Z#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(L#[1]))=0,len(trim(M#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
       <LEDGERNAME FORMULA="=if(len(trim(AE#))&gt;0,AE#,if(Or(IsError(Round(Y#,2)),len(trim(Y#))=0,Y#=0),&quot;&quot;,&quot;CGST &quot; &amp; Y# &amp; &quot;%&quot;))"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=AK#" ROE="=AL#" CONVERSIONFACTOR="=AN#" FORMULA="={Round(Z#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=AK#" ROE="=AL#" FORMULA="={Round(Z#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
     </LEDGERENTRIES.LIST>
     <!-- SGST Ledger -->
     <LEDGERENTRIES.LIST GROUPBY="=if(len(trim(AF#))=0,trim(AA#),trim(AF#))" SKIP="={Round(AB#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(L#[1]))=0,len(trim(M#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
       <LEDGERNAME FORMULA="=if(len(trim(AF#))&gt;0,AF#,if(Or(IsError(Round(AA#,2)),len(trim(AA#))=0,AA#=0),&quot;&quot;,&quot;SGST &quot; &amp; AA# &amp; &quot;%&quot;))"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=AK#" ROE="=AL#" CONVERSIONFACTOR="=AN#" FORMULA="={Round(AB#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=AK#" ROE="=AL#" FORMULA="={Round(AB#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
     </LEDGERENTRIES.LIST>
     <!-- Round Off Ledger -->
     <LEDGERENTRIES.LIST SKIP="=Or(Not(trim(AH#)=&quot;yes&quot;),Round(Round({Round(S#,2)-Round(U#,2)+Round(X#,2)+Round(Z#,2)+Round(AB#,2)},0)-Round({Round(S#,2)-Round(U#,2)+Round(X#,2)+Round(Z#,2)+Round(AB#,2)},2),2)=0)" ALTERNATETAGNAME="=if(And(len(trim(L#[1]))=0,len(trim(M#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
@@ -302,7 +302,7 @@
       <!-- For Voucher Mode -->
       <TEST SKIP="=Or(And(Len(trim(AJ#[1]))&gt;0,trim(AJ#[1])=&quot;Yes&quot;),And(Len(trim(AJ#[1]))=0,Or(len(trim(L#[1]))&gt;0,len(trim(M#[1]))&gt;0)))">ISINVOICEMODE=NO</TEST>
 
-      <AMOUNT CURRENCY="=AK#" ROE="=AL#" CONVERSIONFACTOR="=AN#" FORMULA="=Round(Round({Round(S#,2)-Round(U#,2)+Round(X#,2)+Round(Z#,2)+Round(AB#,2)},0)-Round({Round(S#,2)-Round(U#,2)+Round(X#,2)+Round(Z#,2)+Round(AB#,2)},2),2)*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
+      <AMOUNT CURRENCY="=AK#" ROE="=AL#" FORMULA="=Round(Round({Round(S#,2)-Round(U#,2)+Round(X#,2)+Round(Z#,2)+Round(AB#,2)},0)-Round({Round(S#,2)-Round(U#,2)+Round(X#,2)+Round(Z#,2)+Round(AB#,2)},2),2)*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
     </LEDGERENTRIES.LIST>
     <!-- StockItems -->
     <ALLINVENTORYENTRIES.LIST SCROLL="YES" SKIP="=And(len(trim(L#))=0,len(trim(M#))=0)">
@@ -311,19 +311,19 @@
       <RATE SKIP="=And(len(trim(AK#))&gt;0,len(trim(AL#))&gt;0)" COLUMNREFERENCE="Q"/>
 
       <DISCOUNT COLUMNREFERENCE="R"/>
-      <AMOUNT CURRENCY="=AK#" ROE="=AL#" CONVERSIONFACTOR="=AN#" FORMULA="=Round(S#,2)*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
+      <AMOUNT CURRENCY="=AK#" ROE="=AL#" FORMULA="=Round(S#,2)*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
       <ACTUALQTY COLUMNREFERENCE="P"/>
       <BILLEDQTY COLUMNREFERENCE="P"/>
       <ACCOUNTINGALLOCATIONS.LIST>
         <LEDGERNAME FORMULA="=if(len(trim(AC#))&gt;0,AC#,if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURCHASE &quot;,&quot;SALES &quot;) &amp; (W#+Y#+AA#) &amp; &quot;%&quot;)"/>
         <ISDEEMEDPOSITIVE FORMULA="=if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),&quot;Yes&quot;,&quot;No&quot;)"/>
-        <AMOUNT CURRENCY="=AK#" ROE="=AL#" CONVERSIONFACTOR="=AN#" FORMULA="=Round(S#,2)*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
+        <AMOUNT CURRENCY="=AK#" ROE="=AL#" FORMULA="=Round(S#,2)*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
       </ACCOUNTINGALLOCATIONS.LIST>
       <BATCHALLOCATIONS.LIST>
         <GODOWNNAME>Main Location</GODOWNNAME>
         <BATCHNAME>Primary Batch</BATCHNAME>
         <DESTINATIONGODOWNNAME>Main Location</DESTINATIONGODOWNNAME>
-        <AMOUNT CURRENCY="=AK#" ROE="=AL#" CONVERSIONFACTOR="=AN#" FORMULA="=Round(S#,2)*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
+        <AMOUNT CURRENCY="=AK#" ROE="=AL#" FORMULA="=Round(S#,2)*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
         <ACTUALQTY COLUMNREFERENCE="P"/>
         <BILLEDQTY COLUMNREFERENCE="P"/>
       </BATCHALLOCATIONS.LIST>
