@@ -774,7 +774,7 @@
     <LEDGERENTRIES.LIST SKIP="=And(len(trim(H#))=0,len(trim(I#))=0)" ALTERNATETAGNAME="=if(And(len(trim(AT#[1]))=0,len(trim(AU#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
       <LEDGERNAME FORMULA="=if(len(trim(I#))=0,H#,I#)"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;No&quot;,&quot;Yes&quot;)"/>
-      <AMOUNT CURRENCY="=GQ#" ROE="=GR#" CONVERSIONFACTOR="=GT#" SKIP="=Not(Round(FO#+FQ#+FT#+FX#,2)=0)" FORMULA="=Round({Round(BC#,2)-Round(BE#,2)+Round(DB#,2)+Round(DD#,2)+Round(DF#,2)+Round(DH#,2)+Round(DJ#,2)+Round(DL#,2)+Round(DN#,2)+Round(DP#,2)}+{Round(CH#+CL#+CP#+CT#+CX#,2)}+{Round(DZ#+ED#+EH#+EL#+EP#,2)},if(trim(GK#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
+      <AMOUNT CURRENCY="=GQ#" ROE="=GR#" CONVERSIONFACTOR="=GT#" SKIP="=Not(Round(FO#+FQ#+FT#+FX#,2)=0)" FORMULA="=Round({Round(BC#,2)-Round(BE#,2)+Round(DB#,2)+Round(DD#,2)+Round(DF#,2)+Round(DH#,2)+Round(DJ#,2)+Round(DL#,2)+Round(DN#,2)+Round(DP#,2)}+{Round(CH#,2)+Round(CL#,2)+Round(CP#,2)+Round(CT#,2)+Round(CX#,2)}+{Round(DZ#,2)+Round(ED#,2)+Round(EH#,2)+Round(EL#,2)+Round(EP#,2)},if(trim(GK#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
       <BILLALLOCATIONS.LIST SKIP="=Or(Len(trim(ET#))=0,Round(EU#,2)=0)" SCROLL="YES">
         <NAME COLUMNREFERENCE="ET"/>
         <BILLTYPE COLUMNREFERENCE="ES"/>
@@ -785,14 +785,14 @@
         <NAME FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),if(len(trim(F#))=0,D#,F#),D#)"/>
         <BILLTYPE>New Ref</BILLTYPE>
         <BILLCREDITPERIOD COLUMNREFERENCE="EV"/>
-        <AMOUNT CURRENCY="=GQ#" ROE="=GR#" CONVERSIONFACTOR="=GT#" SKIP="=Not(Round(FO#+FQ#+FT#+FX#,2)=0)" FORMULA="=Round({Round(BC#,2)-Round(BE#,2)+Round(DB#,2)+Round(DD#,2)+Round(DF#,2)+Round(DH#,2)+Round(DJ#,2)+Round(DL#,2)+Round(DN#,2)+Round(DP#,2)}+{Round(CH#+CL#+CP#+CT#+CX#,2)}+{Round(DZ#+ED#+EH#+EL#+EP#,2)},if(trim(GK#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
+        <AMOUNT CURRENCY="=GQ#" ROE="=GR#" CONVERSIONFACTOR="=GT#" SKIP="=Not(Round(FO#+FQ#+FT#+FX#,2)=0)" FORMULA="=Round({Round(BC#,2)-Round(BE#,2)+Round(DB#,2)+Round(DD#,2)+Round(DF#,2)+Round(DH#,2)+Round(DJ#,2)+Round(DL#,2)+Round(DN#,2)+Round(DP#,2)}+{Round(CH#,2)+Round(CL#,2)+Round(CP#,2)+Round(CT#,2)+Round(CX#,2)}+{Round(DZ#,2)+Round(ED#,2)+Round(EH#,2)+Round(EL#,2)+Round(EP#,2)},if(trim(GK#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
       </BILLALLOCATIONS.LIST>
       <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(M#))=0">
         <CATEGORY COLUMNREFERENCE="L"/>
         <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;No&quot;,&quot;Yes&quot;)"/>
         <COSTCENTREALLOCATIONS.LIST>
           <NAME COLUMNREFERENCE="M"/>
-          <AMOUNT SKIP="=Not(Round(FO#+FQ#+FT#+FX#,2)=0)" FORMULA="=Round({Round(BC#,2)-Round(BE#,2)+Round(DB#,2)+Round(DD#,2)+Round(DF#,2)+Round(DH#,2)+Round(DJ#,2)+Round(DL#,2)+Round(DN#,2)+Round(DP#,2)}+{Round(CH#+CL#+CP#+CT#+CX#,2)}+{Round(DZ#+ED#+EH#+EL#+EP#,2)},if(trim(GK#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
+          <AMOUNT SKIP="=Not(Round(FO#+FQ#+FT#+FX#,2)=0)" FORMULA="=Round({Round(BC#,2)-Round(BE#,2)+Round(DB#,2)+Round(DD#,2)+Round(DF#,2)+Round(DH#,2)+Round(DJ#,2)+Round(DL#,2)+Round(DN#,2)+Round(DP#,2)}+{Round(CH#,2)+Round(CL#,2)+Round(CP#,2)+Round(CT#,2)+Round(CX#,2)}+{Round(DZ#,2)+Round(ED#,2)+Round(EH#,2)+Round(EL#,2)+Round(EP#,2)},if(trim(GK#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
         </COSTCENTREALLOCATIONS.LIST>
       </CATEGORYALLOCATIONS.LIST>
     </LEDGERENTRIES.LIST>
