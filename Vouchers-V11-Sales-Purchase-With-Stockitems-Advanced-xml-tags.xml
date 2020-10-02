@@ -617,19 +617,19 @@
       <HSN COLUMNREFERENCE="AV"/>
       <!-- HSN Code -->
       <HSNCODE COLUMNREFERENCE="AW"/>
-      <TAXABILITY FORMULA="=If(DA#+DC#+DE#+DG#+DI#&gt;0,&quot;Taxable&quot;,&quot;Exempt&quot;)"/>
+      <TAXABILITY FORMULA="=If(Round(Round(DA#,2)+Round(DC#,2)+Round(DE#,2)+Round(DG#,2)+Round(DI#,2),2)&gt;0,&quot;Taxable&quot;,&quot;Exempt&quot;)"/>
       <STATEWISEDETAILS.LIST>
         <STATENAME>~[~ Any</STATENAME>
         <RATEDETAILS.LIST>
           <GSTRATEDUTYHEAD>Central Tax</GSTRATEDUTYHEAD>
           <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-          <GSTRATE FORMULA="=If(Round(DC#,2)&gt;0,Round(DC#,2),If(DA#&gt;0,Round(DA#/2,2),0))"/>
+          <GSTRATE FORMULA="=If(Round(DC#,2)&gt;0,Round(DC#,2),If(Round(DA#,2)&gt;0,Round(DA#/2,2),0))"/>
         </RATEDETAILS.LIST>
         <RATEDETAILS.LIST>
           <GSTRATEDUTYHEAD FORMULA="=if(And(Round(DG#,2)=0,Round(DH#,2)=0),&quot;State Tax&quot;,&quot;UT Tax&quot;)"/>
           <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-          <GSTRATE SKIP="=And(Round(DE#,2)=0,Round(DF#,2)=0,Not(And(Round(DG#,2)=0,Round(DH#,2)=0)))" FORMULA="=If(DE#&gt;0,DE#,If(DA#&gt;0,Round(DA#/2,2),0))"/>
-          <GSTRATE SKIP="=And(Round(DG#,2)=0,Round(DH#,2)=0)" FORMULA="=If(DG#&gt;0,DG#,If(DA#&gt;0,Round(DA#/2,2),0))"/>
+          <GSTRATE SKIP="=And(Round(DE#,2)=0,Round(DF#,2)=0,Not(And(Round(DG#,2)=0,Round(DH#,2)=0)))" FORMULA="=If(Round(DE#,2)&gt;0,Round(DE#,2),If(Round(DA#,2)&gt;0,Round(DA#/2,2),0))"/>
+          <GSTRATE SKIP="=And(Round(DG#,2)=0,Round(DH#,2)=0)" FORMULA="=If(Round(DG#,2)&gt;0,Round(DG#,2),If(Round(DA#,2)&gt;0,Round(DA#/2,2),0))"/>
         </RATEDETAILS.LIST>
         <RATEDETAILS.LIST>
           <GSTRATEDUTYHEAD>Integrated Tax</GSTRATEDUTYHEAD>
