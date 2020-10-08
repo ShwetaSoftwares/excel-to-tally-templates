@@ -24,6 +24,27 @@
     </NAME.LIST>
     <USEDFOR>Both</USEDFOR>
   </MASTER>
+  <!-- TCS Nature of Goods -->
+  <MASTER TYPE="TDSRATE">
+    <NAME.LIST TYPE="String">
+      <NAME SKIP="=Not(Or(trim(GG#[1])=&quot;yes&quot;,trim(GG#[1])=&quot;applicable&quot;))" COLUMNREFERENCE="GI"/>
+    </NAME.LIST>
+    <ISACTIVE>Yes</ISACTIVE>
+    <ISFORTCS>Yes</ISFORTCS>
+    <CATEGORYDETAILS.LIST>
+      <APPLICABLEFROM COLUMNREFERENCE="GH"/>
+      <TDSRATESECTION>206C</TDSRATESECTION>
+      <ISTRANSPORTERCATEGORY>No</ISTRANSPORTERCATEGORY>
+      <ISSOFTWAREROYALTY>No</ISSOFTWAREROYALTY>
+      <ISZERORATED>No</ISZERORATED>
+      <ISNORMALRATEAPPLICABLE>No</ISNORMALRATEAPPLICABLE>
+      <RATEOFTAX COLUMNREFERENCE="GJ"/>
+      <OTHERRATE COLUMNREFERENCE="GL"/>
+      <NOPANRATEOFTAX COLUMNREFERENCE="GK"/>
+      <NOPANOTHERRATE COLUMNREFERENCE="GM"/>
+      <EXEMPTIONLIMIT COLUMNREFERENCE="GN"/>
+    </CATEGORYDETAILS.LIST>
+  </MASTER>
   <!-- Create UNIT Masters -->
   <MASTER TYPE="UNIT">
     <!-- The UNIT Master does not support Aliases. -->
@@ -173,12 +194,12 @@
     <!--<ISPERISHABLEON FORMULA="=IF(len(trim(AN#))=0,&quot;No&quot;,T#)"/>-->
     <ISPERISHABLEON COLUMNREFERENCE="T"/>
     <!-- Standard Cost details -->
-    <STANDARDCOSTLIST.LIST SCROLL="Yes" SKIP="=len(trim(U#))=0" APPEND="=trim(GH#)">
+    <STANDARDCOSTLIST.LIST SCROLL="Yes" SKIP="=len(trim(U#))=0" APPEND="=trim(GP#)">
       <DATE COLUMNREFERENCE="U"/>
       <RATE FORMULA="=V# &amp; if(len(trim(W#))=0,&quot;&quot;,&quot;/&quot; &amp; W#)"/>
     </STANDARDCOSTLIST.LIST>
     <!-- Standard Price details -->
-    <STANDARDPRICELIST.LIST SCROLL="Yes" SKIP="=len(trim(X#))=0" APPEND="=trim((GI#))">
+    <STANDARDPRICELIST.LIST SCROLL="Yes" SKIP="=len(trim(X#))=0" APPEND="=trim((GQ#))">
       <DATE COLUMNREFERENCE="X"/>
       <RATE FORMULA="=Y# &amp; if(len(trim(Z#))=0,&quot;&quot;,&quot;/&quot; &amp; Z#)"/>
     </STANDARDPRICELIST.LIST>
@@ -248,9 +269,9 @@
     <!-- GST details -->
     <GSTAPPLICABLE SKIP="=And(len(trim(AS#))=0,len(trim(AT#))=0,len(trim(AU#))=0,len(trim(AV#))=0,len(trim(BL#))=0,len(trim(BA#))=0,len(trim(BD#))=0,len(trim(BE#))=0)" FORMULA="=if(len(trim(AS#))=0,&quot;~[~ Applicable&quot;,&quot;~[~ &quot; &amp; AS#)"/>
     <!-- Type of supply -->
-    <GSTTYPEOFSUPPLY FORMULA="=if(len(trim(BL#))=0,&quot;Goods&quot;,BL#)"/>
+    <GSTTYPEOFSUPPLY SKIP="=Not(Or(trim(AS#)=&quot;applicable&quot;,trim(AS#)=&quot;yes&quot;))" FORMULA="=if(len(trim(BL#))=0,&quot;Goods&quot;,BL#)"/>
     <!-- Empty GSTDETAILS tag not required as it will overwrite existing data, if any  -->
-    <GSTDETAILS.LIST SKIP="=And(len(trim(AU#))=0,len(trim(AV#))=0,len(trim(BL#))=0,len(trim(BA#))=0,len(trim(BD#))=0,len(trim(BM#))=0)" APPEND="=trim(GG#)">
+    <GSTDETAILS.LIST SKIP="=And(len(trim(AU#))=0,len(trim(AV#))=0,len(trim(BL#))=0,len(trim(BA#))=0,len(trim(BD#))=0,len(trim(BM#))=0)" APPEND="=trim(GO#)">
       <APPLICABLEFROM FORMULA="=if(len(trim(AT#))=0,&quot;20170701&quot;,AT#)"/>
       <CALCULATIONTYPE FORMULA="=if(len(trim(AX#))=0,&quot;On Value&quot;,AX#)"/>
       <HSNCODE COLUMNREFERENCE="AU"/>
@@ -416,10 +437,10 @@
       <!-- If StockItemType is specified, then the TaxUnitName must also be specified -->
       <STOCKITEMTYPE COLUMNREFERENCE="CL"/>
       <!-- 
-      Ex: 1 Pcs = 32 sq feet / sq meter
-      where 
-      BASEUNIT =  sq feet; 
-      ALTERNATEUNIT = Pcs
+        Ex: 1 Pcs = 32 sq feet / sq meter
+        where
+        BASEUNIT =  sq feet;
+        ALTERNATEUNIT = Pcs
       -->
       <!-- 1 PCs -->
       <EXCISEREPDENOMINATOR COLUMNREFERENCE="CM"/>
@@ -431,7 +452,7 @@
     <!-- MRP -->
     <RATEOFMRP COLUMNREFERENCE="CZ"/>
     <!-- For Tally ERP 9 Release 5.0 or higher -->
-    <MRPDETAILS.LIST SKIP="=len(trim(CZ#))=0" APPEND="=trim((GJ#))">
+    <MRPDETAILS.LIST SKIP="=len(trim(CZ#))=0" APPEND="=trim((GR#))">
       <FROMDATE COLUMNREFERENCE="CY"/>
       <MRPRATEDETAILS.LIST>
         <STATENAME>~[~ Any</STATENAME>
@@ -464,7 +485,7 @@
     <DENOMINATOR FORMULA="=IF(len(trim(L#))=0,&quot;&quot;,N#)"/>
     <CONVERSION FORMULA="=IF(len(trim(L#))=0,&quot;&quot;,M#)"/>
     <!-- Price level 1 -->
-    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DQ#))=0,len(trim(DR#))=0)" APPEND="=trim((GK#))">
+    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DQ#))=0,len(trim(DR#))=0)" APPEND="=trim((GS#))">
       <DATE COLUMNREFERENCE="DQ"/>
       <PRICELEVEL COLUMNREFERENCE="DR"/>
       <PRICELEVELLIST.LIST SCROLL="YES">
@@ -475,40 +496,40 @@
       </PRICELEVELLIST.LIST>
     </FULLPRICELIST.LIST>
     <!-- Price level 2 -->
-    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DQ#))=0,len(trim(DX#))=0)" APPEND="=trim((GK#))">
+    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DQ#))=0,len(trim(DX#))=0)" APPEND="=trim((GS#))">
       <DATE COLUMNREFERENCE="DQ"/>
       <PRICELEVEL COLUMNREFERENCE="DX"/>
       <PRICELEVELLIST.LIST SCROLL="YES">
-      <ENDINGAT COLUMNREFERENCE="DZ"/>
-      <STARTINGFROM COLUMNREFERENCE="DY"/>
+        <ENDINGAT COLUMNREFERENCE="DZ"/>
+        <STARTINGFROM COLUMNREFERENCE="DY"/>
         <RATE FORMULA="=EA# &amp; if(len(trim(EB#))=0,&quot;&quot;,&quot;/&quot; &amp; EB#)"/>
         <DISCOUNT FORMULA="=Round(EC#,2)"/>
       </PRICELEVELLIST.LIST>
     </FULLPRICELIST.LIST>
     <!-- Price level 3 -->
-    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DQ#))=0,len(trim(ED#))=0)" APPEND="=trim((GK#))">
+    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DQ#))=0,len(trim(ED#))=0)" APPEND="=trim((GS#))">
       <DATE COLUMNREFERENCE="DQ"/>
       <PRICELEVEL COLUMNREFERENCE="ED"/>
       <PRICELEVELLIST.LIST SCROLL="YES">
-      <ENDINGAT COLUMNREFERENCE="EF"/>
-      <STARTINGFROM COLUMNREFERENCE="EE"/>
+        <ENDINGAT COLUMNREFERENCE="EF"/>
+        <STARTINGFROM COLUMNREFERENCE="EE"/>
         <RATE FORMULA="=EG# &amp; if(len(trim(EH#))=0,&quot;&quot;,&quot;/&quot; &amp; EH#)"/>
         <DISCOUNT FORMULA="=Round(EI#,2)"/>
       </PRICELEVELLIST.LIST>
     </FULLPRICELIST.LIST>
     <!-- Price level 4 -->
-    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DQ#))=0,len(trim(EJ#))=0)" APPEND="=trim((GK#))">
+    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DQ#))=0,len(trim(EJ#))=0)" APPEND="=trim((GS#))">
       <DATE COLUMNREFERENCE="DQ"/>
       <PRICELEVEL COLUMNREFERENCE="EJ"/>
       <PRICELEVELLIST.LIST SCROLL="YES">
-      <ENDINGAT COLUMNREFERENCE="EL"/>
-      <STARTINGFROM COLUMNREFERENCE="EK"/>
+        <ENDINGAT COLUMNREFERENCE="EL"/>
+        <STARTINGFROM COLUMNREFERENCE="EK"/>
         <RATE FORMULA="=EM# &amp; if(len(trim(EN#))=0,&quot;&quot;,&quot;/&quot; &amp; EN#)"/>
         <DISCOUNT FORMULA="=Round(EO#,2)"/>
       </PRICELEVELLIST.LIST>
     </FULLPRICELIST.LIST>
     <!-- Price level 5 -->
-    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DQ#))=0,len(trim(EP#))=0)" APPEND="=trim((GK#))">
+    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DQ#))=0,len(trim(EP#))=0)" APPEND="=trim((GS#))">
       <DATE COLUMNREFERENCE="DQ"/>
       <PRICELEVEL COLUMNREFERENCE="EP"/>
       <PRICELEVELLIST.LIST SCROLL="YES">
@@ -519,7 +540,7 @@
       </PRICELEVELLIST.LIST>
     </FULLPRICELIST.LIST>
     <!-- Price level 6 -->
-    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DQ#))=0,len(trim(EV#))=0)" APPEND="=trim((GK#))">
+    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DQ#))=0,len(trim(EV#))=0)" APPEND="=trim((GS#))">
       <DATE COLUMNREFERENCE="DQ"/>
       <PRICELEVEL COLUMNREFERENCE="EV"/>
       <PRICELEVELLIST.LIST SCROLL="YES">
@@ -530,7 +551,7 @@
       </PRICELEVELLIST.LIST>
     </FULLPRICELIST.LIST>
     <!-- Price level 7 -->
-    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DQ#))=0,len(trim(FB#))=0)" APPEND="=trim((GK#))">
+    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DQ#))=0,len(trim(FB#))=0)" APPEND="=trim((GS#))">
       <DATE COLUMNREFERENCE="DQ"/>
       <PRICELEVEL COLUMNREFERENCE="FB"/>
       <PRICELEVELLIST.LIST SCROLL="YES">
@@ -541,7 +562,7 @@
       </PRICELEVELLIST.LIST>
     </FULLPRICELIST.LIST>
     <!-- Price level 8 -->
-    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DQ#))=0,len(trim(FH#))=0)" APPEND="=trim((GK#))">
+    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DQ#))=0,len(trim(FH#))=0)" APPEND="=trim((GS#))">
       <DATE COLUMNREFERENCE="DQ"/>
       <PRICELEVEL COLUMNREFERENCE="FH"/>
       <PRICELEVELLIST.LIST SCROLL="YES">
@@ -552,7 +573,7 @@
       </PRICELEVELLIST.LIST>
     </FULLPRICELIST.LIST>
     <!-- Price level 9 -->
-    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DQ#))=0,len(trim(FN#))=0)" APPEND="=trim((GK#))">
+    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DQ#))=0,len(trim(FN#))=0)" APPEND="=trim((GS#))">
       <DATE COLUMNREFERENCE="DQ"/>
       <PRICELEVEL COLUMNREFERENCE="FN"/>
       <PRICELEVELLIST.LIST SCROLL="YES">
@@ -563,7 +584,7 @@
       </PRICELEVELLIST.LIST>
     </FULLPRICELIST.LIST>
     <!-- Price level 10 -->
-    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DQ#))=0,len(trim(FT#))=0)" APPEND="=trim((GK#))">
+    <FULLPRICELIST.LIST SKIP="=Or(len(trim(DQ#))=0,len(trim(FT#))=0)" APPEND="=trim((GS#))">
       <DATE COLUMNREFERENCE="DQ"/>
       <PRICELEVEL COLUMNREFERENCE="FT"/>
       <PRICELEVELLIST.LIST SCROLL="YES">
@@ -583,6 +604,14 @@
         <GODOWNNAME COLUMNREFERENCE="GF"/>
       </MULTICOMPONENTITEMLIST.LIST>
     </MULTICOMPONENTLIST.LIST>
+    <!-- TCS u/s 206C -->
+    <TCSAPPLICABLE SKIP="=Not(Or(trim(GG#[1])=&quot;yes&quot;,trim(GG#[1])=&quot;applicable&quot;))">~[~ Applicable</TCSAPPLICABLE>
+    <TCSAPPLICABLE SKIP="=Not(Or(trim(GG#[1])=&quot;no&quot;,trim(GG#[1])=&quot;not applicable&quot;))">~[~ Not Applicable</TCSAPPLICABLE>
+    <TCSCATEGORY SKIP="=Not(Or(trim(GG#[1])=&quot;yes&quot;,trim(GG#[1])=&quot;applicable&quot;))" COLUMNREFERENCE="GI"/>
+    <TCSCATEGORYDETAILS.LIST SKIP="=Not(Or(trim(GG#[1])=&quot;yes&quot;,trim(GG#[1])=&quot;applicable&quot;))">
+      <CATEGORYDATE COLUMNREFERENCE="GH"/>
+      <CATEGORYNAME COLUMNREFERENCE="GI"/>
+    </TCSCATEGORYDETAILS.LIST>
   </MASTER>
 </XMLTAGS>
 
