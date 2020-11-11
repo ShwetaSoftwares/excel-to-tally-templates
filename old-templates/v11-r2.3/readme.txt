@@ -1,0 +1,1 @@
+Standard template files
