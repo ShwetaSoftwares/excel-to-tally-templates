@@ -1367,6 +1367,9 @@
       <BASICNUMPACKAGES COLUMNREFERENCE="GW"/>
       <RATE SKIP="=Or(GQ#=&quot;yes&quot;,And(len(trim(HE#))&gt;0,len(trim(HF#))&gt;0))" COLUMNREFERENCE="BE"/>
       <RATE SKIP="=Or(Not(GQ#=&quot;yes&quot;),And(len(trim(HE#))&gt;0,len(trim(HF#))&gt;0))" FORMULA="=BE# &amp; &quot;/&quot; &amp; BB#"/>
+      <!-- Forex Rate (Not shown in Tally if Inclusive Tax is enabled for items) -->
+      <RATE SKIP="=And(len(trim(HE#))=0,len(trim(HF#))=0)" FORMULA="=HE# &amp; HG# &amp; &quot; = &quot; &amp; Round(Round(HF#,2)*Round(HG#,2),2) &amp; &quot;/&quot; &amp; AX#"/>
+
       <DISCOUNT COLUMNREFERENCE="BF"/>
       <AMOUNT CURRENCY="=HE#" ROE="=HF#" CONVERSIONFACTOR="=HH#" FORMULA="=if(HD#[1]=&quot;yes&quot;,{Round(BG#,2)},Round(BG#,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
       <ACTUALQTY FORMULA="=if(HD#[1]=&quot;yes&quot;,{if(len(trim(BC#))=0,BD#,BC#)},if(len(trim(BC#))=0,BD#,BC#)) &amp; if(GQ#=&quot;yes&quot;,&quot; &quot; &amp; BB#,&quot;&quot;)"/>
