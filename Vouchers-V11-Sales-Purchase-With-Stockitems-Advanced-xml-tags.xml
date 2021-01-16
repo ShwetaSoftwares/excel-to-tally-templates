@@ -735,28 +735,36 @@
         </RATEDETAILS.LIST>
         <RATEDETAILS.LIST>
           <GSTRATEDUTYHEAD>Cess</GSTRATEDUTYHEAD>
-          <GSTRATEVALUATIONTYPE SKIP="=Not(Or(Round(DO#,2)=0,Round(DP#,2)=0))">Based on Value</GSTRATEVALUATIONTYPE>
-          <GSTRATEVALUATIONTYPE SKIP="=Or(Round(DO#,2)=0,Round(DP#,2)=0)">Based on Value and Quantity</GSTRATEVALUATIONTYPE>
-          <GSTRATE FORMULA="=if(Round(DN#,2)=0,0,Round(DM#,2))"/>
+          <GSTRATEVALUATIONTYPE SKIP="=Not(And(Round(DN#,2)&gt;0,Round(DP#,2)=0))">Based on Value</GSTRATEVALUATIONTYPE>
+          <GSTRATEVALUATIONTYPE SKIP="=Not(And(Round(DP#,2)&gt;0,Round(DN#,2)=0))">Based on Quantity</GSTRATEVALUATIONTYPE>
+          <GSTRATEVALUATIONTYPE SKIP="=Not(And(Round(DN#,2)&gt;0,Round(DP#,2)&gt;0))">Based on Value and Quantity</GSTRATEVALUATIONTYPE>
+          <GSTRATEVALUATIONTYPE SKIP="=Not(And(Round(DN#,2)=0,Round(DP#,2)=0))">Based on Value</GSTRATEVALUATIONTYPE>
+          <GSTRATE SKIP="=Not(And(Round(DN#,2)&gt;0,Round(DP#,2)=0))" FORMULA="=Round(DM#,2)"/>
+          <GSTRATE SKIP="=Not(And(Round(DP#,2)&gt;0,Round(DN#,2)=0))" FORMULA="=Round(DO#,2)"/>
+          <GSTRATE SKIP="=Not(And(Round(DN#,2)&gt;0,Round(DP#,2)&gt;0))" FORMULA="=Round(DM#,2)"/>
         </RATEDETAILS.LIST>
         <!-- Cess based on Qty -->
         <RATEDETAILS.LIST SKIP="=Or(Round(DO#,2)=0,Round(DP#,2)=0)">
           <GSTRATEDUTYHEAD>Cess on Qty</GSTRATEDUTYHEAD>
           <GSTRATEVALUATIONTYPE>Based on Quantity</GSTRATEVALUATIONTYPE>
-          <GSTRATE FORMULA="=if(Round(DP#,2)=0,0,Round(DO#,2))"/>
+          <GSTRATE SKIP="=Not(And(Round(DN#,2)&gt;0,Round(DP#,2)&gt;0))" FORMULA="=Round(DO#,2)"/>
         </RATEDETAILS.LIST>
         <!-- State Cess -->
         <RATEDETAILS.LIST>
           <GSTRATEDUTYHEAD>State Cess</GSTRATEDUTYHEAD>
-          <GSTRATEVALUATIONTYPE SKIP="=Not(Or(Round(DS#,2)=0,Round(DT#,2)=0))">Based on Value</GSTRATEVALUATIONTYPE>
-          <GSTRATEVALUATIONTYPE SKIP="=Or(Round(DS#,2)=0,Round(DT#,2)=0)">Based on Value and Quantity</GSTRATEVALUATIONTYPE>
-          <GSTRATE FORMULA="=if(Round(DR#,2)=0,0,Round(DQ#,2))"/>
+          <GSTRATEVALUATIONTYPE SKIP="=Not(And(Round(DR#,2)&gt;0,Round(DT#,2)=0))">Based on Value</GSTRATEVALUATIONTYPE>
+          <GSTRATEVALUATIONTYPE SKIP="=Not(And(Round(DT#,2)&gt;0,Round(DR#,2)=0))">Based on Quantity</GSTRATEVALUATIONTYPE>
+          <GSTRATEVALUATIONTYPE SKIP="=Not(And(Round(DR#,2)&gt;0,Round(DT#,2)&gt;0))">Based on Value and Quantity</GSTRATEVALUATIONTYPE>
+          <GSTRATEVALUATIONTYPE SKIP="=Not(And(Round(DR#,2)=0,Round(DT#,2)=0))">Based on Value</GSTRATEVALUATIONTYPE>
+          <GSTRATE SKIP="=Not(And(Round(DR#,2)&gt;0,Round(DT#,2)=0))" FORMULA="=Round(DQ#,2)"/>
+          <GSTRATE SKIP="=Not(And(Round(DT#,2)&gt;0,Round(DR#,2)=0))" FORMULA="=Round(DS#,2)"/>
+          <GSTRATE SKIP="=Not(And(Round(DR#,2)&gt;0,Round(DT#,2)&gt;0))" FORMULA="=Round(DQ#,2)"/>
         </RATEDETAILS.LIST>
         <!-- State Cess based on Qty -->
         <RATEDETAILS.LIST SKIP="=Or(Round(DS#,2)=0,Round(DT#,2)=0)">
           <GSTRATEDUTYHEAD>State Cess on Qty</GSTRATEDUTYHEAD>
           <GSTRATEVALUATIONTYPE>Based on Quantity</GSTRATEVALUATIONTYPE>
-          <GSTRATE FORMULA="=if(Round(DT#,2)=0,0,Round(DS#,2))"/>
+          <GSTRATE SKIP="=Not(And(Round(DR#,2)&gt;0,Round(DT#,2)&gt;0))" FORMULA="=Round(DS#,2)"/>
         </RATEDETAILS.LIST>
       </STATEWISEDETAILS.LIST>
       <TEMPGSTDETAILSLABRATES.LIST>
@@ -1401,14 +1409,20 @@
         </RATEDETAILS.LIST>
         <RATEDETAILS.LIST SKIP="=trim(HB#)=&quot;yes&quot;">
           <GSTRATEDUTYHEAD>Cess</GSTRATEDUTYHEAD>
-          <GSTRATEVALUATIONTYPE SKIP="=Not(Or(Round(DO#,2)=0,Round(DP#,2)=0))">Based on Value</GSTRATEVALUATIONTYPE>
-          <GSTRATEVALUATIONTYPE SKIP="=Or(Round(DO#,2)=0,Round(DP#,2)=0)">Based on Value and Quantity</GSTRATEVALUATIONTYPE>
+          <GSTRATEVALUATIONTYPE SKIP="=Not(And(Round(DN#,2)&gt;0,Round(DP#,2)=0))">Based on Value</GSTRATEVALUATIONTYPE>
+          <GSTRATEVALUATIONTYPE SKIP="=Not(And(Round(DP#,2)&gt;0,Round(DN#,2)=0))">Based on Quantity</GSTRATEVALUATIONTYPE>
+          <GSTRATEVALUATIONTYPE SKIP="=Not(And(Round(DN#,2)&gt;0,Round(DP#,2)&gt;0))">Based on Value and Quantity</GSTRATEVALUATIONTYPE>
+          <GSTRATEVALUATIONTYPE SKIP="=Not(And(Round(DN#,2)=0,Round(DP#,2)=0))">Based on Value</GSTRATEVALUATIONTYPE>
+
           <GSTRATE COLUMNREFERENCE="FF"/>
         </RATEDETAILS.LIST>
         <RATEDETAILS.LIST SKIP="=trim(HB#)=&quot;yes&quot;">
           <GSTRATEDUTYHEAD>State Cess</GSTRATEDUTYHEAD>
-          <GSTRATEVALUATIONTYPE SKIP="=Not(Or(Round(DS#,2)=0,Round(DT#,2)=0))">Based on Value</GSTRATEVALUATIONTYPE>
-          <GSTRATEVALUATIONTYPE SKIP="=Or(Round(DS#,2)=0,Round(DT#,2)=0)">Based on Value and Quantity</GSTRATEVALUATIONTYPE>
+          <GSTRATEVALUATIONTYPE SKIP="=Not(And(Round(DR#,2)&gt;0,Round(DT#,2)=0))">Based on Value</GSTRATEVALUATIONTYPE>
+          <GSTRATEVALUATIONTYPE SKIP="=Not(And(Round(DT#,2)&gt;0,Round(DR#,2)=0))">Based on Quantity</GSTRATEVALUATIONTYPE>
+          <GSTRATEVALUATIONTYPE SKIP="=Not(And(Round(DR#,2)&gt;0,Round(DT#,2)&gt;0))">Based on Value and Quantity</GSTRATEVALUATIONTYPE>
+          <GSTRATEVALUATIONTYPE SKIP="=Not(And(Round(DR#,2)=0,Round(DT#,2)=0))">Based on Value</GSTRATEVALUATIONTYPE>
+
           <GSTRATE COLUMNREFERENCE="FG"/>
         </RATEDETAILS.LIST>
         <!-- Cost centre details -->
