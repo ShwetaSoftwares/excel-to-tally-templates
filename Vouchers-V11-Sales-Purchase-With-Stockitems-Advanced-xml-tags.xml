@@ -62,7 +62,7 @@
     <TCSAPPLICABLE SKIP="=Not(trim(FN#[1])=&quot;yes&quot;)">~[~ Applicable</TCSAPPLICABLE>
     <ISTCSAPPLICABLE SKIP="=Not(trim(FN#[1])=&quot;yes&quot;)" COLUMNREFERENCE="FN"/>
     <TCSCATEGORYDETAILS.LIST SKIP="=Or(Not(trim(FN#[1])=&quot;yes&quot;),trim(FQ#)=&quot;not applicable&quot;)">
-      <CATEGORYDATE>20201001</CATEGORYDATE>
+      <CATEGORYDATE>20200401</CATEGORYDATE>
       <CATEGORYNAME COLUMNREFERENCE="FQ"/>
     </TCSCATEGORYDETAILS.LIST>
   </MASTER>
@@ -155,7 +155,7 @@
     <TCSAPPLICABLE SKIP="=Not(trim(FN#[1])=&quot;yes&quot;)">~[~ Applicable</TCSAPPLICABLE>
     <ISTCSAPPLICABLE SKIP="=Not(trim(FN#[1])=&quot;yes&quot;)" COLUMNREFERENCE="FN"/>
     <TCSCATEGORYDETAILS.LIST SKIP="=Or(Not(trim(FN#[1])=&quot;yes&quot;),trim(FQ#)=&quot;not applicable&quot;)">
-      <CATEGORYDATE>20201001</CATEGORYDATE>
+      <CATEGORYDATE>20200401</CATEGORYDATE>
       <CATEGORYNAME COLUMNREFERENCE="FQ"/>
     </TCSCATEGORYDETAILS.LIST>
   </MASTER>
@@ -180,7 +180,7 @@
     <TCSAPPLICABLE SKIP="=Not(trim(FN#[1])=&quot;yes&quot;)">~[~ Applicable</TCSAPPLICABLE>
     <ISTCSAPPLICABLE SKIP="=Not(trim(FN#[1])=&quot;yes&quot;)" COLUMNREFERENCE="FN"/>
     <TCSCATEGORYDETAILS.LIST SKIP="=Or(Not(trim(FN#[1])=&quot;yes&quot;),trim(FQ#)=&quot;not applicable&quot;)">
-      <CATEGORYDATE>20201001</CATEGORYDATE>
+      <CATEGORYDATE>20200401</CATEGORYDATE>
       <CATEGORYNAME COLUMNREFERENCE="FQ"/>
     </TCSCATEGORYDETAILS.LIST>
   </MASTER>
@@ -205,7 +205,7 @@
     <TCSAPPLICABLE SKIP="=Not(trim(FN#[1])=&quot;yes&quot;)">~[~ Applicable</TCSAPPLICABLE>
     <ISTCSAPPLICABLE SKIP="=Not(trim(FN#[1])=&quot;yes&quot;)" COLUMNREFERENCE="FN"/>
     <TCSCATEGORYDETAILS.LIST SKIP="=Or(Not(trim(FN#[1])=&quot;yes&quot;),trim(FQ#)=&quot;not applicable&quot;)">
-      <CATEGORYDATE>20201001</CATEGORYDATE>
+      <CATEGORYDATE>20200401</CATEGORYDATE>
       <CATEGORYNAME COLUMNREFERENCE="FQ"/>
     </TCSCATEGORYDETAILS.LIST>
   </MASTER>
@@ -230,7 +230,7 @@
     <TCSAPPLICABLE SKIP="=Not(trim(FN#[1])=&quot;yes&quot;)">~[~ Applicable</TCSAPPLICABLE>
     <ISTCSAPPLICABLE SKIP="=Not(trim(FN#[1])=&quot;yes&quot;)" COLUMNREFERENCE="FN"/>
     <TCSCATEGORYDETAILS.LIST SKIP="=Or(Not(trim(FN#[1])=&quot;yes&quot;),trim(FQ#)=&quot;not applicable&quot;)">
-      <CATEGORYDATE>20201001</CATEGORYDATE>
+      <CATEGORYDATE>20200401</CATEGORYDATE>
       <CATEGORYNAME COLUMNREFERENCE="FQ"/>
     </TCSCATEGORYDETAILS.LIST>
   </MASTER>
@@ -256,7 +256,7 @@
     <TCSAPPLICABLE SKIP="=Not(trim(FN#[1])=&quot;yes&quot;)">~[~ Applicable</TCSAPPLICABLE>
     <ISTCSAPPLICABLE SKIP="=Not(trim(FN#[1])=&quot;yes&quot;)" COLUMNREFERENCE="FN"/>
     <TCSCATEGORYDETAILS.LIST SKIP="=Or(Not(trim(FN#[1])=&quot;yes&quot;),trim(FQ#)=&quot;not applicable&quot;)">
-      <CATEGORYDATE>20201001</CATEGORYDATE>
+      <CATEGORYDATE>20200401</CATEGORYDATE>
       <CATEGORYNAME COLUMNREFERENCE="FQ"/>
     </TCSCATEGORYDETAILS.LIST>
   </MASTER>
@@ -282,7 +282,7 @@
     <TCSAPPLICABLE SKIP="=Not(trim(FN#[1])=&quot;yes&quot;)">~[~ Applicable</TCSAPPLICABLE>
     <ISTCSAPPLICABLE SKIP="=Not(trim(FN#[1])=&quot;yes&quot;)" COLUMNREFERENCE="FN"/>
     <TCSCATEGORYDETAILS.LIST SKIP="=Or(Not(trim(FN#[1])=&quot;yes&quot;),trim(FQ#)=&quot;not applicable&quot;)">
-      <CATEGORYDATE>20201001</CATEGORYDATE>
+      <CATEGORYDATE>20200401</CATEGORYDATE>
       <CATEGORYNAME COLUMNREFERENCE="FQ"/>
     </TCSCATEGORYDETAILS.LIST>
   </MASTER>
@@ -308,7 +308,7 @@
     <TCSAPPLICABLE SKIP="=Not(trim(FN#[1])=&quot;yes&quot;)">~[~ Applicable</TCSAPPLICABLE>
     <ISTCSAPPLICABLE SKIP="=Not(trim(FN#[1])=&quot;yes&quot;)" COLUMNREFERENCE="FN"/>
     <TCSCATEGORYDETAILS.LIST SKIP="=Or(Not(trim(FN#[1])=&quot;yes&quot;),trim(FQ#)=&quot;not applicable&quot;)">
-      <CATEGORYDATE>20201001</CATEGORYDATE>
+      <CATEGORYDATE>20200401</CATEGORYDATE>
       <CATEGORYNAME COLUMNREFERENCE="FQ"/>
     </TCSCATEGORYDETAILS.LIST>
   </MASTER>
@@ -334,7 +334,7 @@
     <TCSAPPLICABLE SKIP="=Not(trim(FN#[1])=&quot;yes&quot;)">~[~ Applicable</TCSAPPLICABLE>
     <ISTCSAPPLICABLE SKIP="=Not(trim(FN#[1])=&quot;yes&quot;)" COLUMNREFERENCE="FN"/>
     <TCSCATEGORYDETAILS.LIST SKIP="=Or(Not(trim(FN#[1])=&quot;yes&quot;),trim(FQ#)=&quot;not applicable&quot;)">
-      <CATEGORYDATE>20201001</CATEGORYDATE>
+      <CATEGORYDATE>20200401</CATEGORYDATE>
       <CATEGORYNAME COLUMNREFERENCE="FQ"/>
     </TCSCATEGORYDETAILS.LIST>
   </MASTER>
@@ -774,7 +774,7 @@
     <TCSAPPLICABLE SKIP="=Not(trim(FN#[1])=&quot;yes&quot;)">~[~ Applicable</TCSAPPLICABLE>
     <TCSCATEGORY SKIP="=Not(trim(FN#[1])=&quot;yes&quot;)" COLUMNREFERENCE="FQ"/>
     <TCSCATEGORYDETAILS.LIST SKIP="=Or(Not(trim(FN#[1])=&quot;yes&quot;),trim(FQ#)=&quot;not applicable&quot;)">
-      <CATEGORYDATE>20201001</CATEGORYDATE>
+      <CATEGORYDATE>20200401</CATEGORYDATE>
       <CATEGORYNAME COLUMNREFERENCE="FQ"/>
     </TCSCATEGORYDETAILS.LIST>
   </MASTER>
@@ -1287,7 +1287,7 @@
         <CATEGORY COLUMNREFERENCE="FQ"/>
         <TAXTYPE>TCS</TAXTYPE>
         <TAXNAME FORMULA="=&quot;udi-&quot; &amp; A# &amp; C# &amp; E#"/>
-        <EXPENSES FORMULA="=if(Round(DF#,2)&gt;0,DU#,DV#)"/>
+        <EXPENSES FORMULA="=if(len(trim(BX#))&gt;0,BX#,if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURCHASE &quot;,&quot;SALES &quot;) &amp; (DE#+DG#+DI#+DK#) &amp; &quot;%&quot;)"/>
         <PARTYLEDGER FORMULA="=if(len(trim(H#))=0,I#,H#)"/>
         <REFTYPE>New Ref</REFTYPE>
         <ISPANVALID>No</ISPANVALID>
@@ -1315,7 +1315,7 @@
           <SUBCATZERORATED>No</SUBCATZERORATED>
           <SUBCATEXEMPTED>No</SUBCATEXEMPTED>
           <SUBCATISSPECIALRATE>No</SUBCATISSPECIALRATE>
-          <ASSESSABLEAMOUNT FORMULA="={Round(FR#,2)}"/>
+          <ASSESSABLEAMOUNT FORMULA="=Round({Round(FT#,2)},0)"/>
         </SUBCATEGORYALLOCATION.LIST>
         <SUBCATEGORYALLOCATION.LIST>
           <SUBCATEGORY>Education Cess</SUBCATEGORY>
@@ -1323,7 +1323,7 @@
           <SUBCATZERORATED>No</SUBCATZERORATED>
           <SUBCATEXEMPTED>No</SUBCATEXEMPTED>
           <SUBCATISSPECIALRATE>No</SUBCATISSPECIALRATE>
-          <ASSESSABLEAMOUNT FORMULA="={Round(FR#,2)}"/>
+          <ASSESSABLEAMOUNT FORMULA="=Round({Round(FT#,2)},0)"/>
         </SUBCATEGORYALLOCATION.LIST>
         <SUBCATEGORYALLOCATION.LIST>
           <SUBCATEGORY>Secondary Education Cess</SUBCATEGORY>
@@ -1331,7 +1331,7 @@
           <SUBCATZERORATED>No</SUBCATZERORATED>
           <SUBCATEXEMPTED>No</SUBCATEXEMPTED>
           <SUBCATISSPECIALRATE>No</SUBCATISSPECIALRATE>
-          <ASSESSABLEAMOUNT FORMULA="={Round(FR#,2)}"/>
+          <ASSESSABLEAMOUNT FORMULA="=Round({Round(FT#,2)},0)"/>
         </SUBCATEGORYALLOCATION.LIST>
       </TAXOBJECTALLOCATIONS.LIST>
     </LEDGERENTRIES.LIST>
