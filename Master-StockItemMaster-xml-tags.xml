@@ -194,12 +194,12 @@
     <!--<ISPERISHABLEON FORMULA="=IF(len(trim(AN#))=0,&quot;No&quot;,T#)"/>-->
     <ISPERISHABLEON COLUMNREFERENCE="T"/>
     <!-- Standard Cost details -->
-    <STANDARDCOSTLIST.LIST SCROLL="Yes" SKIP="=len(trim(U#))=0" APPEND="=trim(GP#)">
+    <STANDARDCOSTLIST.LIST SCROLL="Yes" SKIP="=Or(len(trim(U#))=0,Round(V#,2)=0)" APPEND="=trim(GP#)">
       <DATE COLUMNREFERENCE="U"/>
       <RATE FORMULA="=V# &amp; if(len(trim(W#))=0,&quot;&quot;,&quot;/&quot; &amp; W#)"/>
     </STANDARDCOSTLIST.LIST>
     <!-- Standard Price details -->
-    <STANDARDPRICELIST.LIST SCROLL="Yes" SKIP="=len(trim(X#))=0" APPEND="=trim((GQ#))">
+    <STANDARDPRICELIST.LIST SCROLL="Yes" SKIP="=Or(len(trim(X#))=0,Round(Y#,2)=0)" APPEND="=trim((GQ#))">
       <DATE COLUMNREFERENCE="X"/>
       <RATE FORMULA="=Y# &amp; if(len(trim(Z#))=0,&quot;&quot;,&quot;/&quot; &amp; Z#)"/>
     </STANDARDPRICELIST.LIST>
