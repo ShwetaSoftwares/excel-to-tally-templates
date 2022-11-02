@@ -7,7 +7,6 @@
   </COLUMNNAME.LIST>
   <!-- Create VOUCHERTYPE Master -->
   <MASTER TYPE="VOUCHERTYPE">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST TYPE="String">
       <NAME COLUMNREFERENCE="C"/>
     </NAME.LIST>
@@ -19,7 +18,6 @@
   </MASTER>
   <!-- Create CURRENCY Master -->
   <MASTER TYPE="CURRENCY">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <ORIGINALNAME COLUMNREFERENCE="HI"/>
     <MAILINGNAME FORMULA="=HI# &amp; &quot; Curr&quot;"/>
     <DECIMALPLACES> 2</DECIMALPLACES>
@@ -27,7 +25,6 @@
   <!-- TCS u/s 206C -->
   <!-- TCS Nature of Goods -->
   <MASTER TYPE="TDSRATE">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST TYPE="String">
       <NAME SKIP="=Or(Not(trim(FO#[1])=&quot;yes&quot;),trim(FR#)=&quot;not applicable&quot;)" COLUMNREFERENCE="FR"/>
     </NAME.LIST>
@@ -48,7 +45,6 @@
   </MASTER>
   <!-- Create Sales/Purchase Ledgers -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME FORMULA="=if(len(trim(BY#))&gt;0,BY#,if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;PURCHASE &quot;,&quot;SALES &quot;) &amp; (DF#+DH#+DJ#+DL#) &amp; &quot;%&quot;)"/>
     </NAME.LIST>
@@ -72,7 +68,6 @@
   </MASTER>
   <!-- Create Party LEDGER Masters -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="H"/>
       <NAME COLUMNREFERENCE="I"/>
@@ -99,7 +94,6 @@
   </MASTER>
   <!-- POS Ledgers -->
   <MASTER TYPE="LEDGER" SINGLERECORD="YES">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="GF"/>
     </NAME.LIST>
@@ -107,7 +101,6 @@
     <ISBILLWISEON>Yes</ISBILLWISEON>
   </MASTER>
   <MASTER TYPE="LEDGER" SINGLERECORD="YES">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="GH"/>
     </NAME.LIST>
@@ -115,7 +108,6 @@
     <ISBILLWISEON>Yes</ISBILLWISEON>
   </MASTER>
   <MASTER TYPE="LEDGER" SINGLERECORD="YES">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="GK"/>
     </NAME.LIST>
@@ -123,7 +115,6 @@
     <ISBILLWISEON>Yes</ISBILLWISEON>
   </MASTER>
   <MASTER TYPE="LEDGER" SINGLERECORD="YES">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="GO"/>
     </NAME.LIST>
@@ -132,7 +123,6 @@
   </MASTER>
   <!-- Create Trade discount Master -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME FORMULA="=if(len(trim(BK#))=0,if(Round(BJ#,2)=0,&quot;&quot;,&quot;Discount&quot;),BK#)"/>
     </NAME.LIST>
@@ -146,7 +136,6 @@
   </MASTER>
   <!-- Create IGST TAX LEDGER Master -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME FORMULA="=if(len(trim(DV#))&gt;0,DV#,if(Or(IsError(Round(DF#,2)),len(trim(DF#))=0,DF#=0),&quot;&quot;,&quot;IGST &quot; &amp; DF# &amp; &quot;%&quot;))"/>
     </NAME.LIST>
@@ -172,7 +161,6 @@
   </MASTER>
   <!-- Create CGST TAX LEDGER Master -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME FORMULA="=if(len(trim(DW#))&gt;0,DW#,if(Or(IsError(Round(DH#,2)),len(trim(DH#))=0,DH#=0),&quot;&quot;,&quot;CGST &quot; &amp; DH# &amp; &quot;%&quot;))"/>
     </NAME.LIST>
@@ -198,7 +186,6 @@
   </MASTER>
   <!-- Create SGST TAX LEDGER Master -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME FORMULA="=if(len(trim(DX#))&gt;0,DX#,if(Or(IsError(Round(DJ#,2)),len(trim(DJ#))=0,DJ#=0),&quot;&quot;,&quot;SGST &quot; &amp; DJ# &amp; &quot;%&quot;))"/>
     </NAME.LIST>
@@ -224,7 +211,6 @@
   </MASTER>
   <!-- Create UT TAX LEDGER Master -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME FORMULA="=if(len(trim(DY#))&gt;0,DY#,if(Or(IsError(Round(DL#,2)),len(trim(DL#))=0,DL#=0),&quot;&quot;,&quot;UT &quot; &amp; DL# &amp; &quot;%&quot;))"/>
     </NAME.LIST>
@@ -250,7 +236,6 @@
   </MASTER>
   <!-- Create Cess LEDGER Master -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME FORMULA="=if(len(trim(DZ#))&gt;0,DZ#,if(Or(IsError(Round(DN#,2)),len(trim(DN#))=0,DN#=0),&quot;&quot;,&quot;Cess &quot; &amp; DN# &amp; &quot;%&quot;))"/>
     </NAME.LIST>
@@ -277,7 +262,6 @@
   </MASTER>
   <!-- Create Additional Cess LEDGER Master -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME FORMULA="=if(len(trim(EA#))&gt;0,EA#,if(Or(IsError(Round(DP#,2)),len(trim(DP#))=0,DP#=0),&quot;&quot;,&quot;Addl Cess - &quot; &amp; DP#))"/>
     </NAME.LIST>
@@ -304,7 +288,6 @@
   </MASTER>
   <!-- Create State Cess LEDGER Master -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME FORMULA="=if(len(trim(EB#))&gt;0,EB#,if(Or(IsError(Round(DR#,2)),len(trim(DR#))=0,DR#=0),&quot;&quot;,&quot;State Cess &quot; &amp; DR# &amp; &quot;%&quot;))"/>
     </NAME.LIST>
@@ -331,7 +314,6 @@
   </MASTER>
   <!-- Create State Additional Cess LEDGER Master -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME FORMULA="=if(len(trim(EC#))&gt;0,EC#,if(Or(IsError(Round(DT#,2)),len(trim(DT#))=0,DT#=0),&quot;&quot;,&quot;State Addl Cess - &quot; &amp; DT#))"/>
     </NAME.LIST>
@@ -358,7 +340,6 @@
   </MASTER>
   <!-- Create Other LEDGERs before taxes -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="CL"/>
     </NAME.LIST>
@@ -373,7 +354,6 @@
   </MASTER>
   <!-- Create Other LEDGERs before taxes -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="CP"/>
     </NAME.LIST>
@@ -388,7 +368,6 @@
   </MASTER>
   <!-- Create Other LEDGERs before taxes -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="CT"/>
     </NAME.LIST>
@@ -403,7 +382,6 @@
   </MASTER>
   <!-- Create Other LEDGERs before taxes -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="CX"/>
     </NAME.LIST>
@@ -418,7 +396,6 @@
   </MASTER>
   <!-- Create Other LEDGERs before taxes -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="DB"/>
     </NAME.LIST>
@@ -433,7 +410,6 @@
   </MASTER>
   <!-- Create Other LEDGERs after taxes -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="ED"/>
     </NAME.LIST>
@@ -442,7 +418,6 @@
   </MASTER>
   <!-- Create Other LEDGERs after taxes -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="EH"/>
     </NAME.LIST>
@@ -451,7 +426,6 @@
   </MASTER>
   <!-- Create Other LEDGERs after taxes -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="EL"/>
     </NAME.LIST>
@@ -460,7 +434,6 @@
   </MASTER>
   <!-- Create Other LEDGERs after taxes -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="EP"/>
     </NAME.LIST>
@@ -469,7 +442,6 @@
   </MASTER>
   <!-- Create Other LEDGERs after taxes -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="ET"/>
     </NAME.LIST>
@@ -478,7 +450,6 @@
   </MASTER>
   <!-- TCS u/s 206C -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME SKIP="=Not(trim(FO#[1])=&quot;yes&quot;)" COLUMNREFERENCE="FV"/>
     </NAME.LIST>
@@ -488,7 +459,6 @@
   </MASTER>
   <!-- Create Round Off LEDGER Master -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME FORMULA="=if(len(trim(HD#))=0,&quot;Round Off&quot;,HD#)"/>
     </NAME.LIST>
@@ -497,7 +467,6 @@
   </MASTER>
   <!-- Cost Category -->
   <MASTER TYPE="COSTCATEGORY">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="M"/>
     </NAME.LIST>
@@ -506,7 +475,6 @@
   </MASTER>
   <!-- Cost Centre -->
   <MASTER TYPE="COSTCENTRE">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="N"/>
     </NAME.LIST>
@@ -516,7 +484,6 @@
   </MASTER>
   <!-- Cost Category -->
   <MASTER TYPE="COSTCATEGORY">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="CJ"/>
     </NAME.LIST>
@@ -525,7 +492,6 @@
   </MASTER>
   <!-- Cost Centre -->
   <MASTER TYPE="COSTCENTRE">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="CK"/>
     </NAME.LIST>
@@ -535,7 +501,6 @@
   </MASTER>
   <!-- Cost Category -->
   <MASTER TYPE="COSTCATEGORY">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="CN"/>
     </NAME.LIST>
@@ -544,7 +509,6 @@
   </MASTER>
   <!-- Cost Centre -->
   <MASTER TYPE="COSTCENTRE">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="CO"/>
     </NAME.LIST>
@@ -554,7 +518,6 @@
   </MASTER>
   <!-- Cost Category -->
   <MASTER TYPE="COSTCATEGORY">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="CR"/>
     </NAME.LIST>
@@ -563,7 +526,6 @@
   </MASTER>
   <!-- Cost Centre -->
   <MASTER TYPE="COSTCENTRE">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="CS"/>
     </NAME.LIST>
@@ -573,7 +535,6 @@
   </MASTER>
   <!-- Cost Category -->
   <MASTER TYPE="COSTCATEGORY">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="CV"/>
     </NAME.LIST>
@@ -582,7 +543,6 @@
   </MASTER>
   <!-- Cost Centre -->
   <MASTER TYPE="COSTCENTRE">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="CW"/>
     </NAME.LIST>
@@ -592,7 +552,6 @@
   </MASTER>
   <!-- Cost Category -->
   <MASTER TYPE="COSTCATEGORY">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="CZ"/>
     </NAME.LIST>
@@ -601,7 +560,6 @@
   </MASTER>
   <!-- Cost Centre -->
   <MASTER TYPE="COSTCENTRE">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="DA"/>
     </NAME.LIST>
@@ -611,7 +569,6 @@
   </MASTER>
   <!-- Cost Category -->
   <MASTER TYPE="COSTCATEGORY">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="DD"/>
     </NAME.LIST>
@@ -620,7 +577,6 @@
   </MASTER>
   <!-- Cost Centre -->
   <MASTER TYPE="COSTCENTRE">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="DE"/>
     </NAME.LIST>
@@ -630,7 +586,6 @@
   </MASTER>
   <!-- Cost Category -->
   <MASTER TYPE="COSTCATEGORY">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="EF"/>
     </NAME.LIST>
@@ -639,7 +594,6 @@
   </MASTER>
   <!-- Cost Centre -->
   <MASTER TYPE="COSTCENTRE">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="EG"/>
     </NAME.LIST>
@@ -649,7 +603,6 @@
   </MASTER>
   <!-- Cost Category -->
   <MASTER TYPE="COSTCATEGORY">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="EJ"/>
     </NAME.LIST>
@@ -658,7 +611,6 @@
   </MASTER>
   <!-- Cost Centre -->
   <MASTER TYPE="COSTCENTRE">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="EK"/>
     </NAME.LIST>
@@ -668,7 +620,6 @@
   </MASTER>
   <!-- Cost Category -->
   <MASTER TYPE="COSTCATEGORY">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="EN"/>
     </NAME.LIST>
@@ -677,7 +628,6 @@
   </MASTER>
   <!-- Cost Centre -->
   <MASTER TYPE="COSTCENTRE">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="EO"/>
     </NAME.LIST>
@@ -687,7 +637,6 @@
   </MASTER>
   <!-- Cost Category -->
   <MASTER TYPE="COSTCATEGORY">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="ER"/>
     </NAME.LIST>
@@ -696,7 +645,6 @@
   </MASTER>
   <!-- Cost Centre -->
   <MASTER TYPE="COSTCENTRE">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="ES"/>
     </NAME.LIST>
@@ -706,7 +654,6 @@
   </MASTER>
   <!-- Cost Category -->
   <MASTER TYPE="COSTCATEGORY">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="EV"/>
     </NAME.LIST>
@@ -715,7 +662,6 @@
   </MASTER>
   <!-- Cost Centre -->
   <MASTER TYPE="COSTCENTRE">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="EW"/>
     </NAME.LIST>
@@ -725,14 +671,12 @@
   </MASTER>
   <!-- Create a SINGLE UNIT Master -->
   <MASTER TYPE="UNIT" SINGLERECORD="Yes">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME>Nos</NAME>
     <ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
     <GSTREPUOM>NOS-NUMBERS</GSTREPUOM>
   </MASTER>
   <!-- Create UNIT Master -->
   <MASTER TYPE="UNIT">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME COLUMNREFERENCE="BC"/>
     <ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
     <GSTREPUOM SKIP="=Not(trim(BC#)=&quot;nos&quot;)">NOS-NUMBERS</GSTREPUOM>
@@ -740,13 +684,11 @@
   </MASTER>
   <!-- Create Godown Masters -->
   <MASTER TYPE="GODOWN">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <NAME COLUMNREFERENCE="AX"/>
     <PARENT/>
   </MASTER>
   <!-- Create STOCKITEM Masters -->
   <MASTER TYPE="STOCKITEM">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <OLDNAME FORMULA="=if(len(trim(AZ#))=0,AY#,AZ#)"/>
     <!-- Overwrite existing ITEMs -->
     <IMPORTDUPS FORMULA="=if(And(Not(IsError(HE#)),len(trim(HE#))&gt;0,HE#=&quot;yes&quot;),&quot;Modify with new data&quot;,&quot;Ignore Duplicates&quot;)"/>
@@ -837,7 +779,6 @@
     </TCSCATEGORYDETAILS.LIST>
   </MASTER>
   <VOUCHER11 SKIP="=trim(GV#)=&quot;Yes&quot;">
-    <COMPANYNAME FORMULA="=HN#[1]"/>
     <GUID FORMULA="=+&quot;udi-H6W7QN-&quot; &amp; A# &amp; &quot;-&quot; &amp; C# &amp; &quot;-&quot; &amp; E#"/>
     <DATE COLUMNREFERENCE="E"/>
     <EFFECTIVEDATE COLUMNREFERENCE="E"/>
