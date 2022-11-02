@@ -41,8 +41,7 @@
     <PARENT FORMULA="=If(len(trim(H#))=0,&quot;New Ledgers&quot;,H#)"/>
   </MASTER>
   <VOUCHER11>
-    <GUID FORMULA="=&quot;udi-H3X8E6-&quot; &amp; A# &amp; &quot;-&quot; &amp; if(len(trim(J#))&gt;0,I# &amp; &quot;-&quot; &amp; J#,Now() &amp; &quot;-&quot; &amp; #) "/>
-    <TEST>1</TEST>
+    <GUID FORMULA="=&quot;udi-H3X8E6-&quot; &amp; A# &amp; &quot;-&quot; &amp; Now() &amp; &quot;-&quot; &amp; #"/>
     <DATE COLUMNREFERENCE="A"/>
     <EFFECTIVEDATE COLUMNREFERENCE="A"/>
     <VOUCHERTYPENAME FORMULA="=if(len(trim(I#))=0,if(If(IsError(Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2)),0,Round(substitute(E#,&quot;,&quot;,&quot;&quot;)*1,2))&gt;0,&quot;Receipt&quot;,&quot;Payment&quot;),I#)"/>
