@@ -954,7 +954,7 @@
     <LEDGERENTRIES.LIST SKIP="=And(len(trim(H#))=0,len(trim(I#))=0)" ALTERNATETAGNAME="=if(And(len(trim(AY#[1]))=0,len(trim(AZ#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
       <LEDGERNAME FORMULA="=if(len(trim(I#))=0,H#,I#)"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;No&quot;,&quot;Yes&quot;)"/>
-      <AMOUNT CURRENCY="=HI#" ROE="=HJ#" CONVERSIONFACTOR="=HL#" FOREXAMOUNT="=Round({HM#},2)" SKIP="=Not(Round(GG#+GI#+GL#+GP#,2)=0)" FORMULA="=Round({Round(BH#,2)-Round(BJ#,2)+Round(DG#,2)+Round(DI#,2)+Round(DK#,2)+Round(DM#,2)+Round(DO#,2)+Round(DQ#,2)+Round(DS#,2)+Round(DU#,2)}+{Round(CM#,2)+Round(CQ#,2)+Round(CU#,2)+Round(CY#,2)+Round(DC#,2)}+{Round(EE#,2)+Round(EI#,2)+Round(EM#,2)+Round(EQ#,2)+Round(EU#,2)}+Round({if(trim(FO#[1])=&quot;yes&quot;,Round(FU#,2),0)},2),if(trim(HC#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
+      <AMOUNT CURRENCY="=HI#" ROE="=HJ#" CONVERSIONFACTOR="=HL#" FOREXAMOUNT="=Round({HM#},2)" SKIP="=Not(Round(GG#+GI#+GL#+GP#,2)=0)" FORMULA="=Round({Round(BH#,2)-Round(BJ#,2)+Round(DG#,2)+Round(DI#,2)+Round(DK#,2)+Round(DM#,2)+Round(DO#,2)+Round(DQ#,2)+Round(DS#,2)+Round(DU#,2)}+{Round(CM#,2)+Round(CQ#,2)+Round(CU#,2)+Round(CY#,2)+Round(DC#,2)}+{Round(EE#,2)+Round(EI#,2)+Round(EM#,2)+Round(EQ#,2)+Round(EU#,2)}+Round({if(trim(FO#[1])=&quot;yes&quot;,Round(FU#,2),0)},0),if(trim(HC#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
       <BILLALLOCATIONS.LIST SKIP="=Or(Len(trim(EY#))=0,Round(EZ#,2)=0)" SCROLL="YES">
         <NAME COLUMNREFERENCE="EY"/>
         <BILLTYPE COLUMNREFERENCE="EX"/>
@@ -965,14 +965,14 @@
         <NAME FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),if(len(trim(F#))=0,D#,F#),D#)"/>
         <BILLTYPE>New Ref</BILLTYPE>
         <BILLCREDITPERIOD COLUMNREFERENCE="FA"/>
-        <AMOUNT CURRENCY="=HI#" ROE="=HJ#" CONVERSIONFACTOR="=HL#" SKIP="=Not(Round(GG#+GI#+GL#+GP#,2)=0)" FORMULA="=Round({Round(BH#,2)-Round(BJ#,2)+Round(DG#,2)+Round(DI#,2)+Round(DK#,2)+Round(DM#,2)+Round(DO#,2)+Round(DQ#,2)+Round(DS#,2)+Round(DU#,2)}+{Round(CM#,2)+Round(CQ#,2)+Round(CU#,2)+Round(CY#,2)+Round(DC#,2)}+{Round(EE#,2)+Round(EI#,2)+Round(EM#,2)+Round(EQ#,2)+Round(EU#,2)}+Round({if(trim(FO#[1])=&quot;yes&quot;,Round(FU#,2),0)},2),if(trim(HC#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
+        <AMOUNT CURRENCY="=HI#" ROE="=HJ#" CONVERSIONFACTOR="=HL#" SKIP="=Not(Round(GG#+GI#+GL#+GP#,2)=0)" FORMULA="=Round({Round(BH#,2)-Round(BJ#,2)+Round(DG#,2)+Round(DI#,2)+Round(DK#,2)+Round(DM#,2)+Round(DO#,2)+Round(DQ#,2)+Round(DS#,2)+Round(DU#,2)}+{Round(CM#,2)+Round(CQ#,2)+Round(CU#,2)+Round(CY#,2)+Round(DC#,2)}+{Round(EE#,2)+Round(EI#,2)+Round(EM#,2)+Round(EQ#,2)+Round(EU#,2)}+Round({if(trim(FO#[1])=&quot;yes&quot;,Round(FU#,2),0)},0),if(trim(HC#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
       </BILLALLOCATIONS.LIST>
       <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(N#))=0">
         <CATEGORY COLUMNREFERENCE="M"/>
         <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;No&quot;,&quot;Yes&quot;)"/>
         <COSTCENTREALLOCATIONS.LIST>
           <NAME COLUMNREFERENCE="N"/>
-          <AMOUNT SKIP="=Not(Round(GG#+GI#+GL#+GP#,2)=0)" FORMULA="=Round({Round(BH#,2)-Round(BJ#,2)+Round(DG#,2)+Round(DI#,2)+Round(DK#,2)+Round(DM#,2)+Round(DO#,2)+Round(DQ#,2)+Round(DS#,2)+Round(DU#,2)}+{Round(CM#,2)+Round(CQ#,2)+Round(CU#,2)+Round(CY#,2)+Round(DC#,2)}+{Round(EE#,2)+Round(EI#,2)+Round(EM#,2)+Round(EQ#,2)+Round(EU#,2)}+Round({if(trim(FO#[1])=&quot;yes&quot;,Round(FU#,2),0)},2),if(trim(HC#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
+          <AMOUNT SKIP="=Not(Round(GG#+GI#+GL#+GP#,2)=0)" FORMULA="=Round({Round(BH#,2)-Round(BJ#,2)+Round(DG#,2)+Round(DI#,2)+Round(DK#,2)+Round(DM#,2)+Round(DO#,2)+Round(DQ#,2)+Round(DS#,2)+Round(DU#,2)}+{Round(CM#,2)+Round(CQ#,2)+Round(CU#,2)+Round(CY#,2)+Round(DC#,2)}+{Round(EE#,2)+Round(EI#,2)+Round(EM#,2)+Round(EQ#,2)+Round(EU#,2)}+Round({if(trim(FO#[1])=&quot;yes&quot;,Round(FU#,2),0)},0),if(trim(HC#)=&quot;yes&quot;,0,2))*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
         </COSTCENTREALLOCATIONS.LIST>
       </CATEGORYALLOCATIONS.LIST>
     </LEDGERENTRIES.LIST>
@@ -1344,7 +1344,7 @@
     <LEDGERENTRIES.LIST GROUPBY="=trim(FV#)" SKIP="=Not(trim(FO#[1])=&quot;yes&quot;)">
       <LEDGERNAME COLUMNREFERENCE="FV"/>
       <ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
-      <AMOUNT FORMULA="=Round({Round(FU#,2)},2)"/>
+      <AMOUNT FORMULA="=Round({Round(FU#,2)},0)"/>
       <TAXOBJECTALLOCATIONS.LIST NOSKIP="Yes">
         <CATEGORY COLUMNREFERENCE="FR"/>
         <TAXTYPE>TCS</TAXTYPE>
@@ -1369,7 +1369,7 @@
           <SUBCATISSPECIALRATE>No</SUBCATISSPECIALRATE>
           <TAXRATE COLUMNREFERENCE="FT"/>
           <ASSESSABLEAMOUNT FORMULA="={Round(FS#,2)}"/>
-          <TAX FORMULA="=Round({Round(FU#,2)},2)"/>
+          <TAX FORMULA="=Round({Round(FU#,2)},0)"/>
         </SUBCATEGORYALLOCATION.LIST>
         <SUBCATEGORYALLOCATION.LIST>
           <SUBCATEGORY>Surcharge</SUBCATEGORY>
@@ -1377,7 +1377,7 @@
           <SUBCATZERORATED>No</SUBCATZERORATED>
           <SUBCATEXEMPTED>No</SUBCATEXEMPTED>
           <SUBCATISSPECIALRATE>No</SUBCATISSPECIALRATE>
-          <ASSESSABLEAMOUNT FORMULA="=Round({Round(FU#,2)},2)"/>
+          <ASSESSABLEAMOUNT FORMULA="=Round({Round(FU#,2)},0)"/>
         </SUBCATEGORYALLOCATION.LIST>
         <SUBCATEGORYALLOCATION.LIST>
           <SUBCATEGORY>Education Cess</SUBCATEGORY>
@@ -1385,7 +1385,7 @@
           <SUBCATZERORATED>No</SUBCATZERORATED>
           <SUBCATEXEMPTED>No</SUBCATEXEMPTED>
           <SUBCATISSPECIALRATE>No</SUBCATISSPECIALRATE>
-          <ASSESSABLEAMOUNT FORMULA="=Round({Round(FU#,2)},2)"/>
+          <ASSESSABLEAMOUNT FORMULA="=Round({Round(FU#,2)},0)"/>
         </SUBCATEGORYALLOCATION.LIST>
         <SUBCATEGORYALLOCATION.LIST>
           <SUBCATEGORY>Secondary Education Cess</SUBCATEGORY>
@@ -1393,7 +1393,7 @@
           <SUBCATZERORATED>No</SUBCATZERORATED>
           <SUBCATEXEMPTED>No</SUBCATEXEMPTED>
           <SUBCATISSPECIALRATE>No</SUBCATISSPECIALRATE>
-          <ASSESSABLEAMOUNT FORMULA="=Round({Round(FU#,2)},2)"/>
+          <ASSESSABLEAMOUNT FORMULA="=Round({Round(FU#,2)},0)"/>
         </SUBCATEGORYALLOCATION.LIST>
       </TAXOBJECTALLOCATIONS.LIST>
     </LEDGERENTRIES.LIST>
