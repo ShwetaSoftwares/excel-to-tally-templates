@@ -54,7 +54,7 @@
     <GSTREGISTRATIONTYPE SKIP="=trim(AK#)=&quot;yes&quot;" FORMULA="=if(len(trim(J#))=0,&quot;Unregistered&quot;,&quot;Regular&quot;)"/>
     <!-- GSTIN / UIN -->
     <PARTYGSTIN SKIP="=trim(AK#)=&quot;yes&quot;" FORMULA="=trim(J#)"/>
-    <COUNTRYNAME SKIP="=len(trim(K#))=0">India</COUNTRYNAME>
+    <COUNTRYNAME FORMULA="=if(len(trim(L#))=0,&quot;India&quot;,L#)"/>
       <!-- 2017-09-14: STATENAME is converted to proper-case  -->
     <STATENAME ALERT="=if(len(trim(K#))=0,&quot;&quot;,if(__MATCH(K#,STATENAMELIST),&quot;&quot;,&quot;Invalid StateName:  &quot; &amp; K#))" ALERTREFERENCE="K#" FORMULA="=proper(trim(K#))"/>
     <LEDSTATENAME FORMULA="=proper(trim(K#))"/>
@@ -71,7 +71,7 @@
       <APPLICABLEFROM>20230401</APPLICABLEFROM>
       <MAILINGNAME COLUMNREFERENCE="H"/>
       <STATE FORMULA="=proper(trim(K#))"/>
-      <COUNTRYNAME SKIP="=len(trim(K#))=0">India</COUNTRYNAME>
+      <COUNTRY FORMULA="=if(len(trim(L#))=0,&quot;India&quot;,L#)"/>
     </LEDMAILINGDETAILS.LIST>
   </MASTER>
   <!-- Create Trade discount Master -->
@@ -235,7 +235,7 @@
     <CMPGSTREGISTRATIONTYPE COLUMNREFERENCE="AV"/>
     <VCHGSTSTATUSISINCLUDED>Yes</VCHGSTSTATUSISINCLUDED>
     <VCHGSTSTATUSISUNCERTAIN>No</VCHGSTSTATUSISUNCERTAIN>
-    <COUNTRYOFRESIDENCE SKIP="=len(trim(K#))=0">India</COUNTRYOFRESIDENCE>
+    <COUNTRYOFRESIDENCE FORMULA="=if(len(trim(L#))=0,&quot;India&quot;,L#)"/>
 
     <PLACEOFSUPPLY FORMULA="=proper(trim(K#))"/>
     <VCHENTRYMODE>Item Invoice</VCHENTRYMODE>
