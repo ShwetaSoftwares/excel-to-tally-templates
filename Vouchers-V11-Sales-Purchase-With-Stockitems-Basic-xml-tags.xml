@@ -7,7 +7,7 @@
   </COLUMNNAME.LIST>
   <!-- Create VOUCHERTYPE Master -->
   <MASTER TYPE="VOUCHERTYPE">
-    <COMPANYNAME FORMULA="=AQ#[1]"/>
+    <COMPANYNAME FORMULA="=AR#[1]"/>
     <NAME.LIST TYPE="String">
       <NAME COLUMNREFERENCE="C"/>
     </NAME.LIST>
@@ -17,30 +17,30 @@
   </MASTER>
   <!-- Create CURRENCY Master -->
   <MASTER TYPE="CURRENCY">
-    <COMPANYNAME FORMULA="=AQ#[1]"/>
-    <ORIGINALNAME COLUMNREFERENCE="AL"/>
-    <MAILINGNAME FORMULA="=AL# &amp; &quot; Curr&quot;"/>
+    <COMPANYNAME FORMULA="=AR#[1]"/>
+    <ORIGINALNAME COLUMNREFERENCE="AM"/>
+    <MAILINGNAME FORMULA="=AM# &amp; &quot; Curr&quot;"/>
     <DECIMALPLACES> 2</DECIMALPLACES>
   </MASTER>
   <!-- Create  Sales/Purchase Ledger Master -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=AQ#[1]"/>
+    <COMPANYNAME FORMULA="=AR#[1]"/>
     <NAME.LIST>
-      <NAME FORMULA="=if(len(trim(AD#))&gt;0,AD#,if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURCHASE &quot;,&quot;SALES &quot;) &amp; (X#+Z#+AB#) &amp; &quot;%&quot;)"/>
+      <NAME FORMULA="=if(len(trim(AE#))&gt;0,AE#,if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURCHASE &quot;,&quot;SALES &quot;) &amp; (Y#+AA#+AC#) &amp; &quot;%&quot;)"/>
     </NAME.LIST>
     <PARENT FORMULA="=if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;Purchase Accounts&quot;,&quot;Sales Accounts&quot;)"/>
     <TAXTYPE>Others</TAXTYPE>
     <ISBILLWISEON>No</ISBILLWISEON>
     <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
-    <AFFECTSSTOCK FORMULA="=if(And(len(trim(L#))=0,len(trim(M#))=0),&quot;No&quot;,&quot;Yes&quot;)"/>
+    <AFFECTSSTOCK FORMULA="=if(And(len(trim(M#))=0,len(trim(N#))=0),&quot;No&quot;,&quot;Yes&quot;)"/>
     <USEFORVAT>No</USEFORVAT>
-    <GSTAPPLICABLE SKIP="=trim(AJ#)=&quot;yes&quot;" FORMULA="=&quot;~[~ Applicable&quot;"/>
+    <GSTAPPLICABLE SKIP="=trim(AK#)=&quot;yes&quot;" FORMULA="=&quot;~[~ Applicable&quot;"/>
     <!-- Type of supply : Goods or Services -->
-    <GSTTYPEOFSUPPLY SKIP="=trim(AJ#)=&quot;yes&quot;" FORMULA="=if(And(len(trim(L#))=0,len(trim(M#))=0),&quot;Services&quot;,&quot;Goods&quot;)"/>
+    <GSTTYPEOFSUPPLY SKIP="=trim(AK#)=&quot;yes&quot;" FORMULA="=if(And(len(trim(M#))=0,len(trim(N#))=0),&quot;Services&quot;,&quot;Goods&quot;)"/>
   </MASTER>
   <!-- Create Party LEDGER Masters -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=AQ#[1]"/>
+    <COMPANYNAME FORMULA="=AR#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="H"/>
       <NAME COLUMNREFERENCE="I"/>
@@ -50,36 +50,35 @@
     <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
     <ADDITIONALNAME COLUMNREFERENCE="H"/>
     <ISBILLWISEON>Yes</ISBILLWISEON>
-    <!-- GST fields for PARTY LEDGER -->
-    <GSTREGISTRATIONTYPE SKIP="=trim(AJ#)=&quot;yes&quot;" FORMULA="=if(len(trim(J#))=0,&quot;Unregistered&quot;,&quot;Regular&quot;)"/>
+      <!-- GST fields for PARTY LEDGER -->
+    <GSTREGISTRATIONTYPE SKIP="=trim(AK#)=&quot;yes&quot;" FORMULA="=if(len(trim(J#))=0,&quot;Unregistered&quot;,&quot;Regular&quot;)"/>
     <!-- GSTIN / UIN -->
-    <PARTYGSTIN SKIP="=trim(AJ#)=&quot;yes&quot;" FORMULA="=trim(J#)"/>
+    <PARTYGSTIN SKIP="=trim(AK#)=&quot;yes&quot;" FORMULA="=trim(J#)"/>
     <COUNTRYNAME SKIP="=len(trim(K#))=0">India</COUNTRYNAME>
       <!-- 2017-09-14: STATENAME is converted to proper-case  -->
     <STATENAME ALERT="=if(len(trim(K#))=0,&quot;&quot;,if(__MATCH(K#,STATENAMELIST),&quot;&quot;,&quot;Invalid StateName:  &quot; &amp; K#))" ALERTREFERENCE="K#" FORMULA="=proper(trim(K#))"/>
     <LEDSTATENAME FORMULA="=proper(trim(K#))"/>
-
     <!-- Tally Prime 3.0 -->
     <LEDGSTREGDETAILS.LIST>
       <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <GSTREGISTRATIONTYPE SKIP="=trim(AJ#)=&quot;yes&quot;" FORMULA="=if(len(trim(J#))=0,&quot;Unregistered/Consumer&quot;,&quot;Regular&quot;)"/>
+      <GSTREGISTRATIONTYPE SKIP="=trim(AK#)=&quot;yes&quot;" FORMULA="=if(len(trim(J#))=0,&quot;Unregistered/Consumer&quot;,&quot;Regular&quot;)"/>
       <STATE FORMULA="=proper(trim(K#))"/>
       <PLACEOFSUPPLY FORMULA="=proper(trim(K#))"/>
-      <GSTIN SKIP="=trim(AJ#)=&quot;yes&quot;" FORMULA="=trim(J#)"/>
+      <GSTIN SKIP="=trim(AK#)=&quot;yes&quot;" FORMULA="=trim(J#)"/>
     </LEDGSTREGDETAILS.LIST>
     <!-- Tally Prime 3.0 -->
     <LEDMAILINGDETAILS.LIST>
-       <APPLICABLEFROM>20230401</APPLICABLEFROM>
-       <MAILINGNAME COLUMNREFERENCE="H"/>
-       <STATE FORMULA="=proper(trim(K#))"/>
-       <COUNTRY SKIP="=len(trim(K#))=0">India</COUNTRY>
+      <APPLICABLEFROM>20230401</APPLICABLEFROM>
+      <MAILINGNAME COLUMNREFERENCE="H"/>
+      <STATE FORMULA="=proper(trim(K#))"/>
+      <COUNTRYNAME SKIP="=len(trim(K#))=0">India</COUNTRYNAME>
     </LEDMAILINGDETAILS.LIST>
   </MASTER>
   <!-- Create Trade discount Master -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=AQ#[1]"/>
+    <COMPANYNAME FORMULA="=AR#[1]"/>
     <NAME.LIST>
-      <NAME FORMULA="=if(len(trim(W#))=0,if(Round(V#,2)=0,&quot;&quot;,&quot;Discount&quot;),W#)"/>
+      <NAME FORMULA="=if(len(trim(X#))=0,if(Round(W#,2)=0,&quot;&quot;,&quot;Discount&quot;),X#)"/>
     </NAME.LIST>
     <PARENT>Indirect Expenses</PARENT>
     <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
@@ -91,62 +90,62 @@
   </MASTER>
   <!-- Create IGST TAX LEDGER Master -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=AQ#[1]"/>
+    <COMPANYNAME FORMULA="=AR#[1]"/>
     <NAME.LIST>
-      <NAME FORMULA="=if(len(trim(AE#))&gt;0,AE#,if(Or(IsError(Round(X#,2)),len(trim(X#))=0,X#=0),&quot;&quot;,&quot;IGST &quot; &amp; X# &amp; &quot;%&quot;))"/>
+      <NAME FORMULA="=if(len(trim(AF#))&gt;0,AF#,if(Or(IsError(Round(Y#,2)),len(trim(Y#))=0,Y#=0),&quot;&quot;,&quot;IGST &quot; &amp; Y# &amp; &quot;%&quot;))"/>
     </NAME.LIST>
     <PARENT>Duties &amp; Taxes</PARENT>
     <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
     <AFFECTSSTOCK>No</AFFECTSSTOCK>
-    <GSTAPPLICABLE SKIP="=trim(AJ#)=&quot;yes&quot;" FORMULA="=&quot;~[~ Applicable&quot;"/>
-    <GSTDUTYHEAD SKIP="=trim(AJ#)=&quot;yes&quot;">Integrated Tax</GSTDUTYHEAD>
-    <TAXTYPE SKIP="=trim(AJ#)=&quot;yes&quot;">GST</TAXTYPE>
+    <GSTAPPLICABLE SKIP="=trim(AK#)=&quot;yes&quot;" FORMULA="=&quot;~[~ Applicable&quot;"/>
+    <GSTDUTYHEAD SKIP="=trim(AK#)=&quot;yes&quot;">Integrated Tax</GSTDUTYHEAD>
+    <TAXTYPE SKIP="=trim(AK#)=&quot;yes&quot;">GST</TAXTYPE>
       <!-- 
         2018-06-28 :Now TAXRATE is included in Tax Ledgers only
         Earlier: TAXRATE not included as it may create confusion 
       -->
-    <RATEOFTAXCALCULATION COLUMNREFERENCE="X"/>
+    <RATEOFTAXCALCULATION COLUMNREFERENCE="Y"/>
   </MASTER>
   <!-- Create CGST TAX LEDGER Master -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=AQ#[1]"/>
+    <COMPANYNAME FORMULA="=AR#[1]"/>
     <NAME.LIST>
-      <NAME FORMULA="=if(len(trim(AF#))&gt;0,AF#,if(Or(IsError(Round(Z#,2)),len(trim(Z#))=0,Z#=0),&quot;&quot;,&quot;CGST &quot; &amp; Z# &amp; &quot;%&quot;))"/>
+      <NAME FORMULA="=if(len(trim(AG#))&gt;0,AG#,if(Or(IsError(Round(AA#,2)),len(trim(AA#))=0,AA#=0),&quot;&quot;,&quot;CGST &quot; &amp; AA# &amp; &quot;%&quot;))"/>
     </NAME.LIST>
     <PARENT>Duties &amp; Taxes</PARENT>
     <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
     <AFFECTSSTOCK>No</AFFECTSSTOCK>
-    <GSTAPPLICABLE SKIP="=trim(AJ#)=&quot;yes&quot;" FORMULA="=&quot;~[~ Applicable&quot;"/>
-    <GSTDUTYHEAD SKIP="=trim(AJ#)=&quot;yes&quot;">Central Tax</GSTDUTYHEAD>
-    <TAXTYPE SKIP="=trim(AJ#)=&quot;yes&quot;">GST</TAXTYPE>
+    <GSTAPPLICABLE SKIP="=trim(AK#)=&quot;yes&quot;" FORMULA="=&quot;~[~ Applicable&quot;"/>
+    <GSTDUTYHEAD SKIP="=trim(AK#)=&quot;yes&quot;">Central Tax</GSTDUTYHEAD>
+    <TAXTYPE SKIP="=trim(AK#)=&quot;yes&quot;">GST</TAXTYPE>
       <!-- 
         2018-06-28 :Now TAXRATE is included in Tax Ledgers only
         Earlier: TAXRATE not included as it may create confusion 
       -->
-    <RATEOFTAXCALCULATION COLUMNREFERENCE="Z"/>
+    <RATEOFTAXCALCULATION COLUMNREFERENCE="AA"/>
   </MASTER>
   <!-- Create SGST TAX LEDGER Master -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=AQ#[1]"/>
+    <COMPANYNAME FORMULA="=AR#[1]"/>
     <NAME.LIST>
-      <NAME FORMULA="=if(len(trim(AG#))&gt;0,AG#,if(Or(IsError(Round(AB#,2)),len(trim(AB#))=0,AB#=0),&quot;&quot;,&quot;SGST &quot; &amp; AB# &amp; &quot;%&quot;))"/>
+      <NAME FORMULA="=if(len(trim(AH#))&gt;0,AH#,if(Or(IsError(Round(AC#,2)),len(trim(AC#))=0,AC#=0),&quot;&quot;,&quot;SGST &quot; &amp; AC# &amp; &quot;%&quot;))"/>
     </NAME.LIST>
     <PARENT>Duties &amp; Taxes</PARENT>
     <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
     <AFFECTSSTOCK>No</AFFECTSSTOCK>
-    <GSTAPPLICABLE SKIP="=trim(AJ#)=&quot;yes&quot;" FORMULA="=&quot;~[~ Applicable&quot;"/>
-    <GSTDUTYHEAD SKIP="=trim(AJ#)=&quot;yes&quot;">State Tax</GSTDUTYHEAD>
-    <TAXTYPE SKIP="=trim(AJ#)=&quot;yes&quot;">GST</TAXTYPE>
+    <GSTAPPLICABLE SKIP="=trim(AK#)=&quot;yes&quot;" FORMULA="=&quot;~[~ Applicable&quot;"/>
+    <GSTDUTYHEAD SKIP="=trim(AK#)=&quot;yes&quot;">State Tax</GSTDUTYHEAD>
+    <TAXTYPE SKIP="=trim(AK#)=&quot;yes&quot;">GST</TAXTYPE>
       <!-- 
         2018-06-28 :Now TAXRATE is included in Tax Ledgers only
         Earlier: TAXRATE not included as it may create confusion 
       -->
-    <RATEOFTAXCALCULATION COLUMNREFERENCE="AB"/>
+    <RATEOFTAXCALCULATION COLUMNREFERENCE="AC"/>
   </MASTER>
   <!-- Create a single LEDGER Master -->
   <!--MASTER TYPE="LEDGER" SINGLERECORD="Yes"-->
-  <MASTER TYPE="LEDGER" >
-    <COMPANYNAME FORMULA="=AQ#[1]"/>
+  <MASTER TYPE="LEDGER">
+    <COMPANYNAME FORMULA="=AR#[1]"/>
     <NAME.LIST>
       <NAME>Round Off</NAME>
     </NAME.LIST>
@@ -158,7 +157,7 @@
     <NAME>Nos</NAME>
     <ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
     <GSTREPUOM>NOS-NUMBERS</GSTREPUOM>
-    <!-- Tally Prime 3.0 -->
+      <!-- Tally Prime 3.0 -->
     <REPORTINGUQCDETAILS.LIST>
       <APPLICABLEFROM>20230401</APPLICABLEFROM>
       <REPORTINGUQCNAME>NOS-NUMBERS</REPORTINGUQCNAME>
@@ -166,49 +165,49 @@
   </MASTER>
   <!-- Create UNIT Master -->
   <MASTER TYPE="UNIT">
-    <COMPANYNAME FORMULA="=AQ#[1]"/>
-    <NAME COLUMNREFERENCE="O"/>
+    <COMPANYNAME FORMULA="=AR#[1]"/>
+    <NAME COLUMNREFERENCE="P"/>
     <ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
-    <GSTREPUOM SKIP="=Not(trim(O#)=&quot;nos&quot;)">NOS-NUMBERS</GSTREPUOM>
-    <GSTREPUOM SKIP="=Not(trim(O#)=&quot;kgs&quot;)">KGS-KILOGRAMS</GSTREPUOM>
+    <GSTREPUOM SKIP="=Not(trim(P#)=&quot;nos&quot;)">NOS-NUMBERS</GSTREPUOM>
+    <GSTREPUOM SKIP="=Not(trim(P#)=&quot;kgs&quot;)">KGS-KILOGRAMS</GSTREPUOM>
   </MASTER>
   <!-- Create STOCKITEM Masters -->
   <MASTER TYPE="STOCKITEM">
-    <COMPANYNAME FORMULA="=AQ#[1]"/>
-    <OLDNAME FORMULA="=if(len(trim(M#))=0,L#,M#)"/>
+    <COMPANYNAME FORMULA="=AR#[1]"/>
+    <OLDNAME FORMULA="=if(len(trim(N#))=0,M#,N#)"/>
     <!-- Create new item with Name or PartNo -->
-    <NAME FORMULA="=if(len(trim(L#))=0,M#,L#)"/>
+    <NAME FORMULA="=if(len(trim(M#))=0,N#,M#)"/>
     <!-- SKIP if both Name and Part No are empty -->
-    <ADDITIONALNAME SKIP="=Or(len(trim(M#))=0,len(trim(L#))=0)" COLUMNREFERENCE="M"/>
+    <ADDITIONALNAME SKIP="=Or(len(trim(N#))=0,len(trim(M#))=0)" COLUMNREFERENCE="N"/>
     <PARENT/>
-    <BASEUNITS ALERT="=if(len(trim(O#))=0,&quot;UOM is empty. The default value 'Nos' is now used.&quot;,&quot;&quot;)" ALERTREFERENCE="O#" FORMULA="=if(len(trim(O#))=0,&quot;Nos&quot;,O#)"/>
+    <BASEUNITS ALERT="=if(len(trim(P#))=0,&quot;UOM is empty. The default value 'Nos' is now used.&quot;,&quot;&quot;)" ALERTREFERENCE="P#" FORMULA="=if(len(trim(P#))=0,&quot;Nos&quot;,P#)"/>
     <!-- GST details -->
-    <GSTAPPLICABLE SKIP="=trim(AJ#)=&quot;yes&quot;" FORMULA="=&quot;~[~ Applicable&quot;"/>
+    <GSTAPPLICABLE SKIP="=trim(AK#)=&quot;yes&quot;" FORMULA="=&quot;~[~ Applicable&quot;"/>
     <!-- Type of supply -->
-    <GSTTYPEOFSUPPLY SKIP="=trim(AJ#)=&quot;yes&quot;">Goods</GSTTYPEOFSUPPLY>
-    <GSTDETAILS.LIST SKIP="=trim(AJ#)=&quot;yes&quot;">
+    <GSTTYPEOFSUPPLY SKIP="=trim(AK#)=&quot;yes&quot;">Goods</GSTTYPEOFSUPPLY>
+    <GSTDETAILS.LIST SKIP="=trim(AK#)=&quot;yes&quot;">
       <APPLICABLEFROM>20170701</APPLICABLEFROM>
       <CALCULATIONTYPE>On Value</CALCULATIONTYPE>
-      <!-- Tally Prime 3.0 -->
+        <!-- Tally Prime 3.0 -->
       <SRCOFGSTDETAILS>Specify Details Here</SRCOFGSTDETAILS>
-      <HSNCODE COLUMNREFERENCE="N"/>
-      <TAXABILITY FORMULA="=If(Round(X#+Z#+AB#,2)&gt;0,&quot;Taxable&quot;,&quot;Exempt&quot;)"/>
+      <HSNCODE COLUMNREFERENCE="O"/>
+      <TAXABILITY FORMULA="=If(Round(Y#+AA#+AC#,2)&gt;0,&quot;Taxable&quot;,&quot;Exempt&quot;)"/>
       <STATEWISEDETAILS.LIST>
         <STATENAME>~[~ Any</STATENAME>
         <RATEDETAILS.LIST>
           <GSTRATEDUTYHEAD>Central Tax</GSTRATEDUTYHEAD>
           <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-          <GSTRATE FORMULA="=If(Round(Z#,2)&gt;0,Round(Z#,2),If(X#&gt;0,Round(X#/2,2),0))"/>
+          <GSTRATE FORMULA="=If(Round(AA#,2)&gt;0,Round(AA#,2),If(Y#&gt;0,Round(Y#/2,2),0))"/>
         </RATEDETAILS.LIST>
         <RATEDETAILS.LIST>
           <GSTRATEDUTYHEAD>State Tax</GSTRATEDUTYHEAD>
           <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-          <GSTRATE FORMULA="=If(Round(AB#,2)&gt;0,Round(AB#,2),If(X#&gt;0,Round(X#/2,2),0))"/>
+          <GSTRATE FORMULA="=If(Round(AC#,2)&gt;0,Round(AC#,2),If(Y#&gt;0,Round(Y#/2,2),0))"/>
         </RATEDETAILS.LIST>
         <RATEDETAILS.LIST>
           <GSTRATEDUTYHEAD>Integrated Tax</GSTRATEDUTYHEAD>
           <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-          <GSTRATE FORMULA="=If(Round(X#,2)&gt;0,Round(X#,2),Round(Z#+AB#,2))"/>
+          <GSTRATE FORMULA="=If(Round(Y#,2)&gt;0,Round(Y#,2),Round(AA#+AC#,2))"/>
         </RATEDETAILS.LIST>
         <RATEDETAILS.LIST>
           <GSTRATEDUTYHEAD>Cess</GSTRATEDUTYHEAD>
@@ -222,48 +221,45 @@
     </GSTDETAILS.LIST>
     <!-- Tally Prime 3.0 -->
     <HSNDETAILS.LIST>
-       <APPLICABLEFROM>20230401</APPLICABLEFROM>
-       <HSNCODE COLUMNREFERENCE="N"/>
-       <SRCOFHSNDETAILS>Specify Details Here</SRCOFHSNDETAILS>
+      <APPLICABLEFROM>20230401</APPLICABLEFROM>
+      <HSNCODE COLUMNREFERENCE="O"/>
+      <SRCOFHSNDETAILS>Specify Details Here</SRCOFHSNDETAILS>
     </HSNDETAILS.LIST>
   </MASTER>
-
   <VOUCHER12>
     <!-- Tally Prime 3.0 -->
-    <GSTREGISTRATION TAXTYPE="GST" COLUMNREFERENCE="AS"/>
-    <VCHSTATUSTAXUNIT_NOTREQUIRED COLUMNREFERENCE="AR"/>
-    <CMPGSTSTATE COLUMNREFERENCE="AR"/>
-    <CMPGSTIN COLUMNREFERENCE="AT"/>
-    <CMPGSTREGISTRATIONTYPE COLUMNREFERENCE="AU"/>
+    <GSTREGISTRATION TAXTYPE="GST" COLUMNREFERENCE="AT"/>
+    <VCHSTATUSTAXUNIT_NOTREQUIRED COLUMNREFERENCE="AS"/>
+    <CMPGSTSTATE COLUMNREFERENCE="AS"/>
+    <CMPGSTIN COLUMNREFERENCE="AU"/>
+    <CMPGSTREGISTRATIONTYPE COLUMNREFERENCE="AV"/>
     <VCHGSTSTATUSISINCLUDED>Yes</VCHGSTSTATUSISINCLUDED>
     <VCHGSTSTATUSISUNCERTAIN>No</VCHGSTSTATUSISUNCERTAIN>
+    <COUNTRYOFRESIDENCE SKIP="=len(trim(K#))=0">India</COUNTRYOFRESIDENCE>
 
-    <COUNTRYOFRESIDENCE>India</COUNTRYOFRESIDENCE>
     <PLACEOFSUPPLY FORMULA="=proper(trim(K#))"/>
-
     <VCHENTRYMODE>Item Invoice</VCHENTRYMODE>
-
-    <COMPANYNAME FORMULA="=AQ#[1]"/>
+    <COMPANYNAME FORMULA="=AR#[1]"/>
     <GUID FORMULA="=+&quot;udi-HZ3K9T-&quot; &amp; A# &amp; &quot;-&quot; &amp; C# &amp; &quot;-&quot; &amp; E#"/>
     <DATE COLUMNREFERENCE="E"/>
     <EFFECTIVEDATE COLUMNREFERENCE="E"/>
     <VOUCHERTYPENAME COLUMNREFERENCE="C"/>
     <VOUCHERNUMBER COLUMNREFERENCE="D"/>
     <REFERENCE COLUMNREFERENCE="F"/>
-    <NARRATION COLUMNREFERENCE="AH"/>
-    <ISINVOICE FORMULA="=if(And(len(trim(L#))=0,len(trim(M#))=0),&quot;No&quot;,&quot;Yes&quot;)"/>
-    <PERSISTEDVIEW FORMULA="=if(And(len(trim(L#))=0,len(trim(M#))=0),&quot;Accounting Voucher View&quot;,&quot;Invoice Voucher View&quot;)"/>
-    <ISINVOICE COLUMNREFERENCE="AK"/>
-    <PERSISTEDVIEW SKIP="=len(trim(AK#))=0" FORMULA="=if(trim(AK#)=&quot;Yes&quot;,&quot;Invoice Voucher View&quot;,&quot;Accounting Voucher View&quot;)"/>
+    <NARRATION COLUMNREFERENCE="AI"/>
+    <ISINVOICE FORMULA="=if(And(len(trim(M#))=0,len(trim(N#))=0),&quot;No&quot;,&quot;Yes&quot;)"/>
+    <PERSISTEDVIEW FORMULA="=if(And(len(trim(M#))=0,len(trim(N#))=0),&quot;Accounting Voucher View&quot;,&quot;Invoice Voucher View&quot;)"/>
+    <ISINVOICE COLUMNREFERENCE="AL"/>
+    <PERSISTEDVIEW SKIP="=len(trim(AL#))=0" FORMULA="=if(trim(AL#)=&quot;Yes&quot;,&quot;Invoice Voucher View&quot;,&quot;Accounting Voucher View&quot;)"/>
     <!-- For Purchase -->
     <UDF:REFERENCEDATE.LIST DESC="`ReferenceDate`" ISLIST="YES" TYPE="Date">
       <UDF:REFERENCEDATE DESC="`ReferenceDate`" COLUMNREFERENCE="G"/>
     </UDF:REFERENCEDATE.LIST>
     <REFERENCEDATE COLUMNREFERENCE="G"/>
     <!-- GSTIN / UIN -->
-    <PARTYGSTIN SKIP="=trim(AJ#)=&quot;yes&quot;" FORMULA="=trim(J#)"/>
+    <PARTYGSTIN SKIP="=trim(AK#)=&quot;yes&quot;" FORMULA="=trim(J#)"/>
     <!-- For compatibility with Tally ERP 9 Release 6.1.1 - Cash Purchase entry -->
-    <GSTREGISTRATIONTYPE SKIP="=trim(AJ#)=&quot;yes&quot;" FORMULA="=if(len(trim(J#))=0,&quot;Unregistered&quot;,&quot;Regular&quot;)"/>
+    <GSTREGISTRATIONTYPE SKIP="=trim(AK#)=&quot;yes&quot;" FORMULA="=if(len(trim(J#))=0,&quot;Unregistered&quot;,&quot;Regular&quot;)"/>
     <!-- 2017-09-14: STATENAME is converted to proper-case  -->
     <STATENAME FORMULA="=proper(trim(K#))"/>
     <!-- Party Name is checked in Column H first and then Column I -->
@@ -272,120 +268,120 @@
     <BASICBASEPARTYNAME FORMULA="=if(len(trim(H#))=0,I#,H#)"/>
     <BASICBUYERNAME FORMULA="=if(len(trim(H#))=0,I#,H#)"/>
     <!-- Other GST details -->
-    <VATPARTYTRANSRETURNNUMBER SKIP="=trim(AJ#)=&quot;yes&quot;" COLUMNREFERENCE="F"/>
-    <VATPARTYTRANSRETURNDATE SKIP="=trim(AJ#)=&quot;yes&quot;" COLUMNREFERENCE="G"/>
+    <VATPARTYTRANSRETURNNUMBER SKIP="=trim(AK#)=&quot;yes&quot;" COLUMNREFERENCE="F"/>
+    <VATPARTYTRANSRETURNDATE SKIP="=trim(AK#)=&quot;yes&quot;" COLUMNREFERENCE="G"/>
     <GSTNATUREOFRETURN SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))">01-Sales Return</GSTNATUREOFRETURN>
       <!-- Hard coded -->
     <URDORIGINALSALEVALUE SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))">Lesser than or equal to 2.5 lakhs</URDORIGINALSALEVALUE>
       <!-- Party Ledger -->
-    <LEDGERENTRIES.LIST ALTERNATETAGNAME="=if(And(len(trim(L#[1]))=0,len(trim(M#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
+    <LEDGERENTRIES.LIST ALTERNATETAGNAME="=if(And(len(trim(M#[1]))=0,len(trim(N#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
       <LEDGERNAME ALERT="=if(And(len(trim(I#))=0,len(trim(H#))=0),&quot;Party Ledger Name is empty&quot;,&quot;&quot;)" ALERTREFERENCE="H# and I#" FORMULA="=if(len(trim(I#))=0,H#,I#)"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),&quot;No&quot;,&quot;Yes&quot;)"/>
-      <AMOUNT CURRENCY="=AL#" ROE="=AM#" CONVERSIONFACTOR="=AO#" FOREXAMOUNT="=Round({AP#},2)" FORMULA="=Round({Round(T#,2)-Round(V#,2)+Round(Y#,2)+Round(AA#,2)+Round(AC#,2)},if(trim(AI#)=&quot;yes&quot;,0,2))*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),1,-1)"/>
+      <AMOUNT CURRENCY="=AM#" ROE="=AN#" CONVERSIONFACTOR="=AP#" FOREXAMOUNT="=Round({AQ#},2)" FORMULA="=Round({Round(U#,2)-Round(W#,2)+Round(Z#,2)+Round(AB#,2)+Round(AD#,2)},if(trim(AJ#)=&quot;yes&quot;,0,2))*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),1,-1)"/>
       <BILLALLOCATIONS.LIST SKIP="=Len(trim(D#))=0">
         <NAME COLUMNREFERENCE="D"/>
         <BILLTYPE>New Ref</BILLTYPE>
-        <AMOUNT CURRENCY="=AL#" ROE="=AM#" CONVERSIONFACTOR="=AO#" FOREXAMOUNT="=Round({AP#},2)" FORMULA="=Round({Round(T#,2)-Round(V#,2)+Round(Y#,2)+Round(AA#,2)+Round(AC#,2)},if(trim(AI#)=&quot;yes&quot;,0,2))*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),1,-1)"/>
+        <AMOUNT CURRENCY="=AM#" ROE="=AN#" CONVERSIONFACTOR="=AP#" FOREXAMOUNT="=Round({AQ#},2)" FORMULA="=Round({Round(U#,2)-Round(W#,2)+Round(Z#,2)+Round(AB#,2)+Round(AD#,2)},if(trim(AJ#)=&quot;yes&quot;,0,2))*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),1,-1)"/>
       </BILLALLOCATIONS.LIST>
     </LEDGERENTRIES.LIST>
     <!-- Sales/Purchase Ledger -->
-    <LEDGERENTRIES.LIST GROUPBY="=if(Not(And(Len(trim(L#))=0,Len(trim(M#))=0,Round(T#,2)&lt;&gt;0)),&quot;&quot;,if(len(trim(AD#))=0,if(Round(X#,2)=0,Round(Z#,2),Round(X#,2)),trim(AD#)))" SCROLL="YES" SKIP="=Not(And(len(trim(L#))=0,len(trim(M#))=0))" ALTERNATETAGNAME="=if(And(len(trim(L#[1]))=0,len(trim(M#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
-      <LEDGERNAME FORMULA="=if(len(trim(AD#))&gt;0,AD#,if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURCHASE &quot;,&quot;SALES &quot;) &amp; (X#+Z#+AB#) &amp; &quot;%&quot;)"/>
+    <LEDGERENTRIES.LIST GROUPBY="=if(Not(And(Len(trim(M#))=0,Len(trim(N#))=0,Round(U#,2)&lt;&gt;0)),&quot;&quot;,if(len(trim(AE#))=0,if(Round(Y#,2)=0,Round(AA#,2),Round(Y#,2)),trim(AE#)))" SCROLL="YES" SKIP="=Not(And(len(trim(M#))=0,len(trim(N#))=0))" ALTERNATETAGNAME="=if(And(len(trim(M#[1]))=0,len(trim(N#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
+      <LEDGERNAME FORMULA="=if(len(trim(AE#))&gt;0,AE#,if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURCHASE &quot;,&quot;SALES &quot;) &amp; (Y#+AA#+AC#) &amp; &quot;%&quot;)"/>
       <!-- For Invoice Mode -->
-      <ISDEEMEDPOSITIVE SKIP="=Not(Or(And(Len(trim(AK#[1]))&gt;0,trim(AK#[1])=&quot;Yes&quot;),And(Len(trim(AK#[1]))=0,Or(len(trim(L#[1]))&gt;0,len(trim(M#[1]))&gt;0))))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <ISDEEMEDPOSITIVE SKIP="=Not(Or(And(Len(trim(AL#[1]))&gt;0,trim(AL#[1])=&quot;Yes&quot;),And(Len(trim(AL#[1]))=0,Or(len(trim(M#[1]))&gt;0,len(trim(N#[1]))&gt;0))))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
       <!-- For Voucher Mode -->
-      <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(AK#[1]))&gt;0,trim(AK#[1])=&quot;Yes&quot;),And(Len(trim(AK#[1]))=0,Or(len(trim(L#[1]))&gt;0,len(trim(M#[1]))&gt;0)))" FORMULA="=if({Round(T#,2)}*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)&lt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+      <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(AL#[1]))&gt;0,trim(AL#[1])=&quot;Yes&quot;),And(Len(trim(AL#[1]))=0,Or(len(trim(M#[1]))&gt;0,len(trim(N#[1]))&gt;0)))" FORMULA="=if({Round(U#,2)}*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)&lt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
       <!-- For Invoice Mode -->
-      <TEST SKIP="=Not(Or(And(Len(trim(AK#[1]))&gt;0,trim(AK#[1])=&quot;Yes&quot;),And(Len(trim(AK#[1]))=0,Or(len(trim(L#[1]))&gt;0,len(trim(M#[1]))&gt;0))))">ISINVOICEMODE=YES</TEST>
+      <TEST SKIP="=Not(Or(And(Len(trim(AL#[1]))&gt;0,trim(AL#[1])=&quot;Yes&quot;),And(Len(trim(AL#[1]))=0,Or(len(trim(M#[1]))&gt;0,len(trim(N#[1]))&gt;0))))">ISINVOICEMODE=YES</TEST>
         <!-- For Voucher Mode -->
-      <TEST SKIP="=Or(And(Len(trim(AK#[1]))&gt;0,trim(AK#[1])=&quot;Yes&quot;),And(Len(trim(AK#[1]))=0,Or(len(trim(L#[1]))&gt;0,len(trim(M#[1]))&gt;0)))">ISINVOICEMODE=NO</TEST>
-      <AMOUNT CURRENCY="=AL#" ROE="=AM#" CONVERSIONFACTOR="=AO#" FOREXAMOUNT="=Round({AP#},2)" FORMULA="={Round(T#,2)}*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
+      <TEST SKIP="=Or(And(Len(trim(AL#[1]))&gt;0,trim(AL#[1])=&quot;Yes&quot;),And(Len(trim(AL#[1]))=0,Or(len(trim(M#[1]))&gt;0,len(trim(N#[1]))&gt;0)))">ISINVOICEMODE=NO</TEST>
+      <AMOUNT CURRENCY="=AM#" ROE="=AN#" CONVERSIONFACTOR="=AP#" FOREXAMOUNT="=Round({AQ#},2)" FORMULA="={Round(U#,2)}*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
     </LEDGERENTRIES.LIST>
     <!-- Trade discount Ledger -->
-    <LEDGERENTRIES.LIST SKIP="={Round(V#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(L#[1]))=0,len(trim(M#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
-      <LEDGERNAME FORMULA="=if(len(trim(W#))=0,&quot;Discount&quot;,W#)"/>
+    <LEDGERENTRIES.LIST SKIP="={Round(W#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(M#[1]))=0,len(trim(N#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
+      <LEDGERNAME FORMULA="=if(len(trim(X#))=0,&quot;Discount&quot;,X#)"/>
       <!-- For Invoice Mode -->
-      <ISDEEMEDPOSITIVE SKIP="=Not(Or(And(Len(trim(AK#[1]))&gt;0,trim(AK#[1])=&quot;Yes&quot;),And(Len(trim(AK#[1]))=0,Or(len(trim(L#[1]))&gt;0,len(trim(M#[1]))&gt;0))))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <ISDEEMEDPOSITIVE SKIP="=Not(Or(And(Len(trim(AL#[1]))&gt;0,trim(AL#[1])=&quot;Yes&quot;),And(Len(trim(AL#[1]))=0,Or(len(trim(M#[1]))&gt;0,len(trim(N#[1]))&gt;0))))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
       <!-- Trade Discount Amount will be always positive. Hence, we need to use the VchType -->
       <!-- For Voucher Mode -->
-      <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(AK#[1]))&gt;0,trim(AK#[1])=&quot;Yes&quot;),And(Len(trim(AK#[1]))=0,Or(len(trim(L#[1]))&gt;0,len(trim(M#[1]))&gt;0)))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;No&quot;,&quot;Yes&quot;)"/>
-      <AMOUNT CURRENCY="=AL#" ROE="=AM#" CONVERSIONFACTOR="=AO#" FORMULA="={Round(V#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
+      <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(AL#[1]))&gt;0,trim(AL#[1])=&quot;Yes&quot;),And(Len(trim(AL#[1]))=0,Or(len(trim(M#[1]))&gt;0,len(trim(N#[1]))&gt;0)))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;No&quot;,&quot;Yes&quot;)"/>
+      <AMOUNT CURRENCY="=AM#" ROE="=AN#" CONVERSIONFACTOR="=AP#" FORMULA="={Round(W#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
       <!-- Tally Prime 3.0 -->
       <APPROPRIATEFOR>GST</APPROPRIATEFOR>
       <GSTAPPROPRIATETO>Goods</GSTAPPROPRIATETO>
       <EXCISEALLOCTYPE>Based on Value</EXCISEALLOCTYPE>
-
     </LEDGERENTRIES.LIST>
     <!-- IGST Ledger -->
-    <LEDGERENTRIES.LIST GROUPBY="=if(len(trim(AE#))=0,trim(X#),trim(AE#))" SKIP="={Round(Y#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(L#[1]))=0,len(trim(M#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
-      <LEDGERNAME FORMULA="=if(len(trim(AE#))&gt;0,AE#,if(Or(IsError(Round(X#,2)),len(trim(X#))=0,X#=0),&quot;&quot;,&quot;IGST &quot; &amp; X# &amp; &quot;%&quot;))"/>
+    <LEDGERENTRIES.LIST GROUPBY="=if(len(trim(AF#))=0,trim(Y#),trim(AF#))" SKIP="={Round(Z#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(M#[1]))=0,len(trim(N#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
+      <LEDGERNAME FORMULA="=if(len(trim(AF#))&gt;0,AF#,if(Or(IsError(Round(Y#,2)),len(trim(Y#))=0,Y#=0),&quot;&quot;,&quot;IGST &quot; &amp; Y# &amp; &quot;%&quot;))"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=AL#" ROE="=AM#" CONVERSIONFACTOR="=AO#" FORMULA="={Round(Y#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=AM#" ROE="=AN#" CONVERSIONFACTOR="=AP#" FORMULA="={Round(Z#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
     </LEDGERENTRIES.LIST>
     <!-- CGST Ledger -->
-    <LEDGERENTRIES.LIST GROUPBY="=if(len(trim(AF#))=0,trim(Z#),trim(AF#))" SKIP="={Round(AA#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(L#[1]))=0,len(trim(M#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
-      <LEDGERNAME FORMULA="=if(len(trim(AF#))&gt;0,AF#,if(Or(IsError(Round(Z#,2)),len(trim(Z#))=0,Z#=0),&quot;&quot;,&quot;CGST &quot; &amp; Z# &amp; &quot;%&quot;))"/>
+    <LEDGERENTRIES.LIST GROUPBY="=if(len(trim(AG#))=0,trim(AA#),trim(AG#))" SKIP="={Round(AB#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(M#[1]))=0,len(trim(N#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
+      <LEDGERNAME FORMULA="=if(len(trim(AG#))&gt;0,AG#,if(Or(IsError(Round(AA#,2)),len(trim(AA#))=0,AA#=0),&quot;&quot;,&quot;CGST &quot; &amp; AA# &amp; &quot;%&quot;))"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=AL#" ROE="=AM#" CONVERSIONFACTOR="=AO#" FORMULA="={Round(AA#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=AM#" ROE="=AN#" CONVERSIONFACTOR="=AP#" FORMULA="={Round(AB#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
     </LEDGERENTRIES.LIST>
     <!-- SGST Ledger -->
-    <LEDGERENTRIES.LIST GROUPBY="=if(len(trim(AG#))=0,trim(AB#),trim(AG#))" SKIP="={Round(AC#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(L#[1]))=0,len(trim(M#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
-      <LEDGERNAME FORMULA="=if(len(trim(AG#))&gt;0,AG#,if(Or(IsError(Round(AB#,2)),len(trim(AB#))=0,AB#=0),&quot;&quot;,&quot;SGST &quot; &amp; AB# &amp; &quot;%&quot;))"/>
+    <LEDGERENTRIES.LIST GROUPBY="=if(len(trim(AH#))=0,trim(AC#),trim(AH#))" SKIP="={Round(AD#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(M#[1]))=0,len(trim(N#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
+      <LEDGERNAME FORMULA="=if(len(trim(AH#))&gt;0,AH#,if(Or(IsError(Round(AC#,2)),len(trim(AC#))=0,AC#=0),&quot;&quot;,&quot;SGST &quot; &amp; AC# &amp; &quot;%&quot;))"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=AL#" ROE="=AM#" CONVERSIONFACTOR="=AO#" FORMULA="={Round(AC#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <AMOUNT CURRENCY="=AM#" ROE="=AN#" CONVERSIONFACTOR="=AP#" FORMULA="={Round(AD#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
     </LEDGERENTRIES.LIST>
     <!-- Round Off Ledger -->
-    <LEDGERENTRIES.LIST SKIP="=Or(Not(trim(AI#)=&quot;yes&quot;),Round(Round({Round(T#,2)-Round(V#,2)+Round(Y#,2)+Round(AA#,2)+Round(AC#,2)},0)-Round({Round(T#,2)-Round(V#,2)+Round(Y#,2)+Round(AA#,2)+Round(AC#,2)},2),2)=0)" ALTERNATETAGNAME="=if(And(len(trim(L#[1]))=0,len(trim(M#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
+    <LEDGERENTRIES.LIST SKIP="=Or(Not(trim(AJ#)=&quot;yes&quot;),Round(Round({Round(U#,2)-Round(W#,2)+Round(Z#,2)+Round(AB#,2)+Round(AD#,2)},0)-Round({Round(U#,2)-Round(W#,2)+Round(Z#,2)+Round(AB#,2)+Round(AD#,2)},2),2)=0)" ALTERNATETAGNAME="=if(And(len(trim(M#[1]))=0,len(trim(N#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
       <LEDGERNAME>Round Off</LEDGERNAME>
         <!-- 
           When the value for IsInvoiceMode is explicitly set to Yes 
-          And(Len(trim(AK#[1]))&gt;0,trim(AK#[1])=&quot;Yes&quot;)
+          And(Len(trim(AL#[1]))&gt;0,trim(AL#[1])=&quot;Yes&quot;)
 
           When the value of IsInvoiceMode is deemed to be Yes 
-          And(Len(trim(AK#[1]))=0,Or(len(trim(L#[1]))&gt;0,len(trim(M#[1]))&gt;0))
+          And(Len(trim(AL#[1]))=0,Or(len(trim(M#[1]))&gt;0,len(trim(N#[1]))&gt;0))
         -->
         <!-- For Invoice Mode -->
-      <ISDEEMEDPOSITIVE SKIP="=Not(Or(And(Len(trim(AK#[1]))&gt;0,trim(AK#[1])=&quot;Yes&quot;),And(Len(trim(AK#[1]))=0,Or(len(trim(L#[1]))&gt;0,len(trim(M#[1]))&gt;0))))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <ISDEEMEDPOSITIVE SKIP="=Not(Or(And(Len(trim(AL#[1]))&gt;0,trim(AL#[1])=&quot;Yes&quot;),And(Len(trim(AL#[1]))=0,Or(len(trim(M#[1]))&gt;0,len(trim(N#[1]))&gt;0))))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
       <!-- For Voucher Mode -->
-      <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(AK#[1]))&gt;0,trim(AK#[1])=&quot;Yes&quot;),And(Len(trim(AK#[1]))=0,Or(len(trim(L#[1]))&gt;0,len(trim(M#[1]))&gt;0)))" FORMULA="=if(Round(Round({Round(T#,2)-Round(V#,2)+Round(Y#,2)+Round(AA#,2)+Round(AC#,2)},0)-Round({Round(T#,2)-Round(V#,2)+Round(Y#,2)+Round(AA#,2)+Round(AC#,2)},2),2)*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)&gt;0,&quot;No&quot;,&quot;Yes&quot;)"/>
+      <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(AL#[1]))&gt;0,trim(AL#[1])=&quot;Yes&quot;),And(Len(trim(AL#[1]))=0,Or(len(trim(M#[1]))&gt;0,len(trim(N#[1]))&gt;0)))" FORMULA="=if(Round(Round({Round(U#,2)-Round(W#,2)+Round(Z#,2)+Round(AB#,2)+Round(AD#,2)},0)-Round({Round(U#,2)-Round(W#,2)+Round(Z#,2)+Round(AB#,2)+Round(AD#,2)},2),2)*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)&gt;0,&quot;No&quot;,&quot;Yes&quot;)"/>
       <!-- For Invoice Mode -->
-      <TEST SKIP="=Not(Or(And(Len(trim(AK#[1]))&gt;0,trim(AK#[1])=&quot;Yes&quot;),And(Len(trim(AK#[1]))=0,Or(len(trim(L#[1]))&gt;0,len(trim(M#[1]))&gt;0))))">ISINVOICEMODE=YES</TEST>
+      <TEST SKIP="=Not(Or(And(Len(trim(AL#[1]))&gt;0,trim(AL#[1])=&quot;Yes&quot;),And(Len(trim(AL#[1]))=0,Or(len(trim(M#[1]))&gt;0,len(trim(N#[1]))&gt;0))))">ISINVOICEMODE=YES</TEST>
         <!-- For Voucher Mode -->
-      <TEST SKIP="=Or(And(Len(trim(AK#[1]))&gt;0,trim(AK#[1])=&quot;Yes&quot;),And(Len(trim(AK#[1]))=0,Or(len(trim(L#[1]))&gt;0,len(trim(M#[1]))&gt;0)))">ISINVOICEMODE=NO</TEST>
-      <AMOUNT CURRENCY="=AL#" ROE="=AM#" CONVERSIONFACTOR="=AO#" FORMULA="=Round(Round({Round(T#,2)-Round(V#,2)+Round(Y#,2)+Round(AA#,2)+Round(AC#,2)},0)-Round({Round(T#,2)-Round(V#,2)+Round(Y#,2)+Round(AA#,2)+Round(AC#,2)},2),2)*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
+      <TEST SKIP="=Or(And(Len(trim(AL#[1]))&gt;0,trim(AL#[1])=&quot;Yes&quot;),And(Len(trim(AL#[1]))=0,Or(len(trim(M#[1]))&gt;0,len(trim(N#[1]))&gt;0)))">ISINVOICEMODE=NO</TEST>
+      <AMOUNT CURRENCY="=AM#" ROE="=AN#" CONVERSIONFACTOR="=AP#" FORMULA="=Round(Round({Round(U#,2)-Round(W#,2)+Round(Z#,2)+Round(AB#,2)+Round(AD#,2)},0)-Round({Round(U#,2)-Round(W#,2)+Round(Z#,2)+Round(AB#,2)+Round(AD#,2)},2),2)*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
     </LEDGERENTRIES.LIST>
     <!-- StockItems -->
-    <ALLINVENTORYENTRIES.LIST SCROLL="YES" SKIP="=And(len(trim(L#))=0,len(trim(M#))=0)">
-      <STOCKITEMNAME FORMULA="=if(len(trim(M#))=0,L#,M#)"/>
+    <ALLINVENTORYENTRIES.LIST SCROLL="YES" SKIP="=And(len(trim(M#))=0,len(trim(N#))=0)">
+      <STOCKITEMNAME FORMULA="=if(len(trim(N#))=0,M#,N#)"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),&quot;Yes&quot;,&quot;No&quot;)"/>
-      <!--RATEOFMRP COLUMNREFERENCE="Q"/-->
-      <MRPRATE COLUMNREFERENCE="Q"/>
-      <RATE SKIP="=And(len(trim(AL#))&gt;0,len(trim(AM#))&gt;0)" COLUMNREFERENCE="R"/>
+      <!--RATEOFMRP COLUMNREFERENCE="R"/-->
+      <MRPRATE COLUMNREFERENCE="R"/>
+      <RATE SKIP="=And(len(trim(AM#))&gt;0,len(trim(AN#))&gt;0)" COLUMNREFERENCE="S"/>
       <!-- Forex Rate (Not shown in Tally if Inclusive Tax is enabled for items) -->
-      <RATE SKIP="=And(len(trim(AL#))=0,len(trim(AM#))=0)" FORMULA="=AL# &amp; AN# &amp; &quot; = &quot; &amp; Round(AM#*Round(AN#,2),2) &amp; &quot;/&quot; &amp; O#"/>
-      <DISCOUNT COLUMNREFERENCE="S"/>
-      <AMOUNT CURRENCY="=AL#" ROE="=AM#" CONVERSIONFACTOR="=AO#" FOREXAMOUNT="=AP#" FORMULA="=Round(T#,2)*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
-      <ACTUALQTY COLUMNREFERENCE="P"/>
-      <BILLEDQTY COLUMNREFERENCE="P"/>
+      <RATE SKIP="=And(len(trim(AM#))=0,len(trim(AN#))=0)" FORMULA="=AM# &amp; AO# &amp; &quot; = &quot; &amp; Round(AN#*Round(AO#,2),2) &amp; &quot;/&quot; &amp; P#"/>
+      <DISCOUNT COLUMNREFERENCE="T"/>
+      <AMOUNT CURRENCY="=AM#" ROE="=AN#" CONVERSIONFACTOR="=AP#" FOREXAMOUNT="=AQ#" FORMULA="=Round(U#,2)*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
+      <ACTUALQTY COLUMNREFERENCE="Q"/>
+      <BILLEDQTY COLUMNREFERENCE="Q"/>
       <ACCOUNTINGALLOCATIONS.LIST>
-        <LEDGERNAME FORMULA="=if(len(trim(AD#))&gt;0,AD#,if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURCHASE &quot;,&quot;SALES &quot;) &amp; (X#+Z#+AB#) &amp; &quot;%&quot;)"/>
+        <LEDGERNAME FORMULA="=if(len(trim(AE#))&gt;0,AE#,if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;debit note&quot;),&quot;PURCHASE &quot;,&quot;SALES &quot;) &amp; (Y#+AA#+AC#) &amp; &quot;%&quot;)"/>
         <ISDEEMEDPOSITIVE FORMULA="=if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),&quot;Yes&quot;,&quot;No&quot;)"/>
-        <AMOUNT CURRENCY="=AL#" ROE="=AM#" CONVERSIONFACTOR="=AO#" FOREXAMOUNT="=AP#" FORMULA="=Round(T#,2)*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
+        <AMOUNT CURRENCY="=AM#" ROE="=AN#" CONVERSIONFACTOR="=AP#" FOREXAMOUNT="=AQ#" FORMULA="=Round(U#,2)*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
       </ACCOUNTINGALLOCATIONS.LIST>
       <BATCHALLOCATIONS.LIST>
         <GODOWNNAME>Main Location</GODOWNNAME>
         <BATCHNAME>Primary Batch</BATCHNAME>
         <DESTINATIONGODOWNNAME>Main Location</DESTINATIONGODOWNNAME>
-        <AMOUNT CURRENCY="=AL#" ROE="=AM#" CONVERSIONFACTOR="=AO#" FOREXAMOUNT="=AP#" FORMULA="=Round(T#,2)*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
-        <ACTUALQTY COLUMNREFERENCE="P"/>
-        <BILLEDQTY COLUMNREFERENCE="P"/>
+        <AMOUNT CURRENCY="=AM#" ROE="=AN#" CONVERSIONFACTOR="=AP#" FOREXAMOUNT="=AQ#" FORMULA="=Round(U#,2)*if(Or(lower(trim(B#[1]))=&quot;purchase&quot;,lower(trim(B#[1]))=&quot;credit note&quot;),-1,1)"/>
+        <ACTUALQTY COLUMNREFERENCE="Q"/>
+        <BILLEDQTY COLUMNREFERENCE="Q"/>
       </BATCHALLOCATIONS.LIST>
-      <UDF:EIDISCOUNTRATE.LIST SKIP="=Round(U#,2)=0" DESC="`EI DiscountRate`" ISLIST="YES" TYPE="Number" INDEX="10001">
-        <UDF:EIDISCOUNTRATE DESC="`EI DiscountRate`" COLUMNREFERENCE="U"/>
+      <UDF:EIDISCOUNTRATE.LIST SKIP="=Round(V#,2)=0" DESC="`EI DiscountRate`" ISLIST="YES" TYPE="Number" INDEX="10001">
+        <UDF:EIDISCOUNTRATE DESC="`EI DiscountRate`" COLUMNREFERENCE="V"/>
       </UDF:EIDISCOUNTRATE.LIST>
-      <UDF:EIDISCOUNTAMT.LIST SKIP="=Round(V#,2)=0" DESC="`EI DiscountAmt`" ISLIST="YES" TYPE="Amount" INDEX="10003">
-        <UDF:EIDISCOUNTAMT DESC="`EI DiscountAmt`" COLUMNREFERENCE="V"/>
+      <UDF:EIDISCOUNTAMT.LIST SKIP="=Round(W#,2)=0" DESC="`EI DiscountAmt`" ISLIST="YES" TYPE="Amount" INDEX="10003">
+        <UDF:EIDISCOUNTAMT DESC="`EI DiscountAmt`" COLUMNREFERENCE="W"/>
       </UDF:EIDISCOUNTAMT.LIST>
     </ALLINVENTORYENTRIES.LIST>
   </VOUCHER12>
 </XMLTAGS>
+
