@@ -50,7 +50,7 @@
     <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
     <ADDITIONALNAME COLUMNREFERENCE="H"/>
     <ISBILLWISEON>Yes</ISBILLWISEON>
-    <!-- GST fields for PARTY LEDGER -->
+      <!-- GST fields for PARTY LEDGER -->
     <GSTREGISTRATIONTYPE SKIP="=trim(AJ#)=&quot;yes&quot;" FORMULA="=if(len(trim(J#))=0,&quot;Unregistered&quot;,&quot;Regular&quot;)"/>
     <!-- GSTIN / UIN -->
     <PARTYGSTIN SKIP="=trim(AJ#)=&quot;yes&quot;" FORMULA="=trim(J#)"/>
@@ -58,22 +58,6 @@
       <!-- 2017-09-14: STATENAME is converted to proper-case  -->
     <STATENAME ALERT="=if(len(trim(K#))=0,&quot;&quot;,if(__MATCH(K#,STATENAMELIST),&quot;&quot;,&quot;Invalid StateName:  &quot; &amp; K#))" ALERTREFERENCE="K#" FORMULA="=proper(trim(K#))"/>
     <LEDSTATENAME FORMULA="=proper(trim(K#))"/>
-
-    <!-- Tally Prime 3.0 -->
-    <LEDGSTREGDETAILS.LIST>
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <GSTREGISTRATIONTYPE SKIP="=trim(AJ#)=&quot;yes&quot;" FORMULA="=if(len(trim(J#))=0,&quot;Unregistered/Consumer&quot;,&quot;Regular&quot;)"/>
-      <STATE FORMULA="=proper(trim(K#))"/>
-      <PLACEOFSUPPLY FORMULA="=proper(trim(K#))"/>
-      <GSTIN SKIP="=trim(AJ#)=&quot;yes&quot;" FORMULA="=trim(J#)"/>
-    </LEDGSTREGDETAILS.LIST>
-    <!-- Tally Prime 3.0 -->
-    <LEDMAILINGDETAILS.LIST>
-       <APPLICABLEFROM>20230401</APPLICABLEFROM>
-       <MAILINGNAME COLUMNREFERENCE="H"/>
-       <STATE FORMULA="=proper(trim(K#))"/>
-       <COUNTRY SKIP="=len(trim(K#))=0">India</COUNTRY>
-    </LEDMAILINGDETAILS.LIST>
   </MASTER>
   <!-- Create Trade discount Master -->
   <MASTER TYPE="LEDGER">
@@ -158,11 +142,6 @@
     <NAME>Nos</NAME>
     <ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
     <GSTREPUOM>NOS-NUMBERS</GSTREPUOM>
-    <!-- Tally Prime 3.0 -->
-    <REPORTINGUQCDETAILS.LIST>
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <REPORTINGUQCNAME>NOS-NUMBERS</REPORTINGUQCNAME>
-    </REPORTINGUQCDETAILS.LIST>
   </MASTER>
   <!-- Create UNIT Master -->
   <MASTER TYPE="UNIT">
@@ -189,8 +168,6 @@
     <GSTDETAILS.LIST SKIP="=trim(AJ#)=&quot;yes&quot;">
       <APPLICABLEFROM>20170701</APPLICABLEFROM>
       <CALCULATIONTYPE>On Value</CALCULATIONTYPE>
-      <!-- Tally Prime 3.0 -->
-      <SRCOFGSTDETAILS>Specify Details Here</SRCOFGSTDETAILS>
       <HSNCODE COLUMNREFERENCE="N"/>
       <TAXABILITY FORMULA="=If(Round(X#+Z#+AB#,2)&gt;0,&quot;Taxable&quot;,&quot;Exempt&quot;)"/>
       <STATEWISEDETAILS.LIST>
@@ -220,29 +197,8 @@
       <TEMPGSTDETAILSLABRATES.LIST>
       </TEMPGSTDETAILSLABRATES.LIST>
     </GSTDETAILS.LIST>
-    <!-- Tally Prime 3.0 -->
-    <HSNDETAILS.LIST>
-       <APPLICABLEFROM>20230401</APPLICABLEFROM>
-       <HSNCODE COLUMNREFERENCE="N"/>
-       <SRCOFHSNDETAILS>Specify Details Here</SRCOFHSNDETAILS>
-    </HSNDETAILS.LIST>
   </MASTER>
-
-  <VOUCHER12>
-    <!-- Tally Prime 3.0 -->
-    <GSTREGISTRATION TAXTYPE="GST" COLUMNREFERENCE="AS"/>
-    <VCHSTATUSTAXUNIT_NOTREQUIRED COLUMNREFERENCE="AR"/>
-    <CMPGSTSTATE COLUMNREFERENCE="AR"/>
-    <CMPGSTIN COLUMNREFERENCE="AT"/>
-    <CMPGSTREGISTRATIONTYPE COLUMNREFERENCE="AU"/>
-    <VCHGSTSTATUSISINCLUDED>Yes</VCHGSTSTATUSISINCLUDED>
-    <VCHGSTSTATUSISUNCERTAIN>No</VCHGSTSTATUSISUNCERTAIN>
-
-    <COUNTRYOFRESIDENCE>India</COUNTRYOFRESIDENCE>
-    <PLACEOFSUPPLY FORMULA="=proper(trim(K#))"/>
-
-    <VCHENTRYMODE>Item Invoice</VCHENTRYMODE>
-
+  <VOUCHER11>
     <COMPANYNAME FORMULA="=AQ#[1]"/>
     <GUID FORMULA="=+&quot;udi-HZ3K9T-&quot; &amp; A# &amp; &quot;-&quot; &amp; C# &amp; &quot;-&quot; &amp; E#"/>
     <DATE COLUMNREFERENCE="E"/>
@@ -310,11 +266,6 @@
       <!-- For Voucher Mode -->
       <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(AK#[1]))&gt;0,trim(AK#[1])=&quot;Yes&quot;),And(Len(trim(AK#[1]))=0,Or(len(trim(L#[1]))&gt;0,len(trim(M#[1]))&gt;0)))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;No&quot;,&quot;Yes&quot;)"/>
       <AMOUNT CURRENCY="=AL#" ROE="=AM#" CONVERSIONFACTOR="=AO#" FORMULA="={Round(V#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
-      <!-- Tally Prime 3.0 -->
-      <APPROPRIATEFOR>GST</APPROPRIATEFOR>
-      <GSTAPPROPRIATETO>Goods</GSTAPPROPRIATETO>
-      <EXCISEALLOCTYPE>Based on Value</EXCISEALLOCTYPE>
-
     </LEDGERENTRIES.LIST>
     <!-- IGST Ledger -->
     <LEDGERENTRIES.LIST GROUPBY="=if(len(trim(AE#))=0,trim(X#),trim(AE#))" SKIP="={Round(Y#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(L#[1]))=0,len(trim(M#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
@@ -387,5 +338,6 @@
         <UDF:EIDISCOUNTAMT DESC="`EI DiscountAmt`" COLUMNREFERENCE="V"/>
       </UDF:EIDISCOUNTAMT.LIST>
     </ALLINVENTORYENTRIES.LIST>
-  </VOUCHER12>
+  </VOUCHER11>
 </XMLTAGS>
+
