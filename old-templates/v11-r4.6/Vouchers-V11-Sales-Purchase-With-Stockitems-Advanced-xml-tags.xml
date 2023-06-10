@@ -96,21 +96,6 @@
     <ISTCSAPPLICABLE SKIP="=Not(trim(FQ#[1])=&quot;yes&quot;)" COLUMNREFERENCE="FQ"/>
     <INCOMETAXNUMBER SKIP="=Not(trim(FQ#[1])=&quot;yes&quot;)" COLUMNREFERENCE="FS"/>
     <TDSDEDUCTEETYPE SKIP="=Not(trim(FQ#[1])=&quot;yes&quot;)" COLUMNREFERENCE="FR"/>
-    <!-- Tally Prime 3.0 -->
-    <LEDGSTREGDETAILS.LIST SKIP="=trim(HH#)=&quot;yes&quot;">
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(J#))=0,&quot;Unregistered/Consumer&quot;,&quot;Regular&quot;)"/>
-      <STATE FORMULA="=proper(trim(K#))"/>
-      <PLACEOFSUPPLY FORMULA="=proper(trim(K#))"/>
-      <GSTIN SKIP="=trim(AK#)=&quot;yes&quot;" FORMULA="=trim(J#)"/>
-    </LEDGSTREGDETAILS.LIST>
-    <!-- Tally Prime 3.0 -->
-    <LEDMAILINGDETAILS.LIST>
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <MAILINGNAME COLUMNREFERENCE="H"/>
-      <STATE FORMULA="=proper(trim(K#))"/>
-      <COUNTRY FORMULA="=if(len(trim(L#))=0,&quot;India&quot;,L#)"/>
-    </LEDMAILINGDETAILS.LIST>
   </MASTER>
   <!-- POS Ledgers -->
   <MASTER TYPE="LEDGER" SINGLERECORD="YES">
@@ -744,11 +729,6 @@
     <NAME>Nos</NAME>
     <ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
     <GSTREPUOM>NOS-NUMBERS</GSTREPUOM>
-    <!-- Tally Prime 3.0 -->
-    <REPORTINGUQCDETAILS.LIST>
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <REPORTINGUQCNAME>NOS-NUMBERS</REPORTINGUQCNAME>
-    </REPORTINGUQCDETAILS.LIST>
   </MASTER>
   <!-- Create UNIT Master -->
   <MASTER TYPE="UNIT">
@@ -757,15 +737,6 @@
     <ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
     <GSTREPUOM SKIP="=Not(trim(BC#)=&quot;nos&quot;)">NOS-NUMBERS</GSTREPUOM>
     <GSTREPUOM SKIP="=Not(trim(BC#)=&quot;kgs&quot;)">KGS-KILOGRAMS</GSTREPUOM>
-    <!-- Tally Prime 3.0 -->
-    <REPORTINGUQCDETAILS.LIST SKIP="=Not(trim(P#)=&quot;nos&quot;)">
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <REPORTINGUQCNAME>NOS-NUMBERS</REPORTINGUQCNAME>
-    </REPORTINGUQCDETAILS.LIST>
-    <REPORTINGUQCDETAILS.LIST SKIP="=Not(trim(P#)=&quot;kgs&quot;)">
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <REPORTINGUQCNAME>KGS-KILOGRAMS</REPORTINGUQCNAME>
-    </REPORTINGUQCDETAILS.LIST>
   </MASTER>
   <!-- Create Godown Masters -->
   <MASTER TYPE="GODOWN">
@@ -793,8 +764,6 @@
     <!-- Type of supply : Hard coded -->
     <GSTTYPEOFSUPPLY SKIP="=trim(HH#)=&quot;yes&quot;">Goods</GSTTYPEOFSUPPLY>
     <GSTDETAILS.LIST SKIP="=trim(HH#)=&quot;yes&quot;">
-      <!-- Tally Prime 3.0 -->
-      <SRCOFGSTDETAILS>Specify Details Here</SRCOFGSTDETAILS>
       <!-- Hard coded -->
       <APPLICABLEFROM>20170701</APPLICABLEFROM>
         <!-- Hard coded -->
@@ -859,14 +828,6 @@
       <TEMPGSTDETAILSLABRATES.LIST>
       </TEMPGSTDETAILSLABRATES.LIST>
     </GSTDETAILS.LIST>
-    <!-- Tally Prime 3.0 -->
-    <HSNDETAILS.LIST SKIP="=trim(HH#)=&quot;yes&quot;">
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <HSNCODE COLUMNREFERENCE="BB"/>
-      <HSN COLUMNREFERENCE="BA"/>
-      <SRCOFHSNDETAILS>Specify Details Here</SRCOFHSNDETAILS>
-    </HSNDETAILS.LIST>
-
     <!-- TCS u/s 206C -->
     <TCSAPPLICABLE SKIP="=Not(trim(FQ#[1])=&quot;yes&quot;)">~[~ Applicable</TCSAPPLICABLE>
     <TCSCATEGORY SKIP="=Not(trim(FQ#[1])=&quot;yes&quot;)" COLUMNREFERENCE="FT"/>
@@ -876,16 +837,6 @@
     </TCSCATEGORYDETAILS.LIST>
   </MASTER>
   <VOUCHER11 SKIP="=trim(GX#)=&quot;Yes&quot;">
-    <!-- Tally Prime 3.0 -->
-    <GSTREGISTRATION TAXTYPE="GST" COLUMNREFERENCE="HR"/>
-    <VCHSTATUSTAXUNIT_NOTREQUIRED COLUMNREFERENCE="AS"/>
-    <CMPGSTSTATE COLUMNREFERENCE="HQ"/>
-    <CMPGSTIN COLUMNREFERENCE="HS"/>
-    <CMPGSTREGISTRATIONTYPE COLUMNREFERENCE="HT"/>
-    <VCHGSTSTATUSISINCLUDED>Yes</VCHGSTSTATUSISINCLUDED>
-    <VCHGSTSTATUSISUNCERTAIN>No</VCHGSTSTATUSISUNCERTAIN>
-    <COUNTRYOFRESIDENCE FORMULA="=if(len(trim(L#))=0,&quot;India&quot;,L#)"/>
-
     <COMPANYNAME FORMULA="=HP#[1]"/>
     <GUID FORMULA="=+&quot;udi-H6W7QN-&quot; &amp; A# &amp; &quot;-&quot; &amp; C# &amp; &quot;-&quot; &amp; E#"/>
     <DATE COLUMNREFERENCE="E"/>
@@ -934,11 +885,9 @@
     <PARTYGSTIN SKIP="=trim(HH#)=&quot;yes&quot;" FORMULA="=if(len(trim(O#))=0,trim(J#),&quot;&quot;)"/>
     <PARTYGSTIN SKIP="=trim(HH#)=&quot;yes&quot;" FORMULA="=trim(Z#)"/>
     <!-- 2017-09-14: STATENAME is converted to proper-case  -->
-    <STATENAME FORMULA="=proper(trim(K#))"/>
-    <STATENAME FORMULA="=if(And(len(trim(O#))&gt;0,len(trim(W#))&gt;0),proper(trim(W#)),&quot;&quot;)"/>
-    <PLACEOFSUPPLY FORMULA="=proper(trim(K#))"/>
-    <PLACEOFSUPPLY FORMULA="=if(And(len(trim(O#))&gt;0,len(trim(X#))&gt;0),proper(trim(X#)),&quot;&quot;)"/>
-
+    <STATENAME FORMULA="=proper(if(len(trim(O#))=0,trim(K#),&quot;&quot;))"/>
+    <STATENAME FORMULA="=proper(trim(W#))"/>
+    <PLACEOFSUPPLY FORMULA="=proper(trim(X#))"/>
     <GSTREGISTRATIONTYPE SKIP="=Not(len(trim(Y#))=0)" FORMULA="=if(len(trim(J#))=0,&quot;Unregistered&quot;,&quot;Regular&quot;)"/>
     <GSTREGISTRATIONTYPE COLUMNREFERENCE="Y"/>
     <PARTYLEDGERNAME COLUMNREFERENCE="H"/>
@@ -1149,11 +1098,6 @@
       <!-- For Voucher Mode -->
       <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(HI#[1]))&gt;0,trim(HI#[1])=&quot;Yes&quot;),And(Len(trim(HI#[1]))=0,Or(len(trim(AY#[1]))&gt;0,len(trim(AZ#[1]))&gt;0)))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;No&quot;,&quot;Yes&quot;)"/>
       <AMOUNT CURRENCY="=HK#" ROE="=HL#" CONVERSIONFACTOR="=HN#" FORMULA="={Round(BJ#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
-
-      <!-- Tally Prime 3.0 -->
-      <APPROPRIATEFOR>GST</APPROPRIATEFOR>
-      <GSTAPPROPRIATETO>Goods</GSTAPPROPRIATETO>
-      <EXCISEALLOCTYPE>Based on Value</EXCISEALLOCTYPE>
     </LEDGERENTRIES.LIST>
     <!-- Ledger1 before taxes -->
     <LEDGERENTRIES.LIST GROUPBY="=trim(CL#)" SKIP="={Round(CM#,2)}=0" ALTERNATETAGNAME="=if(And(len(trim(AY#[1]))=0,len(trim(AZ#[1]))=0),&quot;ALLLEDGERENTRIES.LIST&quot;,&quot;&quot;)">
