@@ -101,7 +101,7 @@
         <BILLTYPE>New Ref</BILLTYPE>
         <AMOUNT CURRENCY="=AC#" ROE="=AD#" FORMULA="=Round(P#,2)*-1"/>
       </BILLALLOCATIONS.LIST>
-      <BANKALLOCATIONS.LIST SKIP="=Not(Or(Not(IsError(Find(&quot;bank&quot;,lower(H#),1))),trim(I#)=&quot;Bank Accounts&quot;))">
+      <BANKALLOCATIONS.LIST SKIP="=And(Not(Or(Not(IsError(Find(&quot;bank&quot;,lower(H#),1))),trim(I#)=&quot;Bank Accounts&quot;)),len(trim(R#))=0,len(trim(S#))=0,len(trim(T#))=0,len(trim(U#))=0))">
         <DATE COLUMNREFERENCE="E"/>
         <TRANSACTIONTYPE FORMULA="=if(len(trim(T#))=0,&quot;Cheque&quot;,T#)"/>
         <INSTRUMENTNUMBER COLUMNREFERENCE="R"/>
@@ -138,7 +138,7 @@
         <BILLTYPE>New Ref</BILLTYPE>
         <AMOUNT CURRENCY="=AC#" ROE="=AD#" FORMULA="=Round(P#,2)*1"/>
       </BILLALLOCATIONS.LIST>
-      <BANKALLOCATIONS.LIST SKIP="=Not(Or(Not(IsError(Find(&quot;bank&quot;,lower(L#),1))),trim(M#)=&quot;Bank Accounts&quot;))">
+      <BANKALLOCATIONS.LIST SKIP="=And(Not(Or(Not(IsError(Find(&quot;bank&quot;,lower(L#),1))),trim(M#)=&quot;Bank Accounts&quot;)),len(trim(R#))=0,len(trim(S#))=0,len(trim(T#))=0,len(trim(U#))=0))">
         <DATE COLUMNREFERENCE="E"/>
         <TRANSACTIONTYPE FORMULA="=if(len(trim(T#))=0,&quot;Cheque&quot;,T#)"/>
         <INSTRUMENTNUMBER COLUMNREFERENCE="R"/>
@@ -175,7 +175,7 @@
         <BILLTYPE>New Ref</BILLTYPE>
         <AMOUNT CURRENCY="=AC#" ROE="=AD#" FORMULA="=Round(P#,2)*-1"/>
       </BILLALLOCATIONS.LIST>
-      <BANKALLOCATIONS.LIST SKIP="=Not(Or(Not(IsError(Find(&quot;bank&quot;,lower(H#),1))),trim(I#)=&quot;Bank Accounts&quot;))">
+      <BANKALLOCATIONS.LIST SKIP="=And(Not(Or(Not(IsError(Find(&quot;bank&quot;,lower(H#),1))),trim(I#)=&quot;Bank Accounts&quot;)),len(trim(R#))=0,len(trim(S#))=0,len(trim(T#))=0,len(trim(U#))=0))">
         <DATE COLUMNREFERENCE="E"/>
         <TRANSACTIONTYPE FORMULA="=if(len(trim(T#))=0,&quot;Cheque&quot;,T#)"/>
         <INSTRUMENTNUMBER COLUMNREFERENCE="R"/>
