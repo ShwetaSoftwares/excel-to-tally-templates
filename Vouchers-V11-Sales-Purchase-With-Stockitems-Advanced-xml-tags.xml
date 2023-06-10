@@ -83,7 +83,7 @@
     <ISCOSTCENTRESON FORMULA="=if(len(trim(O#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
     <ADDITIONALNAME COLUMNREFERENCE="H"/>
     <ISBILLWISEON>Yes</ISBILLWISEON>
-      <!-- GST fields for PARTY LEDGER -->
+    <!-- GST fields for PARTY LEDGER -->
     <GSTREGISTRATIONTYPE SKIP="=trim(HJ#)=&quot;yes&quot;" FORMULA="=if(len(trim(J#))=0,&quot;Unregistered&quot;,&quot;Regular&quot;)"/>
     <!-- GSTIN / UIN -->
     <PARTYGSTIN SKIP="=trim(HJ#)=&quot;yes&quot;" FORMULA="=trim(J#)"/>
@@ -882,7 +882,8 @@
     <CMPGSTREGISTRATIONTYPE COLUMNREFERENCE="HV"/>
     <VCHGSTSTATUSISINCLUDED>Yes</VCHGSTSTATUSISINCLUDED>
     <VCHGSTSTATUSISUNCERTAIN>No</VCHGSTSTATUSISUNCERTAIN>
-    <COUNTRYOFRESIDENCE FORMULA="=if(len(trim(L#))=0,&quot;India&quot;,L#)"/>
+    <!-- COUNTRYOFRESIDENCE taken from Column Y# or L# or India -->
+    <COUNTRYOFRESIDENCE FORMULA="=if(len(trim(Y#))&gt;0,proper(trim(Y#)),if(len(trim(L#))&gt;0,proper(trim(L#)),&quot;India&quot;))"/>
     <COMPANYNAME FORMULA="=HR#[1]"/>
     <GUID FORMULA="=+&quot;udi-H6W7QN-&quot; &amp; A# &amp; &quot;-&quot; &amp; C# &amp; &quot;-&quot; &amp; E#"/>
     <DATE COLUMNREFERENCE="E"/>
