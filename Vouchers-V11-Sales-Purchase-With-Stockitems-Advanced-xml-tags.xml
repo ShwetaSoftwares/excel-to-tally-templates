@@ -960,6 +960,7 @@
       <BASICBUYERADDRESS FORMULA="=if(len(trim(AB#))=0,if(B#[1]=&quot;Sales&quot;,V#,&quot;&quot;),AH#)"/>
     </BASICBUYERADDRESS.LIST>
     <CONSIGNEESTATENAME COLUMNREFERENCE="AJ"/>
+    <CONSIGNEECOUNTRYNAME COLUMNREFERENCE="AK"/>
     <CONSIGNEEGSTIN COLUMNREFERENCE="AL"/>
     <!-- For Sales and Purchase only only -->
     <INVOICEDELNOTES.LIST SCROLL="YES" SKIP="=not(And(Or(len(trim(AO#))&gt;0,len(trim(AP#))&gt;0),Or(trim(lower(B#[1]))=&quot;sales&quot;,trim(lower(B#[1]))=&quot;purchase&quot;)))">
