@@ -36,15 +36,30 @@
     <ISBILLWISEON>Yes</ISBILLWISEON>
     <AFFECTSSTOCK>No</AFFECTSSTOCK>
     <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
-    <COUNTRYNAME SKIP="len(trim(J#))=0">India</COUNTRYNAME>
     <!-- Required for Tally ERP 9 Release 5.1 and higher -->
     <!-- 2017-09-14: STATENAME is converted to proper-case  -->
     <STATENAME FORMULA="=proper(trim(J#))"/>
     <LEDSTATENAME FORMULA="=proper(trim(J#))"/>
+    <COUNTRYNAME FORMULA="=if(len(trim(K#))=0,&quot;India&quot;,K#)"/>
     <!-- GST fields for PARTY LEDGER -->
-    <GSTREGISTRATIONTYPE COLUMNREFERENCE="L"/>
+    <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(L#))&gt;0,L#,if(len(trim(M#))&gt;0,&quot;Regular&quot;,&quot;Unregistered&quot;))"/>
     <!-- GSTIN / UIN -->
     <PARTYGSTIN FORMULA="=trim(M#)"/>
+
+    <!-- Tally Prime 3.0 -->
+    <LEDGSTREGDETAILS.LIST>
+      <APPLICABLEFROM>20230401</APPLICABLEFROM>
+      <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(L#))&gt;0,L#,if(len(trim(M#))&gt;0,&quot;Regular&quot;,&quot;Unregistered/Consumer&quot;))"/>
+      <STATE FORMULA="=proper(trim(J#))"/>
+      <GSTIN FORMULA="=trim(M#)"/>
+    </LEDGSTREGDETAILS.LIST>
+    <!-- Tally Prime 3.0 -->
+    <LEDMAILINGDETAILS.LIST>
+      <APPLICABLEFROM>20230401</APPLICABLEFROM>
+      <MAILINGNAME COLUMNREFERENCE="H"/>
+      <STATE FORMULA="=proper(trim(J#))"/>
+      <COUNTRY FORMULA="=if(len(trim(K#))=0,&quot;India&quot;,K#)"/>
+    </LEDMAILINGDETAILS.LIST>
   </MASTER>
   <!-- Create Ledger 1 -->
   <MASTER TYPE="LEDGER">
@@ -295,7 +310,7 @@
     <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
   </MASTER>
   <!-- VOUCHER-->
-  <VOUCHER11>
+  <VOUCHER12>
     <GUID FORMULA="=+&quot;udi-DG4W8R-&quot; &amp; A# &amp; &quot;-&quot; &amp; C# &amp; &quot;-&quot; &amp; E#"/>
     <DATE COLUMNREFERENCE="E"/>
     <EFFECTIVEDATE COLUMNREFERENCE="E"/>
@@ -303,11 +318,18 @@
     <ISINVOICE COLUMNREFERENCE="AE"/>
     <PERSISTEDVIEW FORMULA="=if(trim(AE#[1])=&quot;Yes&quot;,&quot;Invoice Voucher View&quot;,&quot;Accounting Voucher View&quot;)"/>
     <!-- GSTIN / UIN -->
-    <PARTYGSTIN FORMULA="=if(len(trim(O#))=0,trim(M#),&quot;&quot;)"/>
-    <PARTYGSTIN FORMULA="=trim(V#)"/>
+    <PARTYGSTIN FORMULA="=if(len(trim(V#))&gt;0,V#,M#)"/>
     <!-- 2017-09-14: STATENAME is converted to proper-case  -->
     <STATENAME FORMULA="=proper(if(len(trim(O#))=0,trim(J#),&quot;&quot;))"/>
     <STATENAME FORMULA="=proper(trim(S#))"/>
+
+    <COUNTRYNAME FORMULA="=if(len(trim(T#))&gt;0,T#,if(len(trim(K#))&gt;0,K#,&quot;India&quot;))"/>
+    <COUNTRYOFRESIDENCE FORMULA="=if(len(trim(T#))&gt;0,T#,if(len(trim(K#))&gt;0,K#,&quot;India&quot;))"/>
+
+    <!-- Place of Supply Last one to be considered-->
+    <PLACEOFSUPPLY FORMULA="=proper(trim(if(len(trim(N#))&gt;0,proper(trim(N#)),if(len(trim(S#))&gt;0,S#,J#))))"/>
+    <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(U#))&gt;0,U#,if(len(trim(L#))&gt;0,L#,if(len(trim(M#))&gt;0,&quot;Regular&quot;,&quot;Unregistered&quot;)))"/>
+
     <PARTYLEDGERNAME COLUMNREFERENCE="H"/>
     <VOUCHERNUMBER COLUMNREFERENCE="D"/>
     <REFERENCE COLUMNREFERENCE="F"/>
@@ -332,10 +354,8 @@
       <BASICBUYERADDRESS COLUMNREFERENCE="P"/>
       <BASICBUYERADDRESS COLUMNREFERENCE="Q"/>
       <BASICBUYERADDRESS COLUMNREFERENCE="R"/>
-      <BASICBUYERADDRESS COLUMNREFERENCE="S"/>
     </BASICBUYERADDRESS.LIST>
-    <PLACEOFSUPPLY FORMULA="=proper(trim(T#))"/>
-    <GSTREGISTRATIONTYPE COLUMNREFERENCE="U"/>
+
     <!-- Other GST details -->
     <GSTNATUREOFRETURN SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(W#))=0,&quot;01-Sales Return&quot;,W#)"/>
     <VATPARTYTRANSRETURNNUMBER SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(X#))=0,F#,X#)"/>
@@ -648,5 +668,5 @@
       <AMOUNT FORMULA="=Round(Round({Round(AG#,2)+Round(AI#,2)+Round(AK#,2)+Round(AM#,2)+Round(AO#,2)}+{Round(AQ#,2)+Round(AS#,2)+Round(AU#,2)+Round(AW#,2)+Round(AY#,2)}+{Round(BA#,2)+Round(BC#,2)+Round(BE#,2)+Round(BG#,2)+Round(BI#,2)}+{Round(BK#,2)+Round(BM#,2)+Round(BO#,2)+Round(BQ#,2)+Round(BS#,2)}+{Round(BU#,2)+Round(BW#,2)+Round(BY#,2)+Round(CA#,2)+Round(CC#,2)}+{Round(CE#,2)+Round(CG#,2)+Round(CI#,2)+Round(CK#,2)+Round(CM#,2)},0)-Round({Round(AG#,2)+Round(AI#,2)+Round(AK#,2)+Round(AM#,2)+Round(AO#,2)}+{Round(AQ#,2)+Round(AS#,2)+Round(AU#,2)+Round(AW#,2)+Round(AY#,2)}+{Round(BA#,2)+Round(BC#,2)+Round(BE#,2)+Round(BG#,2)+Round(BI#,2)}+{Round(BK#,2)+Round(BM#,2)+Round(BO#,2)+Round(BQ#,2)+Round(BS#,2)}+{Round(BU#,2)+Round(BW#,2)+Round(BY#,2)+Round(CA#,2)+Round(CC#,2)}+{Round(CE#,2)+Round(CG#,2)+Round(CI#,2)+Round(CK#,2)+Round(CM#,2)},2),2)*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <DUMMY SCROLL="YES"/>
-  </VOUCHER11>
+  </VOUCHER12>
 </XMLTAGS>
