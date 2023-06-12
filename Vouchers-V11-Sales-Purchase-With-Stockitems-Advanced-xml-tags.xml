@@ -14,7 +14,7 @@
     <PARENT ALERT="=if(len(trim(B#))=0,&quot;&quot;,if(__MATCH(B#,VOUCHERTYPELIST),&quot;&quot;,&quot;Invalid VoucherType:  &quot; &amp; B#))" ALERTREFERENCE="B#" COLUMNREFERENCE="B"/>
     <!-- Is deemed positive not required -->
     <NUMBERINGMETHOD>Manual</NUMBERINGMETHOD>
-      <!-- POS -->
+    <!-- POS -->
     <USEFORPOSINVOICE SKIP="=Round(GK#+GM#+GP#+GT#,2)=0">Yes</USEFORPOSINVOICE>
   </MASTER>
   <!-- Create CURRENCY Master -->
@@ -172,7 +172,7 @@
     <GSTAPPLICABLE SKIP="=trim(HJ#)=&quot;yes&quot;" FORMULA="=&quot;~[~ Applicable&quot;"/>
     <GSTDUTYHEAD SKIP="=trim(HJ#)=&quot;yes&quot;">Integrated Tax</GSTDUTYHEAD>
     <TAXTYPE SKIP="=trim(HJ#)=&quot;yes&quot;">GST</TAXTYPE>
-      <!-- 
+    <!-- 
         2018-06-28 :Now TAXRATE is included in Tax Ledgers only
         Earlier: TAXRATE not included as it may create confusion 
       -->
@@ -198,7 +198,7 @@
     <GSTAPPLICABLE SKIP="=trim(HJ#)=&quot;yes&quot;" FORMULA="=&quot;~[~ Applicable&quot;"/>
     <GSTDUTYHEAD SKIP="=trim(HJ#)=&quot;yes&quot;">Central Tax</GSTDUTYHEAD>
     <TAXTYPE SKIP="=trim(HJ#)=&quot;yes&quot;">GST</TAXTYPE>
-      <!-- 
+    <!-- 
         2018-06-28 :Now TAXRATE is included in Tax Ledgers only
         Earlier: TAXRATE not included as it may create confusion 
       -->
@@ -224,7 +224,7 @@
     <GSTAPPLICABLE SKIP="=trim(HJ#)=&quot;yes&quot;" FORMULA="=&quot;~[~ Applicable&quot;"/>
     <GSTDUTYHEAD SKIP="=trim(HJ#)=&quot;yes&quot;">State Tax</GSTDUTYHEAD>
     <TAXTYPE SKIP="=trim(HJ#)=&quot;yes&quot;">GST</TAXTYPE>
-      <!-- 
+    <!-- 
         2018-06-28 :Now TAXRATE is included in Tax Ledgers only
         Earlier: TAXRATE not included as it may create confusion 
       -->
@@ -250,7 +250,7 @@
     <GSTAPPLICABLE SKIP="=trim(HJ#)=&quot;yes&quot;" FORMULA="=&quot;~[~ Applicable&quot;"/>
     <GSTDUTYHEAD SKIP="=trim(HJ#)=&quot;yes&quot;">UT Tax</GSTDUTYHEAD>
     <TAXTYPE SKIP="=trim(HJ#)=&quot;yes&quot;">GST</TAXTYPE>
-      <!-- 
+    <!-- 
         2018-06-28 :Now TAXRATE is included in Tax Ledgers only
         Earlier: TAXRATE not included as it may create confusion 
       -->
@@ -277,7 +277,7 @@
     <GSTDUTYHEAD SKIP="=trim(HJ#)=&quot;yes&quot;">Cess</GSTDUTYHEAD>
     <TAXTYPE SKIP="=trim(HJ#)=&quot;yes&quot;">GST</TAXTYPE>
     <CESSVALUATIONMETHOD>Based on Value</CESSVALUATIONMETHOD>
-      <!-- 
+    <!-- 
         2018-06-28 :Now TAXRATE is included in Tax Ledgers only
         Earlier: TAXRATE not included as it may create confusion 
       -->
@@ -304,7 +304,7 @@
     <GSTDUTYHEAD SKIP="=trim(HJ#)=&quot;yes&quot;">Cess</GSTDUTYHEAD>
     <TAXTYPE SKIP="=trim(HJ#)=&quot;yes&quot;">GST</TAXTYPE>
     <CESSVALUATIONMETHOD>Based on Quantity</CESSVALUATIONMETHOD>
-      <!-- 
+    <!-- 
         2018-06-28 :Now TAXRATE is included in Tax Ledgers only
         Earlier: TAXRATE not included as it may create confusion 
       -->
@@ -331,7 +331,7 @@
     <GSTDUTYHEAD SKIP="=trim(HJ#)=&quot;yes&quot;">State Cess</GSTDUTYHEAD>
     <TAXTYPE SKIP="=trim(HJ#)=&quot;yes&quot;">GST</TAXTYPE>
     <CESSVALUATIONMETHOD>Based on Value</CESSVALUATIONMETHOD>
-      <!--
+    <!--
         2018-06-28 :Now TAXRATE is included in Tax Ledgers only
         Earlier: TAXRATE not included as it may create confusion
       -->
@@ -358,7 +358,7 @@
     <GSTDUTYHEAD SKIP="=trim(HJ#)=&quot;yes&quot;">State Cess</GSTDUTYHEAD>
     <TAXTYPE SKIP="=trim(HJ#)=&quot;yes&quot;">GST</TAXTYPE>
     <CESSVALUATIONMETHOD>Based on Quantity</CESSVALUATIONMETHOD>
-      <!--
+    <!--
         2018-06-28 :Now TAXRATE is included in Tax Ledgers only
         Earlier: TAXRATE not included as it may create confusion
       -->
@@ -744,7 +744,7 @@
     <NAME>Nos</NAME>
     <ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
     <GSTREPUOM>NOS-NUMBERS</GSTREPUOM>
-      <!-- Tally Prime 3.0 -->
+    <!-- Tally Prime 3.0 -->
     <REPORTINGUQCDETAILS.LIST>
       <APPLICABLEFROM>20230401</APPLICABLEFROM>
       <REPORTINGUQCNAME>NOS-NUMBERS</REPORTINGUQCNAME>
@@ -757,7 +757,7 @@
     <ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
     <GSTREPUOM SKIP="=Not(trim(BE#)=&quot;nos&quot;)">NOS-NUMBERS</GSTREPUOM>
     <GSTREPUOM SKIP="=Not(trim(BE#)=&quot;kgs&quot;)">KGS-KILOGRAMS</GSTREPUOM>
-      <!-- Tally Prime 3.0 -->
+    <!-- Tally Prime 3.0 -->
     <REPORTINGUQCDETAILS.LIST SKIP="=Not(trim(Q#)=&quot;nos&quot;)">
       <APPLICABLEFROM>20230401</APPLICABLEFROM>
       <REPORTINGUQCNAME>NOS-NUMBERS</REPORTINGUQCNAME>
@@ -795,11 +795,11 @@
     <GSTDETAILS.LIST SKIP="=trim(HJ#)=&quot;yes&quot;">
       <!-- Tally Prime 3.0 -->
       <SRCOFGSTDETAILS>Specify Details Here</SRCOFGSTDETAILS>
-        <!-- Hard coded -->
+      <!-- Hard coded -->
       <APPLICABLEFROM>20170701</APPLICABLEFROM>
-        <!-- Hard coded -->
+      <!-- Hard coded -->
       <CALCULATIONTYPE>On Value</CALCULATIONTYPE>
-        <!-- HSN Desc -->
+      <!-- HSN Desc -->
       <HSN COLUMNREFERENCE="BC"/>
       <!-- HSN Code -->
       <HSNCODE COLUMNREFERENCE="BD"/>
@@ -1099,31 +1099,31 @@
         Tax Classification - Override at Voucher level 
         Applicable to Sales/Purchase with Stockitems only as tested in Tally ERP 9 Release 6.1
       -->
-      <GSTOVRDNNATURE SKIP="=trim(HJ#)=&quot;yes&quot;" COLUMNREFERENCE="FD"/>
-      <GSTOVRDNINELIGIBLEITC FORMULA="=if(trim(FL#)=&quot;Yes&quot;,&quot;~[~ Applicable&quot;,&quot;~[~ Not Applicable&quot;)"/>
-      <GSTOVRDNISREVCHARGEAPPL FORMULA="=if(trim(FM#)=&quot;Yes&quot;,&quot;~[~ Applicable&quot;,&quot;~[~ Not Applicable&quot;)"/>
-      <GSTOVRDNASSESSABLEVALUE SKIP="=Round(FK#,2)=0" FORMULA="=Round(FK#,2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
-      <RATEDETAILS.LIST SKIP="=trim(HJ#)=&quot;yes&quot;">
+      <GSTOVRDNNATURE SKIP="=Or(trim(HJ#)=&quot;yes&quot;,len(trim(FD#))=0)" COLUMNREFERENCE="FD"/>
+      <GSTOVRDNINELIGIBLEITC SKIP="=Or(trim(HJ#)=&quot;yes&quot;,len(trim(FD#))=0)" FORMULA="=if(trim(FL#)=&quot;Yes&quot;,&quot;~[~ Applicable&quot;,&quot;~[~ Not Applicable&quot;)"/>
+      <GSTOVRDNISREVCHARGEAPPL SKIP="=Or(trim(HJ#)=&quot;yes&quot;,len(trim(FD#))=0)" FORMULA="=if(trim(FM#)=&quot;Yes&quot;,&quot;~[~ Applicable&quot;,&quot;~[~ Not Applicable&quot;)"/>
+      <GSTOVRDNASSESSABLEVALUE SKIP="=Or(trim(HJ#)=&quot;yes&quot;,len(trim(FD#))=0,Round(FK#,2)=0)" FORMULA="=Round(FK#,2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <RATEDETAILS.LIST SKIP="=Or(trim(HJ#)=&quot;yes&quot;,len(trim(FD#))=0)">
         <GSTRATEDUTYHEAD>Integrated Tax</GSTRATEDUTYHEAD>
         <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
         <GSTRATE COLUMNREFERENCE="FE"/>
       </RATEDETAILS.LIST>
-      <RATEDETAILS.LIST SKIP="=trim(HJ#)=&quot;yes&quot;">
+      <RATEDETAILS.LIST SKIP="=Or(trim(HJ#)=&quot;yes&quot;,len(trim(FD#))=0)">
         <GSTRATEDUTYHEAD>Central Tax</GSTRATEDUTYHEAD>
         <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
         <GSTRATE COLUMNREFERENCE="FF"/>
       </RATEDETAILS.LIST>
-      <RATEDETAILS.LIST SKIP="=trim(HJ#)=&quot;yes&quot;">
+      <RATEDETAILS.LIST SKIP="=Or(trim(HJ#)=&quot;yes&quot;,len(trim(FD#))=0)">
         <GSTRATEDUTYHEAD FORMULA="=if(Round(FH#,2)=0,&quot;State Tax&quot;,&quot;UT Tax&quot;)"/>
         <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
         <GSTRATE FORMULA="=if(Round(FH#,2)=0,FG#,FH#)"/>
       </RATEDETAILS.LIST>
-      <RATEDETAILS.LIST SKIP="=trim(HJ#)=&quot;yes&quot;">
+      <RATEDETAILS.LIST SKIP="=Or(trim(HJ#)=&quot;yes&quot;,len(trim(FD#))=0)">
         <GSTRATEDUTYHEAD>Cess</GSTRATEDUTYHEAD>
         <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
         <GSTRATE COLUMNREFERENCE="FI"/>
       </RATEDETAILS.LIST>
-      <RATEDETAILS.LIST SKIP="=trim(HJ#)=&quot;yes&quot;">
+      <RATEDETAILS.LIST SKIP="=Or(trim(HJ#)=&quot;yes&quot;,len(trim(FD#))=0)">
         <GSTRATEDUTYHEAD>State Cess</GSTRATEDUTYHEAD>
         <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
         <GSTRATE COLUMNREFERENCE="FJ"/>
@@ -1468,7 +1468,7 @@
       <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(HK#[1]))&gt;0,trim(HK#[1])=&quot;Yes&quot;),And(Len(trim(HK#[1]))=0,Or(len(trim(BA#[1]))&gt;0,len(trim(BB#[1]))&gt;0)))" FORMULA="=if(Round(Round({Round(BJ#,2)-Round(BL#,2)+Round(DI#,2)+Round(DK#,2)+Round(DM#,2)+Round(DO#,2)+Round(DQ#,2)+Round(DS#,2)+Round(DU#,2)+Round(DW#,2)}+{Round(CO#+CS#+CW#+DA#+DE#,2)}+{Round(EG#+EK#+EO#+ES#+EW#,2)}+Round({if(trim(FS#[1])=&quot;yes&quot;,Round(FY#,2),0)},0),0)-Round({Round(BJ#,2)-Round(BL#,2)+Round(DI#,2)+Round(DK#,2)+Round(DM#,2)+Round(DO#,2)+Round(DQ#,2)+Round(DS#,2)+Round(DU#,2)+Round(DW#,2)}+{Round(CO#+CS#+CW#+DA#+DE#,2)}+{Round(EG#+EK#+EO#+ES#+EW#,2)}+Round({if(trim(FS#[1])=&quot;yes&quot;,Round(FY#,2),0)},0),2),2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)&gt;0,&quot;No&quot;,&quot;Yes&quot;)"/>
       <!-- For Invoice Mode -->
       <TEST SKIP="=Not(Or(And(Len(trim(HK#[1]))&gt;0,trim(HK#[1])=&quot;Yes&quot;),And(Len(trim(HK#[1]))=0,Or(len(trim(BA#[1]))&gt;0,len(trim(BB#[1]))&gt;0))))">ISINVOICEMODE=YES</TEST>
-        <!-- For Voucher Mode -->
+      <!-- For Voucher Mode -->
       <TEST SKIP="=Or(And(Len(trim(HK#[1]))&gt;0,trim(HK#[1])=&quot;Yes&quot;),And(Len(trim(HK#[1]))=0,Or(len(trim(BA#[1]))&gt;0,len(trim(BB#[1]))&gt;0)))">ISINVOICEMODE=NO</TEST>
       <AMOUNT CURRENCY="=HM#" ROE="=HN#" CONVERSIONFACTOR="=HP#" FORMULA="=Round(Round({Round(BJ#,2)-Round(BL#,2)+Round(DI#,2)+Round(DK#,2)+Round(DM#,2)+Round(DO#,2)+Round(DQ#,2)+Round(DS#,2)+Round(DU#,2)+Round(DW#,2)}+{Round(CO#+CS#+CW#+DA#+DE#,2)}+{Round(EG#+EK#+EO#+ES#+EW#,2)}+Round({if(trim(FS#[1])=&quot;yes&quot;,Round(FY#,2),0)},0),0)-Round({Round(BJ#,2)-Round(BL#,2)+Round(DI#,2)+Round(DK#,2)+Round(DM#,2)+Round(DO#,2)+Round(DQ#,2)+Round(DS#,2)+Round(DU#,2)+Round(DW#,2)}+{Round(CO#+CS#+CW#+DA#+DE#,2)}+{Round(EG#+EK#+EO#+ES#+EW#,2)}+Round({if(trim(FS#[1])=&quot;yes&quot;,Round(FY#,2),0)},2),2),2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
     </LEDGERENTRIES.LIST>
@@ -1506,24 +1506,24 @@
           Tax Classification - Override at Voucher level 
           Applicable to Sales/Purchase with Stockitems only as tested in Tally ERP 9 Release 6.1
         -->
-        <GSTOVRDNNATURE SKIP="=trim(HJ#)=&quot;yes&quot;" COLUMNREFERENCE="FD"/>
-        <GSTOVRDNASSESSABLEVALUE SKIP="=Round(FK#,2)=0" FORMULA="=Round(FK#,2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
-        <RATEDETAILS.LIST SKIP="=trim(HJ#)=&quot;yes&quot;">
+        <GSTOVRDNNATURE SKIP="=Or(trim(HJ#)=&quot;yes&quot;,len(trim(FD#))=0)" COLUMNREFERENCE="FD"/>
+        <GSTOVRDNASSESSABLEVALUE SKIP="=Or(Round(FK#,2)=0,len(trim(FD#))=0)" FORMULA="=Round(FK#,2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+        <RATEDETAILS.LIST SKIP="=Or(trim(HJ#)=&quot;yes&quot;,len(trim(FD#))=0)">
           <GSTRATEDUTYHEAD>Integrated Tax</GSTRATEDUTYHEAD>
           <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
           <GSTRATE COLUMNREFERENCE="FE"/>
         </RATEDETAILS.LIST>
-        <RATEDETAILS.LIST SKIP="=trim(HJ#)=&quot;yes&quot;">
+        <RATEDETAILS.LIST SKIP="=Or(trim(HJ#)=&quot;yes&quot;,len(trim(FD#))=0)">
           <GSTRATEDUTYHEAD>Central Tax</GSTRATEDUTYHEAD>
           <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
           <GSTRATE COLUMNREFERENCE="FF"/>
         </RATEDETAILS.LIST>
-        <RATEDETAILS.LIST SKIP="=trim(HJ#)=&quot;yes&quot;">
+        <RATEDETAILS.LIST SKIP="=Or(trim(HJ#)=&quot;yes&quot;,len(trim(FD#))=0)">
           <GSTRATEDUTYHEAD FORMULA="=if(Round(FH#,2)=0,&quot;State Tax&quot;,&quot;UT Tax&quot;)"/>
           <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
           <GSTRATE FORMULA="=if(Round(FH#,2)=0,FG#,FH#)"/>
         </RATEDETAILS.LIST>
-        <RATEDETAILS.LIST SKIP="=trim(HJ#)=&quot;yes&quot;">
+        <RATEDETAILS.LIST SKIP="=Or(trim(HJ#)=&quot;yes&quot;,len(trim(FD#))=0)">
           <GSTRATEDUTYHEAD>Cess</GSTRATEDUTYHEAD>
           <GSTRATEVALUATIONTYPE SKIP="=Not(And(Round(DQ#,2)&gt;0,Round(DS#,2)=0))">Based on Value</GSTRATEVALUATIONTYPE>
           <GSTRATEVALUATIONTYPE SKIP="=Not(And(Round(DS#,2)&gt;0,Round(DQ#,2)=0))">Based on Quantity</GSTRATEVALUATIONTYPE>
@@ -1531,7 +1531,7 @@
           <GSTRATEVALUATIONTYPE SKIP="=Not(And(Round(DQ#,2)=0,Round(DS#,2)=0))">Based on Value</GSTRATEVALUATIONTYPE>
           <GSTRATE COLUMNREFERENCE="FI"/>
         </RATEDETAILS.LIST>
-        <RATEDETAILS.LIST SKIP="=trim(HJ#)=&quot;yes&quot;">
+        <RATEDETAILS.LIST SKIP="=Or(trim(HJ#)=&quot;yes&quot;,len(trim(FD#))=0)">
           <GSTRATEDUTYHEAD>State Cess</GSTRATEDUTYHEAD>
           <GSTRATEVALUATIONTYPE SKIP="=Not(And(Round(DU#,2)&gt;0,Round(DW#,2)=0))">Based on Value</GSTRATEVALUATIONTYPE>
           <GSTRATEVALUATIONTYPE SKIP="=Not(And(Round(DW#,2)&gt;0,Round(DU#,2)=0))">Based on Quantity</GSTRATEVALUATIONTYPE>
@@ -1583,4 +1583,3 @@
     </ALLINVENTORYENTRIES.LIST>
   </VOUCHER11>
 </XMLTAGS>
-
