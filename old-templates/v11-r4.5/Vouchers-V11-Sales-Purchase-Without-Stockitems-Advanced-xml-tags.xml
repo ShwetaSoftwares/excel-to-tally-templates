@@ -1,0 +1,1461 @@
+<!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
+<XMLTAGS CELLREFERENCE="A1" FROMROW="5" xmlns:UDF="TallyUDF">
+  <!-- Specifies that this (i.e Column as mentioned above) is the key field -->
+  <COLUMNNAME.LIST>
+    <COLUMNNAME>ID</COLUMNNAME>
+    <COLUMNNAME>NAME</COLUMNNAME>
+  </COLUMNNAME.LIST>
+  <!-- Create VOUCHERTYPE Master -->
+  <MASTER TYPE="VOUCHERTYPE">
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="C"/>
+    </NAME.LIST>
+    <PARENT COLUMNREFERENCE="B"/>
+    <MAILINGNAME FORMULA="=if(Or(lower(trim(B#))=&quot;purchase&quot;,lower(trim(B#))=&quot;debit note&quot;),&quot;Purc&quot;,&quot;Sale&quot;)"/>
+    <NUMBERINGMETHOD>Manual</NUMBERINGMETHOD>
+    <ISDEEMEDPOSITIVE FORMULA="=if(Or(lower(trim(B#))=&quot;purchase&quot;,lower(trim(B#))=&quot;credit note&quot;),&quot;No&quot;,&quot;Yes&quot;)"/>
+  </MASTER>
+  <!-- Create a GROUP Master -->
+  <MASTER TYPE="GROUP" SINGLERECORD="YES">
+    <NAME.LIST TYPE="String">
+      <NAME>New Ledgers</NAME>
+    </NAME.LIST>
+  </MASTER>
+  <!-- Create COSTCENTRE Masters -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="Z"/>
+    </NAME.LIST>
+  </MASTER>
+  <!-- Create Party Ledger Master-->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="H"/>
+      <NAME COLUMNREFERENCE="I"/>
+      <OLDNAME FORMULA="=IF(len(trim(I#))=0,H#,I#)"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(J#))=0,if(Or(lower(trim(B#))=&quot;purchase&quot;,lower(trim(B#))=&quot;credit note&quot;),&quot;Sundry Creditors&quot;,&quot;Sundry Debtors&quot;),J#)"/>
+    <ISBILLWISEON>Yes</ISBILLWISEON>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+    <COUNTRYNAME SKIP="len(trim(K#))=0">India</COUNTRYNAME>
+      <!-- Required for Tally ERP 9 Release 5.1 and higher -->
+      <!-- 2017-09-14: STATENAME is converted to proper-case  -->
+    <STATENAME FORMULA="=proper(trim(K#))"/>
+    <LEDSTATENAME FORMULA="=proper(trim(K#))"/>
+    <!-- GST fields for PARTY LEDGER -->
+    <GSTREGISTRATIONTYPE COLUMNREFERENCE="L"/>
+    <!-- GSTIN / UIN -->
+    <PARTYGSTIN FORMULA="=trim(M#)"/>
+  </MASTER>
+  <!-- Create Ledger 1 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="AE"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(AG#))=0,&quot;New Ledgers&quot;,AG#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(AI#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 2 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="AJ"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(AL#))=0,&quot;New Ledgers&quot;,AL#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(AN#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 3 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="AO"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(AQ#))=0,&quot;New Ledgers&quot;,AQ#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(AS#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 4 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="AT"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(AV#))=0,&quot;New Ledgers&quot;,AV#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(AX#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 5 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="AY"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(BA#))=0,&quot;New Ledgers&quot;,BA#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(BC#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 6 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="BD"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(BF#))=0,&quot;New Ledgers&quot;,BF#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(BH#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 7 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="BI"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(BK#))=0,&quot;New Ledgers&quot;,BK#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(BM#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 8 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="BN"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(BP#))=0,&quot;New Ledgers&quot;,BP#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(BR#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 9 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="BS"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(BU#))=0,&quot;New Ledgers&quot;,BU#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(BW#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 10 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="BX"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(BZ#))=0,&quot;New Ledgers&quot;,BZ#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(CB#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 11 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="CC"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(CE#))=0,&quot;New Ledgers&quot;,CE#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(CG#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 12 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="CH"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(CJ#))=0,&quot;New Ledgers&quot;,CJ#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(CL#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 13 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="CM"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(CO#))=0,&quot;New Ledgers&quot;,CO#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(CQ#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 14 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="CR"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(CT#))=0,&quot;New Ledgers&quot;,CT#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(CV#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 15 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="CW"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(CY#))=0,&quot;New Ledgers&quot;,CY#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(DA#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 16 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="DB"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(DD#))=0,&quot;New Ledgers&quot;,DD#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(DF#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 17 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="DG"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(DI#))=0,&quot;New Ledgers&quot;,DI#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(DK#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 18 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="DL"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(DN#))=0,&quot;New Ledgers&quot;,DN#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(DP#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 19 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="DQ"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(DS#))=0,&quot;New Ledgers&quot;,DS#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(DU#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 20 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="DV"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(DX#))=0,&quot;New Ledgers&quot;,DX#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(DZ#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 21 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="EA"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(EC#))=0,&quot;New Ledgers&quot;,EC#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(EE#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 22 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="EF"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(EH#))=0,&quot;New Ledgers&quot;,EH#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(EJ#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 23 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="EK"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(EM#))=0,&quot;New Ledgers&quot;,EM#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(EO#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 24 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="EP"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(ER#))=0,&quot;New Ledgers&quot;,ER#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(ET#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 25 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="EU"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(EW#))=0,&quot;New Ledgers&quot;,EW#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(EY#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 26 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="EZ"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(FB#))=0,&quot;New Ledgers&quot;,FB#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(FD#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 27 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="FE"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(FG#))=0,&quot;New Ledgers&quot;,FG#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(FI#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 28 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="FJ"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(FL#))=0,&quot;New Ledgers&quot;,FL#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(FN#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 29 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="FO"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(FQ#))=0,&quot;New Ledgers&quot;,FQ#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(FS#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Ledger 30 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="FT"/>
+    </NAME.LIST>
+    <PARENT FORMULA="=if(len(trim(FV#))=0,&quot;New Ledgers&quot;,FV#)"/>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(FX#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+  </MASTER>
+  <!-- Create Round Off LEDGER Master -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST>
+      <NAME FORMULA="=if(len(trim(AC#))=0,&quot;Round Off&quot;,AC#)"/>
+    </NAME.LIST>
+    <PARENT>Indirect Expenses</PARENT>
+    <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="AH"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="AM"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="AR"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="AW"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="BB"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="BG"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="BL"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="BQ"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="BV"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="CA"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="CF"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="CK"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="CP"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="CU"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="CZ"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="DE"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="DJ"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="DO"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="DT"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="DY"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="ED"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="EI"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="EN"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="ES"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="EX"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="FC"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="FH"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="FM"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="FR"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="FW"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="AI"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="AH"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="AN"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="AM"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="AS"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="AR"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="AX"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="AW"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="BC"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="BB"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="BH"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="BG"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="BM"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="BL"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="BR"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="BQ"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="BW"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="BV"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="CB"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="CA"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="CG"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="CF"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="CL"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="CK"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="CQ"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="CP"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="CV"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="CU"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="DA"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="CZ"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="DF"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="DE"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="DK"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="DJ"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="DP"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="DO"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="DU"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="DT"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="DZ"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="DY"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="EE"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="ED"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="EJ"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="EI"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="EO"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="EN"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="ET"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="ES"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="EY"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="EX"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="FD"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="FC"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="FI"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="FH"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="FN"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="FM"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="FS"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="FR"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="FX"/>
+    </NAME.LIST>
+    <CATEGORY COLUMNREFERENCE="FW"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
+  <!-- VOUCHER-->
+  <VOUCHER11>
+    <GUID FORMULA="=+&quot;udi-D5U9Q2-&quot; &amp; A# &amp; &quot;-&quot; &amp; C# &amp; &quot;-&quot; &amp; E#"/>
+    <DATE COLUMNREFERENCE="E"/>
+    <EFFECTIVEDATE COLUMNREFERENCE="E"/>
+    <VOUCHERTYPENAME COLUMNREFERENCE="C"/>
+    <ISINVOICE COLUMNREFERENCE="AD"/>
+    <PERSISTEDVIEW FORMULA="=if(trim(AD#[1])=&quot;Yes&quot;,&quot;Invoice Voucher View&quot;,&quot;Accounting Voucher View&quot;)"/>
+    <!-- GSTIN / UIN -->
+    <PARTYGSTIN FORMULA="=if(len(trim(N#))=0,trim(M#),&quot;&quot;)"/>
+    <PARTYGSTIN FORMULA="=trim(U#)"/>
+    <!-- 2017-09-14: STATENAME is converted to proper-case  -->
+    <STATENAME FORMULA="=proper(if(len(trim(N#))=0,trim(K#),&quot;&quot;))"/>
+    <STATENAME FORMULA="=proper(trim(R#))"/>
+    <PARTYLEDGERNAME COLUMNREFERENCE="H"/>
+    <VOUCHERNUMBER COLUMNREFERENCE="D"/>
+    <REFERENCE COLUMNREFERENCE="F"/>
+    <UDF:REFERENCEDATE.LIST DESC="`ReferenceDate`" ISLIST="YES" TYPE="Date">
+      <UDF:REFERENCEDATE DESC="`ReferenceDate`" COLUMNREFERENCE="G"/>
+    </UDF:REFERENCEDATE.LIST>
+    <REFERENCEDATE COLUMNREFERENCE="G"/>
+    <NARRATION COLUMNREFERENCE="AA"/>
+    <COSTCENTRENAME COLUMNREFERENCE="Z"/>
+    <ISCOSTCENTRE FORMULA="=if(len(Z#)=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+    <!-- Supplier details for Purchase  -->
+    <PARTYNAME FORMULA="=if(len(trim(N#))=0,H#,N#)"/>
+    <ADDRESS.LIST SKIP="=And(len(trim(O#))=0,len(trim(P#))=0,len(trim(Q#))=0,len(trim(R#))=0)">
+      <ADDRESS COLUMNREFERENCE="O"/>
+      <ADDRESS COLUMNREFERENCE="P"/>
+      <ADDRESS COLUMNREFERENCE="Q"/>
+      <ADDRESS COLUMNREFERENCE="R"/>
+    </ADDRESS.LIST>
+    <!-- Buyer details for Sales -->
+    <BASICBUYERNAME FORMULA="=if(len(trim(N#))=0,H#,N#)"/>
+    <BASICBUYERADDRESS.LIST SKIP="=And(len(trim(O#))=0,len(trim(P#))=0,len(trim(Q#))=0,len(trim(R#))=0)">
+      <BASICBUYERADDRESS COLUMNREFERENCE="O"/>
+      <BASICBUYERADDRESS COLUMNREFERENCE="P"/>
+      <BASICBUYERADDRESS COLUMNREFERENCE="Q"/>
+      <BASICBUYERADDRESS COLUMNREFERENCE="R"/>
+    </BASICBUYERADDRESS.LIST>
+    <PLACEOFSUPPLY FORMULA="=proper(trim(S#))"/>
+    <GSTREGISTRATIONTYPE COLUMNREFERENCE="T"/>
+    <!-- Other GST details -->
+    <GSTNATUREOFRETURN SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(V#))=0,&quot;01-Sales Return&quot;,V#)"/>
+    <VATPARTYTRANSRETURNNUMBER SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(W#))=0,F#,W#)"/>
+    <VATPARTYTRANSRETURNDATE SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(X#))=0,G#,X#)"/>
+    <URDORIGINALSALEVALUE SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(Y#))=0,&quot;Lesser than or equal to 2.5 lakhs&quot;,Y#)"/>
+    <!-- Sales, Purchase Return   : Party Ledger to be Debited -->
+    <!-- Purchase, Sales Return   : Party Ledger to be Credited -->
+    <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)">
+      <LEDGERNAME FORMULA="=IF(len(trim(I#))=0,H#,I#)"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if(Or(lower(trim(B#))=&quot;purchase&quot;,lower(trim(B#))=&quot;credit note&quot;),&quot;No&quot;,&quot;Yes&quot;)"/>
+      <AMOUNT FORMULA="=Round({Round(AF#,2)+Round(AK#,2)+Round(AP#,2)+Round(AU#,2)+Round(AZ#,2)}+{Round(BE#,2)+Round(BJ#,2)+Round(BO#,2)+Round(BT#,2)+Round(BY#,2)}+{Round(CD#,2)+Round(CI#,2)+Round(CN#,2)+Round(CS#,2)+Round(CX#,2)}+{Round(DC#,2)+Round(DH#,2)+Round(DM#,2)+Round(DR#,2)+Round(DW#,2)}+{Round(EB#,2)+Round(EG#,2)+Round(EL#,2)+Round(EQ#,2)+Round(EV#,2)}+{Round(FA#,2)+Round(FF#,2)+Round(FK#,2)+Round(FP#,2)+Round(FU#,2)},if(trim(AB#)=&quot;yes&quot;,0,2))*if(Or(lower(trim(B#))=&quot;purchase&quot;,lower(trim(B#))=&quot;credit note&quot;),1,-1)"/>
+      <BILLALLOCATIONS.LIST SKIP="=Len(Trim(F#))=0">
+        <NAME COLUMNREFERENCE="F"/>
+        <BILLTYPE>New Ref</BILLTYPE>
+        <AMOUNT FORMULA="=Round({Round(AF#,2)+Round(AK#,2)+Round(AP#,2)+Round(AU#,2)+Round(AZ#,2)}+{Round(BE#,2)+Round(BJ#,2)+Round(BO#,2)+Round(BT#,2)+Round(BY#,2)}+{Round(CD#,2)+Round(CI#,2)+Round(CN#,2)+Round(CS#,2)+Round(CX#,2)}+{Round(DC#,2)+Round(DH#,2)+Round(DM#,2)+Round(DR#,2)+Round(DW#,2)}+{Round(EB#,2)+Round(EG#,2)+Round(EL#,2)+Round(EQ#,2)+Round(EV#,2)}+{Round(FA#,2)+Round(FF#,2)+Round(FK#,2)+Round(FP#,2)+Round(FU#,2)},if(trim(AB#)=&quot;yes&quot;,0,2))*if(Or(lower(trim(B#))=&quot;purchase&quot;,lower(trim(B#))=&quot;credit note&quot;),1,-1)"/>
+      </BILLALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- Sales/Purchase and Tax Ledgers  -->
+    <!-- LEDGER 1 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(AE#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(AF#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="AE"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <!--                
+        ISDEEMEDPOSITIVE
+        purchase,credit note and AF# greater than 0   Yes
+        sales,debit note and AF# less than 0          Yes
+        Otherwise                     No
+      -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(AF#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(AF#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(AF#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(AI#))=0">
+        <CATEGORY FORMULA="=if(len(trim(AH#))=0,&quot;Primary Cost Category&quot;,AH#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(AF#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(AF#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="AI"/>
+          <AMOUNT FORMULA="={Round(AF#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 2 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(AJ#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(AK#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="AJ"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(AK#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(AK#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(AK#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(AN#))=0">
+        <CATEGORY FORMULA="=if(len(trim(AM#))=0,&quot;Primary Cost Category&quot;,AM#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(AK#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(AK#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="AN"/>
+          <AMOUNT FORMULA="={Round(AK#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 3 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(AO#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(AP#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="AO"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(AP#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(AP#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(AP#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(AS#))=0">
+        <CATEGORY FORMULA="=if(len(trim(AR#))=0,&quot;Primary Cost Category&quot;,AR#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(AP#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(AP#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="AS"/>
+          <AMOUNT FORMULA="={Round(AP#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 4 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(AT#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(AU#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="AT"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(AU#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(AU#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(AU#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(AX#))=0">
+        <CATEGORY FORMULA="=if(len(trim(AW#))=0,&quot;Primary Cost Category&quot;,AW#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(AU#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(AU#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="AX"/>
+          <AMOUNT FORMULA="={Round(AU#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 5 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(AY#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(AZ#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="AY"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(AZ#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(AZ#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(AZ#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(BC#))=0">
+        <CATEGORY FORMULA="=if(len(trim(BB#))=0,&quot;Primary Cost Category&quot;,BB#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(AZ#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(AZ#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="BC"/>
+          <AMOUNT FORMULA="={Round(AZ#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 6 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(BD#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(BE#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="BD"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(BE#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(BE#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(BE#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(BH#))=0">
+        <CATEGORY FORMULA="=if(len(trim(BG#))=0,&quot;Primary Cost Category&quot;,BG#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(BE#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(BE#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="BH"/>
+          <AMOUNT FORMULA="={Round(BE#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 7 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(BI#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(BJ#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="BI"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(BJ#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(BJ#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(BJ#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(BM#))=0">
+        <CATEGORY FORMULA="=if(len(trim(BL#))=0,&quot;Primary Cost Category&quot;,BL#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(BJ#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(BJ#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="BM"/>
+          <AMOUNT FORMULA="={Round(BJ#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 8 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(BN#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(BO#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="BN"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(BO#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(BO#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(BO#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(BR#))=0">
+        <CATEGORY FORMULA="=if(len(trim(BQ#))=0,&quot;Primary Cost Category&quot;,BQ#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(BO#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(BO#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="BR"/>
+          <AMOUNT FORMULA="={Round(BO#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 9 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(BS#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(BT#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="BS"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(BT#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(BT#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(BT#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(BW#))=0">
+        <CATEGORY FORMULA="=if(len(trim(BV#))=0,&quot;Primary Cost Category&quot;,BV#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(BT#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(BT#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="BW"/>
+          <AMOUNT FORMULA="={Round(BT#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 10 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(BX#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(BY#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="BX"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(BY#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(BY#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(BY#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(CB#))=0">
+        <CATEGORY FORMULA="=if(len(trim(CA#))=0,&quot;Primary Cost Category&quot;,CA#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(BY#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(BY#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="CB"/>
+          <AMOUNT FORMULA="={Round(BY#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 11 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(CC#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(CD#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="CC"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(CD#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(CD#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(CD#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(CG#))=0">
+        <CATEGORY FORMULA="=if(len(trim(CF#))=0,&quot;Primary Cost Category&quot;,CF#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(CD#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(CD#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="CG"/>
+          <AMOUNT FORMULA="={Round(CD#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 12 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(CH#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(CI#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="CH"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(CI#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(CI#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(CI#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(CL#))=0">
+        <CATEGORY FORMULA="=if(len(trim(CK#))=0,&quot;Primary Cost Category&quot;,CK#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(CI#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(CI#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="CL"/>
+          <AMOUNT FORMULA="={Round(CI#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 13 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(CM#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(CN#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="CM"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(CN#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(CN#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(CN#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(CQ#))=0">
+        <CATEGORY FORMULA="=if(len(trim(CP#))=0,&quot;Primary Cost Category&quot;,CP#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(CN#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(CN#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="CQ"/>
+          <AMOUNT FORMULA="={Round(CN#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 14 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(CR#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(CS#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="CR"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(CS#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(CS#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(CS#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(CV#))=0">
+        <CATEGORY FORMULA="=if(len(trim(CU#))=0,&quot;Primary Cost Category&quot;,CU#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(CS#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(CS#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="CV"/>
+          <AMOUNT FORMULA="={Round(CS#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 15 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(CW#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(CX#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="CW"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(CX#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(CX#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(CX#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(DA#))=0">
+        <CATEGORY FORMULA="=if(len(trim(CZ#))=0,&quot;Primary Cost Category&quot;,CZ#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(CX#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(CX#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="DA"/>
+          <AMOUNT FORMULA="={Round(CX#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 16 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(DB#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(DC#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="DB"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(DC#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(DC#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(DC#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(DF#))=0">
+        <CATEGORY FORMULA="=if(len(trim(DE#))=0,&quot;Primary Cost Category&quot;,DE#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(DC#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(DC#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="DF"/>
+          <AMOUNT FORMULA="={Round(DC#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 17 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(DG#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(DH#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="DG"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(DH#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(DH#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(DH#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(DK#))=0">
+        <CATEGORY FORMULA="=if(len(trim(DJ#))=0,&quot;Primary Cost Category&quot;,DJ#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(DH#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(DH#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="DK"/>
+          <AMOUNT FORMULA="={Round(DH#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 18 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(DL#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(DM#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="DL"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(DM#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(DM#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(DM#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(DP#))=0">
+        <CATEGORY FORMULA="=if(len(trim(DO#))=0,&quot;Primary Cost Category&quot;,DO#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(DM#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(DM#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="DP"/>
+          <AMOUNT FORMULA="={Round(DM#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 19 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(DQ#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(DR#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="DQ"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(DR#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(DR#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(DR#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(DU#))=0">
+        <CATEGORY FORMULA="=if(len(trim(DT#))=0,&quot;Primary Cost Category&quot;,DT#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(DR#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(DR#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="DU"/>
+          <AMOUNT FORMULA="={Round(DR#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 20 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(DV#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(DW#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="DV"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(DW#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(DW#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(DW#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(DZ#))=0">
+        <CATEGORY FORMULA="=if(len(trim(DY#))=0,&quot;Primary Cost Category&quot;,DY#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(DW#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(DW#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="DZ"/>
+          <AMOUNT FORMULA="={Round(DW#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 21 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(EA#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(EB#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="EA"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(EB#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(EB#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(EB#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(EE#))=0">
+        <CATEGORY FORMULA="=if(len(trim(ED#))=0,&quot;Primary Cost Category&quot;,ED#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(EB#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(EB#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="EE"/>
+          <AMOUNT FORMULA="={Round(EB#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 22 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(EF#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(EG#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="EF"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(EG#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(EG#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(EG#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(EJ#))=0">
+        <CATEGORY FORMULA="=if(len(trim(EI#))=0,&quot;Primary Cost Category&quot;,EI#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(EG#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(EG#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="EJ"/>
+          <AMOUNT FORMULA="={Round(EG#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 23 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(EK#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(EL#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="EK"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(EL#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(EL#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(EL#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(EO#))=0">
+        <CATEGORY FORMULA="=if(len(trim(EN#))=0,&quot;Primary Cost Category&quot;,EN#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(EL#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(EL#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="EO"/>
+          <AMOUNT FORMULA="={Round(EL#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 24 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(EP#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(EQ#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="EP"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(EQ#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(EQ#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(EQ#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(ET#))=0">
+        <CATEGORY FORMULA="=if(len(trim(ES#))=0,&quot;Primary Cost Category&quot;,ES#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(EQ#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(EQ#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="ET"/>
+          <AMOUNT FORMULA="={Round(EQ#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 25 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(EU#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(EV#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="EU"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(EV#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(EV#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(EV#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(EY#))=0">
+        <CATEGORY FORMULA="=if(len(trim(EX#))=0,&quot;Primary Cost Category&quot;,EX#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(EV#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(EV#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="EY"/>
+          <AMOUNT FORMULA="={Round(EV#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 26 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(EZ#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(FA#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="EZ"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(FA#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(FA#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(FA#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(FD#))=0">
+        <CATEGORY FORMULA="=if(len(trim(FC#))=0,&quot;Primary Cost Category&quot;,FC#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(FA#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(FA#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="FD"/>
+          <AMOUNT FORMULA="={Round(FA#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 27 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(FE#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(FF#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="FE"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(FF#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(FF#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(FF#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(FI#))=0">
+        <CATEGORY FORMULA="=if(len(trim(FH#))=0,&quot;Primary Cost Category&quot;,FH#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(FF#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(FF#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="FI"/>
+          <AMOUNT FORMULA="={Round(FF#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 28 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(FJ#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(FK#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="FJ"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(FK#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(FK#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(FK#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(FN#))=0">
+        <CATEGORY FORMULA="=if(len(trim(FM#))=0,&quot;Primary Cost Category&quot;,FM#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(FK#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(FK#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="FN"/>
+          <AMOUNT FORMULA="={Round(FK#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 29 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(FO#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(FP#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="FO"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(FP#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(FP#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(FP#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(FS#))=0">
+        <CATEGORY FORMULA="=if(len(trim(FR#))=0,&quot;Primary Cost Category&quot;,FR#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(FP#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(FP#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="FS"/>
+          <AMOUNT FORMULA="={Round(FP#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- LEDGER 30 -->
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(FT#)" ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(FU#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="FT"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(FU#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(FU#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(FU#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <!-- Cost Centre details -->
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(FX#))=0">
+        <CATEGORY FORMULA="=if(len(trim(FW#))=0,&quot;Primary Cost Category&quot;,FW#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(FU#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(FU#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="FX"/>
+          <AMOUNT FORMULA="={Round(FU#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- Round Off -->
+    <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AD#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="=Not(trim(AB#)=&quot;yes&quot;)">
+      <LEDGERNAME FORMULA="=if(len(trim(AC#))=0,&quot;Round Off&quot;,AC#)"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Voucher Mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),Round(Round({Round(AF#,2)+Round(AK#,2)+Round(AP#,2)+Round(AU#,2)+Round(AZ#,2)}+{Round(BE#,2)+Round(BJ#,2)+Round(BO#,2)+Round(BT#,2)+Round(BY#,2)}+{Round(CD#,2)+Round(CI#,2)+Round(CN#,2)+Round(CS#,2)+Round(CX#,2)}+{Round(DC#,2)+Round(DH#,2)+Round(DM#,2)+Round(DR#,2)+Round(DW#,2)}+{Round(EB#,2)+Round(EG#,2)+Round(EL#,2)+Round(EQ#,2)+Round(EV#,2)}+{Round(FA#,2)+Round(FF#,2)+Round(FK#,2)+Round(FP#,2)+Round(FU#,2)},0)-Round({Round(AF#,2)+Round(AK#,2)+Round(AP#,2)+Round(AU#,2)+Round(AZ#,2)}+{Round(BE#,2)+Round(BJ#,2)+Round(BO#,2)+Round(BT#,2)+Round(BY#,2)}+{Round(CD#,2)+Round(CI#,2)+Round(CN#,2)+Round(CS#,2)+Round(CX#,2)}+{Round(DC#,2)+Round(DH#,2)+Round(DM#,2)+Round(DR#,2)+Round(DW#,2)}+{Round(EB#,2)+Round(EG#,2)+Round(EL#,2)+Round(EQ#,2)+Round(EV#,2)}+{Round(FA#,2)+Round(FF#,2)+Round(FK#,2)+Round(FP#,2)+Round(FU#,2)},2),2)&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),Round(Round({Round(AF#,2)+Round(AK#,2)+Round(AP#,2)+Round(AU#,2)+Round(AZ#,2)}+{Round(BE#,2)+Round(BJ#,2)+Round(BO#,2)+Round(BT#,2)+Round(BY#,2)}+{Round(CD#,2)+Round(CI#,2)+Round(CN#,2)+Round(CS#,2)+Round(CX#,2)}+{Round(DC#,2)+Round(DH#,2)+Round(DM#,2)+Round(DR#,2)+Round(DW#,2)}+{Round(EB#,2)+Round(EG#,2)+Round(EL#,2)+Round(EQ#,2)+Round(EV#,2)}+{Round(FA#,2)+Round(FF#,2)+Round(FK#,2)+Round(FP#,2)+Round(FU#,2)},0)-Round({Round(AF#,2)+Round(AK#,2)+Round(AP#,2)+Round(AU#,2)+Round(AZ#,2)}+{Round(BE#,2)+Round(BJ#,2)+Round(BO#,2)+Round(BT#,2)+Round(BY#,2)}+{Round(CD#,2)+Round(CI#,2)+Round(CN#,2)+Round(CS#,2)+Round(CX#,2)}+{Round(DC#,2)+Round(DH#,2)+Round(DM#,2)+Round(DR#,2)+Round(DW#,2)}+{Round(EB#,2)+Round(EG#,2)+Round(EL#,2)+Round(EQ#,2)+Round(EV#,2)}+{Round(FA#,2)+Round(FF#,2)+Round(FK#,2)+Round(FP#,2)+Round(FU#,2)},2),2)&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- For Invoice Mode -->
+      <TEST SKIP="=Not(And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;))">ISINVOICEMODE=YES</TEST>
+        <!-- For Voucher Mode -->
+      <TEST SKIP="=And(Len(trim(AD#[1]))&gt;0,trim(AD#[1])=&quot;Yes&quot;)">ISINVOICEMODE=NO</TEST>
+      <AMOUNT FORMULA="=Round(Round({Round(AF#,2)+Round(AK#,2)+Round(AP#,2)+Round(AU#,2)+Round(AZ#,2)}+{Round(BE#,2)+Round(BJ#,2)+Round(BO#,2)+Round(BT#,2)+Round(BY#,2)}+{Round(CD#,2)+Round(CI#,2)+Round(CN#,2)+Round(CS#,2)+Round(CX#,2)}+{Round(DC#,2)+Round(DH#,2)+Round(DM#,2)+Round(DR#,2)+Round(DW#,2)}+{Round(EB#,2)+Round(EG#,2)+Round(EL#,2)+Round(EQ#,2)+Round(EV#,2)}+{Round(FA#,2)+Round(FF#,2)+Round(FK#,2)+Round(FP#,2)+Round(FU#,2)},0)-Round({Round(AF#,2)+Round(AK#,2)+Round(AP#,2)+Round(AU#,2)+Round(AZ#,2)}+{Round(BE#,2)+Round(BJ#,2)+Round(BO#,2)+Round(BT#,2)+Round(BY#,2)}+{Round(CD#,2)+Round(CI#,2)+Round(CN#,2)+Round(CS#,2)+Round(CX#,2)}+{Round(DC#,2)+Round(DH#,2)+Round(DM#,2)+Round(DR#,2)+Round(DW#,2)}+{Round(EB#,2)+Round(EG#,2)+Round(EL#,2)+Round(EQ#,2)+Round(EV#,2)}+{Round(FA#,2)+Round(FF#,2)+Round(FK#,2)+Round(FP#,2)+Round(FU#,2)},2),2)*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+    </ALLLEDGERENTRIES.LIST>
+    <DUMMY SCROLL="YES"/>
+  </VOUCHER11>
+</XMLTAGS>
+
