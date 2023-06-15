@@ -31,6 +31,7 @@
   <MASTER TYPE="LEDGER">
     <NAME.LIST>
       <NAME COLUMNREFERENCE="H"/>
+      <NAME COLUMNREFERENCE="I"/>
     </NAME.LIST>
     <PARENT FORMULA="=if(len(trim(J#))=0,if(Or(lower(trim(B#))=&quot;purchase&quot;,lower(trim(B#))=&quot;credit note&quot;),&quot;Sundry Creditors&quot;,&quot;Sundry Debtors&quot;),J#)"/>
     <ISBILLWISEON>Yes</ISBILLWISEON>
@@ -45,6 +46,7 @@
     <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(M#))&gt;0,M#,if(len(trim(N#))&gt;0,&quot;Regular&quot;,&quot;Unregistered&quot;))"/>
     <!-- GSTIN / UIN -->
     <PARTYGSTIN FORMULA="=trim(N#)"/>
+
     <!-- Tally Prime 3.0 -->
     <LEDGSTREGDETAILS.LIST>
       <APPLICABLEFROM>20230401</APPLICABLEFROM>
@@ -359,7 +361,7 @@
     <!-- Sales, Purchase Return   : Party Ledger to be Debited -->
     <!-- Purchase, Sales Return   : Party Ledger to be Credited -->
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AF#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)">
-      <LEDGERNAME COLUMNREFERENCE="H"/>
+      <LEDGERNAME FORMULA="=IF(len(trim(I#))=0,H#,I#)"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Or(lower(trim(B#))=&quot;purchase&quot;,lower(trim(B#))=&quot;credit note&quot;),&quot;No&quot;,&quot;Yes&quot;)"/>
       <AMOUNT FORMULA="=Round({Round(AH#,2)+Round(AJ#,2)+Round(AL#,2)+Round(AN#,2)+Round(AP#,2)}+{Round(AR#,2)+Round(AT#,2)+Round(AV#,2)+Round(AX#,2)+Round(AZ#,2)}+{Round(BB#,2)+Round(BD#,2)+Round(BF#,2)+Round(BH#,2)+Round(BJ#,2)}+{Round(BL#,2)+Round(BN#,2)+Round(BP#,2)+Round(BR#,2)+Round(BT#,2)}+{Round(BV#,2)+Round(BX#,2)+Round(BZ#,2)+Round(CB#,2)+Round(CD#,2)}+{Round(CF#,2)+Round(CH#,2)+Round(CJ#,2)+Round(CL#,2)+Round(CN#,2)},if(trim(AD#)=&quot;yes&quot;,0,2))*if(Or(lower(trim(B#))=&quot;purchase&quot;,lower(trim(B#))=&quot;credit note&quot;),1,-1)"/>
       <BILLALLOCATIONS.LIST SKIP="=Len(Trim(F#))=0">
