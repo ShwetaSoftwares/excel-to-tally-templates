@@ -1102,6 +1102,11 @@
       <GSTOVRDNINELIGIBLEITC SKIP="=Or(trim(HK#)=&quot;yes&quot;,len(trim(FD#))=0)" FORMULA="=if(trim(FM#)=&quot;Yes&quot;,&quot;~[~ Applicable&quot;,&quot;~[~ Not Applicable&quot;)"/>
       <GSTOVRDNISREVCHARGEAPPL SKIP="=Or(trim(HK#)=&quot;yes&quot;,len(trim(FD#))=0)" FORMULA="=if(trim(FN#)=&quot;Yes&quot;,&quot;~[~ Applicable&quot;,&quot;~[~ Not Applicable&quot;)"/>
       <GSTOVRDNASSESSABLEVALUE SKIP="=Or(trim(HK#)=&quot;yes&quot;,len(trim(FD#))=0,Round(FK#,2)=0)" FORMULA="=Round(FK#,2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+
+      <!-- Tally Prime 3.0 -->
+      <GSTHSNNAME SKIP="=Or(trim(HK#)=&quot;yes&quot;,len(trim(FD#))=0)" COLUMNREFERENCE="FL"/>
+      <GSTHSNINFERAPPLICABILITY SKIP="=Or(trim(HK#)=&quot;yes&quot;,len(trim(FD#))=0,len(trim(FL#))=0)">Specify Details Here</GSTHSNINFERAPPLICABILITY>
+
       <RATEDETAILS.LIST SKIP="=Or(trim(HK#)=&quot;yes&quot;,len(trim(FD#))=0)">
         <GSTRATEDUTYHEAD>Integrated Tax</GSTRATEDUTYHEAD>
         <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
@@ -1486,6 +1491,10 @@
         <BASICUSERDESCRIPTION COLUMNREFERENCE="BW"/>
       </BASICUSERDESCRIPTION.LIST>
       <STOCKITEMNAME FORMULA="=if(len(trim(BB#))=0,BA#,BB#)"/>
+      <!-- Tally Prime 3.0 -->
+      <GSTHSNNAME SKIP="=Or(trim(HK#)=&quot;yes&quot;,len(trim(FD#))=0)" COLUMNREFERENCE="FL"/>
+      <GSTHSNINFERAPPLICABILITY SKIP="=Or(trim(HK#)=&quot;yes&quot;,len(trim(FD#))=0,len(trim(FL#))=0)">Specify Details Here</GSTHSNINFERAPPLICABILITY>
+
       <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
       <BASICPACKAGEMARKS COLUMNREFERENCE="HE"/>
       <BASICNUMPACKAGES COLUMNREFERENCE="HF"/>
