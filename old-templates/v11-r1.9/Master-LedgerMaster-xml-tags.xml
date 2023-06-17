@@ -60,23 +60,6 @@
     <STATENAME FORMULA="=proper(trim(AE#))"/>
     <!--<LEDSTATENAME COLUMNREFERENCE="AE"/>-->
     <PINCODE COLUMNREFERENCE="AF"/>
-
-    <!-- Tally Prime 3.0 -->
-    <LEDGSTREGDETAILS.LIST SKIP="=Or(trim(HK#)=&quot;yes&quot;,len(trim(AK#))=0)">
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <GSTREGISTRATIONTYPE COLUMNREFERENCE="AK"/>
-      <STATE FORMULA="=proper(trim(AE#))"/>
-      <GSTIN COLUMNREFERENCE="AL"/>
-    </LEDGSTREGDETAILS.LIST>
-    <!-- Tally Prime 3.0 -->
-    <LEDMAILINGDETAILS.LIST SKIP="=len(trim(AC#))=0">
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <MAILINGNAME COLUMNREFERENCE="AC"/>
-      <STATE FORMULA="=proper(trim(AE#))"/>
-      <COUNTRY COLUMNREFERENCE="AD"/>
-      <PINCODE COLUMNREFERENCE="AF"/>
-    </LEDMAILINGDETAILS.LIST>
-
     <!-- GST fields for PARTY LEDGER -->
     <GSTREGISTRATIONTYPE COLUMNREFERENCE="AK"/>
     <!-- GSTIN / UIN -->
@@ -93,8 +76,7 @@
     <!-- Type of supply -->
     <GSTTYPEOFSUPPLY COLUMNREFERENCE="BA"/>
     <!-- Empty GSTDETAILS tag not required as it will overwrite existing data, if any  -->
-    <GSTDETAILS.LIST SKIP="=And(len(trim(AS#))=0,len(trim(AT#))=0,len(trim(AU#))=0,len(trim(AV#))=0,len(trim(AW#))=0,len(trim(AX#))=0)">
-      <SRCOFGSTDETAILS>Specify Details Here</SRCOFGSTDETAILS>
+    <GSTDETAILS.LIST SKIP="=And(len(trim(AS#))=0,len(trim(AT#))=0,len(trim(AU#))=0,len(trim(AV#))=0,len(trim(AV#))=0,len(trim(AX#))=0)">
       <!-- Applicable date -->
       <APPLICABLEFROM COLUMNREFERENCE="AS"/>
       <!-- HSN/SAC code -->
@@ -141,17 +123,6 @@
       <TEMPGSTDETAILSLABRATES.LIST>
       </TEMPGSTDETAILSLABRATES.LIST>
     </GSTDETAILS.LIST>
-
-    <!-- Tally Prime 3.0 -->
-    <HSNDETAILS.LIST SKIP="=len(trim(AU#))=0">
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <!-- HSN/SAC code -->
-      <HSNCODE COLUMNREFERENCE="AT"/>
-      <!-- HSN description -->
-      <HSN COLUMNREFERENCE="AU"/>
-      <SRCOFHSNDETAILS>Specify Details Here</SRCOFHSNDETAILS>
-    </HSNDETAILS.LIST>
-
     <!-- GST fields for DUTIES AND TAXES LEDGER -->
     <!-- This tag appears for CGST only -->
     <GSTAPPLICABLE SKIP="=Or(len(trim(BC#))=0,Not(trim(BC#)=&quot;central tax&quot;))">~[~ Applicable</GSTAPPLICABLE>
@@ -210,3 +181,4 @@
     <PRICELEVEL COLUMNREFERENCE="CD"/>
   </MASTER>
 </XMLTAGS>
+
