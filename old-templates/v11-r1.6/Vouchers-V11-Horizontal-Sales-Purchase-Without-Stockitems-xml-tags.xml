@@ -24,29 +24,29 @@
   <!-- Create COSTCENTRE Masters -->
   <MASTER TYPE="COSTCENTRE">
     <NAME.LIST>
-      <NAME COLUMNREFERENCE="AB"/>
+      <NAME COLUMNREFERENCE="Z"/>
     </NAME.LIST>
   </MASTER>
   <!-- Create COSTCENTRE Masters -->
-  <MASTER TYPE="COSTCENTRE" SINGLERECORD="YES" SCROLLHORIZONTALLY="=Len(AH$3)&gt;0">
+  <MASTER TYPE="COSTCENTRE" SINGLERECORD="YES" SCROLLHORIZONTALLY="=Len(AF$3)&gt;0">
     <NAME.LIST>
-      <NAME SKIP="=Len(trim(AH$1))=0" FORMULA="=+AH$1"/>
+      <NAME SKIP="=Len(trim(AF$1))=0" FORMULA="=+AF$1"/>
     </NAME.LIST>
   </MASTER>
   <!-- Create Ledgers -->
   <!-- 
     The SCROLLHORIZONTALLY specifies the condition (any valid Excel formula). Herein, the 
-    condition is to check the length of cell AH$3 and if it is greater than 0, a Ledger Master
-    is created (based on value in AH$3). The Column Name is increment and loop executes untill
+    condition is to check the length of cell AF$3 and if it is greater than 0, a Ledger Master
+    is created (based on value in AF$3). The Column Name is increment and loop executes untill
     the conditions becomes false.
   -->
-  <MASTER TYPE="LEDGER" SCROLLHORIZONTALLY="=Len(trim(AH$3))&gt;0">
+  <MASTER TYPE="LEDGER" SCROLLHORIZONTALLY="=Len(trim(AF$3))&gt;0">
     <NAME.LIST>
-      <NAME FORMULA="=+AH$3"/>
+      <NAME FORMULA="=+AF$3"/>
     </NAME.LIST>
-    <PARENT FORMULA="=+AH$2"/>
+    <PARENT FORMULA="=+AF$2"/>
     <AFFECTSSTOCK>No</AFFECTSSTOCK>
-    <ISCOSTCENTRESON FORMULA="=If(Len(trim(AH$1))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(AF$1))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
   </MASTER>
   <!-- Create Party Ledger Master-->
   <MASTER TYPE="LEDGER">
@@ -66,14 +66,14 @@
     <STATENAME FORMULA="=proper(trim(K#))"/>
     <LEDSTATENAME FORMULA="=proper(trim(K#))"/>
     <!-- GST fields for PARTY LEDGER -->
-    <GSTREGISTRATIONTYPE COLUMNREFERENCE="M"/>
+    <GSTREGISTRATIONTYPE COLUMNREFERENCE="L"/>
     <!-- GSTIN / UIN -->
-    <PARTYGSTIN FORMULA="=trim(N#)"/>
+    <PARTYGSTIN FORMULA="=trim(M#)"/>
   </MASTER>
   <!-- Create Round Off LEDGER Master -->
   <MASTER TYPE="LEDGER">
     <NAME.LIST>
-      <NAME FORMULA="=if(len(trim(AE#))=0,&quot;Round Off&quot;,AE#)"/>
+      <NAME FORMULA="=if(len(trim(AC#))=0,&quot;Round Off&quot;,AC#)"/>
     </NAME.LIST>
     <PARENT>Indirect Expenses</PARENT>
     <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
@@ -84,16 +84,17 @@
     <DATE COLUMNREFERENCE="E"/>
     <EFFECTIVEDATE COLUMNREFERENCE="E"/>
     <VOUCHERTYPENAME COLUMNREFERENCE="C"/>
-    <ISINVOICE COLUMNREFERENCE="AF"/>
-    <PERSISTEDVIEW SKIP="trim(AF#)=&quot;yes&quot;">Accounting Voucher View</PERSISTEDVIEW>
+    <ISINVOICE COLUMNREFERENCE="AD"/>
+    <PERSISTEDVIEW SKIP="trim(AD#)=&quot;yes&quot;">Accounting Voucher View</PERSISTEDVIEW>
+
     <!-- GSTIN / UIN -->
-    <!-- <PARTYGSTIN FORMULA="=trim(N#)"/> -->
-    <PARTYGSTIN FORMULA="=if(len(trim(P#))=0,trim(N#),&quot;&quot;)"/>
-    <PARTYGSTIN FORMULA="=trim(W#)"/>
+    <!-- <PARTYGSTIN FORMULA="=trim(M#)"/> -->
+    <PARTYGSTIN FORMULA="=if(len(trim(N#))=0,trim(M#),&quot;&quot;)"/>
+    <PARTYGSTIN FORMULA="=trim(U#)"/>
     <!-- 2017-09-14: STATENAME is converted to proper-case  -->
     <!-- <STATENAME FORMULA="=proper(trim(K#))"/> -->
-    <STATENAME FORMULA="=proper(if(len(trim(P#))=0,trim(K#),&quot;&quot;))"/>
-    <STATENAME FORMULA="=proper(trim(T#))"/>
+    <STATENAME FORMULA="=proper(if(len(trim(N#))=0,trim(K#),&quot;&quot;))"/>
+    <STATENAME FORMULA="=proper(trim(R#))"/>
     <PARTYLEDGERNAME FORMULA="=IF(len(trim(I#))=0,H#,I#)"/>
     <VOUCHERNUMBER COLUMNREFERENCE="D"/>
     <REFERENCE COLUMNREFERENCE="F"/>
@@ -101,71 +102,72 @@
       <UDF:REFERENCEDATE DESC="`ReferenceDate`" COLUMNREFERENCE="G"/>
     </UDF:REFERENCEDATE.LIST>
     <REFERENCEDATE COLUMNREFERENCE="G"/>
-    <NARRATION COLUMNREFERENCE="AC"/>
-    <COSTCENTRENAME COLUMNREFERENCE="AB"/>
-    <ISCOSTCENTRE FORMULA="=if(len(AB#)=0,&quot;No&quot;,&quot;Yes&quot;)"/>
+    <NARRATION COLUMNREFERENCE="AA"/>
+    <COSTCENTRENAME COLUMNREFERENCE="Z"/>
+    <ISCOSTCENTRE FORMULA="=if(len(Z#)=0,&quot;No&quot;,&quot;Yes&quot;)"/>
     <!-- Supplier details for Purchase  -->
-    <PARTYNAME FORMULA="=if(len(trim(P#))=0,H#,P#)"/>
-    <ADDRESS.LIST SKIP="=And(len(trim(Q#))=0,len(trim(R#))=0,len(trim(S#))=0,len(trim(T#))=0)">
+    <PARTYNAME FORMULA="=if(len(trim(N#))=0,H#,N#)"/>
+    <ADDRESS.LIST SKIP="=And(len(trim(O#))=0,len(trim(P#))=0,len(trim(Q#))=0,len(trim(R#))=0)">
+      <ADDRESS COLUMNREFERENCE="O"/>
+      <ADDRESS COLUMNREFERENCE="P"/>
       <ADDRESS COLUMNREFERENCE="Q"/>
       <ADDRESS COLUMNREFERENCE="R"/>
-      <ADDRESS COLUMNREFERENCE="S"/>
-      <ADDRESS COLUMNREFERENCE="T"/>
     </ADDRESS.LIST>
     <!-- Buyer details -->
-    <BASICBUYERNAME FORMULA="=if(len(trim(P#))=0,H#,P#)"/>
-    <BASICBUYERADDRESS.LIST SKIP="=And(len(trim(Q#))=0,len(trim(R#))=0,len(trim(S#))=0,len(trim(T#))=0)">
+    <BASICBUYERNAME FORMULA="=if(len(trim(N#))=0,H#,N#)"/>
+    <BASICBUYERADDRESS.LIST SKIP="=And(len(trim(O#))=0,len(trim(P#))=0,len(trim(Q#))=0,len(trim(R#))=0)">
+      <BASICBUYERADDRESS COLUMNREFERENCE="O"/>
+      <BASICBUYERADDRESS COLUMNREFERENCE="P"/>
       <BASICBUYERADDRESS COLUMNREFERENCE="Q"/>
       <BASICBUYERADDRESS COLUMNREFERENCE="R"/>
-      <BASICBUYERADDRESS COLUMNREFERENCE="S"/>
-      <BASICBUYERADDRESS COLUMNREFERENCE="T"/>
     </BASICBUYERADDRESS.LIST>
-    <PLACEOFSUPPLY FORMULA="=proper(trim(U#))"/>
-    <GSTREGISTRATIONTYPE COLUMNREFERENCE="V"/>
+    <PLACEOFSUPPLY FORMULA="=proper(trim(S#))"/>
+    <GSTREGISTRATIONTYPE COLUMNREFERENCE="T"/>
     <!-- Other GST details -->
-    <GSTNATUREOFRETURN SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(X#))=0,&quot;01-Sales Return&quot;,X#)"/>
-    <VATPARTYTRANSRETURNNUMBER SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(Y#))=0,F#,Y#)"/>
-    <VATPARTYTRANSRETURNDATE SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(Z#))=0,G#,Z#)"/>
-    <URDORIGINALSALEVALUE SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(AA#))=0,&quot;Lesser than or equal to 2.5 lakhs&quot;,AA#)"/>
+    <GSTNATUREOFRETURN SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(V#))=0,&quot;01-Sales Return&quot;,V#)"/>
+    <VATPARTYTRANSRETURNNUMBER SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(W#))=0,F#,W#)"/>
+    <VATPARTYTRANSRETURNDATE SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(X#))=0,G#,X#)"/>
+    <URDORIGINALSALEVALUE SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(Y#))=0,&quot;Lesser than or equal to 2.5 lakhs&quot;,Y#)"/>
     <!-- Sales, Purchase Return   : Party Ledger to be Debited -->
     <!-- Purchase, Sales Return   : Party Ledger to be Credited -->
     <ALLLEDGERENTRIES.LIST>
       <LEDGERNAME FORMULA="=IF(len(trim(I#))=0,H#,I#)"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Or(lower(trim(B#))=&quot;purchase&quot;,lower(trim(B#))=&quot;credit note&quot;),&quot;No&quot;,&quot;Yes&quot;)"/>
-      <AMOUNT FORMULA="={Round(AG#,if(trim(AD#)=&quot;yes&quot;,0,2))}*if(Or(lower(trim(B#))=&quot;purchase&quot;,lower(trim(B#))=&quot;credit note&quot;),1,-1)"/>
+      <AMOUNT FORMULA="={Round(AE#,if(trim(AB#)=&quot;yes&quot;,0,2))}*if(Or(lower(trim(B#))=&quot;purchase&quot;,lower(trim(B#))=&quot;credit note&quot;),1,-1)"/>
       <BILLALLOCATIONS.LIST SKIP="=Len(Trim(F#))=0">
         <NAME COLUMNREFERENCE="F"/>
         <BILLTYPE>New Ref</BILLTYPE>
-        <AMOUNT FORMULA="={Round(AG#,if(trim(AD#)=&quot;yes&quot;,0,2))}*if(Or(lower(trim(B#))=&quot;purchase&quot;,lower(trim(B#))=&quot;credit note&quot;),1,-1)"/>
+        <AMOUNT FORMULA="={Round(AE#,if(trim(AB#)=&quot;yes&quot;,0,2))}*if(Or(lower(trim(B#))=&quot;purchase&quot;,lower(trim(B#))=&quot;credit note&quot;),1,-1)"/>
       </BILLALLOCATIONS.LIST>
     </ALLLEDGERENTRIES.LIST>
     <!-- Sales/Purchase and Tax Ledgers -->
     <!-- The SCROLLHORIZONTALLY is supported in v 5.0 only -->
     <!-- SCROLLHORIZONTALLY attribute value is evaluated at runtime and incremented COLUMNWISE till condition evaluates to be true -->
-    <ALLLEDGERENTRIES.LIST SKIP="=+{Round(AH#,2)}=0" SCROLLHORIZONTALLY="=Len(trim(AH$3))&gt;0">
-      <LEDGERNAME FORMULA="=+AH$3"/>
+    <ALLLEDGERENTRIES.LIST SKIP="=+{Round(AF#,2)}=0" SCROLLHORIZONTALLY="=Len(trim(AF$3))&gt;0">
+      <LEDGERNAME FORMULA="=+AF$3"/>
       <!--                
-          ISDEEMEDPOSITIVE
-          purchase,credit note and AH# greater than 0     Yes
-          sales,debit note and AH# less than 0          Yes
-          Otherwise                     No
-        -->
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AH#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AH#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT FORMULA="={Round(AH#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
-      <CATEGORYALLOCATIONS.LIST SKIP="=Len(Trim(AH$1))=0">
+      ISDEEMEDPOSITIVE
+      purchase,credit note and AF# greater than 0     Yes
+      sales,debit note and AF# less than 0          Yes
+      Otherwise                     No
+      -->
+      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AF#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AF#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(AF#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
+      <CATEGORYALLOCATIONS.LIST SKIP="=Len(Trim(AF$1))=0">
         <CATEGORY>Primary Cost Category</CATEGORY>
         <COSTCENTREALLOCATIONS.LIST>
-          <NAME FORMULA="=+AH$1"/>
-          <AMOUNT FORMULA="={Round(AH#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
+          <NAME FORMULA="=+AF$1"/>
+          <AMOUNT FORMULA="={Round(AF#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
         </COSTCENTREALLOCATIONS.LIST>
       </CATEGORYALLOCATIONS.LIST>
     </ALLLEDGERENTRIES.LIST>
     <!-- Round Off -->
-    <ALLLEDGERENTRIES.LIST SKIP="=Or(Not(trim(AD#)=&quot;yes&quot;),Round({Round(AG#,0)}-{Round(AG#,2)},2)=0)">
-      <LEDGERNAME FORMULA="=if(len(trim(AE#))=0,&quot;Round Off&quot;,AE#)"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),Round({Round(AG#,0)}-{Round(AG#,2)},2)&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),Round({Round(AG#,0)}-{Round(AG#,2)},2)&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT FORMULA="=Round({Round(AG#,0)}-{Round(AG#,2)},2)*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
+    <ALLLEDGERENTRIES.LIST SKIP="=Or(Not(trim(AB#)=&quot;yes&quot;),Round({Round(AE#,0)}-{Round(AE#,2)},2)=0)">
+      <LEDGERNAME FORMULA="=if(len(trim(AC#))=0,&quot;Round Off&quot;,AC#)"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),Round({Round(AE#,0)}-{Round(AE#,2)},2)&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),Round({Round(AE#,0)}-{Round(AE#,2)},2)&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="=Round({Round(AE#,0)}-{Round(AE#,2)},2)*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <DUMMY SCROLL="YES"/>
   </VOUCHER11>
 </XMLTAGS>
+
