@@ -63,7 +63,7 @@
       <APPLICABLEFROM>20230401</APPLICABLEFROM>
       <GSTREGISTRATIONTYPE SKIP="=trim(AL#)=&quot;yes&quot;" FORMULA="=if(len(trim(J#))=0,&quot;Unregistered/Consumer&quot;,&quot;Regular&quot;)"/>
       <STATE FORMULA="=proper(trim(K#))"/>
-      <PLACEOFSUPPLY FORMULA="=proper(trim(K#))"/>
+      <PLACEOFSUPPLY FORMULA="=if(len(trim(M#))&gt;0,proper(trim(M#)),proper(trim(K#)))"/>
       <GSTIN SKIP="=trim(AL#)=&quot;yes&quot;" FORMULA="=trim(J#)"/>
     </LEDGSTREGDETAILS.LIST>
     <!-- Tally Prime 3.0 -->
@@ -245,7 +245,7 @@
     <VCHGSTSTATUSISINCLUDED>Yes</VCHGSTSTATUSISINCLUDED>
     <VCHGSTSTATUSISUNCERTAIN>No</VCHGSTSTATUSISUNCERTAIN>
     <COUNTRYOFRESIDENCE FORMULA="=if(len(trim(L#))=0,&quot;India&quot;,L#)"/>
-    <PLACEOFSUPPLY FORMULA="=proper(trim(K#))"/>
+    <PLACEOFSUPPLY FORMULA="=if(len(trim(M#))&gt;0,proper(trim(M#)),proper(trim(K#)))"/>
     <VCHENTRYMODE>Item Invoice</VCHENTRYMODE>
     <COMPANYNAME FORMULA="=AS#[1]"/>
     <GUID FORMULA="=+&quot;udi-HZ3K9T-&quot; &amp; A# &amp; &quot;-&quot; &amp; C# &amp; &quot;-&quot; &amp; E#"/>
