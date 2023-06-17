@@ -51,17 +51,8 @@
     <!-- As a result, we must not use the NAME.LIST tag, but directly use the NAME tag -->
     <NAME COLUMNREFERENCE="O"/>
     <ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
-    <GSTREPUOM SKIP="=Not(trim(O#)=&quot;nos&quot;)">NOS-NUMBERS</GSTREPUOM>
-    <GSTREPUOM SKIP="=Not(trim(O#)=&quot;kgs&quot;)">KGS-KILOGRAMS</GSTREPUOM>
-    <!-- Tally Prime 3.0 -->
-    <REPORTINGUQCDETAILS.LIST SKIP="=Not(trim(O#)=&quot;nos&quot;)">
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <REPORTINGUQCNAME>NOS-NUMBERS</REPORTINGUQCNAME>
-    </REPORTINGUQCDETAILS.LIST>
-    <REPORTINGUQCDETAILS.LIST SKIP="=Not(trim(O#)=&quot;kgs&quot;)">
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <REPORTINGUQCNAME>KGS-KILOGRAMS</REPORTINGUQCNAME>
-    </REPORTINGUQCDETAILS.LIST>
+    <GSTREPUOM SKIP="=Not(trim(K#)=&quot;nos&quot;)">NOS-NUMBERS</GSTREPUOM>
+    <GSTREPUOM SKIP="=Not(trim(K#)=&quot;kgs&quot;)">KGS-KILOGRAMS</GSTREPUOM>
   </MASTER>
   <!-- Create UNIT Masters -->
   <MASTER TYPE="UNIT">
@@ -69,17 +60,8 @@
     <!-- As a result, we must not use the NAME.LIST tag, but directly use the NAME tag -->
     <NAME COLUMNREFERENCE="Q"/>
     <ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
-    <GSTREPUOM SKIP="=Not(trim(Q#)=&quot;nos&quot;)">NOS-NUMBERS</GSTREPUOM>
-    <GSTREPUOM SKIP="=Not(trim(Q#)=&quot;kgs&quot;)">KGS-KILOGRAMS</GSTREPUOM>
-    <!-- Tally Prime 3.0 -->
-    <REPORTINGUQCDETAILS.LIST SKIP="=Not(trim(Q#)=&quot;nos&quot;)">
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <REPORTINGUQCNAME>NOS-NUMBERS</REPORTINGUQCNAME>
-    </REPORTINGUQCDETAILS.LIST>
-    <REPORTINGUQCDETAILS.LIST SKIP="=Not(trim(Q#)=&quot;kgs&quot;)">
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <REPORTINGUQCNAME>KGS-KILOGRAMS</REPORTINGUQCNAME>
-    </REPORTINGUQCDETAILS.LIST>
+    <GSTREPUOM SKIP="=Not(trim(K#)=&quot;nos&quot;)">NOS-NUMBERS</GSTREPUOM>
+    <GSTREPUOM SKIP="=Not(trim(K#)=&quot;kgs&quot;)">KGS-KILOGRAMS</GSTREPUOM>
   </MASTER>
   <!-- Create Compound UNIT Masters -->
   <MASTER TYPE="UNIT">
@@ -92,15 +74,6 @@
     <CONVERSION COLUMNREFERENCE="P"/>
     <GSTREPUOM SKIP="=Not(trim(K#)=&quot;nos&quot;)">NOS-NUMBERS</GSTREPUOM>
     <GSTREPUOM SKIP="=Not(trim(K#)=&quot;kgs&quot;)">KGS-KILOGRAMS</GSTREPUOM>
-    <!-- Tally Prime 3.0 -->
-    <REPORTINGUQCDETAILS.LIST SKIP="=Not(trim(K#)=&quot;nos&quot;)">
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <REPORTINGUQCNAME>NOS-NUMBERS</REPORTINGUQCNAME>
-    </REPORTINGUQCDETAILS.LIST>
-    <REPORTINGUQCDETAILS.LIST SKIP="=Not(trim(K#)=&quot;kgs&quot;)">
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <REPORTINGUQCNAME>KGS-KILOGRAMS</REPORTINGUQCNAME>
-    </REPORTINGUQCDETAILS.LIST>
   </MASTER>
   <!-- Create UNIT Masters -->
   <MASTER TYPE="UNIT">
@@ -110,15 +83,6 @@
     <ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
     <GSTREPUOM SKIP="=Not(trim(K#)=&quot;nos&quot;)">NOS-NUMBERS</GSTREPUOM>
     <GSTREPUOM SKIP="=Not(trim(K#)=&quot;kgs&quot;)">KGS-KILOGRAMS</GSTREPUOM>
-    <!-- Tally Prime 3.0 -->
-    <REPORTINGUQCDETAILS.LIST SKIP="=Not(trim(K#)=&quot;nos&quot;)">
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <REPORTINGUQCNAME>NOS-NUMBERS</REPORTINGUQCNAME>
-    </REPORTINGUQCDETAILS.LIST>
-    <REPORTINGUQCDETAILS.LIST SKIP="=Not(trim(K#)=&quot;kgs&quot;)">
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <REPORTINGUQCNAME>KGS-KILOGRAMS</REPORTINGUQCNAME>
-    </REPORTINGUQCDETAILS.LIST>
   </MASTER>
   <!-- Create UNIT Masters -->
   <MASTER TYPE="UNIT">
@@ -128,15 +92,6 @@
     <ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
     <GSTREPUOM SKIP="=Not(trim(L#)=&quot;nos&quot;)">NOS-NUMBERS</GSTREPUOM>
     <GSTREPUOM SKIP="=Not(trim(L#)=&quot;kgs&quot;)">KGS-KILOGRAMS</GSTREPUOM>
-    <!-- Tally Prime 3.0 -->
-    <REPORTINGUQCDETAILS.LIST SKIP="=Not(trim(L#)=&quot;nos&quot;)">
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <REPORTINGUQCNAME>NOS-NUMBERS</REPORTINGUQCNAME>
-    </REPORTINGUQCDETAILS.LIST>
-    <REPORTINGUQCDETAILS.LIST SKIP="=Not(trim(L#)=&quot;kgs&quot;)">
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <REPORTINGUQCNAME>KGS-KILOGRAMS</REPORTINGUQCNAME>
-    </REPORTINGUQCDETAILS.LIST>
   </MASTER>
   <!-- Create UNIT Masters -->
   <MASTER TYPE="UNIT">
@@ -146,15 +101,6 @@
     <ISSIMPLEUNIT>Yes</ISSIMPLEUNIT>
     <GSTREPUOM SKIP="=Not(trim(GD#)=&quot;nos&quot;)">NOS-NUMBERS</GSTREPUOM>
     <GSTREPUOM SKIP="=Not(trim(GD#)=&quot;kgs&quot;)">KGS-KILOGRAMS</GSTREPUOM>
-    <!-- Tally Prime 3.0 -->
-    <REPORTINGUQCDETAILS.LIST SKIP="=Not(trim(GD#)=&quot;nos&quot;)">
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <REPORTINGUQCNAME>NOS-NUMBERS</REPORTINGUQCNAME>
-    </REPORTINGUQCDETAILS.LIST>
-    <REPORTINGUQCDETAILS.LIST SKIP="=Not(trim(GD#)=&quot;kgs&quot;)">
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <REPORTINGUQCNAME>KGS-KILOGRAMS</REPORTINGUQCNAME>
-    </REPORTINGUQCDETAILS.LIST>
   </MASTER>
   <!-- Create STOCKGROUP Masters -->
   <MASTER TYPE="STOCKGROUP">
@@ -237,18 +183,15 @@
     <!-- Alternate Unit  -->
     <ADDITIONALUNITS COLUMNREFERENCE="L"/>
     <!-- Whether to Maintain in batches or not -->
-    <!--<ISBATCHWISEON
-    FORMULA="=IF(len(trim(R#))=0,&quot;No&quot;,R#)"/>-->
+    <!--<ISBATCHWISEON FORMULA="=IF(len(trim(R#))=0,&quot;No&quot;,R#)"/>-->
     <ISBATCHWISEON COLUMNREFERENCE="R"/>
     <!-- Whether to Track date of Mfg or not.  -->
     <!-- If set to Yes, then the Mfg.Date has to be given. -->
-    <!--<HASMFGDATE
-    FORMULA="=IF(len(trim(AM#))=0,&quot;No&quot;,S#)"/>-->
+    <!--<HASMFGDATE FORMULA="=IF(len(trim(AM#))=0,&quot;No&quot;,S#)"/>-->
     <HASMFGDATE COLUMNREFERENCE="S"/>
     <!-- Whether to use Expiry dates or not.  -->
     <!-- If set to Yes, then the Expiry.Date has to be given. -->
-    <!--<ISPERISHABLEON
-    FORMULA="=IF(len(trim(AN#))=0,&quot;No&quot;,T#)"/>-->
+    <!--<ISPERISHABLEON FORMULA="=IF(len(trim(AN#))=0,&quot;No&quot;,T#)"/>-->
     <ISPERISHABLEON COLUMNREFERENCE="T"/>
     <!-- Standard Cost details -->
     <STANDARDCOSTLIST.LIST SCROLL="Yes" SKIP="=Or(len(trim(U#))=0,Round(V#,2)=0)" APPEND="=trim(GP#)">
@@ -329,9 +272,6 @@
     <GSTTYPEOFSUPPLY SKIP="=Not(Or(trim(AS#)=&quot;applicable&quot;,trim(AS#)=&quot;yes&quot;))" FORMULA="=if(len(trim(BL#))=0,&quot;Goods&quot;,BL#)"/>
     <!-- Empty GSTDETAILS tag not required as it will overwrite existing data, if any  -->
     <GSTDETAILS.LIST SKIP="=And(len(trim(AU#))=0,len(trim(AV#))=0,len(trim(BL#))=0,len(trim(BA#))=0,len(trim(BD#))=0,len(trim(BM#))=0)" APPEND="=trim(GO#)">
-      <!-- Tally Prime 3.0 -->
-      <SRCOFGSTDETAILS>Specify Details Here</SRCOFGSTDETAILS>
-
       <APPLICABLEFROM FORMULA="=if(len(trim(AT#))=0,&quot;20170701&quot;,AT#)"/>
       <CALCULATIONTYPE FORMULA="=if(len(trim(AX#))=0,&quot;On Value&quot;,AX#)"/>
       <HSNCODE COLUMNREFERENCE="AU"/>
@@ -435,13 +375,6 @@
       <TEMPGSTDETAILSLABRATES.LIST>
       </TEMPGSTDETAILSLABRATES.LIST>
     </GSTDETAILS.LIST>
-    <!-- Tally Prime 3.0 -->
-    <HSNDETAILS.LIST SKIP="=trim(HK#)=&quot;yes&quot;">
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <HSNCODE COLUMNREFERENCE="AU"/>
-      <HSN COLUMNREFERENCE="AV"/>
-      <SRCOFHSNDETAILS>Specify Details Here</SRCOFHSNDETAILS>
-    </HSNDETAILS.LIST>
     <!-- VAT details -->
     <VATAPPLICABLE SKIP="=len(trim(BN#))=0" FORMULA="=&quot;~[~ &quot; &amp; trim(BN#)"/>
     <!-- VAT Commodity -->
@@ -681,3 +614,4 @@
     </TCSCATEGORYDETAILS.LIST>
   </MASTER>
 </XMLTAGS>
+
