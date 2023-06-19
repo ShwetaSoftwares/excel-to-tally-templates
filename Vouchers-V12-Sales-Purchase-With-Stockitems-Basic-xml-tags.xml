@@ -59,7 +59,7 @@
     <STATENAME ALERT="=if(len(trim(K#))=0,&quot;&quot;,if(__MATCH(K#,STATENAMELIST),&quot;&quot;,&quot;Invalid StateName:  &quot; &amp; K#))" ALERTREFERENCE="K#" FORMULA="=proper(trim(K#))"/>
     <LEDSTATENAME FORMULA="=proper(trim(K#))"/>
     <!-- Tally Prime 3.0 -->
-    <LEDGSTREGDETAILS.LIST>
+    <LEDGSTREGDETAILS.LIST SKIP="=trim(AL#)=&quot;yes&quot;">
       <APPLICABLEFROM>20230401</APPLICABLEFROM>
       <GSTREGISTRATIONTYPE SKIP="=trim(AL#)=&quot;yes&quot;" FORMULA="=if(len(trim(J#))=0,&quot;Unregistered/Consumer&quot;,&quot;Regular&quot;)"/>
       <STATE FORMULA="=proper(trim(K#))"/>
