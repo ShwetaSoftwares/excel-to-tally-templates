@@ -60,7 +60,7 @@
     <ISBILLWISEON>Yes</ISBILLWISEON>
     <AFFECTSSTOCK>No</AFFECTSSTOCK>
     <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
-    <COUNTRYNAME SKIP="len(trim(K#))=0">India</COUNTRYNAME>
+    <COUNTRYNAME FORMULA="=if(len(trim(L#))=0,&quot;India&quot;,L#)"/>
     <!-- Required for Tally ERP 9 Release 5.1 and higher -->
     <!-- 2017-09-14: STATENAME is converted to proper-case  -->
     <STATENAME FORMULA="=proper(trim(K#))"/>
@@ -69,6 +69,22 @@
     <GSTREGISTRATIONTYPE COLUMNREFERENCE="M"/>
     <!-- GSTIN / UIN -->
     <PARTYGSTIN FORMULA="=trim(N#)"/>
+
+    <!-- Tally Prime 3.0 -->
+    <LEDGSTREGDETAILS.LIST>
+      <APPLICABLEFROM>20230401</APPLICABLEFROM>
+      <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(M#))&gt;0,M#,if(len(trim(N#))&gt;0,&quot;Regular&quot;,&quot;Unregistered/Consumer&quot;))"/>
+      <STATE FORMULA="=proper(trim(K#))"/>
+      <PLACEOFSUPPLY FORMULA="=if(len(trim(O#))&gt;0,proper(trim(O#)),proper(trim(K#)))"/>
+      <GSTIN FORMULA="=trim(N#)"/>
+    </LEDGSTREGDETAILS.LIST>
+    <!-- Tally Prime 3.0 -->
+    <LEDMAILINGDETAILS.LIST>
+      <APPLICABLEFROM>20230401</APPLICABLEFROM>
+      <MAILINGNAME COLUMNREFERENCE="H"/>
+      <STATE FORMULA="=proper(trim(K#))"/>
+      <COUNTRY FORMULA="=if(len(trim(L#))=0,&quot;India&quot;,L#)"/>
+    </LEDMAILINGDETAILS.LIST>
   </MASTER>
   <!-- Create Round Off LEDGER Master -->
   <MASTER TYPE="LEDGER">
@@ -79,21 +95,25 @@
     <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
   </MASTER>
   <!-- VOUCHER-->
-  <VOUCHER11>
+  <VOUCHER12>
     <GUID FORMULA="=+&quot;udi-B40WRF-&quot; &amp; A# &amp; &quot;-&quot; &amp; C# &amp; &quot;-&quot; &amp; E#"/>
     <DATE COLUMNREFERENCE="E"/>
     <EFFECTIVEDATE COLUMNREFERENCE="E"/>
     <VOUCHERTYPENAME COLUMNREFERENCE="C"/>
     <ISINVOICE COLUMNREFERENCE="AF"/>
     <PERSISTEDVIEW SKIP="trim(AF#)=&quot;yes&quot;">Accounting Voucher View</PERSISTEDVIEW>
+
+    <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(V#))&gt;0,V#,if(len(trim(M#))&gt;0,M#,&quot;&quot;))"/>
     <!-- GSTIN / UIN -->
-    <!-- <PARTYGSTIN FORMULA="=trim(N#)"/> -->
     <PARTYGSTIN FORMULA="=if(len(trim(P#))=0,trim(N#),&quot;&quot;)"/>
-    <PARTYGSTIN FORMULA="=trim(W#)"/>
+    <PARTYGSTIN FORMULA="=if(len(trim(P#))&gt;0,trim(W#),&quot;&quot;)"/>
     <!-- 2017-09-14: STATENAME is converted to proper-case  -->
-    <!-- <STATENAME FORMULA="=proper(trim(K#))"/> -->
     <STATENAME FORMULA="=proper(if(len(trim(P#))=0,trim(K#),&quot;&quot;))"/>
     <STATENAME FORMULA="=proper(trim(T#))"/>
+    <!-- Tally Prime 3.0 -->
+    <COUNTRYOFRESIDENCE FORMULA="=proper(trim(if(len(trim(U#))&gt;0,U#,if(len(trim(L#))&gt;0,L#,&quot;India&quot;))))"/>
+    <PLACEOFSUPPLY FORMULA="=proper(trim(if(len(trim(O#))&gt;0,O#,if(len(trim(T#))&gt;0,T#,K#))))"/>
+
     <PARTYLEDGERNAME FORMULA="=IF(len(trim(I#))=0,H#,I#)"/>
     <VOUCHERNUMBER COLUMNREFERENCE="D"/>
     <REFERENCE COLUMNREFERENCE="F"/>
@@ -110,7 +130,6 @@
       <ADDRESS COLUMNREFERENCE="Q"/>
       <ADDRESS COLUMNREFERENCE="R"/>
       <ADDRESS COLUMNREFERENCE="S"/>
-      <ADDRESS COLUMNREFERENCE="T"/>
     </ADDRESS.LIST>
     <!-- Buyer details -->
     <BASICBUYERNAME FORMULA="=if(len(trim(P#))=0,H#,P#)"/>
@@ -118,10 +137,8 @@
       <BASICBUYERADDRESS COLUMNREFERENCE="Q"/>
       <BASICBUYERADDRESS COLUMNREFERENCE="R"/>
       <BASICBUYERADDRESS COLUMNREFERENCE="S"/>
-      <BASICBUYERADDRESS COLUMNREFERENCE="T"/>
     </BASICBUYERADDRESS.LIST>
-    <PLACEOFSUPPLY FORMULA="=proper(trim(U#))"/>
-    <GSTREGISTRATIONTYPE COLUMNREFERENCE="V"/>
+
     <!-- Other GST details -->
     <GSTNATUREOFRETURN SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(X#))=0,&quot;01-Sales Return&quot;,X#)"/>
     <VATPARTYTRANSRETURNNUMBER SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(Y#))=0,F#,Y#)"/>
@@ -167,5 +184,5 @@
       <AMOUNT FORMULA="=Round({Round(AG#,0)}-{Round(AG#,2)},2)*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <DUMMY SCROLL="YES"/>
-  </VOUCHER11>
+  </VOUCHER12>
 </XMLTAGS>
