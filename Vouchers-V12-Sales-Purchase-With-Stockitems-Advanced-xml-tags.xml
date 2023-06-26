@@ -831,6 +831,9 @@
           <GSTRATE SKIP="=Not(And(Round(DQ#,2)&gt;0,Round(DS#,2)=0))" FORMULA="=Round(DP#,2)"/>
           <GSTRATE SKIP="=Not(And(Round(DS#,2)&gt;0,Round(DQ#,2)=0))" FORMULA="=Round(DR#,2)"/>
           <GSTRATE SKIP="=Not(And(Round(DQ#,2)&gt;0,Round(DS#,2)&gt;0))" FORMULA="=Round(DP#,2)"/>
+          <!-- Tally Prime 3.0 -->
+          <GSTRATEPERUNIT SKIP="=Not(And(Round(DS#,2)&gt;0,Round(DQ#,2)=0))" FORMULA="=Round(DR#,2)"/>
+          <GSTRATEPERUNIT SKIP="=Not(And(Round(DQ#,2)&gt;0,Round(DS#,2)&gt;0))" FORMULA="=Round(DR#,2)"/>
         </RATEDETAILS.LIST>
         <!-- Cess based on Qty -->
         <RATEDETAILS.LIST SKIP="=Or(Round(DR#,2)=0,Round(DS#,2)=0)">
