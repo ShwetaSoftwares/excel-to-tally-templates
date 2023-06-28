@@ -311,6 +311,13 @@
   </MASTER>
   <!-- VOUCHER-->
   <VOUCHER12>
+
+    <!-- Tally Prime 3.0 -->
+    <GSTREGISTRATION TAXTYPE="GST" COLUMNREFERENCE="AH"/>
+    <CMPGSTSTATE COLUMNREFERENCE="AG"/>
+    <CMPGSTIN COLUMNREFERENCE="AI"/>
+    <CMPGSTREGISTRATIONTYPE COLUMNREFERENCE="AJ"/>
+
     <GUID FORMULA="=+&quot;udi-DG4W8R-&quot; &amp; A# &amp; &quot;-&quot; &amp; C# &amp; &quot;-&quot; &amp; E#"/>
     <DATE COLUMNREFERENCE="E"/>
     <EFFECTIVEDATE COLUMNREFERENCE="E"/>
