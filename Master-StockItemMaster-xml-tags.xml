@@ -365,6 +365,8 @@
           <!-- Display : BH# is non-zero and BI# is non-zero -->
           <GSTRATEVALUATIONTYPE SKIP="=Round(BI#,2)=0">Based on Value and Quantity</GSTRATEVALUATIONTYPE>
           <GSTRATE FORMULA="=Round(BH#,2)"/>
+          <!-- Tally Prime 3.0 -->
+          <GSTRATEPERUNIT FORMULA="=Round(BI#,2)"/>
         </RATEDETAILS.LIST>
         <RATEDETAILS.LIST>
           <GSTRATEDUTYHEAD>Cess on Qty</GSTRATEDUTYHEAD>
@@ -378,6 +380,8 @@
           <!-- Display : BJ# is non-zero and BK# is non-zero -->
           <GSTRATEVALUATIONTYPE SKIP="=Round(BK#,2)=0">Based on Value and Quantity</GSTRATEVALUATIONTYPE>
           <GSTRATE FORMULA="=Round(BJ#,2)"/>
+          <!-- Tally Prime 3.0 -->
+          <GSTRATEPERUNIT FORMULA="=Round(BK#,2)"/>
         </RATEDETAILS.LIST>
         <RATEDETAILS.LIST>
           <GSTRATEDUTYHEAD>State Cess on Qty</GSTRATEDUTYHEAD>
