@@ -883,10 +883,9 @@
     <CMPGSTSTATE COLUMNREFERENCE="HT"/>
     <CMPGSTIN COLUMNREFERENCE="HV"/>
     <CMPGSTREGISTRATIONTYPE COLUMNREFERENCE="HW"/>
-    <VCHGSTSTATUSISINCLUDED>Yes</VCHGSTSTATUSISINCLUDED>
-    <VCHGSTSTATUSISUNCERTAIN>No</VCHGSTSTATUSISUNCERTAIN>
-    <!-- COUNTRYOFRESIDENCE taken from Column Y# or L# or India -->
-    <COUNTRYOFRESIDENCE FORMULA="=if(len(trim(Y#))&gt;0,proper(trim(Y#)),if(len(trim(L#))&gt;0,proper(trim(L#)),&quot;India&quot;))"/>
+    <PARTYADDRESSTYPE FORMULA="=proper(trim(K#))"/>
+    <PARTYADDRESSTYPE FORMULA="=if(And(len(trim(P#))&gt;0,len(trim(X#))&gt;0),proper(trim(X#)),&quot;&quot;)"/>
+
     <COMPANYNAME FORMULA="=HS#[1]"/>
     <GUID FORMULA="=+&quot;udi-H6W7QN-&quot; &amp; A# &amp; &quot;-&quot; &amp; C# &amp; &quot;-&quot; &amp; E#"/>
     <DATE COLUMNREFERENCE="E"/>
@@ -938,6 +937,8 @@
     <STATENAME FORMULA="=proper(trim(K#))"/>
     <STATENAME FORMULA="=if(And(len(trim(P#))&gt;0,len(trim(X#))&gt;0),proper(trim(X#)),&quot;&quot;)"/>
     <PLACEOFSUPPLY FORMULA="=if(len(trim(M#))&gt;0,proper(trim(M#)),proper(trim(K#)))"/>
+    <!-- COUNTRYOFRESIDENCE taken from Column Y# or L# or India -->
+    <COUNTRYOFRESIDENCE FORMULA="=if(len(trim(Y#))&gt;0,proper(trim(Y#)),if(len(trim(L#))&gt;0,proper(trim(L#)),&quot;India&quot;))"/>
     <GSTREGISTRATIONTYPE SKIP="=Not(len(trim(Z#))=0)" FORMULA="=if(len(trim(J#))=0,&quot;Unregistered&quot;,&quot;Regular&quot;)"/>
     <GSTREGISTRATIONTYPE COLUMNREFERENCE="Z"/>
     <PARTYLEDGERNAME COLUMNREFERENCE="H"/>

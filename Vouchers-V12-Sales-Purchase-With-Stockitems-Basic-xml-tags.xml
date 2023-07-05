@@ -238,15 +238,11 @@
   <VOUCHER12>
     <!-- Tally Prime 3.0 -->
     <GSTREGISTRATION TAXTYPE="GST" COLUMNREFERENCE="AU"/>
-    <VCHSTATUSTAXUNIT_NOTREQUIRED COLUMNREFERENCE="AT"/>
     <CMPGSTSTATE COLUMNREFERENCE="AT"/>
     <CMPGSTIN COLUMNREFERENCE="AV"/>
     <CMPGSTREGISTRATIONTYPE COLUMNREFERENCE="AW"/>
-    <VCHGSTSTATUSISINCLUDED>Yes</VCHGSTSTATUSISINCLUDED>
-    <VCHGSTSTATUSISUNCERTAIN>No</VCHGSTSTATUSISUNCERTAIN>
-    <COUNTRYOFRESIDENCE FORMULA="=if(len(trim(L#))=0,&quot;India&quot;,L#)"/>
-    <PLACEOFSUPPLY FORMULA="=if(len(trim(M#))&gt;0,proper(trim(M#)),proper(trim(K#)))"/>
-    <VCHENTRYMODE>Item Invoice</VCHENTRYMODE>
+    <PARTYADDRESSTYPE FORMULA="=proper(trim(K#))"/>
+
     <COMPANYNAME FORMULA="=AS#[1]"/>
     <GUID FORMULA="=+&quot;udi-HZ3K9T-&quot; &amp; A# &amp; &quot;-&quot; &amp; C# &amp; &quot;-&quot; &amp; E#"/>
     <DATE COLUMNREFERENCE="E"/>
@@ -270,6 +266,9 @@
     <GSTREGISTRATIONTYPE SKIP="=trim(AL#)=&quot;yes&quot;" FORMULA="=if(len(trim(J#))=0,&quot;Unregistered&quot;,&quot;Regular&quot;)"/>
     <!-- 2017-09-14: STATENAME is converted to proper-case  -->
     <STATENAME FORMULA="=proper(trim(K#))"/>
+    <COUNTRYOFRESIDENCE FORMULA="=if(len(trim(L#))=0,&quot;India&quot;,L#)"/>
+    <PLACEOFSUPPLY FORMULA="=if(len(trim(M#))&gt;0,proper(trim(M#)),proper(trim(K#)))"/>
+
     <!-- Party Name is checked in Column H first and then Column I -->
     <PARTYNAME FORMULA="=if(len(trim(H#))=0,I#,H#)"/>
     <PARTYLEDGERNAME FORMULA="=if(len(trim(H#))=0,I#,H#)"/>
