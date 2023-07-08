@@ -241,7 +241,6 @@
     <CMPGSTSTATE COLUMNREFERENCE="AT"/>
     <CMPGSTIN COLUMNREFERENCE="AV"/>
     <CMPGSTREGISTRATIONTYPE COLUMNREFERENCE="AW"/>
-    <PARTYADDRESSTYPE FORMULA="=proper(trim(K#))"/>
 
     <COMPANYNAME FORMULA="=AS#[1]"/>
     <GUID FORMULA="=+&quot;udi-HZ3K9T-&quot; &amp; A# &amp; &quot;-&quot; &amp; C# &amp; &quot;-&quot; &amp; E#"/>
