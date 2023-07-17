@@ -885,7 +885,6 @@
     <CMPGSTREGISTRATIONTYPE COLUMNREFERENCE="HX"/>
     <PARTYADDRESSTYPE FORMULA="=proper(trim(R#))"/>
     <COMPANYNAME FORMULA="=HT#[1]"/>
-    <PARTYADDRESSTYPE FORMULA="=proper(trim(R#))"/>
     <GUID FORMULA="=+&quot;udi-H6W7QN-&quot; &amp; A# &amp; &quot;-&quot; &amp; C# &amp; &quot;-&quot; &amp; E#"/>
     <DATE COLUMNREFERENCE="E"/>
     <EFFECTIVEDATE COLUMNREFERENCE="E"/>
@@ -933,9 +932,8 @@
     <PARTYGSTIN SKIP="=trim(HL#)=&quot;yes&quot;" FORMULA="=if(len(trim(P#))=0,trim(J#),&quot;&quot;)"/>
     <PARTYGSTIN SKIP="=trim(HL#)=&quot;yes&quot;" FORMULA="=trim(AB#)"/>
     <!-- 2017-09-14: STATENAME is converted to proper-case  -->
-    <STATENAME FORMULA="=proper(trim(K#))"/>
-    <STATENAME FORMULA="=if(And(len(trim(P#))&gt;0,len(trim(Y#))&gt;0),proper(trim(Y#)),&quot;&quot;)"/>
-    <PLACEOFSUPPLY FORMULA="=if(len(trim(M#))&gt;0,proper(trim(M#)),proper(trim(K#)))"/>
+    <STATENAME FORMULA="=if(And(len(trim(P#))&gt;0,len(trim(Y#))&gt;0),proper(trim(Y#)),proper(trim(K#)))"/>
+    <PLACEOFSUPPLY FORMULA="=if(len(trim(M#))&gt;0,proper(trim(M#)),if(len(trim(Y#))&gt;0,Y#,proper(trim(K#))))"/>
     <!-- COUNTRYOFRESIDENCE taken from Column Z# or L# or India -->
     <COUNTRYOFRESIDENCE FORMULA="=if(len(trim(Z#))&gt;0,proper(trim(Z#)),if(len(trim(L#))&gt;0,proper(trim(L#)),&quot;India&quot;))"/>
     <GSTREGISTRATIONTYPE SKIP="=Not(len(trim(AA#))=0)" FORMULA="=if(len(trim(J#))=0,&quot;Unregistered&quot;,&quot;Regular&quot;)"/>
