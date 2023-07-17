@@ -884,7 +884,6 @@
     <CMPGSTIN COLUMNREFERENCE="HW"/>
     <CMPGSTREGISTRATIONTYPE COLUMNREFERENCE="HX"/>
     <PARTYADDRESSTYPE FORMULA="=proper(trim(R#))"/>
-    <PARTYADDRESSTYPE FORMULA="=if(And(len(trim(P#))&gt;0,len(trim(Y#))&gt;0),proper(trim(Y#)),&quot;&quot;)"/>
     <COMPANYNAME FORMULA="=HT#[1]"/>
     <PARTYADDRESSTYPE FORMULA="=proper(trim(R#))"/>
     <GUID FORMULA="=+&quot;udi-H6W7QN-&quot; &amp; A# &amp; &quot;-&quot; &amp; C# &amp; &quot;-&quot; &amp; E#"/>
