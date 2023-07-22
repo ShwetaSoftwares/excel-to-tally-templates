@@ -1165,6 +1165,10 @@
       <!-- For Voucher Mode -->
       <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(HN#[1]))&gt;0,trim(HN#[1])=&quot;Yes&quot;),And(Len(trim(HN#[1]))=0,Or(len(trim(BB#[1]))&gt;0,len(trim(BC#[1]))&gt;0)))" FORMULA="=if({Round(CP#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)&lt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT CURRENCY="=HP#" ROE="=HQ#" CONVERSIONFACTOR="=HS#" FORMULA="={Round(CP#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <!-- Tally Prime 3.0 -->
+      <APPROPRIATEFOR SKIP="=trim(HM#)=&quot;yes&quot;">GST</APPROPRIATEFOR>
+      <GSTAPPROPRIATETO SKIP="=trim(HM#)=&quot;yes&quot;">Both</GSTAPPROPRIATETO>
+      <EXCISEALLOCTYPE>Based on Value</EXCISEALLOCTYPE>
       <!-- Cost centre details -->
       <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(CR#))=0">
         <CATEGORY FORMULA="=if(len(trim(CQ#))=0,&quot;Primary Cost Category&quot;,CQ#)"/>
@@ -1183,6 +1187,10 @@
       <!-- For Voucher Mode -->
       <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(HN#[1]))&gt;0,trim(HN#[1])=&quot;Yes&quot;),And(Len(trim(HN#[1]))=0,Or(len(trim(BB#[1]))&gt;0,len(trim(BC#[1]))&gt;0)))" FORMULA="=if({Round(CT#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)&lt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT CURRENCY="=HP#" ROE="=HQ#" CONVERSIONFACTOR="=HS#" FORMULA="={Round(CT#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <!-- Tally Prime 3.0 -->
+      <APPROPRIATEFOR SKIP="=trim(HM#)=&quot;yes&quot;">GST</APPROPRIATEFOR>
+      <GSTAPPROPRIATETO SKIP="=trim(HM#)=&quot;yes&quot;">Both</GSTAPPROPRIATETO>
+      <EXCISEALLOCTYPE>Based on Value</EXCISEALLOCTYPE>
       <!-- Cost centre details -->
       <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(CV#))=0">
         <CATEGORY FORMULA="=if(len(trim(CU#))=0,&quot;Primary Cost Category&quot;,CU#)"/>
@@ -1201,6 +1209,10 @@
       <!-- For Voucher Mode -->
       <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(HN#[1]))&gt;0,trim(HN#[1])=&quot;Yes&quot;),And(Len(trim(HN#[1]))=0,Or(len(trim(BB#[1]))&gt;0,len(trim(BC#[1]))&gt;0)))" FORMULA="=if({Round(CX#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)&lt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT CURRENCY="=HP#" ROE="=HQ#" CONVERSIONFACTOR="=HS#" FORMULA="={Round(CX#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <!-- Tally Prime 3.0 -->
+      <APPROPRIATEFOR SKIP="=trim(HM#)=&quot;yes&quot;">GST</APPROPRIATEFOR>
+      <GSTAPPROPRIATETO SKIP="=trim(HM#)=&quot;yes&quot;">Both</GSTAPPROPRIATETO>
+      <EXCISEALLOCTYPE>Based on Value</EXCISEALLOCTYPE>
       <!-- Cost centre details -->
       <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(CZ#))=0">
         <CATEGORY FORMULA="=if(len(trim(CY#))=0,&quot;Primary Cost Category&quot;,CY#)"/>
@@ -1219,6 +1231,10 @@
       <!-- For Voucher Mode -->
       <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(HN#[1]))&gt;0,trim(HN#[1])=&quot;Yes&quot;),And(Len(trim(HN#[1]))=0,Or(len(trim(BB#[1]))&gt;0,len(trim(BC#[1]))&gt;0)))" FORMULA="=if({Round(DB#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)&lt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT CURRENCY="=HP#" ROE="=HQ#" CONVERSIONFACTOR="=HS#" FORMULA="={Round(DB#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <!-- Tally Prime 3.0 -->
+      <APPROPRIATEFOR SKIP="=trim(HM#)=&quot;yes&quot;">GST</APPROPRIATEFOR>
+      <GSTAPPROPRIATETO SKIP="=trim(HM#)=&quot;yes&quot;">Both</GSTAPPROPRIATETO>
+      <EXCISEALLOCTYPE>Based on Value</EXCISEALLOCTYPE>
       <!-- Cost centre details -->
       <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(DD#))=0">
         <CATEGORY FORMULA="=if(len(trim(DC#))=0,&quot;Primary Cost Category&quot;,DC#)"/>
@@ -1237,6 +1253,10 @@
       <!-- For Voucher Mode -->
       <ISDEEMEDPOSITIVE SKIP="=Or(And(Len(trim(HN#[1]))&gt;0,trim(HN#[1])=&quot;Yes&quot;),And(Len(trim(HN#[1]))=0,Or(len(trim(BB#[1]))&gt;0,len(trim(BC#[1]))&gt;0)))" FORMULA="=if({Round(DF#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)&lt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT CURRENCY="=HP#" ROE="=HQ#" CONVERSIONFACTOR="=HS#" FORMULA="={Round(DF#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <!-- Tally Prime 3.0 -->
+      <APPROPRIATEFOR SKIP="=trim(HM#)=&quot;yes&quot;">GST</APPROPRIATEFOR>
+      <GSTAPPROPRIATETO SKIP="=trim(HM#)=&quot;yes&quot;">Both</GSTAPPROPRIATETO>
+      <EXCISEALLOCTYPE>Based on Value</EXCISEALLOCTYPE>
       <!-- Cost centre details -->
       <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(DH#))=0">
         <CATEGORY FORMULA="=if(len(trim(DG#))=0,&quot;Primary Cost Category&quot;,DG#)"/>
