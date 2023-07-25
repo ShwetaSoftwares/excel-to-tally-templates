@@ -70,6 +70,12 @@
     </LEDGSTREGDETAILS.LIST>
     <!-- Tally Prime 3.0 -->
     <LEDMAILINGDETAILS.LIST SKIP="=len(trim(AC#))=0">
+      <ADDRESS.LIST SKIP="=And(len(trim(AG#))=0,len(trim(AH#))=0,len(trim(AI#))=0,len(trim(AJ#))=0)">
+        <ADDRESS COLUMNREFERENCE="AG"/>
+        <ADDRESS COLUMNREFERENCE="AH"/>
+        <ADDRESS COLUMNREFERENCE="AI"/>
+        <ADDRESS COLUMNREFERENCE="AJ"/>
+      </ADDRESS.LIST>
       <APPLICABLEFROM>20230401</APPLICABLEFROM>
       <MAILINGNAME COLUMNREFERENCE="AC"/>
       <STATE FORMULA="=proper(trim(AE#))"/>
