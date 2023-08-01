@@ -903,9 +903,14 @@
     <IRN COLUMNREFERENCE="GG"/>
     <NARRATION COLUMNREFERENCE="HI"/>
     <!-- Additional details : Export Taxable -->
-    <SHIPPINGBILLNO COLUMNREFERENCE="HD"/>
-    <SHIPPINGBILLDATE COLUMNREFERENCE="HE"/>
+    <SHIPPINGBILLNO SKIP="=Not(trim(B#)=&quot;Sales&quot;)" COLUMNREFERENCE="HD"/>
+    <SHIPPINGBILLDATE SKIP="=Not(trim(B#)=&quot;Sales&quot;)" COLUMNREFERENCE="HE"/>
     <PORTCODE COLUMNREFERENCE="HF"/>
+
+    <!-- Additional details : Imports -->
+    <BILLOFENTRYNO SKIP="=Not(trim(B#)=&quot;Purchase&quot;)" COLUMNREFERENCE="HD"/>
+    <BILLOFENTRYDATE SKIP="=Not(trim(B#)=&quot;Purchase&quot;)" COLUMNREFERENCE="HE"/>
+
     <!-- POS ledgers -->
     <POSCARDLEDGER COLUMNREFERENCE="GN"/>
     <POSCASHLEDGER COLUMNREFERENCE="GU"/>
