@@ -7,7 +7,7 @@
   </COLUMNNAME.LIST>
   <!-- Create VOUCHERTYPE Masters -->
   <MASTER TYPE="VOUCHERTYPE">
-    <COMPANYNAME FORMULA="=V#[1]"/>
+    <COMPANYNAME FORMULA="=T#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="C"/>
     </NAME.LIST>
@@ -18,14 +18,14 @@
   </MASTER>
   <!-- Create CURRENCY Master -->
   <MASTER TYPE="CURRENCY">
-    <COMPANYNAME FORMULA="=V#[1]"/>
-    <ORIGINALNAME COLUMNREFERENCE="W"/>
-    <MAILINGNAME FORMULA="=W# &amp; &quot; Curr&quot;"/>
+    <COMPANYNAME FORMULA="=T#[1]"/>
+    <ORIGINALNAME COLUMNREFERENCE="U"/>
+    <MAILINGNAME FORMULA="=U# &amp; &quot; Curr&quot;"/>
     <DECIMALPLACES> 2</DECIMALPLACES>
   </MASTER>
   <!-- Create Group Master -->
   <MASTER TYPE="GROUP">
-    <COMPANYNAME FORMULA="=V#[1]"/>
+    <COMPANYNAME FORMULA="=T#[1]"/>
     <NAME.LIST>
       <NAME FORMULA="=if(len(trim(K#))=0,&quot;New Ledgers&quot;,K#)"/>
     </NAME.LIST>
@@ -33,14 +33,14 @@
   </MASTER>
   <!-- Create Ledger Masters -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=V#[1]"/>
+    <COMPANYNAME FORMULA="=T#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="H"/>
     </NAME.LIST>
     <PARENT FORMULA="=if(len(trim(K#))=0,&quot;New Ledgers&quot;,K#)"/>
   </MASTER>
-  <VOUCHER12>
-    <COMPANYNAME FORMULA="=V#[1]"/>
+  <VOUCHER11>
+    <COMPANYNAME FORMULA="=T#[1]"/>
     <GUID FORMULA="=+&quot;udi-EF5Q2H-&quot; &amp; A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; C#"/>
     <DATE COLUMNREFERENCE="E"/>
     <EFFECTIVEDATE COLUMNREFERENCE="E"/>
@@ -48,27 +48,26 @@
     <VOUCHERNUMBER COLUMNREFERENCE="D"/>
     <REFERENCE COLUMNREFERENCE="F"/>
     <REFERENCEDATE COLUMNREFERENCE="G"/>
-    <NARRATION COLUMNREFERENCE="T"/>
+    <NARRATION COLUMNREFERENCE="R"/>
     <ISINVOICE>No</ISINVOICE>
     <ALLLEDGERENTRIES.LIST SCROLL="YES">
-      <NARRATION COLUMNREFERENCE="U"/>
+      <NARRATION COLUMNREFERENCE="S"/>
       <LEDGERNAME COLUMNREFERENCE="H"/>
       <ISDEEMEDPOSITIVE FORMULA="=IF(UPPER(J#)=&quot;DR&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=W#" ROE="=X#" FORMULA="=+Round(I#,2)*IF(UPPER(J#)=&quot;DR&quot;,-1,1)"/>
-      <BANKALLOCATIONS.LIST SKIP="=And(len(trim(N#))=0,len(trim(O#))=0,len(trim(P#))=0,len(trim(Q#))=0,len(trim(R#))=0,len(trim(S#))=0)">
+      <AMOUNT CURRENCY="=U#" ROE="=V#" FORMULA="=+Round(I#,2)*IF(UPPER(J#)=&quot;DR&quot;,-1,1)"/>
+      <BANKALLOCATIONS.LIST SKIP="=And(len(trim(L#))=0,len(trim(M#))=0,len(trim(N#))=0,len(trim(O#))=0,len(trim(P#))=0,len(trim(Q#))=0)">
         <DATE FORMULA="=E#[1]"/>
-        <INSTRUMENTDATE COLUMNREFERENCE="O"/>
-        <INSTRUMENTNUMBER COLUMNREFERENCE="N"/>
-        <TRANSACTIONTYPE FORMULA="=if(len(trim(P#))=0,&quot;Cheque&quot;,P#)"/>
-        <PAYMENTFAVOURING FORMULA="if(len(trim(Q#))=0,H#[1],Q#)"/>
-        <CHEQUECROSSCOMMENT COLUMNREFERENCE="R"/>
-        <BANKERSDATE COLUMNREFERENCE="S"/>
+        <INSTRUMENTDATE COLUMNREFERENCE="M"/>
+        <INSTRUMENTNUMBER COLUMNREFERENCE="L"/>
+        <TRANSACTIONTYPE FORMULA="=if(len(trim(N#))=0,&quot;Cheque&quot;,N#)"/>
+        <PAYMENTFAVOURING FORMULA="if(len(trim(O#))=0,H#[1],O#)"/>
+        <CHEQUECROSSCOMMENT COLUMNREFERENCE="P"/>
+        <BANKERSDATE COLUMNREFERENCE="Q"/>
         <STATUS>No</STATUS>
-        <AMOUNT CURRENCY="=W#" ROE="=X#" FORMULA="=+Round(I#,2)*IF(UPPER(J#)=&quot;DR&quot;,-1,1)"/>
+        <AMOUNT CURRENCY="=U#" ROE="=V#" FORMULA="=+Round(I#,2)*IF(UPPER(J#)=&quot;DR&quot;,-1,1)"/>
         <PAYMENTMODE>Transacted</PAYMENTMODE>
         <NAME FORMULA="=+&quot;udi-EF5Q2H-&quot; &amp; A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; #"/>
       </BANKALLOCATIONS.LIST>
     </ALLLEDGERENTRIES.LIST>
-  </VOUCHER12>
+  </VOUCHER11>
 </XMLTAGS>
-
