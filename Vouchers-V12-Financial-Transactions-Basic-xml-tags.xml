@@ -31,6 +31,25 @@
     </NAME.LIST>
     <PARENT/>
   </MASTER>
+  <!-- Cost Category -->
+  <MASTER TYPE="COSTCATEGORY">
+    <COMPANYNAME FORMULA="=V#[1]"/>
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="L"/>
+    </NAME.LIST>
+    <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
+    <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
+  </MASTER>
+  <!-- Cost Centre -->
+  <MASTER TYPE="COSTCENTRE">
+    <COMPANYNAME FORMULA="=V#[1]"/>
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="M"/>
+    </NAME.LIST>
+    <CATEGORY SKIP="=Len(trim(L#))=0" COLUMNREFERENCE="L"/>
+    <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
+    <AFFECTSSTOCK>No</AFFECTSSTOCK>
+  </MASTER>
   <!-- Create Ledger Masters -->
   <MASTER TYPE="LEDGER">
     <COMPANYNAME FORMULA="=V#[1]"/>
@@ -38,6 +57,7 @@
       <NAME COLUMNREFERENCE="H"/>
     </NAME.LIST>
     <PARENT FORMULA="=if(len(trim(K#))=0,&quot;New Ledgers&quot;,K#)"/>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(M#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
   </MASTER>
   <VOUCHER12>
     <COMPANYNAME FORMULA="=V#[1]"/>
@@ -68,7 +88,14 @@
         <PAYMENTMODE>Transacted</PAYMENTMODE>
         <NAME FORMULA="=+&quot;udi-EF5Q2H-&quot; &amp; A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; #"/>
       </BANKALLOCATIONS.LIST>
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(M#))=0">
+        <CATEGORY COLUMNREFERENCE="L"/>
+        <ISDEEMEDPOSITIVE FORMULA="=IF(UPPER(J#)=&quot;DR&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+        <COSTCENTREALLOCATIONS.LIST>
+          <NAME COLUMNREFERENCE="M"/>
+          <AMOUNT CURRENCY="=W#" ROE="=X#" FORMULA="=+Round(I#,2)*IF(UPPER(J#)=&quot;DR&quot;,-1,1)"/>
+        </COSTCENTREALLOCATIONS.LIST>
+      </CATEGORYALLOCATIONS.LIST>
     </ALLLEDGERENTRIES.LIST>
   </VOUCHER12>
 </XMLTAGS>
-
