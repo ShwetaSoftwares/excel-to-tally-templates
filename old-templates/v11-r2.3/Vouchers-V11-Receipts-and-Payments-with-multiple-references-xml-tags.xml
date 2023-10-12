@@ -1,0 +1,166 @@
+<!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
+<!-- 
+New Features in v6.0
+1) FETCHOBJECT tag
+   This is used to retrieve data from Tally (as it is not there in the Excel sheet)
+-->
+<XMLTAGS CELLREFERENCE="A1" FROMROW="4" xmlns:UDF="TallyUDF">
+  <!-- Specifies that this (i.e Column as mentioned above) is the key field -->
+  <COLUMNNAME.LIST>
+    <COLUMNNAME>ID</COLUMNNAME>
+    <COLUMNNAME>NAME</COLUMNNAME>
+  </COLUMNNAME.LIST>
+  <!-- Fields to fetch from Tally -->
+  <FETCHOBJECT TYPE="LEDGER">
+    <OBJECT COLUMNREFERENCE="L" NAME="" ISMODIFY="No" ISFIXED="No" ISINITIALIZE="No" ISOPTION="No" ISINTERNAL="No"/>
+    <!-- Fetch whether the PARENT/GROUP is Bank or not -->
+    <FIELD NAME="ISBANKLEDGER" ISMODIFY="NO" ISFIXED="NO" ISINITIALIZE="NO" ISOPTION="NO" ISINTERNAL="NO">
+      <USE>NAME FIELD</USE>
+      <SET>$$IsLedOfGrp:$KEY:$$GroupBank OR $$IsLedOfGrp:$KEY:$$GroupBankOD</SET>
+    </FIELD>
+  </FETCHOBJECT>
+  <!-- Create VOUCHERTYPE Master -->
+  <MASTER TYPE="VOUCHERTYPE">
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="C"/>
+    </NAME.LIST>
+    <PARENT COLUMNREFERENCE="B"/>
+    <MAILINGNAME FORMULA="=if(B#=&quot;receipt&quot;,&quot;Receipt&quot;,&quot;Payment&quot;)"/>
+    <NUMBERINGMETHOD>Manual</NUMBERINGMETHOD>
+    <ISDEEMEDPOSITIVE FORMULA="=if(B#=&quot;receipt&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+  </MASTER>
+  <!-- Create BANK Ledgers -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="L"/>
+    </NAME.LIST>
+    <PARENT>Bank Accounts</PARENT>
+    <TAXTYPE>Others</TAXTYPE>
+    <ISBILLWISEON>No</ISBILLWISEON>
+    <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+  </MASTER>
+  <!-- Create Party Ledgers -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="F"/>
+    </NAME.LIST>
+    <ADDITIONALNAME COLUMNREFERENCE="F"/>
+    <PARENT>Sundry Debtors</PARENT>
+    <PARENT COLUMNREFERENCE="G"/>
+    <TAXTYPE>Others</TAXTYPE>
+    <ISBILLWISEON>Yes</ISBILLWISEON>
+    <ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+  </MASTER>
+  <!-- Create Ledger1 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="N"/>
+    </NAME.LIST>
+    <PARENT>Indirect Expenses</PARENT>
+  </MASTER>
+  <!-- Create Ledger2 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="P"/>
+    </NAME.LIST>
+    <PARENT>Indirect Expenses</PARENT>
+  </MASTER>
+  <!-- Create Ledger3 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="R"/>
+    </NAME.LIST>
+    <PARENT>Indirect Expenses</PARENT>
+  </MASTER>
+  <!-- Create Ledger4 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="T"/>
+    </NAME.LIST>
+    <PARENT>Indirect Expenses</PARENT>
+  </MASTER>
+  <!-- Create Ledger5 -->
+  <MASTER TYPE="LEDGER">
+    <NAME.LIST TYPE="String">
+      <NAME COLUMNREFERENCE="V"/>
+    </NAME.LIST>
+    <PARENT>Indirect Expenses</PARENT>
+  </MASTER>
+  <VOUCHER11>
+    <GUID FORMULA="=&quot;udi-HV6W4F-&quot; &amp; A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; C#"/>
+    <DATE COLUMNREFERENCE="E"/>
+    <EFFECTIVEDATE COLUMNREFERENCE="E"/>
+    <VOUCHERTYPENAME COLUMNREFERENCE="C"/>
+    <VOUCHERNUMBER COLUMNREFERENCE="D"/>
+    <ISINVOICE>No</ISINVOICE>
+    <PERSISTEDVIEW>Accounting Voucher View</PERSISTEDVIEW>
+    <NARRATION COLUMNREFERENCE="X"/>
+    <PARTYLEDGERNAME COLUMNREFERENCE="F"/>
+    <!-- Party Ledger -->
+    <ALLLEDGERENTRIES.LIST SCROLL="Yes" SKIP="=len(trim(F#))=0">
+      <LEDGERNAME COLUMNREFERENCE="F"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if(B#[1]=&quot;receipt&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+      <AMOUNT FORMULA="=Round(H#,2)*if(B#[1]=&quot;receipt&quot;,1,-1)"/>
+      <BILLALLOCATIONS.LIST SCROLL="Yes" SCROLLCOLUMN="=Sum(Column(F#))" SKIP="=Or(len(trim(I#))=0,Round(J#,2)=0)">
+        <NAME COLUMNREFERENCE="I"/>
+        <BILLTYPE COLUMNREFERENCE="K"/>
+        <AMOUNT FORMULA="=Round(J#,2)*if(B#[1]=&quot;receipt&quot;,1,-1)"/>
+      </BILLALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- Cash or Bank Ledger -->
+    <ALLLEDGERENTRIES.LIST SKIP="={Round(M#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="L"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if(B#[1]=&quot;receipt&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(M#,2)}*if(B#[1]=&quot;receipt&quot;,-1,1)"/>
+      <!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
+      <BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; L#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(L#),1)),len(trim(Y#))=0,len(trim(Z#))=0)">
+        <DATE COLUMNREFERENCE="E"/>
+        <INSTRUMENTNUMBER COLUMNREFERENCE="Y"/>
+        <INSTRUMENTDATE COLUMNREFERENCE="Z"/>
+        <TRANSACTIONTYPE FORMULA="=if(len(trim(AA#))=0,&quot;Cheque&quot;,AA#)"/>
+        <PAYMENTFAVOURING FORMULA="=if(len(trim(AB#))=0,F#,AB#)"/>
+        <CHEQUECROSSCOMMENT FORMULA="=if(len(trim(AC#))=0,&quot;A/c Payee&quot;,AC#)"/>
+        <BANKERSDATE COLUMNREFERENCE="AD"/>
+        <AMOUNT FORMULA="={Round(M#,2)}*if(B#[1]=&quot;receipt&quot;,-1,1)"/>
+        <PAYMENTMODE>Transacted</PAYMENTMODE>
+        <NAME FORMULA="=&quot;udi-rcpt-multi-ref-&quot; &amp; A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; L#"/>
+      </BANKALLOCATIONS.LIST>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- Ledger1 -->
+    <ALLLEDGERENTRIES.LIST SKIP="={Round(O#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="N"/>
+      <!--
+      ISDEEMEDPOSITIVE        N greater than 0      N less than 0
+      Receipt             Dr              Cr
+      Not(Receipt)          Cr              Dr
+      -->
+      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(B#[1]=&quot;receipt&quot;,{Round(O#,2)}&lt;0),And(Not(B#[1]=&quot;receipt&quot;),{Round(O#,2)}&gt;0)),&quot;No&quot;,&quot;Yes&quot;)"/>
+      <AMOUNT FORMULA="={Round(O#,2)}*if(B#[1]=&quot;receipt&quot;,-1,1)"/>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- Ledger2 -->
+    <ALLLEDGERENTRIES.LIST SKIP="={Round(Q#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="P"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(B#[1]=&quot;receipt&quot;,{Round(Q#,2)}&lt;0),And(Not(B#[1]=&quot;receipt&quot;),{Round(Q#,2)}&gt;0)),&quot;No&quot;,&quot;Yes&quot;)"/>
+      <AMOUNT FORMULA="={Round(Q#,2)}*if(B#[1]=&quot;receipt&quot;,-1,1)"/>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- Ledger3  -->
+    <ALLLEDGERENTRIES.LIST SKIP="={Round(S#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="R"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(B#[1]=&quot;receipt&quot;,{Round(S#,2)}&lt;0),And(Not(B#[1]=&quot;receipt&quot;),{Round(S#,2)}&gt;0)),&quot;No&quot;,&quot;Yes&quot;)"/>
+      <AMOUNT FORMULA="={Round(S#,2)}*if(B#[1]=&quot;receipt&quot;,-1,1)"/>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- Ledger4 -->
+    <ALLLEDGERENTRIES.LIST SKIP="={Round(U#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="T"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(B#[1]=&quot;receipt&quot;,{Round(U#,2)}&lt;0),And(Not(B#[1]=&quot;receipt&quot;),{Round(U#,2)}&gt;0)),&quot;No&quot;,&quot;Yes&quot;)"/>
+      <AMOUNT FORMULA="={Round(U#,2)}*if(B#[1]=&quot;receipt&quot;,-1,1)"/>
+    </ALLLEDGERENTRIES.LIST>
+    <!-- Ledger5 -->
+    <ALLLEDGERENTRIES.LIST SKIP="={Round(W#,2)}=0">
+      <LEDGERNAME COLUMNREFERENCE="V"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(B#[1]=&quot;receipt&quot;,{Round(W#,2)}&lt;0),And(Not(B#[1]=&quot;receipt&quot;),{Round(W#,2)}&gt;0)),&quot;No&quot;,&quot;Yes&quot;)"/>
+      <AMOUNT FORMULA="={Round(W#,2)}*if(B#[1]=&quot;receipt&quot;,-1,1)"/>
+    </ALLLEDGERENTRIES.LIST>
+  </VOUCHER11>
+</XMLTAGS>
+
