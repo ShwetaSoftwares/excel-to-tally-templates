@@ -57,32 +57,11 @@
     </NAME.LIST>
     <PARENT FORMULA="=if(len(trim(K#))=0,&quot;New Ledgers&quot;,K#)"/>
     <ISCOSTCENTRESON FORMULA="=If(Len(trim(N#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
-    <STATENAME FORMULA="=proper(trim(AN#))"/>
-    <LEDSTATENAME FORMULA="=proper(trim(AN#))"/>
-    <COUNTRYNAME FORMULA="=if(len(trim(AO#))=0,&quot;India&quot;,AO#)"/>
-    <!-- GST fields for PARTY LEDGER -->
-    <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(AP#))&gt;0,AP#,if(len(trim(AQ#))&gt;0,&quot;Regular&quot;,&quot;Unregistered&quot;))"/>
-    <!-- GSTIN / UIN -->
-    <PARTYGSTIN FORMULA="=trim(AQ#)"/>
-    <!-- Tally Prime 3.0 -->
-    <LEDGSTREGDETAILS.LIST>
-      <APPLICABLEFROM>20170401</APPLICABLEFROM>
-      <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(AP#))&gt;0,AP#,if(len(trim(AQ#))&gt;0,&quot;Regular&quot;,&quot;Unregistered/Consumer&quot;))"/>
-      <STATE FORMULA="=proper(trim(AN#))"/>
-      <GSTIN FORMULA="=trim(AQ#)"/>
-    </LEDGSTREGDETAILS.LIST>
-    <!-- Tally Prime 3.0 -->
-    <LEDMAILINGDETAILS.LIST>
-      <APPLICABLEFROM>20170401</APPLICABLEFROM>
-      <MAILINGNAME COLUMNREFERENCE="H"/>
-      <STATE FORMULA="=proper(trim(AN#))"/>
-      <COUNTRY FORMULA="=if(len(trim(AO#))=0,&quot;India&quot;,AO#)"/>
-    </LEDMAILINGDETAILS.LIST>
     <ISBILLWISEON FORMULA="=If(Len(trim(R#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
     <GSTAPPLICABLE SKIP="=len(trim(L#))=0" FORMULA="=&quot;~[~ Applicable&quot;"/>
     <GSTTYPEOFSUPPLY SKIP="=len(trim(L#))=0">Services</GSTTYPEOFSUPPLY>
   </MASTER>
-  <VOUCHER12>
+  <VOUCHER11>
     <COMPANYNAME FORMULA="=AG#[1]"/>
     <GUID FORMULA="=&quot;udi-BF39WD-&quot; &amp; A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; C#"/>
     <DATE COLUMNREFERENCE="E"/>
@@ -94,34 +73,6 @@
     <NARRATION COLUMNREFERENCE="AE"/>
     <PERSISTEDVIEW>Accounting Voucher View</PERSISTEDVIEW>
     <ISINVOICE>No</ISINVOICE>
-    <!--NG-->
-    <!-- Supplier details for Purchase  -->
-    <PARTYNAME FORMULA="=if(len(trim(AJ#))&gt;0,AJ#,H#)"/>
-    <ADDRESS.LIST SKIP="=And(len(trim(AK#))=0,len(trim(AL#))=0,len(trim(AM#))=0)">
-      <ADDRESS COLUMNREFERENCE="AK"/>
-      <ADDRESS COLUMNREFERENCE="AL"/>
-      <ADDRESS COLUMNREFERENCE="AM"/>
-    </ADDRESS.LIST>
-    <!-- Buyer details for Sales -->
-    <BASICBUYERNAME FORMULA="=if(len(trim(AJ#))&gt;0,AJ#,H#)"/>
-    <BASICBUYERADDRESS.LIST SKIP="=And(len(trim(AK#))=0,len(trim(AL#))=0,len(trim(AM#))=0)">
-      <BASICBUYERADDRESS COLUMNREFERENCE="AK"/>
-      <BASICBUYERADDRESS COLUMNREFERENCE="AL"/>
-      <BASICBUYERADDRESS COLUMNREFERENCE="AM"/>
-    </BASICBUYERADDRESS.LIST>
-    <!-- GSTIN / UIN -->
-    <PARTYGSTIN COLUMNREFERENCE="AQ"/>
-    <!-- STATENAME-->
-    <STATENAME FORMULA="=proper(trim(AN#))"/>
-    <COUNTRYOFRESIDENCE FORMULA="=if(len(trim(AO#))&gt;0,AO#,&quot;India&quot;)"/>
-    <PLACEOFSUPPLY FORMULA="=proper(trim(if(len(trim(AR#))&gt;0,AR#,AN#)))"/>
-    <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(AP#))&gt;0,if(len(trim(AQ#))&gt;0,&quot;Regular&quot;,&quot;Unregistered&quot;))"/>
-    <!-- Other GST details -->
-    <GSTNATUREOFRETURN SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(AS#))=0,&quot;01-Sales Return&quot;,AS#)"/>
-    <VATPARTYTRANSRETURNNUMBER SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(AT#))=0,F#,AT#)"/>
-    <VATPARTYTRANSRETURNDATE SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(AU#))=0,G#,AU#)"/>
-    <URDORIGINALSALEVALUE SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(AV#))=0,&quot;Lesser than or equal to 2.5 lakhs&quot;,AV#)"/>
-
     <ALLLEDGERENTRIES.LIST SCROLL="YES" SKIP="=Or(Len(trim(H#))=0,Round(I#+J#,2)=0)">
       <NARRATION COLUMNREFERENCE="AF"/>
       <LEDGERNAME COLUMNREFERENCE="H"/>
@@ -169,5 +120,6 @@
         <NAME FORMULA="=+&quot;udi-BF39WD-&quot; &amp; A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; H# &amp; &quot;-&quot; &amp; #"/>
       </BANKALLOCATIONS.LIST>
     </ALLLEDGERENTRIES.LIST>
-  </VOUCHER12>
+  </VOUCHER11>
 </XMLTAGS>
+
