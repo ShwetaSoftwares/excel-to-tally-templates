@@ -193,7 +193,7 @@
         <NAME FORMULA="=+A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; C#"/>
       </BANKALLOCATIONS.LIST>
       <CATEGORYALLOCATIONS.LIST SKIP="=Len(trim(K#))=0">
-        <CATEGORY FORMULA="=if(len(trim(J#))=0,&quot;Primary Cost Category&quot;,K#)"/>
+        <CATEGORY FORMULA="=if(len(trim(J#))=0,&quot;Primary Cost Category&quot;,J#)"/>
         <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
         <AMOUNT FORMULA="=Round(P#,2)*-1"/>
         <COSTCENTREALLOCATIONS.LIST>
