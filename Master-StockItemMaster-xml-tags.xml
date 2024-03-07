@@ -330,7 +330,7 @@
     <!-- Empty GSTDETAILS tag not required as it will overwrite existing data, if any  -->
     <GSTDETAILS.LIST SKIP="=And(len(trim(AU#))=0,len(trim(AV#))=0,len(trim(BL#))=0,len(trim(BA#))=0,len(trim(BD#))=0,len(trim(BM#))=0)" APPEND="=trim(GO#)">
       <!-- Tally Prime 3.0 -->
-      <SRCOFGSTDETAILS>Specify Details Here</SRCOFGSTDETAILS>
+      <SRCOFGSTDETAILS FORMULA="=If(trim(AX#)=&quot;On Item Rate&quot;,&quot;Specify Slab-Based Rates&quot;,&quot;Specify Details Here&quot;)"/>
 
       <APPLICABLEFROM FORMULA="=if(len(trim(AT#))=0,&quot;20170701&quot;,AT#)"/>
       <CALCULATIONTYPE FORMULA="=if(len(trim(AX#))=0,&quot;On Value&quot;,AX#)"/>
