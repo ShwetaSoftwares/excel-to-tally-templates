@@ -1435,8 +1435,8 @@
     <!-- TCS us 206C -->
     <LEDGERENTRIES.LIST GROUPBY="=trim(GB#)" SKIP="=Not(trim(FU#[1])=&quot;yes&quot;)">
       <LEDGERNAME COLUMNREFERENCE="GB"/>
-      <ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
-      <AMOUNT FORMULA="=Round({Round(GA#,2)},2)"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="=Round({Round(GA#,2)},2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
       <TAXOBJECTALLOCATIONS.LIST NOSKIP="Yes">
         <CATEGORY COLUMNREFERENCE="FX"/>
         <TAXTYPE>TCS</TAXTYPE>
@@ -1460,8 +1460,8 @@
           <SUBCATEXEMPTED>No</SUBCATEXEMPTED>
           <SUBCATISSPECIALRATE>No</SUBCATISSPECIALRATE>
           <TAXRATE COLUMNREFERENCE="FZ"/>
-          <ASSESSABLEAMOUNT FORMULA="={Round(FY#,2)}"/>
-          <TAX FORMULA="=Round({Round(GA#,2)},2)"/>
+          <ASSESSABLEAMOUNT FORMULA="={Round(FY#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+          <TAX FORMULA="=Round({Round(GA#,2)},2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
         </SUBCATEGORYALLOCATION.LIST>
         <SUBCATEGORYALLOCATION.LIST>
           <SUBCATEGORY>Surcharge</SUBCATEGORY>
@@ -1469,7 +1469,7 @@
           <SUBCATZERORATED>No</SUBCATZERORATED>
           <SUBCATEXEMPTED>No</SUBCATEXEMPTED>
           <SUBCATISSPECIALRATE>No</SUBCATISSPECIALRATE>
-          <ASSESSABLEAMOUNT FORMULA="=Round({Round(GA#,2)},2)"/>
+          <ASSESSABLEAMOUNT FORMULA="=Round({Round(GA#,2)},2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
         </SUBCATEGORYALLOCATION.LIST>
         <SUBCATEGORYALLOCATION.LIST>
           <SUBCATEGORY>Education Cess</SUBCATEGORY>
@@ -1477,7 +1477,7 @@
           <SUBCATZERORATED>No</SUBCATZERORATED>
           <SUBCATEXEMPTED>No</SUBCATEXEMPTED>
           <SUBCATISSPECIALRATE>No</SUBCATISSPECIALRATE>
-          <ASSESSABLEAMOUNT FORMULA="=Round({Round(GA#,2)},2)"/>
+          <ASSESSABLEAMOUNT FORMULA="=Round({Round(GA#,2)},2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
         </SUBCATEGORYALLOCATION.LIST>
         <SUBCATEGORYALLOCATION.LIST>
           <SUBCATEGORY>Secondary Education Cess</SUBCATEGORY>
@@ -1485,7 +1485,7 @@
           <SUBCATZERORATED>No</SUBCATZERORATED>
           <SUBCATEXEMPTED>No</SUBCATEXEMPTED>
           <SUBCATISSPECIALRATE>No</SUBCATISSPECIALRATE>
-          <ASSESSABLEAMOUNT FORMULA="=Round({Round(GA#,2)},2)"/>
+          <ASSESSABLEAMOUNT FORMULA="=Round({Round(GA#,2)},2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
         </SUBCATEGORYALLOCATION.LIST>
       </TAXOBJECTALLOCATIONS.LIST>
     </LEDGERENTRIES.LIST>
