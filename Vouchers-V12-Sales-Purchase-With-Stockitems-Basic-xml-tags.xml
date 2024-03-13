@@ -314,7 +314,7 @@
       <AMOUNT CURRENCY="=AN#" ROE="=AO#" CONVERSIONFACTOR="=AQ#" FORMULA="={Round(X#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
       <!-- Tally Prime 3.0 -->
       <APPROPRIATEFOR>GST</APPROPRIATEFOR>
-      <GSTAPPROPRIATETO>Goods</GSTAPPROPRIATETO>
+      <GSTAPPROPRIATETO>Goods and Services</GSTAPPROPRIATETO>
       <EXCISEALLOCTYPE>Based on Value</EXCISEALLOCTYPE>
     </LEDGERENTRIES.LIST>
     <!-- IGST Ledger -->

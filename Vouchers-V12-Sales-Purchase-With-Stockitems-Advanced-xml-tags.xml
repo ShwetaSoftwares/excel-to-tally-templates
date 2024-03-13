@@ -1166,7 +1166,7 @@
       <AMOUNT CURRENCY="=HU#" ROE="=HV#" CONVERSIONFACTOR="=HX#" FORMULA="={Round(BM#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),1,-1)"/>
       <!-- Tally Prime 3.0 -->
       <APPROPRIATEFOR>GST</APPROPRIATEFOR>
-      <GSTAPPROPRIATETO>Goods</GSTAPPROPRIATETO>
+      <GSTAPPROPRIATETO>Goods and Services</GSTAPPROPRIATETO>
       <EXCISEALLOCTYPE>Based on Value</EXCISEALLOCTYPE>
     </LEDGERENTRIES.LIST>
     <!-- Ledger1 before taxes -->
