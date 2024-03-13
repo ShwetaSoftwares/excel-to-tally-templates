@@ -883,7 +883,7 @@
     <CMPGSTSTATE COLUMNREFERENCE="IA"/>
     <CMPGSTIN COLUMNREFERENCE="IC"/>
     <CMPGSTREGISTRATIONTYPE COLUMNREFERENCE="ID"/>
-    <PARTYADDRESSTYPE FORMULA="=proper(trim(R#))"/>
+    <PARTYADDRESSTYPE ISEMPTY="Yes" FORMULA="=proper(trim(R#))"/>
     <COMPANYNAME FORMULA="=HZ#[1]"/>
     <GUID FORMULA="=+&quot;udi-H6W7QN-&quot; &amp; A# &amp; &quot;-&quot; &amp; C# &amp; &quot;-&quot; &amp; E#"/>
     <DATE COLUMNREFERENCE="E"/>
@@ -910,7 +910,7 @@
     <DISPATCHFROMPLACE COLUMNREFERENCE="GK"/>
     <DISPATCHFROMPINCODE COLUMNREFERENCE="GL"/>
 
-    <NARRATION COLUMNREFERENCE="HN"/>
+    <NARRATION ISEMPTY="Yes" COLUMNREFERENCE="HN"/>
     <!-- Additional details : Export Taxable -->
     <SHIPPINGBILLNO SKIP="=Not(trim(B#)=&quot;Sales&quot;)" COLUMNREFERENCE="HI"/>
     <SHIPPINGBILLDATE SKIP="=Not(trim(B#)=&quot;Sales&quot;)" COLUMNREFERENCE="HJ"/>

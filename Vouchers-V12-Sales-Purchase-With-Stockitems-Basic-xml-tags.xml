@@ -249,7 +249,7 @@
     <VOUCHERTYPENAME COLUMNREFERENCE="C"/>
     <VOUCHERNUMBER COLUMNREFERENCE="D"/>
     <REFERENCE COLUMNREFERENCE="F"/>
-    <NARRATION COLUMNREFERENCE="AJ"/>
+    <NARRATION ISEMPTY="YES" COLUMNREFERENCE="AJ"/>
     <ISINVOICE FORMULA="=if(And(len(trim(N#))=0,len(trim(O#))=0),&quot;No&quot;,&quot;Yes&quot;)"/>
     <PERSISTEDVIEW FORMULA="=if(And(len(trim(N#))=0,len(trim(O#))=0),&quot;Accounting Voucher View&quot;,&quot;Invoice Voucher View&quot;)"/>
     <ISINVOICE COLUMNREFERENCE="AM"/>
