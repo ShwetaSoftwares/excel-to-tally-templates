@@ -1116,7 +1116,7 @@
       <GSTOVRDNNATURE SKIP="=Or(trim(HR#)=&quot;yes&quot;,len(trim(FE#))=0)" COLUMNREFERENCE="FE"/>
       <GSTOVRDNINELIGIBLEITC SKIP="=Or(trim(HR#)=&quot;yes&quot;,len(trim(FE#))=0)" FORMULA="=if(trim(FN#)=&quot;Yes&quot;,&quot;~[~ Applicable&quot;,&quot;~[~ Not Applicable&quot;)"/>
       <GSTOVRDNISREVCHARGEAPPL SKIP="=Or(trim(HR#)=&quot;yes&quot;,len(trim(FE#))=0)" FORMULA="=if(trim(FO#)=&quot;Yes&quot;,&quot;~[~ Applicable&quot;,&quot;~[~ Not Applicable&quot;)"/>
-      <GSTOVRDNASSESSABLEVALUE SKIP="=Or(trim(HR#)=&quot;yes&quot;,len(trim(FE#))=0,Round(FL#,2)=0)" FORMULA="=Round(FL#,2)*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
+      <GSTOVRDNASSESSABLEVALUE SKIP="=Or(trim(HR#)=&quot;yes&quot;,len(trim(FE#))=0,{Round(FL#,2)}=0)" FORMULA="={Round(FL#,2)}*if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),-1,1)"/>
       <!-- Tally Prime 3.0 -->
       <GSTHSNNAME SKIP="=Or(trim(HR#)=&quot;yes&quot;,len(trim(FE#))=0)" COLUMNREFERENCE="FM"/>
       <GSTHSNINFERAPPLICABILITY SKIP="=Or(trim(HR#)=&quot;yes&quot;,len(trim(FE#))=0,len(trim(FM#))=0)">Specify Details Here</GSTHSNINFERAPPLICABILITY>
