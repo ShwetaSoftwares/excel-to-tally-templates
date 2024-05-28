@@ -1,106 +1,106 @@
 <!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
 <XMLTAGS CELLREFERENCE="A1" FROMROW="3" xmlns:UDF="TallyUDF">
-	<!-- Specifies that this (i.e Column as mentioned above) is the key field -->
-	<COLUMNNAME.LIST>
-		<COLUMNNAME>ID</COLUMNNAME>
-		<COLUMNNAME>NAME</COLUMNNAME>
-	</COLUMNNAME.LIST>
+  <!-- Specifies that this (i.e Column as mentioned above) is the key field -->
+  <COLUMNNAME.LIST>
+    <COLUMNNAME>ID</COLUMNNAME>
+    <COLUMNNAME>NAME</COLUMNNAME>
+  </COLUMNNAME.LIST>
 
-	<!-- Create Parent STOCKGROUP -->
-	<MASTER TYPE="STOCKGROUP">
-		<NAME.LIST>
-			<NAME COLUMNREFERENCE="C"/>
-		</NAME.LIST>
-		<ISADDABLE>Yes</ISADDABLE>
-	</MASTER>
+  <!-- Create Parent STOCKGROUP -->
+  <MASTER TYPE="STOCKGROUP">
+    <NAME.LIST>
+      <NAME COLUMNREFERENCE="C"/>
+    </NAME.LIST>
+    <ISADDABLE>Yes</ISADDABLE>
+  </MASTER>
 
-	<!-- Create STOCKGROUP Masters -->
-	<MASTER TYPE="STOCKGROUP">
-		<!-- 
+  <!-- Create STOCKGROUP Masters -->
+  <MASTER TYPE="STOCKGROUP">
+    <!-- 
 			When ALIAS is specified, NAME.LIST is used 
 			Else NAME.LIST is skipped
 		-->
-		<NAME.LIST SKIP="=len(trim(D#))=0">
-			<NAME COLUMNREFERENCE="B"/>
-			<NAME COLUMNREFERENCE="D"/>
-		</NAME.LIST>
-		<!-- 
+    <NAME.LIST SKIP="=len(trim(D#))=0">
+      <NAME COLUMNREFERENCE="B"/>
+      <NAME COLUMNREFERENCE="D"/>
+    </NAME.LIST>
+    <!-- 
 			When ALIAS is NOT specified, NAME is used
 			Else NAME is skipped 
 		-->
-		<NAME SKIP="=Not(len(trim(D#))=0)" COLUMNREFERENCE="B"/>
+    <NAME SKIP="=Not(len(trim(D#))=0)" COLUMNREFERENCE="B"/>
 
-		<PARENT COLUMNREFERENCE="C"/>
-		<ISADDABLE>Yes</ISADDABLE>
+    <PARENT COLUMNREFERENCE="C"/>
+    <ISADDABLE>Yes</ISADDABLE>
 
-		<!-- GST details -->
-		<GSTAPPLICABLE SKIP="=And(len(trim(E#))=0,len(trim(F#))=0,len(trim(G#))=0,len(trim(H#))=0,len(trim(U#))=0,len(trim(M#))=0,len(trim(P#))=0,len(trim(Q#))=0)" FORMULA="=if(len(trim(E#))=0,&quot;~[~ Applicable&quot;,&quot;~[~ &quot; &amp; E#)"/>
+    <!-- GST details -->
+    <GSTAPPLICABLE SKIP="=And(len(trim(E#))=0,len(trim(F#))=0,len(trim(G#))=0,len(trim(H#))=0,len(trim(U#))=0,len(trim(M#))=0,len(trim(P#))=0,len(trim(Q#))=0)" FORMULA="=if(len(trim(E#))=0,&quot;~[~ Applicable&quot;,&quot;~[~ &quot; &amp; E#)"/>
 
-		<!-- Type of supply -->
-		<GSTTYPEOFSUPPLY FORMULA="=if(len(trim(U#))=0,&quot;Goods&quot;,U#)"/>
-		<!-- Empty GSTDETAILS tag not required as it will overwrite existing data, if any  -->
-		<GSTDETAILS.LIST SKIP="=And(len(trim(G#))=0,len(trim(H#))=0,len(trim(M#))=0,len(trim(P#))=0,len(trim(U#))=0,len(trim(V#))=0)" APPEND="=trim(W#)">
-			<APPLICABLEFROM FORMULA="=if(len(trim(F#))=0,&quot;20170701&quot;,F#)"/>
-			<CALCULATIONTYPE SKIP="=Not(len(trim(V#))=0)" FORMULA="=if(len(trim(J#))=0,&quot;On Value&quot;,J#)"/>
-			<HSNCODE COLUMNREFERENCE="G"/>
-			<HSN COLUMNREFERENCE="H"/>
-			<HSNMASTERNAME COLUMNREFERENCE="V"/>
-			<TAXABILITY SKIP="=trim(J#[1])=&quot;On Item Rate&quot;" FORMULA="=if(len(trim(M#))=0,&quot;Taxable&quot;,M#)"/>
-			<ISREVERSECHARGEAPPLICABLE COLUMNREFERENCE="N"/>
-			<ISNONGSTGOODS COLUMNREFERENCE="I"/>
-			<GSTINELIGIBLEITC COLUMNREFERENCE="O"/>
-			<STATEWISEDETAILS.LIST SKIP="=Not(len(trim(V#))=0)">
-				<STATENAME>~[~ Any</STATENAME>
-				<RATEDETAILS.LIST>
-					<GSTRATEDUTYHEAD>Central Tax</GSTRATEDUTYHEAD>
-					<GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-					<GSTRATE FORMULA="=Round(Q#,2)"/>
-				</RATEDETAILS.LIST>
-				<RATEDETAILS.LIST>
-					<GSTRATEDUTYHEAD FORMULA="=if(Round(S#,2)&gt;0,&quot;UT Tax&quot;,&quot;State Tax&quot;)"/>
-					<GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-					<GSTRATE FORMULA="=if(Round(S#,2)&gt;0,Round(S#,2),Round(R#,2))"/>
-				</RATEDETAILS.LIST>
-				<RATEDETAILS.LIST>
-					<GSTRATEDUTYHEAD>Integrated Tax</GSTRATEDUTYHEAD>
-					<GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-					<GSTRATE FORMULA="=Round(P#,2)"/>
-				</RATEDETAILS.LIST>
-				<RATEDETAILS.LIST>
-					<GSTRATEDUTYHEAD>Cess</GSTRATEDUTYHEAD>
-					<GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-					<GSTRATE FORMULA="=Round(T#,2)"/>
-				</RATEDETAILS.LIST>
-				<!-- When CALCULATION-TYPE is set as : On Item Rate -->
-				<GSTSLABRATES.LIST SKIP="=Or(len(trim(J#[1]))=0,Not(trim(J#[1])=&quot;On Item Rate&quot;))" SCROLL="YES">
-					<TAXABILITY COLUMNREFERENCE="M"/>
-					<TOITEMRATE FORMULA="=Round(L#,2)"/>
-					<RATEDETAILS.LIST>
-						<GSTRATEDUTYHEAD>Central Tax</GSTRATEDUTYHEAD>
-						<GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-						<GSTRATE FORMULA="=Round(Q#,2)"/>
-					</RATEDETAILS.LIST>
-					<RATEDETAILS.LIST>
-						<!-- <GSTRATEDUTYHEAD>State Tax</GSTRATEDUTYHEAD> -->
-						<GSTRATEDUTYHEAD FORMULA="=if(Round(S#,2)&gt;0,&quot;UT Tax&quot;,&quot;State Tax&quot;)"/>
-						<GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-						<GSTRATE FORMULA="=if(Round(S#,2)&gt;0,Round(S#,2),Round(R#,2))"/>
-					</RATEDETAILS.LIST>
-					<RATEDETAILS.LIST>
-						<GSTRATEDUTYHEAD>Integrated Tax</GSTRATEDUTYHEAD>
-						<GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-						<GSTRATE FORMULA="=Round(P#,2)"/>
-					</RATEDETAILS.LIST>
-					<RATEDETAILS.LIST>
-						<GSTRATEDUTYHEAD>Cess</GSTRATEDUTYHEAD>
-						<GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-						<GSTRATE FORMULA="=Round(T#,2)"/>
-					</RATEDETAILS.LIST>
-				</GSTSLABRATES.LIST>
-			</STATEWISEDETAILS.LIST>
-			<TEMPGSTDETAILSLABRATES.LIST>
-			</TEMPGSTDETAILSLABRATES.LIST>
-		</GSTDETAILS.LIST>
+    <!-- Type of supply -->
+    <GSTTYPEOFSUPPLY FORMULA="=if(len(trim(U#))=0,&quot;Goods&quot;,U#)"/>
+    <!-- Empty GSTDETAILS tag not required as it will overwrite existing data, if any  -->
+    <GSTDETAILS.LIST SKIP="=And(len(trim(G#))=0,len(trim(H#))=0,len(trim(M#))=0,len(trim(P#))=0,len(trim(U#))=0,len(trim(V#))=0)" APPEND="=trim(W#)">
+      <APPLICABLEFROM FORMULA="=if(len(trim(F#))=0,&quot;20170701&quot;,F#)"/>
+      <CALCULATIONTYPE SKIP="=Not(len(trim(V#))=0)" FORMULA="=if(len(trim(J#))=0,&quot;On Value&quot;,J#)"/>
+      <HSNCODE COLUMNREFERENCE="G"/>
+      <HSN COLUMNREFERENCE="H"/>
+      <HSNMASTERNAME COLUMNREFERENCE="V"/>
+      <TAXABILITY SKIP="=trim(J#[1])=&quot;On Item Rate&quot;" FORMULA="=if(len(trim(M#))=0,&quot;Taxable&quot;,M#)"/>
+      <ISREVERSECHARGEAPPLICABLE COLUMNREFERENCE="N"/>
+      <ISNONGSTGOODS COLUMNREFERENCE="I"/>
+      <GSTINELIGIBLEITC COLUMNREFERENCE="O"/>
+      <STATEWISEDETAILS.LIST SKIP="=Not(len(trim(V#))=0)">
+        <STATENAME>~[~ Any</STATENAME>
+        <RATEDETAILS.LIST>
+          <GSTRATEDUTYHEAD>Central Tax</GSTRATEDUTYHEAD>
+          <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
+          <GSTRATE FORMULA="=Round(Q#,2)"/>
+        </RATEDETAILS.LIST>
+        <RATEDETAILS.LIST>
+          <GSTRATEDUTYHEAD FORMULA="=if(Round(S#,2)&gt;0,&quot;UT Tax&quot;,&quot;State Tax&quot;)"/>
+          <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
+          <GSTRATE FORMULA="=if(Round(S#,2)&gt;0,Round(S#,2),Round(R#,2))"/>
+        </RATEDETAILS.LIST>
+        <RATEDETAILS.LIST>
+          <GSTRATEDUTYHEAD>Integrated Tax</GSTRATEDUTYHEAD>
+          <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
+          <GSTRATE FORMULA="=Round(P#,2)"/>
+        </RATEDETAILS.LIST>
+        <RATEDETAILS.LIST>
+          <GSTRATEDUTYHEAD>Cess</GSTRATEDUTYHEAD>
+          <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
+          <GSTRATE FORMULA="=Round(T#,2)"/>
+        </RATEDETAILS.LIST>
+        <!-- When CALCULATION-TYPE is set as : On Item Rate -->
+        <GSTSLABRATES.LIST SKIP="=Or(len(trim(J#[1]))=0,Not(trim(J#[1])=&quot;On Item Rate&quot;))" SCROLL="YES">
+          <TAXABILITY COLUMNREFERENCE="M"/>
+          <TOITEMRATE FORMULA="=Round(L#,2)"/>
+          <RATEDETAILS.LIST>
+            <GSTRATEDUTYHEAD>Central Tax</GSTRATEDUTYHEAD>
+            <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
+            <GSTRATE FORMULA="=Round(Q#,2)"/>
+          </RATEDETAILS.LIST>
+          <RATEDETAILS.LIST>
+            <!-- <GSTRATEDUTYHEAD>State Tax</GSTRATEDUTYHEAD> -->
+            <GSTRATEDUTYHEAD FORMULA="=if(Round(S#,2)&gt;0,&quot;UT Tax&quot;,&quot;State Tax&quot;)"/>
+            <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
+            <GSTRATE FORMULA="=if(Round(S#,2)&gt;0,Round(S#,2),Round(R#,2))"/>
+          </RATEDETAILS.LIST>
+          <RATEDETAILS.LIST>
+            <GSTRATEDUTYHEAD>Integrated Tax</GSTRATEDUTYHEAD>
+            <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
+            <GSTRATE FORMULA="=Round(P#,2)"/>
+          </RATEDETAILS.LIST>
+          <RATEDETAILS.LIST>
+            <GSTRATEDUTYHEAD>Cess</GSTRATEDUTYHEAD>
+            <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
+            <GSTRATE FORMULA="=Round(T#,2)"/>
+          </RATEDETAILS.LIST>
+        </GSTSLABRATES.LIST>
+      </STATEWISEDETAILS.LIST>
+      <TEMPGSTDETAILSLABRATES.LIST>
+      </TEMPGSTDETAILSLABRATES.LIST>
+    </GSTDETAILS.LIST>
 
-	</MASTER>
+  </MASTER>
 </XMLTAGS>
