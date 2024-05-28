@@ -40,6 +40,8 @@
     <GSTTYPEOFSUPPLY FORMULA="=if(len(trim(U#))=0,&quot;Goods&quot;,U#)"/>
     <!-- Empty GSTDETAILS tag not required as it will overwrite existing data, if any  -->
     <GSTDETAILS.LIST SKIP="=And(len(trim(G#))=0,len(trim(H#))=0,len(trim(M#))=0,len(trim(P#))=0,len(trim(U#))=0,len(trim(V#))=0)" APPEND="=trim(W#)">
+      <!-- Tally Prime 3.0 -->
+      <SRCOFGSTDETAILS>Specify Details Here</SRCOFGSTDETAILS>
       <APPLICABLEFROM FORMULA="=if(len(trim(F#))=0,&quot;20170701&quot;,F#)"/>
       <CALCULATIONTYPE SKIP="=Not(len(trim(V#))=0)" FORMULA="=if(len(trim(J#))=0,&quot;On Value&quot;,J#)"/>
       <HSNCODE COLUMNREFERENCE="G"/>
@@ -101,6 +103,13 @@
       <TEMPGSTDETAILSLABRATES.LIST>
       </TEMPGSTDETAILSLABRATES.LIST>
     </GSTDETAILS.LIST>
+    <!-- Tally Prime 3.0 -->
+    <HSNDETAILS.LIST SKIP="=len(trim(G#)=0)">
+      <APPLICABLEFROM>20230401</APPLICABLEFROM>
+      <HSNCODE COLUMNREFERENCE="G"/>
+      <HSN COLUMNREFERENCE="H"/>
+      <SRCOFHSNDETAILS>Specify Details Here</SRCOFHSNDETAILS>
+    </HSNDETAILS.LIST>
 
   </MASTER>
 </XMLTAGS>
