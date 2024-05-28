@@ -8,8 +8,8 @@
 
   <!-- Create GSTCLASSIFICATION Masters -->
   <MASTER TYPE="GSTCLASSIFICATION">
-    <NAME COLUMNREFERENCE="B"/>
-    <ISACTIVE>Yes</ISACTIVE>
+    <NAME  COLUMNREFERENCE="B"/>
+      <ISACTIVE>Yes</ISACTIVE>
 
     <!-- GST details -->
     <!-- <GSTAPPLICABLE SKIP="=And(len(trim(E#))=0,len(trim(F#))=0,len(trim(G#))=0,len(trim(H#))=0,len(trim(U#))=0,len(trim(M#))=0,len(trim(P#))=0,len(trim(Q#))=0)" FORMULA="=if(len(trim(E#))=0,&quot;~[~ Applicable&quot;,&quot;~[~ &quot; &amp; E#)"/> -->
@@ -18,20 +18,8 @@
     <!-- <GSTTYPEOFSUPPLY FORMULA="=if(len(trim(U#))=0,&quot;Goods&quot;,U#)"/> -->
 
     <!-- Empty GSTDETAILS tag not required as it will overwrite existing data, if any  -->
-
-    <!-- Tally Prime 3.0-->
-    <HSNDETAILS.LIST>
-      <SRCOFHSNDETAILS>Specify Details Here</SRCOFHSNDETAILS>
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
-      <HSNCODE COLUMNREFERENCE="G"/>
-    </HSNDETAILS.LIST>
-
     <GSTDETAILS.LIST APPEND="=trim(W#)">
       <APPLICABLEFROM FORMULA="=if(len(trim(F#))=0,&quot;20170701&quot;,F#)"/>
-
-      <!-- Tally Prime 3.0-->
-      <SRCOFGSTDETAILS>Specify Details Here</SRCOFGSTDETAILS>
-
       <!-- <CALCULATIONTYPE SKIP="=Not(len(trim(V#))=0)" FORMULA="=if(len(trim(J#))=0,&quot;On Value&quot;,J#)"/> -->
       <HSNCODE COLUMNREFERENCE="G"/>
       <HSN COLUMNREFERENCE="H"/>
