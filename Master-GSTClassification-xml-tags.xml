@@ -8,8 +8,8 @@
 
   <!-- Create GSTCLASSIFICATION Masters -->
   <MASTER TYPE="GSTCLASSIFICATION">
-    <NAME  COLUMNREFERENCE="B"/>
-      <ISACTIVE>Yes</ISACTIVE>
+    <NAME COLUMNREFERENCE="B"/>
+    <ISACTIVE>Yes</ISACTIVE>
 
     <!-- GST details -->
     <!-- <GSTAPPLICABLE SKIP="=And(len(trim(E#))=0,len(trim(F#))=0,len(trim(G#))=0,len(trim(H#))=0,len(trim(U#))=0,len(trim(M#))=0,len(trim(P#))=0,len(trim(Q#))=0)" FORMULA="=if(len(trim(E#))=0,&quot;~[~ Applicable&quot;,&quot;~[~ &quot; &amp; E#)"/> -->
