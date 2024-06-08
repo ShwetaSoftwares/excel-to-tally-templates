@@ -60,14 +60,12 @@
     <STATENAME FORMULA="=proper(trim(AE#))"/>
     <!--<LEDSTATENAME COLUMNREFERENCE="AE"/>-->
     <PINCODE COLUMNREFERENCE="AF"/>
-
     <!-- Tally Prime 4.1 -->
     <MSMEREGISTRATIONDETAILS.LIST>
-      <FROMDATE COLUMNREFERENCE="CG"/>
-      <ENTERPRISETYPE COLUMNREFERENCE="CH"/>
-      <UDYAMREGNUMBER COLUMNREFERENCE="CI"/>
+      <FROMDATE COLUMNREFERENCE="CI"/>
+      <ENTERPRISETYPE COLUMNREFERENCE="CJ"/>
+      <UDYAMREGNUMBER COLUMNREFERENCE="CK"/>
     </MSMEREGISTRATIONDETAILS.LIST>
-
     <!-- Tally Prime 3.0 -->
     <LEDGSTREGDETAILS.LIST SKIP="=Or(trim(HK#)=&quot;yes&quot;,len(trim(AK#))=0)">
       <APPLICABLEFROM>20230401</APPLICABLEFROM>
@@ -89,7 +87,6 @@
       <COUNTRY COLUMNREFERENCE="AD"/>
       <PINCODE COLUMNREFERENCE="AF"/>
     </LEDMAILINGDETAILS.LIST>
-
     <!-- GST fields for PARTY LEDGER -->
     <GSTREGISTRATIONTYPE COLUMNREFERENCE="AK"/>
     <!-- GSTIN / UIN -->
@@ -154,7 +151,6 @@
       <TEMPGSTDETAILSLABRATES.LIST>
       </TEMPGSTDETAILSLABRATES.LIST>
     </GSTDETAILS.LIST>
-
     <!-- Tally Prime 3.0 -->
     <HSNDETAILS.LIST SKIP="=len(trim(AU#))=0">
       <APPLICABLEFROM>20230401</APPLICABLEFROM>
@@ -164,7 +160,6 @@
       <HSN COLUMNREFERENCE="AU"/>
       <SRCOFHSNDETAILS>Specify Details Here</SRCOFHSNDETAILS>
     </HSNDETAILS.LIST>
-
     <!-- GST fields for DUTIES AND TAXES LEDGER -->
     <!-- This tag appears for CGST only -->
     <GSTAPPLICABLE SKIP="=Or(len(trim(BC#))=0,Not(trim(BC#)=&quot;central tax&quot;))">~[~ Applicable</GSTAPPLICABLE>
@@ -202,8 +197,15 @@
     <UDF:CSTREGISTRATIONDATE.LIST DESC="`CSTRegistrationDate`" ISLIST="YES" TYPE="Date" SKIP="=len(trim(BQ#))=0">
       <UDF:CSTREGISTRATIONDATE DESC="`CSTRegistrationDate`" COLUMNREFERENCE="BQ"/>
     </UDF:CSTREGISTRATIONDATE.LIST>
+
+    <!-- TDS Deductee -->
     <ISTDSAPPLICABLE COLUMNREFERENCE="CE"/>
-    <ISSTXPARTY COLUMNREFERENCE="CF"/>
+    <TDSDEDUCTEETYPE SKIP="=Or(len(trim(CE#))=0,trim(CE#)=&quot;No&quot;)" COLUMNREFERENCE="CF"/>
+    <DEDUCTINSAMEVCHRULES.LIST SKIP="=Or(len(trim(CE#))=0,trim(CE#)=&quot;No&quot;)">
+      <NATUREOFPAYMENT FORMULA="=IF(trim(CG#)=&quot;Yes&quot;,&quot;~[~ All Items&quot;,&quot;~[~ End of List&quot;)"/>
+    </DEDUCTINSAMEVCHRULES.LIST>
+
+    <ISSTXPARTY COLUMNREFERENCE="CH"/>
     <PAYMENTDETAILS.LIST SKIP="=And(len(trim(CA#))=0,len(trim(CB#))=0,len(trim(CC#))=0)">
       <IFSCODE COLUMNREFERENCE="CA"/>
       <BANKNAME COLUMNREFERENCE="CC"/>
