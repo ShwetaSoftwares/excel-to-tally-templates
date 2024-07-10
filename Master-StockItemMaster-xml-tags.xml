@@ -346,17 +346,17 @@
         <RATEDETAILS.LIST>
           <GSTRATEDUTYHEAD>Central Tax</GSTRATEDUTYHEAD>
           <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-          <GSTRATE FORMULA="=Round(BE#,2)"/>
+          <GSTRATE FORMULA="=Round(BE#,2)" ALERT="=If(NOT(And(BD#=BE#+BF#, BD#>=0)), &quot;CGST Rate is Incorrect&quot;, &quot;&quot;)" ALERTREFERENCE="BE#"/>
         </RATEDETAILS.LIST>
         <RATEDETAILS.LIST>
           <GSTRATEDUTYHEAD FORMULA="=if(Round(BG#,2)&gt;0,&quot;UT Tax&quot;,&quot;State Tax&quot;)"/>
           <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-          <GSTRATE FORMULA="=if(Round(BG#,2)&gt;0,Round(BG#,2),Round(BF#,2))"/>
+          <GSTRATE FORMULA="=if(Round(BG#,2)&gt;0,Round(BG#,2),Round(BF#,2))" ALERT="=If(NOT(And(BD#=BE#+BF#, BD#>=0)), &quot;SGST/UT Rate is Incorrect&quot;, &quot;&quot;)" ALERTREFERENCE="BF#"/>
         </RATEDETAILS.LIST>
         <RATEDETAILS.LIST>
           <GSTRATEDUTYHEAD>Integrated Tax</GSTRATEDUTYHEAD>
           <GSTRATEVALUATIONTYPE>Based on Value</GSTRATEVALUATIONTYPE>
-          <GSTRATE FORMULA="=Round(BD#,2)"/>
+          <GSTRATE FORMULA="=Round(BD#,2)" ALERT="=If(NOT(And(BD#=BE#+BF#, BD#>=0)), &quot;IGST Rate is Incorrect&quot;, &quot;&quot;)" ALERTREFERENCE="BD#"/>
         </RATEDETAILS.LIST>
         <RATEDETAILS.LIST>
           <GSTRATEDUTYHEAD>Cess</GSTRATEDUTYHEAD>
@@ -507,7 +507,7 @@
       <TAXUNITNAME COLUMNREFERENCE="CK"/>
       <!-- If StockItemType is specified, then the TaxUnitName must also be specified -->
       <STOCKITEMTYPE COLUMNREFERENCE="CL"/>
-      <!-- 
+      <!--
         Ex: 1 Pcs = 32 sq feet / sq meter
         where
         BASEUNIT =  sq feet;
