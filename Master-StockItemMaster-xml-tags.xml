@@ -440,8 +440,8 @@
       </TEMPGSTDETAILSLABRATES.LIST>
     </GSTDETAILS.LIST>
     <!-- Tally Prime 3.0 -->
-    <HSNDETAILS.LIST SKIP="=trim(HK#)=&quot;yes&quot;">
-      <APPLICABLEFROM>20230401</APPLICABLEFROM>
+    <HSNDETAILS.LIST SKIP="=len(trim(AU#))=0" APPEND="=trim(GO#)">
+      <APPLICABLEFROM FORMULA="=if(len(trim(AT#))=0,&quot;20170701&quot;,AT#)"/>
       <HSNCODE COLUMNREFERENCE="AU"/>
       <HSN COLUMNREFERENCE="AV"/>
       <SRCOFHSNDETAILS>Specify Details Here</SRCOFHSNDETAILS>
