@@ -44,7 +44,7 @@
     <GUID FORMULA="=&quot;udi-D3WGF2-&quot; &amp; A# &amp; &quot;-&quot; &amp; Now() &amp; &quot;-&quot; &amp; #"/>
     <DATE COLUMNREFERENCE="A"/>
     <EFFECTIVEDATE COLUMNREFERENCE="A"/>
-    <VOUCHERTYPENAME FORMULA="=if(len(trim(I#))=0,if(E#=&quot;cr&quot;,&quot;Receipt&quot;,&quot;Payment&quot;),I#)"/>
+    <VOUCHERTYPENAME FORMULA="=if(len(trim(I#))=0,if(trim(E#)=&quot;cr&quot;,&quot;Receipt&quot;,&quot;Payment&quot;),I#)"/>
     <VOUCHERNUMBER COLUMNREFERENCE="J"/>
     <ISINVOICE>No</ISINVOICE>
     <NARRATION FORMULA="=B# &amp; &quot; &quot; &amp; C#"/>
@@ -80,4 +80,3 @@
     </ALLLEDGERENTRIES.LIST>
   </VOUCHER11>
 </XMLTAGS>
-
