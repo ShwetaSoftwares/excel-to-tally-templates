@@ -51,8 +51,8 @@
     <!-- Suspense ledger -->
     <ALLLEDGERENTRIES.LIST>
       <LEDGERNAME FORMULA="=if(len(trim(G#))=0,&quot;Suspense A/c&quot;,G#)"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(E#=&quot;Cr&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
-      <AMOUNT CURRENCY="=Q#" ROE="=R#" FORMULA="=Round(substitute(D#,&quot;,&quot;,&quot;&quot;)*1,2)*if(E#=&quot;Cr&quot;,1,-1)"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if(trim(E#)=&quot;Cr&quot;,&quot;No&quot;,&quot;Yes&quot;)"/>
+      <AMOUNT CURRENCY="=Q#" ROE="=R#" FORMULA="=Round(substitute(D#,&quot;,&quot;,&quot;&quot;)*1,2)*if(trim(E#)=&quot;Cr&quot;,1,-1)"/>
     </ALLLEDGERENTRIES.LIST>
     <!-- Bank Ledger 
       BANK DEPOSIT or CR means increase in Bank Balance
@@ -60,8 +60,8 @@
     -->
     <ALLLEDGERENTRIES.LIST>
       <LEDGERNAME FORMULA="=if(len(trim(F#))=0,F$4,F#)"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(E#=&quot;Cr&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT CURRENCY="=Q#" ROE="=R#" FORMULA="=Round(substitute(D#,&quot;,&quot;,&quot;&quot;)*1,2)*if(E#=&quot;Cr&quot;,-1,1)"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if(trim(E#)=&quot;Cr&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT CURRENCY="=Q#" ROE="=R#" FORMULA="=Round(substitute(D#,&quot;,&quot;,&quot;&quot;)*1,2)*if(trim(E#)=&quot;Cr&quot;,-1,1)"/>
       <BANKALLOCATIONS.LIST>
         <DATE COLUMNREFERENCE="A"/>
         <INSTRUMENTNUMBER COLUMNREFERENCE="C"/>
@@ -73,7 +73,7 @@
         <BANKERSDATE COLUMNREFERENCE="O"/>
         <NARRATION COLUMNREFERENCE="P"/>
         <STATUS>No</STATUS>
-        <AMOUNT CURRENCY="=Q#" ROE="=R#" FORMULA="=Round(substitute(D#,&quot;,&quot;,&quot;&quot;)*1,2)*if(E#=&quot;Cr&quot;,-1,1)"/>
+        <AMOUNT CURRENCY="=Q#" ROE="=R#" FORMULA="=Round(substitute(D#,&quot;,&quot;,&quot;&quot;)*1,2)*if(trim(E#)=&quot;Cr&quot;,-1,1)"/>
         <PAYMENTMODE>Transacted</PAYMENTMODE>
         <NAME FORMULA="=&quot;udi-D3WGF2-&quot; &amp; A# &amp; &quot;-&quot; &amp; Now()"/>
       </BANKALLOCATIONS.LIST>
