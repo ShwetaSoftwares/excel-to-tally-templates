@@ -350,7 +350,7 @@ BANKALLOCATION tag - Incorrect column for Instrument No and Date - Now corrected
       <LEDGERNAME COLUMNREFERENCE="Q"/>
       <ISDEEMEDPOSITIVE FORMULA="=if({Round(R#,2)}&gt;=0,&quot;No&quot;,&quot;Yes&quot;)"/>
       <AMOUNT FORMULA="={Round(R#,2)}"/>
-      <BANKALLOCATIONS.LIST>
+      <BANKALLOCATIONS.LIST SKIP="=AND(Len(trim(DF#))=0,Len(trim(DG#))=0,Len(trim(DH#))=0,Len(trim(DI#))=0,Len(trim(DJ#))=0,Len(trim(DK#))=0)">
         <DATE COLUMNREFERENCE="E"/>
         <INSTRUMENTNUMBER COLUMNREFERENCE="DF"/>
         <INSTRUMENTDATE COLUMNREFERENCE="DG"/>
@@ -361,6 +361,8 @@ BANKALLOCATION tag - Incorrect column for Instrument No and Date - Now corrected
         <AMOUNT FORMULA="={Round(R#,2)}"/>
         <PAYMENTMODE>Transacted</PAYMENTMODE>
         <NAME FORMULA="=&quot;udi-HD29F5-&quot; &amp; A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; Q#"/>
+      </BANKALLOCATIONS.LIST>
+      <BANKALLOCATIONS.LIST SKIP="=NOT(AND(Len(trim(DF#))=0,Len(trim(DG#))=0,Len(trim(DH#))=0,Len(trim(DI#))=0,Len(trim(DJ#))=0,Len(trim(DK#))=0))" ISEMPTY="YES">
       </BANKALLOCATIONS.LIST>
     </ALLLEDGERENTRIES.LIST>
     <!-- Ledger1 -->

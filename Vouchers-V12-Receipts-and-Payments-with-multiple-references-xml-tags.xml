@@ -149,7 +149,7 @@ New Features in v6.0
       <ISDEEMEDPOSITIVE FORMULA="=if(B#[1]=&quot;receipt&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(M#,2)}*if(B#[1]=&quot;receipt&quot;,-1,1)"/>
       <!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
-      <BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; L#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(L#),1)),len(trim(AI#))=0,len(trim(AJ#))=0)">
+      <BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; L#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(L#),1)),len(trim(AI#))=0,len(trim(AJ#))=0,len(trim(AK#))=0,len(trim(AL#))=0,len(trim(AM#))=0,len(trim(AN#))=0)">
         <DATE COLUMNREFERENCE="E"/>
         <INSTRUMENTNUMBER COLUMNREFERENCE="AI"/>
         <INSTRUMENTDATE COLUMNREFERENCE="AJ"/>
