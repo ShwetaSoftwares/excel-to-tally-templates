@@ -7,7 +7,7 @@
   </COLUMNNAME.LIST>
   <!-- Create VOUCHERTYPE Masters -->
   <MASTER TYPE="VOUCHERTYPE">
-    <COMPANYNAME FORMULA="=AO#[1]"/>
+    <COMPANYNAME FORMULA="=AG#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="C"/>
     </NAME.LIST>
@@ -18,13 +18,13 @@
   </MASTER>
   <!-- Create CURRENCY Master -->
   <MASTER TYPE="CURRENCY">
-    <ORIGINALNAME COLUMNREFERENCE="AP"/>
-    <MAILINGNAME FORMULA="=AP# &amp; &quot; Curr&quot;"/>
+    <ORIGINALNAME COLUMNREFERENCE="AH"/>
+    <MAILINGNAME FORMULA="=AH# &amp; &quot; Curr&quot;"/>
     <DECIMALPLACES> 2</DECIMALPLACES>
   </MASTER>
   <!-- Create Group Master -->
   <MASTER TYPE="GROUP">
-    <COMPANYNAME FORMULA="=AO#[1]"/>
+    <COMPANYNAME FORMULA="=AG#[1]"/>
     <NAME.LIST>
       <NAME FORMULA="=if(len(trim(K#))=0,&quot;New Ledgers&quot;,K#)"/>
     </NAME.LIST>
@@ -32,7 +32,7 @@
   </MASTER>
   <!-- Cost Category -->
   <MASTER TYPE="COSTCATEGORY">
-    <COMPANYNAME FORMULA="=AO#[1]"/>
+    <COMPANYNAME FORMULA="=AG#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="M"/>
     </NAME.LIST>
@@ -41,7 +41,7 @@
   </MASTER>
   <!-- Cost Centre -->
   <MASTER TYPE="COSTCENTRE">
-    <COMPANYNAME FORMULA="=AO#[1]"/>
+    <COMPANYNAME FORMULA="=AG#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="N"/>
     </NAME.LIST>
@@ -51,39 +51,39 @@
   </MASTER>
   <!-- Create Ledger Masters -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=AO#[1]"/>
+    <COMPANYNAME FORMULA="=AG#[1]"/>
     <NAME.LIST>
       <NAME COLUMNREFERENCE="H"/>
     </NAME.LIST>
     <PARENT FORMULA="=if(len(trim(K#))=0,&quot;New Ledgers&quot;,K#)"/>
     <ISCOSTCENTRESON FORMULA="=If(Len(trim(N#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
-    <STATENAME FORMULA="=proper(trim(AV#))"/>
-    <LEDSTATENAME FORMULA="=proper(trim(AV#))"/>
-    <COUNTRYNAME FORMULA="=if(len(trim(AW#))=0,&quot;India&quot;,AW#)"/>
+    <STATENAME FORMULA="=proper(trim(AN#))"/>
+    <LEDSTATENAME FORMULA="=proper(trim(AN#))"/>
+    <COUNTRYNAME FORMULA="=if(len(trim(AO#))=0,&quot;India&quot;,AO#)"/>
     <!-- GST fields for PARTY LEDGER -->
-    <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(AX#))&gt;0,AX#,if(len(trim(AU#))&gt;0,&quot;Regular&quot;,&quot;Unregistered&quot;))"/>
+    <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(AP#))&gt;0,AP#,if(len(trim(AQ#))&gt;0,&quot;Regular&quot;,&quot;Unregistered&quot;))"/>
     <!-- GSTIN / UIN -->
-    <PARTYGSTIN FORMULA="=trim(AU#)"/>
+    <PARTYGSTIN FORMULA="=trim(AQ#)"/>
     <!-- Tally Prime 3.0 -->
     <LEDGSTREGDETAILS.LIST>
       <APPLICABLEFROM>20170401</APPLICABLEFROM>
-      <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(AX#))&gt;0,AX#,if(len(trim(AU#))&gt;0,&quot;Regular&quot;,&quot;Unregistered/Consumer&quot;))"/>
-      <STATE FORMULA="=proper(trim(AV#))"/>
-      <GSTIN FORMULA="=trim(AU#)"/>
+      <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(AP#))&gt;0,AP#,if(len(trim(AQ#))&gt;0,&quot;Regular&quot;,&quot;Unregistered/Consumer&quot;))"/>
+      <STATE FORMULA="=proper(trim(AN#))"/>
+      <GSTIN FORMULA="=trim(AQ#)"/>
     </LEDGSTREGDETAILS.LIST>
     <!-- Tally Prime 3.0 -->
     <LEDMAILINGDETAILS.LIST>
       <APPLICABLEFROM>20170401</APPLICABLEFROM>
       <MAILINGNAME COLUMNREFERENCE="H"/>
-      <STATE FORMULA="=proper(trim(AV#))"/>
-      <COUNTRY FORMULA="=if(len(trim(AW#))=0,&quot;India&quot;,AW#)"/>
+      <STATE FORMULA="=proper(trim(AN#))"/>
+      <COUNTRY FORMULA="=if(len(trim(AO#))=0,&quot;India&quot;,AO#)"/>
     </LEDMAILINGDETAILS.LIST>
     <ISBILLWISEON FORMULA="=If(Len(trim(R#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
     <GSTAPPLICABLE SKIP="=len(trim(L#))=0" FORMULA="=&quot;~[~ Applicable&quot;"/>
     <GSTTYPEOFSUPPLY SKIP="=len(trim(L#))=0">Services</GSTTYPEOFSUPPLY>
   </MASTER>
   <VOUCHER12>
-    <COMPANYNAME FORMULA="=AO#[1]"/>
+    <COMPANYNAME FORMULA="=AG#[1]"/>
     <GUID FORMULA="=&quot;udi-BF39WD-&quot; &amp; A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; C#"/>
     <DATE COLUMNREFERENCE="E"/>
     <EFFECTIVEDATE COLUMNREFERENCE="E"/>
@@ -91,42 +91,42 @@
     <VOUCHERNUMBER COLUMNREFERENCE="D"/>
     <REFERENCE COLUMNREFERENCE="F"/>
     <REFERENCEDATE COLUMNREFERENCE="G"/>
-    <NARRATION COLUMNREFERENCE="AM"/>
+    <NARRATION COLUMNREFERENCE="AE"/>
     <PERSISTEDVIEW>Accounting Voucher View</PERSISTEDVIEW>
     <ISINVOICE>No</ISINVOICE>
     <!--NG-->
     <!-- Supplier details for Purchase  -->
-    <PARTYNAME FORMULA="=if(len(trim(AR#))&gt;0,AR#,H#)"/>
-    <ADDRESS.LIST SKIP="=And(len(trim(AS#))=0,len(trim(AT#))=0,len(trim(AU#))=0)">
-      <ADDRESS COLUMNREFERENCE="AS"/>
-      <ADDRESS COLUMNREFERENCE="AT"/>
-      <ADDRESS COLUMNREFERENCE="AU"/>
+    <PARTYNAME FORMULA="=if(len(trim(AJ#))&gt;0,AJ#,H#)"/>
+    <ADDRESS.LIST SKIP="=And(len(trim(AK#))=0,len(trim(AL#))=0,len(trim(AM#))=0)">
+      <ADDRESS COLUMNREFERENCE="AK"/>
+      <ADDRESS COLUMNREFERENCE="AL"/>
+      <ADDRESS COLUMNREFERENCE="AM"/>
     </ADDRESS.LIST>
     <!-- Buyer details for Sales -->
-    <BASICBUYERNAME FORMULA="=if(len(trim(AR#))&gt;0,AR#,H#)"/>
-    <BASICBUYERADDRESS.LIST SKIP="=And(len(trim(AS#))=0,len(trim(AT#))=0,len(trim(AU#))=0)">
-      <BASICBUYERADDRESS COLUMNREFERENCE="AS"/>
-      <BASICBUYERADDRESS COLUMNREFERENCE="AT"/>
-      <BASICBUYERADDRESS COLUMNREFERENCE="AU"/>
+    <BASICBUYERNAME FORMULA="=if(len(trim(AJ#))&gt;0,AJ#,H#)"/>
+    <BASICBUYERADDRESS.LIST SKIP="=And(len(trim(AK#))=0,len(trim(AL#))=0,len(trim(AM#))=0)">
+      <BASICBUYERADDRESS COLUMNREFERENCE="AK"/>
+      <BASICBUYERADDRESS COLUMNREFERENCE="AL"/>
+      <BASICBUYERADDRESS COLUMNREFERENCE="AM"/>
     </BASICBUYERADDRESS.LIST>
     <!-- GSTIN / UIN -->
-    <PARTYGSTIN COLUMNREFERENCE="AU"/>
+    <PARTYGSTIN COLUMNREFERENCE="AQ"/>
     <!-- STATENAME-->
-    <STATENAME FORMULA="=proper(trim(AV#))"/>
-    <COUNTRYOFRESIDENCE FORMULA="=if(len(trim(AW#))&gt;0,AW#,&quot;India&quot;)"/>
-    <PLACEOFSUPPLY FORMULA="=proper(trim(if(len(trim(AV#))&gt;0,AV#,AV#)))"/>
-    <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(AX#))&gt;0,if(len(trim(AU#))&gt;0,&quot;Regular&quot;,&quot;Unregistered&quot;))"/>
+    <STATENAME FORMULA="=proper(trim(AN#))"/>
+    <COUNTRYOFRESIDENCE FORMULA="=if(len(trim(AO#))&gt;0,AO#,&quot;India&quot;)"/>
+    <PLACEOFSUPPLY FORMULA="=proper(trim(if(len(trim(AR#))&gt;0,AR#,AN#)))"/>
+    <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(AP#))&gt;0,if(len(trim(AQ#))&gt;0,&quot;Regular&quot;,&quot;Unregistered&quot;))"/>
     <!-- Other GST details -->
-    <GSTNATUREOFRETURN SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(AW#))=0,&quot;01-Sales Return&quot;,AW#)"/>
-    <VATPARTYTRANSRETURNNUMBER SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(AX#))=0,F#,AX#)"/>
-    <VATPARTYTRANSRETURNDATE SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(AY#))=0,G#,AY#)"/>
-    <URDORIGINALSALEVALUE SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(AZ#))=0,&quot;Lesser than or equal to 2.5 lakhs&quot;,AZ#)"/>
+    <GSTNATUREOFRETURN SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(AS#))=0,&quot;01-Sales Return&quot;,AS#)"/>
+    <VATPARTYTRANSRETURNNUMBER SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(AT#))=0,F#,AT#)"/>
+    <VATPARTYTRANSRETURNDATE SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(AU#))=0,G#,AU#)"/>
+    <URDORIGINALSALEVALUE SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(AV#))=0,&quot;Lesser than or equal to 2.5 lakhs&quot;,AV#)"/>
+
     <ALLLEDGERENTRIES.LIST SCROLL="YES" SKIP="=Or(Len(trim(H#))=0,Round(I#+J#,2)=0)">
-      <NARRATION COLUMNREFERENCE="AN"/>
-      <SWIFTCODE COLUMNREFERENCE="AL"/>
+      <NARRATION COLUMNREFERENCE="AF"/>
       <LEDGERNAME COLUMNREFERENCE="H"/>
       <ISDEEMEDPOSITIVE FORMULA="=IF(Round(I#,2)=0,&quot;No&quot;,&quot;Yes&quot;)"/>
-      <AMOUNT CURRENCY="=AP#" ROE="=AQ#" FORMULA="=IF(Round(I#,2)=0,Round(J#,2),Round(I#,2)*-1)"/>
+      <AMOUNT CURRENCY="=AH#" ROE="=AI#" FORMULA="=IF(Round(I#,2)=0,Round(J#,2),Round(I#,2)*-1)"/>
       <GSTOVRDNNATURE COLUMNREFERENCE="L"/>
       <CATEGORYALLOCATIONS.LIST SCROLL="=if(And(A#=Offset(A#,1,0),Round(Offset(I#,1,0)+Offset(J#,1,0),2)=0),1=1,1=2)" SCROLLCOLUMN="=Sum(Column(H#))" SKIP="=Or(len(trim(M#))=0,If(A#=Offset(A#,-1,0),And(len(trim(H#))=0,M#=Offset(M#,-1,0)),1=2))">
         <CATEGORY COLUMNREFERENCE="M"/>
@@ -147,7 +147,7 @@
       <BILLALLOCATIONS.LIST SCROLL="YES" SCROLLCOLUMN="=Sum(Column(H#))" SKIP="=Or(Len(trim(R#))=0,Round(S#+T#,2)=0)">
         <NAME COLUMNREFERENCE="R"/>
         <BILLTYPE COLUMNREFERENCE="Q"/>
-        <AMOUNT CURRENCY="=AP#" ROE="=AQ#" FORMULA="=IF(Round(S#,2)=0,Round(T#,2),Round(S#,2)*-1)"/>
+        <AMOUNT CURRENCY="=AH#" ROE="=AI#" FORMULA="=IF(Round(S#,2)=0,Round(T#,2),Round(S#,2)*-1)"/>
       </BILLALLOCATIONS.LIST>
       <BANKALLOCATIONS.LIST SCROLL="YES" SCROLLCOLUMN="=Sum(Column(H#))" SKIP="=And(len(trim(U#))=0,len(trim(V#))=0,len(trim(Y#))=0,len(trim(Z#))=0,len(trim(AC#))=0,len(trim(AD#))=0)">
         <DATE FORMULA="=E#[1]"/>
@@ -159,19 +159,12 @@
         <BANKPARTYNAME COLUMNREFERENCE="AA"/>
         <TRANSACTIONTYPE FORMULA="=if(len(trim(Y#))=0,&quot;Cheque&quot;,Y#)"/>
         <PAYMENTFAVOURING FORMULA="if(len(trim(Z#))=0,H#,Z#)"/>
-        <IFSCODE COLUMNREFERENCE="AE"/>
-        <BANKNAME COLUMNREFERENCE="AF"/>
-        <BANKBRANCHNAME COLUMNREFERENCE="AG"/>
-        <CHEQUERANGE COLUMNREFERENCE="AH"/>
-        <ACCOUNTNUMBER COLUMNREFERENCE="AI"/>
-        <TRANSFERMODE COLUMNREFERENCE="AJ"/>
-        <BENEFICIARYCODE COLUMNREFERENCE="AK"/>
         <NARRATION COLUMNREFERENCE="AB"/>
         <CHEQUECROSSCOMMENT COLUMNREFERENCE="AC"/>
         <BANKERSDATE COLUMNREFERENCE="AD"/>
         <STATUS>No</STATUS>
-        <AMOUNT CURRENCY="=AP#" ROE="=AQ#" SKIP="=Not(And(Round(W#,2)=0,Round(X#,2)=0))" FORMULA="=IF(Round(I#,2)=0,Round(J#,2),Round(I#,2)*-1)"/>
-        <AMOUNT CURRENCY="=AP#" ROE="=AQ#" SKIP="=And(Round(W#,2)=0,Round(X#,2)=0)" FORMULA="=IF(Round(W#,2)=0,Round(X#,2),Round(W#,2)*-1)"/>
+        <AMOUNT CURRENCY="=AH#" ROE="=AI#" SKIP="=Not(And(Round(W#,2)=0,Round(X#,2)=0))" FORMULA="=IF(Round(I#,2)=0,Round(J#,2),Round(I#,2)*-1)"/>
+        <AMOUNT CURRENCY="=AH#" ROE="=AI#" SKIP="=And(Round(W#,2)=0,Round(X#,2)=0)" FORMULA="=IF(Round(W#,2)=0,Round(X#,2),Round(W#,2)*-1)"/>
         <PAYMENTMODE>Transacted</PAYMENTMODE>
         <NAME FORMULA="=+&quot;udi-BF39WD-&quot; &amp; A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; H# &amp; &quot;-&quot; &amp; #"/>
       </BANKALLOCATIONS.LIST>
