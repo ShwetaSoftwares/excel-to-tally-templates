@@ -100,7 +100,7 @@
     <DATE COLUMNREFERENCE="E"/>
     <EFFECTIVEDATE COLUMNREFERENCE="E"/>
     <VOUCHERTYPENAME COLUMNREFERENCE="C"/>
-    <ISINVOICE COLUMNREFERENCE="AF"/>
+    <ISINVOICE FORMULA="=If(len(trim(AF#))=0,&quot;No&quot;,AF#)"/>
     <PERSISTEDVIEW FORMULA="=if(trim(AF#[1])=&quot;Yes&quot;,&quot;Invoice Voucher View&quot;,&quot;Accounting Voucher View&quot;)"/>
 
     <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(V#))&gt;0,V#,if(len(trim(M#))&gt;0,M#,&quot;&quot;))"/>
