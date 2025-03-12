@@ -101,7 +101,7 @@
     <EFFECTIVEDATE COLUMNREFERENCE="E"/>
     <VOUCHERTYPENAME COLUMNREFERENCE="C"/>
     <ISINVOICE COLUMNREFERENCE="AF"/>
-    <PERSISTEDVIEW SKIP="trim(AF#)=&quot;yes&quot;">Accounting Voucher View</PERSISTEDVIEW>
+    <PERSISTEDVIEW FORMULA="=if(trim(AF#[1])=&quot;Yes&quot;,&quot;Invoice Voucher View&quot;,&quot;Accounting Voucher View&quot;)"/>
 
     <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(V#))&gt;0,V#,if(len(trim(M#))&gt;0,M#,&quot;&quot;))"/>
     <!-- GSTIN / UIN -->
@@ -146,7 +146,7 @@
     <URDORIGINALSALEVALUE SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(AA#))=0,&quot;Lesser than or equal to 2.5 lakhs&quot;,AA#)"/>
     <!-- Sales, Purchase Return   : Party Ledger to be Debited -->
     <!-- Purchase, Sales Return   : Party Ledger to be Credited -->
-    <ALLLEDGERENTRIES.LIST>
+    <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AF#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)">
       <LEDGERNAME FORMULA="=IF(len(trim(I#))=0,H#,I#)"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Or(lower(trim(B#))=&quot;purchase&quot;,lower(trim(B#))=&quot;credit note&quot;),&quot;No&quot;,&quot;Yes&quot;)"/>
       <AMOUNT FORMULA="={Round(AG#,if(trim(AD#)=&quot;yes&quot;,0,2))}*if(Or(lower(trim(B#))=&quot;purchase&quot;,lower(trim(B#))=&quot;credit note&quot;),1,-1)"/>
@@ -159,15 +159,19 @@
     <!-- Sales/Purchase and Tax Ledgers -->
     <!-- The SCROLLHORIZONTALLY is supported in v 5.0 only -->
     <!-- SCROLLHORIZONTALLY attribute value is evaluated at runtime and incremented COLUMNWISE till condition evaluates to be true -->
-    <ALLLEDGERENTRIES.LIST SKIP="=+{Round(AH#,2)}=0" SCROLLHORIZONTALLY="=Len(trim(AH$3))&gt;0">
+    <ALLLEDGERENTRIES.LIST SKIP="=+{Round(AH#,2)}=0" SCROLLHORIZONTALLY="=Len(trim(AH$3))&gt;0" ALTERNATETAGNAME="=if(trim($AF#)=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)">
       <LEDGERNAME FORMULA="=+AH$3"/>
+      <!-- For Invoice Mode -->
+      <ISDEEMEDPOSITIVE FORMULA="=if(Not(IsError(Match(trim($B#),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)" SKIP="=Not(And(Len(trim($AF#))&gt;0,trim($AF#)=&quot;Yes&quot;))"/>
+
       <!--                
+          For Voucher mode
           ISDEEMEDPOSITIVE
           purchase,credit note and AH# greater than 0     Yes
           sales,debit note and AH# less than 0          Yes
           Otherwise                     No
         -->
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AH#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AH#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),{Round(AH#,2)}&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),{Round(AH#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)" SKIP="=And(Len(trim($AF#))&gt;0,trim($AF#)=&quot;Yes&quot;)"/>
       <AMOUNT FORMULA="={Round(AH#,2)}*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
       <CATEGORYALLOCATIONS.LIST SKIP="=Len(Trim(AH$1))=0">
         <CATEGORY>Primary Cost Category</CATEGORY>
@@ -178,9 +182,14 @@
       </CATEGORYALLOCATIONS.LIST>
     </ALLLEDGERENTRIES.LIST>
     <!-- Round Off -->
-    <ALLLEDGERENTRIES.LIST SKIP="=Or(Not(trim(AD#)=&quot;yes&quot;),Round({Round(AG#,0)}-{Round(AG#,2)},2)=0)">
+    <ALLLEDGERENTRIES.LIST SKIP="=Or(Not(trim(AD#)=&quot;yes&quot;),Round({Round(AG#,0)}-{Round(AG#,2)},2)=0)" ALTERNATETAGNAME="=if(trim(AF#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)">
       <LEDGERNAME FORMULA="=if(len(trim(AE#))=0,&quot;Round Off&quot;,AE#)"/>
-      <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),Round({Round(AG#,0)}-{Round(AG#,2)},2)&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),Round({Round(AG#,0)}-{Round(AG#,2)},2)&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+
+      <!-- Invoice mode -->
+      <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AF#[1]))&gt;0,trim(AF#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <!-- Voucher mode -->
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AF#[1]))&gt;0,trim(AF#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),Round({Round(AG#,0)}-{Round(AG#,2)},2)&gt;0),And(Or(trim($B#)=&quot;sales&quot;,trim($B#)=&quot;debit note&quot;),Round({Round(AG#,0)}-{Round(AG#,2)},2)&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+
       <AMOUNT FORMULA="=Round({Round(AG#,0)}-{Round(AG#,2)},2)*if(Or(trim($B#)=&quot;purchase&quot;,trim($B#)=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <DUMMY SCROLL="YES"/>
