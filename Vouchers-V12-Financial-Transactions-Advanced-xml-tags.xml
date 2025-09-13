@@ -61,15 +61,15 @@
     <LEDSTATENAME FORMULA="=proper(trim(AV#))"/>
     <COUNTRYNAME FORMULA="=if(len(trim(AW#))=0,&quot;India&quot;,AW#)"/>
     <!-- GST fields for PARTY LEDGER -->
-    <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(AX#))&gt;0,AX#,if(len(trim(AU#))&gt;0,&quot;Regular&quot;,&quot;Unregistered&quot;))"/>
+    <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(AX#))&gt;0,AX#,if(len(trim(AY#))&gt;0,&quot;Regular&quot;,&quot;Unregistered&quot;))"/>
     <!-- GSTIN / UIN -->
-    <PARTYGSTIN FORMULA="=trim(AU#)"/>
+    <PARTYGSTIN FORMULA="=trim(AY#)"/>
     <!-- Tally Prime 3.0 -->
     <LEDGSTREGDETAILS.LIST>
       <APPLICABLEFROM>20170401</APPLICABLEFROM>
-      <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(AX#))&gt;0,AX#,if(len(trim(AU#))&gt;0,&quot;Regular&quot;,&quot;Unregistered/Consumer&quot;))"/>
+      <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(AX#))&gt;0,AX#,if(len(trim(AY#))&gt;0,&quot;Regular&quot;,&quot;Unregistered/Consumer&quot;))"/>
       <STATE FORMULA="=proper(trim(AV#))"/>
-      <GSTIN FORMULA="=trim(AU#)"/>
+      <GSTIN FORMULA="=trim(AY#)"/>
     </LEDGSTREGDETAILS.LIST>
     <!-- Tally Prime 3.0 -->
     <LEDMAILINGDETAILS.LIST>
@@ -114,13 +114,13 @@
     <!-- STATENAME-->
     <STATENAME FORMULA="=proper(trim(AV#))"/>
     <COUNTRYOFRESIDENCE FORMULA="=if(len(trim(AW#))&gt;0,AW#,&quot;India&quot;)"/>
-    <PLACEOFSUPPLY FORMULA="=proper(trim(if(len(trim(AV#))&gt;0,AV#,AV#)))"/>
-    <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(AX#))&gt;0,if(len(trim(AU#))&gt;0,&quot;Regular&quot;,&quot;Unregistered&quot;))"/>
+    <PLACEOFSUPPLY FORMULA="=proper(trim(if(len(trim(AZ#))&gt;0,AZ#,AV#)))"/>
+    <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(AX#))&gt;0,if(len(trim(AY#))&gt;0,&quot;Regular&quot;,&quot;Unregistered&quot;))"/>
     <!-- Other GST details -->
-    <GSTNATUREOFRETURN SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(AW#))=0,&quot;01-Sales Return&quot;,AW#)"/>
-    <VATPARTYTRANSRETURNNUMBER SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(AX#))=0,F#,AX#)"/>
-    <VATPARTYTRANSRETURNDATE SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(AY#))=0,G#,AY#)"/>
-    <URDORIGINALSALEVALUE SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(AZ#))=0,&quot;Lesser than or equal to 2.5 lakhs&quot;,AZ#)"/>
+    <GSTNATUREOFRETURN SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(BA#))=0,&quot;01-Sales Return&quot;,BA#)"/>
+    <VATPARTYTRANSRETURNNUMBER SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(BB#))=0,F#,BB#)"/>
+    <VATPARTYTRANSRETURNDATE SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(BC#))=0,G#,BC#)"/>
+    <URDORIGINALSALEVALUE SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(BD#))=0,&quot;Lesser than or equal to 2.5 lakhs&quot;,BD#)"/>
     <ALLLEDGERENTRIES.LIST SCROLL="YES" SKIP="=Or(Len(trim(H#))=0,Round(I#+J#,2)=0)">
       <NARRATION COLUMNREFERENCE="AN"/>
       <SWIFTCODE COLUMNREFERENCE="AL"/>
