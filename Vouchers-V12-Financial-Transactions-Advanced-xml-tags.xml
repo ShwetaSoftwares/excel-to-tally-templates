@@ -86,7 +86,7 @@
     <COMPANYNAME FORMULA="=AO#[1]"/>
     <GUID FORMULA="=&quot;udi-BF39WD-&quot; &amp; A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; C#"/>
     <DATE COLUMNREFERENCE="E"/>
-    <EFFECTIVEDATE COLUMNREFERENCE="E"/>
+    <EFFECTIVEDATE FORMULA="=If(Or(B#=&quot;Payment&quot;,B#=&quot;Sales&quot;,B#=&quot;Debit Note&quot;,B#=&quot;Journal&quot;,B#=&quot;Sales Order&quot;),E#,G#)"/>
     <VOUCHERTYPENAME COLUMNREFERENCE="C"/>
     <VOUCHERNUMBER COLUMNREFERENCE="D"/>
     <REFERENCE COLUMNREFERENCE="F"/>
