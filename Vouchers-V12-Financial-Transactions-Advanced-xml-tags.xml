@@ -110,12 +110,12 @@
       <BASICBUYERADDRESS COLUMNREFERENCE="AU"/>
     </BASICBUYERADDRESS.LIST>
     <!-- GSTIN / UIN -->
-    <PARTYGSTIN COLUMNREFERENCE="AU"/>
+    <PARTYGSTIN COLUMNREFERENCE="AY"/>
     <!-- STATENAME-->
     <STATENAME FORMULA="=proper(trim(AV#))"/>
     <COUNTRYOFRESIDENCE FORMULA="=if(len(trim(AW#))&gt;0,AW#,&quot;India&quot;)"/>
     <PLACEOFSUPPLY FORMULA="=proper(trim(if(len(trim(AZ#))&gt;0,AZ#,AV#)))"/>
-    <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(AX#))&gt;0,AX,if(len(trim(AY#))&gt;0,&quot;Regular&quot;,&quot;Unregistered&quot;))"/>
+    <GSTREGISTRATIONTYPE FORMULA="=if(len(trim(AX#))&gt;0,AX#,if(len(trim(AY#))&gt;0,&quot;Regular&quot;,&quot;Unregistered&quot;))"/>
     <!-- Other GST details -->
     <GSTNATUREOFRETURN SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(BA#))=0,&quot;01-Sales Return&quot;,BA#)"/>
     <VATPARTYTRANSRETURNNUMBER SKIP="=IsError(Match(trim(B#[1]),\123&quot;credit note&quot;,&quot;debit note&quot;\125,0))" FORMULA="=if(len(trim(BB#))=0,F#,BB#)"/>
