@@ -378,7 +378,7 @@
     <NAME.LIST>
       <NAME COLUMNREFERENCE="CP"/>
     </NAME.LIST>
-    <PARENT>Indirect Expenses</PARENT>
+    <PARENT SKIP="=Not(len(trim(GP#))=0)" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;Indirect expenses&quot;,&quot;Indirect Incomes&quot;)"/>
     <ISCOSTCENTRESON FORMULA="=if(len(trim(CS#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
     <TAXTYPE>Others</TAXTYPE>
     <GSTAPPLICABLE>~[~ Not Applicable</GSTAPPLICABLE>
@@ -393,7 +393,7 @@
     <NAME.LIST>
       <NAME COLUMNREFERENCE="CT"/>
     </NAME.LIST>
-    <PARENT>Indirect Expenses</PARENT>
+    <PARENT SKIP="=Not(len(trim(GP#))=0)" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;Indirect expenses&quot;,&quot;Indirect Incomes&quot;)"/>
     <ISCOSTCENTRESON FORMULA="=if(len(trim(CW#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
     <TAXTYPE>Others</TAXTYPE>
     <GSTAPPLICABLE>~[~ Not Applicable</GSTAPPLICABLE>
@@ -408,7 +408,7 @@
     <NAME.LIST>
       <NAME COLUMNREFERENCE="CX"/>
     </NAME.LIST>
-    <PARENT>Indirect Expenses</PARENT>
+    <PARENT SKIP="=Not(len(trim(GP#))=0)" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;Indirect expenses&quot;,&quot;Indirect Incomes&quot;)"/>
     <ISCOSTCENTRESON FORMULA="=if(len(trim(DA#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
     <TAXTYPE>Others</TAXTYPE>
     <GSTAPPLICABLE>~[~ Not Applicable</GSTAPPLICABLE>
@@ -423,7 +423,7 @@
     <NAME.LIST>
       <NAME COLUMNREFERENCE="DB"/>
     </NAME.LIST>
-    <PARENT>Indirect Expenses</PARENT>
+    <PARENT SKIP="=Not(len(trim(GP#))=0)" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;Indirect expenses&quot;,&quot;Indirect Incomes&quot;)"/>
     <ISCOSTCENTRESON FORMULA="=if(len(trim(DE#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
     <TAXTYPE>Others</TAXTYPE>
     <GSTAPPLICABLE SKIP="=trim(HT#)=&quot;yes&quot;">~[~ Not Applicable</GSTAPPLICABLE>
@@ -438,7 +438,7 @@
     <NAME.LIST>
       <NAME COLUMNREFERENCE="DF"/>
     </NAME.LIST>
-    <PARENT>Indirect Expenses</PARENT>
+    <PARENT SKIP="=Not(len(trim(GP#))=0)" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;Indirect expenses&quot;,&quot;Indirect Incomes&quot;)"/>
     <ISCOSTCENTRESON FORMULA="=if(len(trim(DI#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
     <TAXTYPE>Others</TAXTYPE>
     <GSTAPPLICABLE SKIP="=trim(HT#)=&quot;yes&quot;">~[~ Not Applicable</GSTAPPLICABLE>
@@ -453,7 +453,7 @@
     <NAME.LIST>
       <NAME COLUMNREFERENCE="EH"/>
     </NAME.LIST>
-    <PARENT>Indirect Expenses</PARENT>
+    <PARENT SKIP="=Not(len(trim(GP#))=0)" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;Indirect expenses&quot;,&quot;Indirect Incomes&quot;)"/>
     <ISCOSTCENTRESON FORMULA="=if(len(trim(EK#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
   </MASTER>
   <!-- Create Other LEDGERs after taxes -->
@@ -462,7 +462,7 @@
     <NAME.LIST>
       <NAME COLUMNREFERENCE="EL"/>
     </NAME.LIST>
-    <PARENT>Indirect Expenses</PARENT>
+    <PARENT SKIP="=Not(len(trim(GP#))=0)" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;Indirect expenses&quot;,&quot;Indirect Incomes&quot;)"/>
     <ISCOSTCENTRESON FORMULA="=if(len(trim(EO#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
   </MASTER>
   <!-- Create Other LEDGERs after taxes -->
@@ -471,7 +471,7 @@
     <NAME.LIST>
       <NAME COLUMNREFERENCE="EP"/>
     </NAME.LIST>
-    <PARENT>Indirect Expenses</PARENT>
+    <PARENT SKIP="=Not(len(trim(GP#))=0)" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;Indirect expenses&quot;,&quot;Indirect Incomes&quot;)"/>
     <ISCOSTCENTRESON FORMULA="=if(len(trim(ES#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
   </MASTER>
   <!-- Create Other LEDGERs after taxes -->
@@ -480,7 +480,7 @@
     <NAME.LIST>
       <NAME COLUMNREFERENCE="ET"/>
     </NAME.LIST>
-    <PARENT>Indirect Expenses</PARENT>
+    <PARENT SKIP="=Not(len(trim(GP#))=0)" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;Indirect expenses&quot;,&quot;Indirect Incomes&quot;)"/>
     <ISCOSTCENTRESON FORMULA="=if(len(trim(EW#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
   </MASTER>
   <!-- Create Other LEDGERs after taxes -->
@@ -489,7 +489,7 @@
     <NAME.LIST>
       <NAME COLUMNREFERENCE="EX"/>
     </NAME.LIST>
-    <PARENT>Indirect Expenses</PARENT>
+    <PARENT SKIP="=Not(len(trim(GP#))=0)" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;payment&quot;,&quot;purchase&quot;,&quot;purchase order&quot;,&quot;receipt note&quot;,&quot;debit note&quot;\125,0))),&quot;Indirect expenses&quot;,&quot;Indirect Incomes&quot;)"/>
     <ISCOSTCENTRESON FORMULA="=if(len(trim(FA#))=0,&quot;No&quot;,&quot;Yes&quot;)"/>
   </MASTER>
   <!-- TCS u/s 206C -->

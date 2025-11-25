@@ -68,7 +68,7 @@
       <UDYAMREGNUMBER COLUMNREFERENCE="CL"/>
     </MSMEREGISTRATIONDETAILS.LIST>
     <!-- Tally Prime 3.0 -->
-    <LEDGSTREGDETAILS.LIST SKIP="=Or(trim(HK#)=&quot;yes&quot;,len(trim(AL#))=0)">
+    <LEDGSTREGDETAILS.LIST SKIP="=Or(trim(AM#)=&quot;yes&quot;,len(trim(AL#))=0)">
       <APPLICABLEFROM>20230401</APPLICABLEFROM>
       <GSTREGISTRATIONTYPE COLUMNREFERENCE="AL"/>
       <STATE FORMULA="=proper(trim(AF#))"/>
