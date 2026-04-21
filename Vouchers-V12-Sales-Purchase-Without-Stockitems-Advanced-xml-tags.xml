@@ -328,9 +328,9 @@
     <NAME.LIST>
       <NAME COLUMNREFERENCE="FZ"/>
     </NAME.LIST>
-    <PARENT FORMULA="=if(len(trim((null)))=0,&quot;New Ledgers&quot;,(null))"/>
+    <PARENT FORMULA="=if(len(trim(GB#))=0,&quot;New Ledgers&quot;,GB#)"/>
     <AFFECTSSTOCK>No</AFFECTSSTOCK>
-    <ISCOSTCENTRESON FORMULA="=If(Len(trim((null)))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
+    <ISCOSTCENTRESON FORMULA="=If(Len(trim(GD#))&gt;0,&quot;Yes&quot;,&quot;No&quot;)"/>
   </MASTER>
   <!-- Create Round Off LEDGER Master -->
   <MASTER TYPE="LEDGER">
@@ -575,7 +575,7 @@
   <!-- Cost Category -->
   <MASTER TYPE="COSTCATEGORY">
     <NAME.LIST>
-      <NAME FORMULA="=(null)"/>
+      <NAME FORMULA="=GC#"/>
     </NAME.LIST>
     <ALLOCATEREVENUE>Yes</ALLOCATEREVENUE>
     <ALLOCATENONREVENUE>Yes</ALLOCATENONREVENUE>
@@ -844,9 +844,9 @@
   <!-- Cost Centre -->
   <MASTER TYPE="COSTCENTRE">
     <NAME.LIST>
-      <NAME FORMULA="=(null)"/>
+      <NAME COLUMNREFERENCE="GD"/>
     </NAME.LIST>
-    <CATEGORY FORMULA="=(null)"/>
+    <CATEGORY COLUMNREFERENCE="GC"/>
     <REVENUELEDFOROPBAL>No</REVENUELEDFOROPBAL>
     <AFFECTSSTOCK>No</AFFECTSSTOCK>
   </MASTER>
@@ -909,11 +909,11 @@
     <ALLLEDGERENTRIES.LIST ALTERNATETAGNAME="=if(trim(AF#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)">
       <LEDGERNAME FORMULA="=IF(len(trim(I#))=0,H#,I#)"/>
       <ISDEEMEDPOSITIVE FORMULA="=if(Or(lower(trim(B#))=&quot;purchase&quot;,lower(trim(B#))=&quot;credit note&quot;),&quot;No&quot;,&quot;Yes&quot;)"/>
-      <AMOUNT FORMULA="=Round({Round(AL#,2)+Round(AQ#,2)+Round(AV#,2)+Round(BA#,2)+Round(BF#,2)}+{Round(BK#,2)+Round(BP#,2)+Round(BU#,2)+Round(BZ#,2)+Round(CE#,2)}+{Round(CJ#,2)+Round(CO#,2)+Round(CT#,2)+Round(CY#,2)+Round(DD#,2)}+{Round(DI#,2)+Round(DN#,2)+Round(DS#,2)+Round(DX#,2)+Round(EC#,2)}+{Round(EH#,2)+Round(EM#,2)+Round(ER#,2)+Round(EW#,2)+Round(FB#,2)}+{Round(FG#,2)+Round(FL#,2)+Round(FQ#,2)+Round(FV#,2)+Round((null),2)},if(trim(AD#)=&quot;yes&quot;,0,2))*if(Or(lower(trim(B#))=&quot;purchase&quot;,lower(trim(B#))=&quot;credit note&quot;),1,-1)"/>
+      <AMOUNT FORMULA="=Round({Round(AL#,2)+Round(AQ#,2)+Round(AV#,2)+Round(BA#,2)+Round(BF#,2)}+{Round(BK#,2)+Round(BP#,2)+Round(BU#,2)+Round(BZ#,2)+Round(CE#,2)}+{Round(CJ#,2)+Round(CO#,2)+Round(CT#,2)+Round(CY#,2)+Round(DD#,2)}+{Round(DI#,2)+Round(DN#,2)+Round(DS#,2)+Round(DX#,2)+Round(EC#,2)}+{Round(EH#,2)+Round(EM#,2)+Round(ER#,2)+Round(EW#,2)+Round(FB#,2)}+{Round(FG#,2)+Round(FL#,2)+Round(FQ#,2)+Round(FV#,2)+Round(GA#,2)},if(trim(AD#)=&quot;yes&quot;,0,2))*if(Or(lower(trim(B#))=&quot;purchase&quot;,lower(trim(B#))=&quot;credit note&quot;),1,-1)"/>
       <BILLALLOCATIONS.LIST SKIP="=Len(Trim(F#))=0">
         <NAME COLUMNREFERENCE="F"/>
         <BILLTYPE>New Ref</BILLTYPE>
-        <AMOUNT FORMULA="=Round({Round(AL#,2)+Round(AQ#,2)+Round(AV#,2)+Round(BA#,2)+Round(BF#,2)}+{Round(BK#,2)+Round(BP#,2)+Round(BU#,2)+Round(BZ#,2)+Round(CE#,2)}+{Round(CJ#,2)+Round(CO#,2)+Round(CT#,2)+Round(CY#,2)+Round(DD#,2)}+{Round(DI#,2)+Round(DN#,2)+Round(DS#,2)+Round(DX#,2)+Round(EC#,2)}+{Round(EH#,2)+Round(EM#,2)+Round(ER#,2)+Round(EW#,2)+Round(FB#,2)}+{Round(FG#,2)+Round(FL#,2)+Round(FQ#,2)+Round(FV#,2)+Round((null),2)},if(trim(AD#)=&quot;yes&quot;,0,2))*if(Or(lower(trim(B#))=&quot;purchase&quot;,lower(trim(B#))=&quot;credit note&quot;),1,-1)"/>
+        <AMOUNT FORMULA="=Round({Round(AL#,2)+Round(AQ#,2)+Round(AV#,2)+Round(BA#,2)+Round(BF#,2)}+{Round(BK#,2)+Round(BP#,2)+Round(BU#,2)+Round(BZ#,2)+Round(CE#,2)}+{Round(CJ#,2)+Round(CO#,2)+Round(CT#,2)+Round(CY#,2)+Round(DD#,2)}+{Round(DI#,2)+Round(DN#,2)+Round(DS#,2)+Round(DX#,2)+Round(EC#,2)}+{Round(EH#,2)+Round(EM#,2)+Round(ER#,2)+Round(EW#,2)+Round(FB#,2)}+{Round(FG#,2)+Round(FL#,2)+Round(FQ#,2)+Round(FV#,2)+Round(GA#,2)},if(trim(AD#)=&quot;yes&quot;,0,2))*if(Or(lower(trim(B#))=&quot;purchase&quot;,lower(trim(B#))=&quot;credit note&quot;),1,-1)"/>
       </BILLALLOCATIONS.LIST>
     </ALLLEDGERENTRIES.LIST>
     <!-- Sales/Purchase and Tax Ledgers  -->
@@ -1446,20 +1446,20 @@
       </CATEGORYALLOCATIONS.LIST>
     </ALLLEDGERENTRIES.LIST>
     <!-- LEDGER 30 -->
-    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(FZ#)" ALTERNATETAGNAME="=if(trim(AF#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round((null),2)}=0">
+    <ALLLEDGERENTRIES.LIST GROUPBY="=trim(FZ#)" ALTERNATETAGNAME="=if(trim(AF#[1])=&quot;yes&quot;,&quot;LEDGERENTRIES.LIST&quot;,&quot;&quot;)" SKIP="={Round(GA#,2)}=0">
       <LEDGERNAME COLUMNREFERENCE="FZ"/>
       <!-- For Invoice Mode -->
       <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AF#[1]))&gt;0,trim(AF#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
       <!-- For Voucher Mode -->
-      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AF#[1]))&gt;0,trim(AF#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round((null),2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round((null),2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
-      <AMOUNT FORMULA="={Round((null),2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AF#[1]))&gt;0,trim(AF#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(GA#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(GA#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <AMOUNT FORMULA="={Round(GA#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
       <!-- Cost Centre details -->
-      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim((null)))=0">
-        <CATEGORY FORMULA="=if(len(trim((null)))=0,&quot;Primary Cost Category&quot;,(null))"/>
-        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round((null),2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round((null),2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <CATEGORYALLOCATIONS.LIST SKIP="=len(trim(GD#))=0">
+        <CATEGORY FORMULA="=if(len(trim(GC#))=0,&quot;Primary Cost Category&quot;,GC#)"/>
+        <ISDEEMEDPOSITIVE FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),{Round(GA#,2)}&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),{Round(GA#,2)}&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
         <COSTCENTREALLOCATIONS.LIST>
-          <NAME FORMULA="=(null)"/>
-          <AMOUNT FORMULA="={Round((null),2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+          <NAME COLUMNREFERENCE="GD"/>
+          <AMOUNT FORMULA="={Round(GA#,2)}*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
         </COSTCENTREALLOCATIONS.LIST>
       </CATEGORYALLOCATIONS.LIST>
     </ALLLEDGERENTRIES.LIST>
@@ -1469,12 +1469,12 @@
       <!-- For Invoice Mode -->
       <ISDEEMEDPOSITIVE SKIP="=Not(And(Len(trim(AF#[1]))&gt;0,trim(AF#[1])=&quot;Yes&quot;))" FORMULA="=if(Not(IsError(Match(trim(B#[1]),\123&quot;purchase&quot;,&quot;credit note&quot;\125,0))),&quot;Yes&quot;,&quot;No&quot;)"/>
       <!-- For Voucher Mode -->
-      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AF#[1]))&gt;0,trim(AF#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),Round(Round({Round(AL#,2)+Round(AQ#,2)+Round(AV#,2)+Round(BA#,2)+Round(BF#,2)}+{Round(BK#,2)+Round(BP#,2)+Round(BU#,2)+Round(BZ#,2)+Round(CE#,2)}+{Round(CJ#,2)+Round(CO#,2)+Round(CT#,2)+Round(CY#,2)+Round(DD#,2)}+{Round(DI#,2)+Round(DN#,2)+Round(DS#,2)+Round(DX#,2)+Round(EC#,2)}+{Round(EH#,2)+Round(EM#,2)+Round(ER#,2)+Round(EW#,2)+Round(FB#,2)}+{Round(FG#,2)+Round(FL#,2)+Round(FQ#,2)+Round(FV#,2)+Round((null),2)},0)-Round({Round(AL#,2)+Round(AQ#,2)+Round(AV#,2)+Round(BA#,2)+Round(BF#,2)}+{Round(BK#,2)+Round(BP#,2)+Round(BU#,2)+Round(BZ#,2)+Round(CE#,2)}+{Round(CJ#,2)+Round(CO#,2)+Round(CT#,2)+Round(CY#,2)+Round(DD#,2)}+{Round(DI#,2)+Round(DN#,2)+Round(DS#,2)+Round(DX#,2)+Round(EC#,2)}+{Round(EH#,2)+Round(EM#,2)+Round(ER#,2)+Round(EW#,2)+Round(FB#,2)}+{Round(FG#,2)+Round(FL#,2)+Round(FQ#,2)+Round(FV#,2)+Round((null),2)},2),2)&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),Round(Round({Round(AL#,2)+Round(AQ#,2)+Round(AV#,2)+Round(BA#,2)+Round(BF#,2)}+{Round(BK#,2)+Round(BP#,2)+Round(BU#,2)+Round(BZ#,2)+Round(CE#,2)}+{Round(CJ#,2)+Round(CO#,2)+Round(CT#,2)+Round(CY#,2)+Round(DD#,2)}+{Round(DI#,2)+Round(DN#,2)+Round(DS#,2)+Round(DX#,2)+Round(EC#,2)}+{Round(EH#,2)+Round(EM#,2)+Round(ER#,2)+Round(EW#,2)+Round(FB#,2)}+{Round(FG#,2)+Round(FL#,2)+Round(FQ#,2)+Round(FV#,2)+Round((null),2)},0)-Round({Round(AL#,2)+Round(AQ#,2)+Round(AV#,2)+Round(BA#,2)+Round(BF#,2)}+{Round(BK#,2)+Round(BP#,2)+Round(BU#,2)+Round(BZ#,2)+Round(CE#,2)}+{Round(CJ#,2)+Round(CO#,2)+Round(CT#,2)+Round(CY#,2)+Round(DD#,2)}+{Round(DI#,2)+Round(DN#,2)+Round(DS#,2)+Round(DX#,2)+Round(EC#,2)}+{Round(EH#,2)+Round(EM#,2)+Round(ER#,2)+Round(EW#,2)+Round(FB#,2)}+{Round(FG#,2)+Round(FL#,2)+Round(FQ#,2)+Round(FV#,2)+Round((null),2)},2),2)&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
+      <ISDEEMEDPOSITIVE SKIP="=And(Len(trim(AF#[1]))&gt;0,trim(AF#[1])=&quot;Yes&quot;)" FORMULA="=if(Or(And(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),Round(Round({Round(AL#,2)+Round(AQ#,2)+Round(AV#,2)+Round(BA#,2)+Round(BF#,2)}+{Round(BK#,2)+Round(BP#,2)+Round(BU#,2)+Round(BZ#,2)+Round(CE#,2)}+{Round(CJ#,2)+Round(CO#,2)+Round(CT#,2)+Round(CY#,2)+Round(DD#,2)}+{Round(DI#,2)+Round(DN#,2)+Round(DS#,2)+Round(DX#,2)+Round(EC#,2)}+{Round(EH#,2)+Round(EM#,2)+Round(ER#,2)+Round(EW#,2)+Round(FB#,2)}+{Round(FG#,2)+Round(FL#,2)+Round(FQ#,2)+Round(FV#,2)+Round(GA#,2)},0)-Round({Round(AL#,2)+Round(AQ#,2)+Round(AV#,2)+Round(BA#,2)+Round(BF#,2)}+{Round(BK#,2)+Round(BP#,2)+Round(BU#,2)+Round(BZ#,2)+Round(CE#,2)}+{Round(CJ#,2)+Round(CO#,2)+Round(CT#,2)+Round(CY#,2)+Round(DD#,2)}+{Round(DI#,2)+Round(DN#,2)+Round(DS#,2)+Round(DX#,2)+Round(EC#,2)}+{Round(EH#,2)+Round(EM#,2)+Round(ER#,2)+Round(EW#,2)+Round(FB#,2)}+{Round(FG#,2)+Round(FL#,2)+Round(FQ#,2)+Round(FV#,2)+Round(GA#,2)},2),2)&gt;0),And(Or(trim($B#[1])=&quot;sales&quot;,trim($B#[1])=&quot;debit note&quot;),Round(Round({Round(AL#,2)+Round(AQ#,2)+Round(AV#,2)+Round(BA#,2)+Round(BF#,2)}+{Round(BK#,2)+Round(BP#,2)+Round(BU#,2)+Round(BZ#,2)+Round(CE#,2)}+{Round(CJ#,2)+Round(CO#,2)+Round(CT#,2)+Round(CY#,2)+Round(DD#,2)}+{Round(DI#,2)+Round(DN#,2)+Round(DS#,2)+Round(DX#,2)+Round(EC#,2)}+{Round(EH#,2)+Round(EM#,2)+Round(ER#,2)+Round(EW#,2)+Round(FB#,2)}+{Round(FG#,2)+Round(FL#,2)+Round(FQ#,2)+Round(FV#,2)+Round(GA#,2)},0)-Round({Round(AL#,2)+Round(AQ#,2)+Round(AV#,2)+Round(BA#,2)+Round(BF#,2)}+{Round(BK#,2)+Round(BP#,2)+Round(BU#,2)+Round(BZ#,2)+Round(CE#,2)}+{Round(CJ#,2)+Round(CO#,2)+Round(CT#,2)+Round(CY#,2)+Round(DD#,2)}+{Round(DI#,2)+Round(DN#,2)+Round(DS#,2)+Round(DX#,2)+Round(EC#,2)}+{Round(EH#,2)+Round(EM#,2)+Round(ER#,2)+Round(EW#,2)+Round(FB#,2)}+{Round(FG#,2)+Round(FL#,2)+Round(FQ#,2)+Round(FV#,2)+Round(GA#,2)},2),2)&lt;0)),&quot;Yes&quot;,&quot;No&quot;)"/>
       <!-- For Invoice Mode -->
       <TEST SKIP="=Not(And(Len(trim(AF#[1]))&gt;0,trim(AF#[1])=&quot;Yes&quot;))">ISINVOICEMODE=YES</TEST>
       <!-- For Voucher Mode -->
       <TEST SKIP="=And(Len(trim(AF#[1]))&gt;0,trim(AF#[1])=&quot;Yes&quot;)">ISINVOICEMODE=NO</TEST>
-      <AMOUNT FORMULA="=Round(Round({Round(AL#,2)+Round(AQ#,2)+Round(AV#,2)+Round(BA#,2)+Round(BF#,2)}+{Round(BK#,2)+Round(BP#,2)+Round(BU#,2)+Round(BZ#,2)+Round(CE#,2)}+{Round(CJ#,2)+Round(CO#,2)+Round(CT#,2)+Round(CY#,2)+Round(DD#,2)}+{Round(DI#,2)+Round(DN#,2)+Round(DS#,2)+Round(DX#,2)+Round(EC#,2)}+{Round(EH#,2)+Round(EM#,2)+Round(ER#,2)+Round(EW#,2)+Round(FB#,2)}+{Round(FG#,2)+Round(FL#,2)+Round(FQ#,2)+Round(FV#,2)+Round((null),2)},0)-Round({Round(AL#,2)+Round(AQ#,2)+Round(AV#,2)+Round(BA#,2)+Round(BF#,2)}+{Round(BK#,2)+Round(BP#,2)+Round(BU#,2)+Round(BZ#,2)+Round(CE#,2)}+{Round(CJ#,2)+Round(CO#,2)+Round(CT#,2)+Round(CY#,2)+Round(DD#,2)}+{Round(DI#,2)+Round(DN#,2)+Round(DS#,2)+Round(DX#,2)+Round(EC#,2)}+{Round(EH#,2)+Round(EM#,2)+Round(ER#,2)+Round(EW#,2)+Round(FB#,2)}+{Round(FG#,2)+Round(FL#,2)+Round(FQ#,2)+Round(FV#,2)+Round((null),2)},2),2)*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
+      <AMOUNT FORMULA="=Round(Round({Round(AL#,2)+Round(AQ#,2)+Round(AV#,2)+Round(BA#,2)+Round(BF#,2)}+{Round(BK#,2)+Round(BP#,2)+Round(BU#,2)+Round(BZ#,2)+Round(CE#,2)}+{Round(CJ#,2)+Round(CO#,2)+Round(CT#,2)+Round(CY#,2)+Round(DD#,2)}+{Round(DI#,2)+Round(DN#,2)+Round(DS#,2)+Round(DX#,2)+Round(EC#,2)}+{Round(EH#,2)+Round(EM#,2)+Round(ER#,2)+Round(EW#,2)+Round(FB#,2)}+{Round(FG#,2)+Round(FL#,2)+Round(FQ#,2)+Round(FV#,2)+Round(GA#,2)},0)-Round({Round(AL#,2)+Round(AQ#,2)+Round(AV#,2)+Round(BA#,2)+Round(BF#,2)}+{Round(BK#,2)+Round(BP#,2)+Round(BU#,2)+Round(BZ#,2)+Round(CE#,2)}+{Round(CJ#,2)+Round(CO#,2)+Round(CT#,2)+Round(CY#,2)+Round(DD#,2)}+{Round(DI#,2)+Round(DN#,2)+Round(DS#,2)+Round(DX#,2)+Round(EC#,2)}+{Round(EH#,2)+Round(EM#,2)+Round(ER#,2)+Round(EW#,2)+Round(FB#,2)}+{Round(FG#,2)+Round(FL#,2)+Round(FQ#,2)+Round(FV#,2)+Round(GA#,2)},2),2)*if(Or(trim($B#[1])=&quot;purchase&quot;,trim($B#[1])=&quot;credit note&quot;),-1,1)"/>
     </ALLLEDGERENTRIES.LIST>
     <DUMMY SCROLL="YES"/>
   </VOUCHER12>
