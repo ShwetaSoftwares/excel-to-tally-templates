@@ -40,8 +40,8 @@
   </MASTER>
   <!-- Create Ledger Masters -->
   <!-- 
-                The SCROLLHORIZONTALLY specifies the condition (any valid Excel formula). Herein, the condition is to check the length of cell H2
-                and if it is greater than 0, a Ledger Master is created. The loop executes and now H2 becomes I2. If length of cell I2 is greater 
+                The SCROLLHORIZONTALLY specifies the condition (any valid Excel formula). Herein, the condition is to check the length of cell N#
+                and if it is greater than 0, a Ledger Master is created. The loop executes and now N# becomes M#. If length of cell M# is greater 
                 than 0, Ledger Master is created. The loop go on till the conditions becomes false.
         -->
   <MASTER TYPE="LEDGER" SINGLERECORD="YES" SCROLLHORIZONTALLY="=Len(trim(N$5))&gt;0">
@@ -134,4 +134,3 @@
     </ALLLEDGERENTRIES.LIST>
   </VOUCHER11>
 </XMLTAGS>
-
