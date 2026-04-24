@@ -1,5 +1,5 @@
 <!-- These XML tags are added to Excel sheet at run-time by UDIMAGIC  -->
-<XMLTAGS CELLREFERENCE="A1" FROMROW="4" xmlns:UDF="TallyUDF">
+<XMLTAGS CELLREFERENCE="A1" FROMROW="5" xmlns:UDF="TallyUDF">
   <!-- Specifies that this (i.e Column as mentioned above) is the key field -->
   <COLUMNNAME.LIST>
     <COLUMNNAME>ID</COLUMNNAME>
@@ -83,6 +83,12 @@
     <GSTTYPEOFSUPPLY SKIP="=len(trim(L#))=0">Services</GSTTYPEOFSUPPLY>
   </MASTER>
   <VOUCHER12>
+    <!-- Tally Prime 3.0 -->
+    <GSTREGISTRATION TAXTYPE="GST" COLUMNREFERENCE="BF"/>
+    <CMPGSTSTATE COLUMNREFERENCE="BE"/>
+    <CMPGSTIN COLUMNREFERENCE="BG"/>
+    <CMPGSTREGISTRATIONTYPE COLUMNREFERENCE="BH"/>
+
     <COMPANYNAME FORMULA="=AO#[1]"/>
     <GUID FORMULA="=&quot;udi-BF39WD-&quot; &amp; A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; C#"/>
     <DATE COLUMNREFERENCE="E"/>
