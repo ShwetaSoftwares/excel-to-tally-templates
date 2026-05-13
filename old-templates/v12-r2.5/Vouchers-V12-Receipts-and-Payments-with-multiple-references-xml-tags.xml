@@ -21,7 +21,6 @@ New Features in v6.0
   </FETCHOBJECT>
   <!-- Create VOUCHERTYPE Master -->
   <MASTER TYPE="VOUCHERTYPE">
-    <COMPANYNAME FORMULA="=AI#[1]"/>
     <NAME.LIST TYPE="String">
       <NAME COLUMNREFERENCE="C"/>
     </NAME.LIST>
@@ -32,7 +31,6 @@ New Features in v6.0
   </MASTER>
   <!-- Create BANK Ledgers -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=AI#[1]"/>
     <NAME.LIST TYPE="String">
       <NAME COLUMNREFERENCE="L"/>
     </NAME.LIST>
@@ -43,7 +41,6 @@ New Features in v6.0
   </MASTER>
   <!-- Create Party Ledgers -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=AI#[1]"/>
     <NAME.LIST TYPE="String">
       <NAME COLUMNREFERENCE="F"/>
     </NAME.LIST>
@@ -56,7 +53,6 @@ New Features in v6.0
   </MASTER>
   <!-- Create Ledger1 -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=AI#[1]"/>
     <NAME.LIST TYPE="String">
       <NAME COLUMNREFERENCE="N"/>
     </NAME.LIST>
@@ -64,7 +60,6 @@ New Features in v6.0
   </MASTER>
   <!-- Create Ledger2 -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=AI#[1]"/>
     <NAME.LIST TYPE="String">
       <NAME COLUMNREFERENCE="P"/>
     </NAME.LIST>
@@ -72,7 +67,6 @@ New Features in v6.0
   </MASTER>
   <!-- Create Ledger3 -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=AI#[1]"/>
     <NAME.LIST TYPE="String">
       <NAME COLUMNREFERENCE="R"/>
     </NAME.LIST>
@@ -80,7 +74,6 @@ New Features in v6.0
   </MASTER>
   <!-- Create Ledger4 -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=AI#[1]"/>
     <NAME.LIST TYPE="String">
       <NAME COLUMNREFERENCE="T"/>
     </NAME.LIST>
@@ -88,7 +81,6 @@ New Features in v6.0
   </MASTER>
   <!-- Create Ledger5 -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=AI#[1]"/>
     <NAME.LIST TYPE="String">
       <NAME COLUMNREFERENCE="V"/>
     </NAME.LIST>
@@ -96,7 +88,6 @@ New Features in v6.0
   </MASTER>
   <!-- Create Ledger6 -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=AI#[1]"/>
     <NAME.LIST TYPE="String">
       <NAME COLUMNREFERENCE="X"/>
     </NAME.LIST>
@@ -104,7 +95,6 @@ New Features in v6.0
   </MASTER>
   <!-- Create Ledger7 -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=AI#[1]"/>
     <NAME.LIST TYPE="String">
       <NAME COLUMNREFERENCE="Z"/>
     </NAME.LIST>
@@ -112,7 +102,6 @@ New Features in v6.0
   </MASTER>
   <!-- Create Ledger8 -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=AI#[1]"/>
     <NAME.LIST TYPE="String">
       <NAME COLUMNREFERENCE="AB"/>
     </NAME.LIST>
@@ -120,7 +109,6 @@ New Features in v6.0
   </MASTER>
   <!-- Create Ledger9 -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=AI#[1]"/>
     <NAME.LIST TYPE="String">
       <NAME COLUMNREFERENCE="AD"/>
     </NAME.LIST>
@@ -128,14 +116,13 @@ New Features in v6.0
   </MASTER>
   <!-- Create Ledger10 -->
   <MASTER TYPE="LEDGER">
-    <COMPANYNAME FORMULA="=AI#[1]"/>
     <NAME.LIST TYPE="String">
       <NAME COLUMNREFERENCE="AF"/>
     </NAME.LIST>
     <PARENT>Indirect Expenses</PARENT>
   </MASTER>
+
   <VOUCHER12>
-    <COMPANYNAME FORMULA="=AI#[1]"/>
     <GUID FORMULA="=&quot;udi-HV6W4F-&quot; &amp; A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; C#"/>
     <DATE COLUMNREFERENCE="E"/>
     <EFFECTIVEDATE COLUMNREFERENCE="E"/>
@@ -162,14 +149,14 @@ New Features in v6.0
       <ISDEEMEDPOSITIVE FORMULA="=if(B#[1]=&quot;receipt&quot;,&quot;Yes&quot;,&quot;No&quot;)"/>
       <AMOUNT FORMULA="={Round(M#,2)}*if(B#[1]=&quot;receipt&quot;,-1,1)"/>
       <!-- __LOOKUP__() function is a UDIMagic Function which is used to Fetch Tally data -->
-      <BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; L#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(L#),1)),len(trim(AJ#))=0,len(trim(AK#))=0,len(trim(AL#))=0,len(trim(AM#))=0,len(trim(AN#))=0,len(trim(AO#))=0)">
+      <BANKALLOCATIONS.LIST SKIP="=And(Not(&quot;__LOOKUP__(&quot;LEDGER-ISBANKLEDGER-&quot; &amp; L#)__&quot;=&quot;yes&quot;),IsError(Find(&quot;bank&quot;,lower(L#),1)),len(trim(AI#))=0,len(trim(AJ#))=0,len(trim(AK#))=0,len(trim(AL#))=0,len(trim(AM#))=0,len(trim(AN#))=0)">
         <DATE COLUMNREFERENCE="E"/>
-        <INSTRUMENTNUMBER COLUMNREFERENCE="AJ"/>
-        <INSTRUMENTDATE COLUMNREFERENCE="AK"/>
-        <TRANSACTIONTYPE FORMULA="=if(len(trim(AL#))=0,&quot;Cheque&quot;,AL#)"/>
-        <PAYMENTFAVOURING FORMULA="=if(len(trim(AM#))=0,F#,AM#)"/>
-        <CHEQUECROSSCOMMENT FORMULA="=if(len(trim(AN#))=0,&quot;A/c Payee&quot;,AN#)"/>
-        <BANKERSDATE COLUMNREFERENCE="AO"/>
+        <INSTRUMENTNUMBER COLUMNREFERENCE="AI"/>
+        <INSTRUMENTDATE COLUMNREFERENCE="AJ"/>
+        <TRANSACTIONTYPE FORMULA="=if(len(trim(AK#))=0,&quot;Cheque&quot;,AK#)"/>
+        <PAYMENTFAVOURING FORMULA="=if(len(trim(AL#))=0,F#,AL#)"/>
+        <CHEQUECROSSCOMMENT FORMULA="=if(len(trim(AM#))=0,&quot;A/c Payee&quot;,AM#)"/>
+        <BANKERSDATE COLUMNREFERENCE="AN"/>
         <AMOUNT FORMULA="={Round(M#,2)}*if(B#[1]=&quot;receipt&quot;,-1,1)"/>
         <PAYMENTMODE>Transacted</PAYMENTMODE>
         <NAME FORMULA="=&quot;udi-rcpt-multi-ref-&quot; &amp; A# &amp; &quot;-&quot; &amp; E# &amp; &quot;-&quot; &amp; L#"/>
